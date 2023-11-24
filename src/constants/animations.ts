@@ -1,0 +1,1 @@
+export const MEDIUM_TRANSITION_DURATION = 0.2;

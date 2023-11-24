@@ -1,5 +1,13 @@
 {
   // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
   "extends": "@tsconfig/vite-react/tsconfig.json",
-  "include": ["src", "types"]
+  "include": ["src", "types", "index.d.ts"],
+  "exclude": ["node_modules", "**/*.stories.tsx"],
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "jsx": "react-jsx",
+    "baseUrl": "."
+  }
 }

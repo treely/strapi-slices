@@ -1,0 +1,96 @@
+import { motion } from 'framer-motion';
+import styled from '@emotion/styled';
+import { BREAKPOINT_MD } from '@/constants/breakpoints';
+
+export const SliderContainer = styled.div`
+  --mobile-image-width: calc(100vw - var(--boemly-space-24));
+  --desktop-image-width: var(--boemly-sizes-md);
+
+  width: var(--boemly-size-full);
+
+  overflow-x: hidden;
+
+  padding-left: max(
+    var(--boemly-space-8),
+    calc(50vw - var(--boemly-sizes-7xl) / 2 + var(--boemly-space-6))
+  );
+
+  @media screen and (max-width: ${BREAKPOINT_MD}) {
+    overflow-x: scroll;
+    padding-left: max(
+      var(--boemly-space-8),
+      calc(50vw - var(--boemly-sizes-7xl) / 2 + var(--boemly-space-8))
+    );
+  }
+`;
+
+interface ButtonsContainerProps {
+  show: boolean;
+}
+export const ButtonsContainer = styled.div<ButtonsContainerProps>`
+  display: ${({ show }) => (show ? 'flex' : 'none')};
+  pointer-events: none;
+
+  // Place at 50% of height of tallest image minus size of button
+  position: absolute;
+  top: calc(50% - var(--boemly-sizes-12));
+  left: 0;
+  width: var(--boemly-sizes-full);
+
+  padding: 0 var(--boemly-sizes-32);
+  justify-content: space-between;
+
+  @media screen and (max-width: ${BREAKPOINT_MD}) {
+    display: none;
+  }
+`;
+
+interface SliderInnerContainerProps {
+  imageCount: number;
+}
+export const SliderInnerContainer = styled(
+  motion.div
+)<SliderInnerContainerProps>`
+  display: flex;
+  gap: var(--boemly-space-6);
+
+  width: fit-content;
+`;
+
+export const ItemContainer = styled.div`
+  width: var(--desktop-image-width);
+
+  :last-of-type {
+    margin-right: var(--boemly-space-8);
+  }
+
+  @media screen and (max-width: ${BREAKPOINT_MD}) {
+    width: var(--mobile-image-width);
+  }
+`;
+
+interface ImageContainerProps {
+  aspectRatio: number;
+}
+export const ImageContainer = styled.div<ImageContainerProps>`
+  position: relative;
+
+  max-height: var(--boemly-sizes-xl);
+  height: calc(
+    var(--desktop-image-width) / ${({ aspectRatio }) => aspectRatio}
+  );
+  width: var(--desktop-image-width);
+
+  border-radius: var(--boemly-radii-xl);
+
+  & img {
+    border-radius: var(--boemly-radii-xl);
+  }
+
+  @media screen and (max-width: ${BREAKPOINT_MD}) {
+    height: calc(
+      var(--mobile-image-width) / ${({ aspectRatio }) => aspectRatio}
+    );
+    width: var(--mobile-image-width);
+  }
+`;

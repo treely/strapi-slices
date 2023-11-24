@@ -31,10 +31,32 @@
     "trailingComma": "es5"
   },
   "jest": {
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "./src/test/setupTests.ts"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1",
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    },
+    "collectCoverageFrom": [
+      "./src/**/*.{js,jsx,ts,tsx}",
+      "!**/src/test/**",
+      "!**/src/index.ts",
+      "!**/*.de.ts",
+      "!**/*.stories.ts",
+      "!**/*.stories.tsx",
+      "!**/node_modules/**",
+      "!**/.next/**",
+      "!**/coverage/**",
+      "!**/.storybook/**",
+      "!**/storybook-static/**"
+    ]
   },
   "peerDependencies": {
-    "react": ">=18"
+    "next": "^14.0.3",
+    "react": ">=18",
+    "react-intl": ">=6"
   },
   "engines": {
     "node": ">=16 <=18"
@@ -51,16 +73,29 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^11.0.0",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.1",
     "@tsconfig/recommended": "^1.0.3",
     "@tsconfig/vite-react": "^2.0.1",
+    "@types/mapbox-gl": "^2.7.19",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
     "dts-cli": "^2.0.3",
     "husky": "^8.0.3",
+    "identity-obj-proxy": "^3.0.0",
+    "mq-polyfill": "^1.1.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "size-limit": "^11.0.0",
     "tslib": "^2.6.2",
     "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.0.15",
+    "adblock-detect-react": "^1.1.0",
+    "boemly": "^5.3.0",
+    "formik": "^2.4.5",
+    "mapbox-gl": "^2.15.0"
   }
 }

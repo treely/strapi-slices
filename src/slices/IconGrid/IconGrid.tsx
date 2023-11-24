@@ -1,0 +1,97 @@
+import {
+  Box,
+  DefaultSectionContainer,
+  DefaultSectionHeader,
+  Flex,
+  Heading,
+  SimpleGrid,
+  Spacer,
+  Text,
+  Wrapper,
+} from 'boemly';
+import Image from 'next/image';
+import StrapiImage from '@/models/strapi/StrapiImage';
+import strapiMediaUrl from '@/utils/strapiMediaUrl';
+import StrapiLink from '@/models/strapi/StrapiLink';
+import StrapiLinkButton from '@/components/StrapiLinkButton';
+import { IconContainer, InnerIconContainer } from './styles';
+
+export interface IconGridProps {
+  slice: {
+    tagline?: string;
+    title?: string;
+    subTitle?: string;
+    iconsWithTextAndButton: {
+      id: number;
+      title: string;
+      text: string;
+      icon: StrapiImage;
+      button?: StrapiLink;
+    }[];
+  };
+}
+
+export const IconGrid: React.FC<IconGridProps> = ({ slice }: IconGridProps) => (
+  <DefaultSectionContainer>
+    <Wrapper>
+      {slice.title ? (
+        <>
+          <Flex alignItems="center" flexDirection="column">
+            <DefaultSectionHeader
+              tagline={slice.tagline}
+              title={slice.title}
+              text={slice.subTitle}
+              taglineProps={{ maxW: '2xl', textAlign: 'center' }}
+              titleProps={{ maxW: '3xl', textAlign: 'center' }}
+              textProps={{ maxW: '3xl', textAlign: 'center' }}
+            />
+          </Flex>
+          <Spacer h="20" />
+        </>
+      ) : (
+        <></>
+      )}
+
+      <SimpleGrid
+        columns={[1, null, null, 2]}
+        gap="32"
+        rowGap={['16', null, null, '28']}
+      >
+        {slice.iconsWithTextAndButton.map((iconWithTextAndButton) => (
+          <Box key={iconWithTextAndButton.id}>
+            <IconContainer>
+              <InnerIconContainer>
+                <Image
+                  src={strapiMediaUrl(iconWithTextAndButton.icon.img, 'xSmall')}
+                  alt={iconWithTextAndButton.icon.alt}
+                  fill
+                  style={{
+                    objectFit:
+                      iconWithTextAndButton.icon.objectFit || 'contain',
+                  }}
+                />
+              </InnerIconContainer>
+            </IconContainer>
+            <Heading size="xl" textAlign="center" mb="4" mt="8">
+              {iconWithTextAndButton.title}
+            </Heading>
+            <Text size="mdRegularNormal" textAlign="center">
+              {iconWithTextAndButton.text}
+            </Text>
+            {iconWithTextAndButton.button && (
+              <Box textAlign="center">
+                <StrapiLinkButton
+                  key={iconWithTextAndButton.button.id}
+                  mt="8"
+                  size="md"
+                  variant="outline"
+                  link={iconWithTextAndButton.button}
+                />
+              </Box>
+            )}
+          </Box>
+        ))}
+      </SimpleGrid>
+    </Wrapper>
+  </DefaultSectionContainer>
+);

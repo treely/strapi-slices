@@ -1,8 +1,8 @@
 {
-  "name": "strapi-slices",
-  "version": "0.1.0",
+  "name": "@treely/strapi-slices",
+  "version": "0.0.0-development",
   "license": "MIT",
-  "author": "Lukas Bals",
+  "author": "Tree.ly GmbH",
   "main": "dist/index.js",
   "module": "dist/strapi-slices.esm.js",
   "typings": "dist/index.d.ts",
@@ -34,10 +34,10 @@
     "testEnvironment": "jsdom"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=18"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16 <=18"
   },
   "size-limit": [
     {

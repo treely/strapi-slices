@@ -3,6 +3,23 @@
   "version": "0.0.0-development",
   "license": "MIT",
   "author": "Tree.ly GmbH",
+  "description": "@treely/strapi-slices is a open source library maintained by Tree.ly.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/treely/strapi-slices.git"
+  },
+  "bugs": {
+    "url": "https://github.com/treely/strapi-slices/issues"
+  },
+  "homepage": "https://tree.ly",
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/index.js",
   "module": "dist/strapi-slices.esm.js",
   "typings": "dist/index.d.ts",
@@ -99,6 +116,7 @@
     "mq-polyfill": "^1.1.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "semantic-release": "^22.0.8",
     "size-limit": "^11.0.0",
     "storybook": "^7.5.3",
     "tslib": "^2.6.2",

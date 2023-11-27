@@ -1,5 +1,5 @@
 import { render, screen } from '@/test/testUtils';
-import SliceRenderer from '.';
+import { SliceRenderer } from '.';
 import { SliceRendererProps } from './SliceRenderer';
 
 const defaultProps: SliceRendererProps = {

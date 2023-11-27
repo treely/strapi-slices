@@ -1,3 +1,1 @@
-import { SliceRenderer } from './SliceRenderer';
-
-export default SliceRenderer;
+export { SliceRenderer } from './SliceRenderer';

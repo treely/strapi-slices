@@ -93,6 +93,7 @@
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
     "dts-cli": "^2.0.3",
+    "esbuild": "^0.19.8",
     "husky": "^8.0.3",
     "identity-obj-proxy": "^3.0.0",
     "mq-polyfill": "^1.1.8",

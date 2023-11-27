@@ -1,0 +1,34 @@
+import React from 'react';
+import type { Preview } from '@storybook/react';
+import { BoemlyThemeProvider } from 'boemly';
+import { IntlProvider } from 'react-intl';
+import rootMessagesEn from '../src/rootMessages.en';
+import { FONT_CUSTOMIZATIONS } from '../src/constants/fontCustomizations';
+import { Global } from '@emotion/react';
+import { GLOBAL_STYLE } from '../src/constants/globalStyle';
+
+const preview: Preview = {
+  decorators: [
+    (Story) => (
+      <>
+        <Global styles={{ GLOBAL_STYLE }} />
+        <IntlProvider messages={rootMessagesEn} locale="en">
+          <BoemlyThemeProvider fonts={FONT_CUSTOMIZATIONS}>
+            <Story />
+          </BoemlyThemeProvider>
+        </IntlProvider>
+      </>
+    ),
+  ],
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
+};
+
+export default preview;

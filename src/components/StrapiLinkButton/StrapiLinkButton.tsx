@@ -1,6 +1,5 @@
 import { Button } from 'boemly';
 import Link from 'next/link';
-import React from 'react';
 import { useDetectAdBlock } from 'adblock-detect-react';
 import StrapiLink from '@/models/strapi/StrapiLink';
 import strapiLinkUrl from '@/utils/strapiLinkUrl';

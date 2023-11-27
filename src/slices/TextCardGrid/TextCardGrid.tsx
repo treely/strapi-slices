@@ -13,7 +13,6 @@ import {
 } from 'boemly';
 import Image from 'next/image';
 import { CaretRight } from '@phosphor-icons/react';
-import React from 'react';
 import StrapiLinkButton from '@/components/StrapiLinkButton';
 import StrapiDefaultHeader from '@/models/strapi/StrapiDefaultHeader';
 import StrapiImage from '@/models/strapi/StrapiImage';

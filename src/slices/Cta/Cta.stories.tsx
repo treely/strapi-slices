@@ -1,10 +1,11 @@
+import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
-import { storybookStrapiCoverMock } from '@/test/storybookMocks/storybookStrapiMedia';
+import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import Cta from '.';
 import { CtaCard } from './Cta';
 
 export default {
-  title: 'sections/Cta',
+  title: 'slices/Cta',
   component: Cta,
 } as Meta<typeof Cta>;
 

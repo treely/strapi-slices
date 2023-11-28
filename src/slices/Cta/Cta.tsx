@@ -1,3 +1,4 @@
+import React, { useContext } from 'react';
 import {
   Box,
   Container,
@@ -8,13 +9,13 @@ import {
   Spacer,
   Wrapper,
 } from 'boemly';
-import StrapiButtonWithVariant from '@/models/strapi/StrapiButtonWithVariant';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
+import StrapiButtonWithVariant from '../../models/strapi/StrapiButtonWithVariant';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
 import Image from 'next/image';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import { useIntl } from 'react-intl';
-import { CDN_URI } from '@/constants/api';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import { CDN_URI } from '../../constants/api';
+import { IntlContext } from '../../components/ContextProvider';
 
 type Variant = 'gray' | 'green' | 'white';
 
@@ -177,7 +178,7 @@ const getTypeOfCard = (ctaCard: CtaCard): CtaCardType => {
 };
 
 export const Cta: React.FC<CtaProps> = ({ slice }: CtaProps) => {
-  const { formatMessage } = useIntl();
+  const { formatMessage } = useContext(IntlContext);
 
   return (
     <DefaultSectionContainer

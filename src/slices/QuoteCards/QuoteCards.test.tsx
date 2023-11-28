@@ -1,7 +1,8 @@
-import { render, screen } from '@/test/testUtils';
-import { strapiQuoteCardMock } from '@/test/strapiMocks/strapiQuoteCard';
-import { strapiMediaMock } from '@/test/strapiMocks/strapiMedia';
-import { strapiHeroCardMock } from '@/test/strapiMocks/strapiHeroCard';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
+import { strapiQuoteCardMock } from '../../test/strapiMocks/strapiQuoteCard';
+import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
+import { strapiHeroCardMock } from '../../test/strapiMocks/strapiHeroCard';
 import QuoteCards from '.';
 import { QuoteCardsProps } from './QuoteCards';
 

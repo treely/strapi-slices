@@ -1,10 +1,11 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import { storybookStrapiCoverMock } from '@/test/storybookMocks/storybookStrapiMedia';
+import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import QAndA from '.';
 
 export default {
-  title: 'sections/QAndA',
+  title: 'slices/QAndA',
   component: QAndA,
 } as Meta<typeof QAndA>;
 

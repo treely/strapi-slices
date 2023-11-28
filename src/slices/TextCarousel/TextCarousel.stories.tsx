@@ -1,10 +1,11 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import { storybookStrapiTreeIconMock } from '@/test/storybookMocks/storybookStrapiMedia';
+import { storybookStrapiTreeIconMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import TextCarousel from '.';
 
 export default {
-  title: 'sections/TextCarousel',
+  title: 'slices/TextCarousel',
   component: TextCarousel,
 } as Meta<typeof TextCarousel>;
 

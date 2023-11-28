@@ -1,5 +1,5 @@
-import IStrapiData from '@/models/strapi/IStrapiData';
-import StrapiLinkPage from '@/models/strapi/StrapiLinkPage';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import StrapiLinkPage from '../../models/strapi/StrapiLinkPage';
 
 export const strapiLinkPageMock: IStrapiData<StrapiLinkPage> = {
   id: 1,

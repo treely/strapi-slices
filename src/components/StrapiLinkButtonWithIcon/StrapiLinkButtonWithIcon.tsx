@@ -1,6 +1,7 @@
+import React from 'react';
 import { CaretRight, Globe } from '@phosphor-icons/react';
-import LinkedInIcon from '@/icons/LinkedInIcon';
-import StrapiLinkWithIcon from '@/models/strapi/StrapiLinkWithIcon';
+import LinkedInIcon from '../../icons/LinkedInIcon';
+import StrapiLinkWithIcon from '../../models/strapi/StrapiLinkWithIcon';
 import StrapiLinkButton from '../StrapiLinkButton';
 import { StrapiLinkButtonProps } from '../StrapiLinkButton/StrapiLinkButton';
 

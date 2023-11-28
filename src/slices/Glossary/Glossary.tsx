@@ -1,3 +1,4 @@
+import React, { useContext, useState } from 'react';
 import {
   DefaultSectionContainer,
   Divider,
@@ -10,11 +11,10 @@ import {
   Wrapper,
 } from 'boemly';
 import { Check, Link as LinkIcon } from '@phosphor-icons/react';
-import { useState } from 'react';
-import { useIntl } from 'react-intl';
 import { useCopyToClipboard } from 'react-use';
-import IStrapiData from '@/models/strapi/IStrapiData';
-import StrapiGlossaryItem from '@/models/strapi/StrapiGlossaryItem';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import StrapiGlossaryItem from '../../models/strapi/StrapiGlossaryItem';
+import { IntlContext } from '../../components/ContextProvider';
 
 export interface GlossaryProps {
   slice: {
@@ -23,8 +23,8 @@ export interface GlossaryProps {
 }
 
 export const Glossary: React.FC<GlossaryProps> = ({ slice }: GlossaryProps) => {
-  const [clipboardState, copyToClipboard] = useCopyToClipboard();
-  const { formatMessage } = useIntl();
+  const [, copyToClipboard] = useCopyToClipboard();
+  const { formatMessage } = useContext(IntlContext);
   const grouped: Record<string, StrapiGlossaryItem[]> = {};
   const [copiedItem, setCopiedItem] = useState<string>();
 

@@ -1,4 +1,4 @@
-import StrapiContactArea from '@/models/strapi/StrapiContactArea';
+import StrapiContactArea from '../../models/strapi/StrapiContactArea';
 import { strapiAvatarWithNameMock } from './strapiAvatarWithName';
 import { strapiLinkPageMock } from './strapiLinkPage';
 

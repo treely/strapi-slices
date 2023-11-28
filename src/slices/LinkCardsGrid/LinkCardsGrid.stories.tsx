@@ -1,9 +1,10 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import LinkCardsGrid from '.';
 
 export default {
-  title: 'sections/LinkCardsGrid',
+  title: 'slices/LinkCardsGrid',
   component: LinkCardsGrid,
 } as Meta<typeof LinkCardsGrid>;
 

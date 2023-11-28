@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   DefaultSectionContainer,
@@ -10,12 +11,11 @@ import {
 } from 'boemly';
 import Image from 'next/image';
 import { ArrowRight } from '@phosphor-icons/react';
-import strapiLinkUrl from '@/utils/strapiLinkUrl';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
-import StrapiImageWithLink from '@/models/strapi/StrapiImageWithLink';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import { LogoFlexContainer } from './styles';
+import strapiLinkUrl from '../../utils/strapiLinkUrl';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
+import StrapiImageWithLink from '../../models/strapi/StrapiImageWithLink';
+import StrapiLink from '../../models/strapi/StrapiLink';
 
 export interface LogoGridWithTextProps {
   slice: {
@@ -56,7 +56,7 @@ export const LogoGridWithText: React.FC<LogoGridWithTextProps> = ({
               />
             )}
           </Box>
-          <LogoFlexContainer>
+          <Flex flexDir="row" flexWrap="wrap" gap={['12', null, null, '28']}>
             {slice.logos.map((logo) => (
               <Flex
                 key={logo.id}
@@ -87,7 +87,7 @@ export const LogoGridWithText: React.FC<LogoGridWithTextProps> = ({
                 </Box>
               </Flex>
             ))}
-          </LogoFlexContainer>
+          </Flex>
         </SimpleGrid>
       </Wrapper>
     </DefaultSectionContainer>

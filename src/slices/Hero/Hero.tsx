@@ -1,11 +1,11 @@
-import { DefaultSectionHeader, Flex, Gradient, Wrapper } from 'boemly';
+import React from 'react';
+import { Box, DefaultSectionHeader, Flex, Gradient, Wrapper } from 'boemly';
 import Image from 'next/image';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import StrapiButtonWithVariant from '@/models/strapi/StrapiButtonWithVariant';
-import { ShapeContainer, HeadingContainer, HeroContainer } from './styles';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import StrapiLink from '../../models/strapi/StrapiLink';
+import StrapiButtonWithVariant from '../../models/strapi/StrapiButtonWithVariant';
 
 export interface HeroProps {
   slice: {
@@ -21,7 +21,14 @@ export interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ slice }: HeroProps) => (
-  <HeroContainer>
+  <Box
+    position="relative"
+    width="full"
+    height="var(--default-hero-height)"
+    minHeight="2xl"
+    backgroundColor="gray.900"
+    overflowX="hidden"
+  >
     {slice.image && (
       <>
         <Image
@@ -34,16 +41,33 @@ export const Hero: React.FC<HeroProps> = ({ slice }: HeroProps) => (
       </>
     )}
     {slice.shape && (
-      <ShapeContainer>
+      <Box
+        position="absolute"
+        bottom="0"
+        borderTopRightRadius="full"
+        width={['3xs', null, '2xs', null, 'sm']}
+        height={['3xs', null, '2xs', null, 'sm']}
+        right={['-16', null, '24']}
+      >
         <Image
           src={strapiMediaUrl(slice.shape.img, 'medium')}
           alt={slice.shape.alt}
           fill
-          style={{ objectFit: slice.shape.objectFit || 'cover' }}
+          style={{
+            objectFit: slice.shape.objectFit || 'cover',
+            borderTopRightRadius: 'var(--boemly-radii-full)',
+          }}
         />
-      </ShapeContainer>
+      </Box>
     )}
-    <HeadingContainer textAlign={slice.textAlign}>
+    <Box
+      position="absolute"
+      left="0"
+      top="56%"
+      width="full"
+      textAlign={slice.textAlign}
+      transform="translateY(-50%)"
+    >
       <Wrapper>
         <>
           <DefaultSectionHeader
@@ -90,6 +114,6 @@ export const Hero: React.FC<HeroProps> = ({ slice }: HeroProps) => (
           </Flex>
         </>
       </Wrapper>
-    </HeadingContainer>
-  </HeroContainer>
+    </Box>
+  </Box>
 );

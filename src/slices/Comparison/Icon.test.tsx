@@ -1,5 +1,6 @@
-import { render, screen } from '@/test/testUtils';
-import { mergeDeep } from '@/utils/mergeDeep';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
+import { mergeDeep } from '../../utils/mergeDeep';
 import { IconProps, Icon } from './Icon';
 
 const defaultProps: IconProps = {

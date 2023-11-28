@@ -1,13 +1,14 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import {
   storybookStrapiCoverMock,
   storybookStrapiGradientBottomUpMock,
-} from '@/test/storybookMocks/storybookStrapiMedia';
+} from '../../test/storybookMocks/storybookStrapiMedia';
 import TextCardGrid from '.';
 
 export default {
-  title: 'sections/TextCardGrid',
+  title: 'slices/TextCardGrid',
   component: TextCardGrid,
 } as Meta<typeof TextCardGrid>;
 

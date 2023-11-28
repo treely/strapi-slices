@@ -1,4 +1,4 @@
-import StrapiHeroCard from '@/models/strapi/StrapiHeroCard';
+import StrapiHeroCard from '../../models/strapi/StrapiHeroCard';
 
 export const strapiHeroCardMock: StrapiHeroCard = {
   id: 1,

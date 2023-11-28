@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   DefaultSectionContainer,
   DefaultSectionHeader,
@@ -11,12 +12,12 @@ import {
 import { ArrowRight } from '@phosphor-icons/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import strapiLinkUrl from '@/utils/strapiLinkUrl';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import StrapiPortfolioCard from '@/models/strapi/StrapiPortfolioCard';
-import StrapiDefaultHeader from '@/models/strapi/StrapiDefaultHeader';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
+import strapiLinkUrl from '../../utils/strapiLinkUrl';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import StrapiPortfolioCard from '../../models/strapi/StrapiPortfolioCard';
+import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
+import StrapiLink from '../../models/strapi/StrapiLink';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
 
 interface LeftTextRightCardSlice extends StrapiDefaultHeader {
   checkMarkLabels?: {

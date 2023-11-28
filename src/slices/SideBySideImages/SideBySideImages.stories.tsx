@@ -1,10 +1,11 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import { storybookStrapiCoverMock } from '@/test/storybookMocks/storybookStrapiMedia';
+import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import SideBySideImages from '.';
 
 export default {
-  title: 'sections/SideBySideImages',
+  title: 'slices/SideBySideImages',
   component: SideBySideImages,
 } as Meta<typeof SideBySideImages>;
 

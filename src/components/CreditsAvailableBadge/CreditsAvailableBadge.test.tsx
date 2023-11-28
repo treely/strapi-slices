@@ -1,5 +1,6 @@
-import { render, screen } from '@/test/testUtils';
-import CreditsAvailableState from '@/models/CreditsAvailableState';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
+import CreditsAvailableState from '../../models/CreditsAvailableState';
 import CreditsAvailableBadge, {
   CreditsAvailableBadgeProps,
 } from './CreditsAvailableBadge';

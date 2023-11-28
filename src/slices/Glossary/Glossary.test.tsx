@@ -1,7 +1,7 @@
-import { render, screen, waitFor, userEvent } from '@/test/testUtils';
+import React from 'react';
+import { render, screen, waitFor, userEvent } from '../../test/testUtils';
 import Glossary from '.';
 import { GlossaryProps } from './Glossary';
-import messagesEn from './messages.en';
 
 const copyToClipboardSpy = jest.fn();
 const mockedResult = jest.fn().mockReturnValue({ noUserInteraction: false });

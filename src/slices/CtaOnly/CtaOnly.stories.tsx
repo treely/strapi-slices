@@ -1,10 +1,11 @@
+import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
 import CtaOnly from '.';
 import RichTextSection from '../RichTextSection';
 import { RichTextSectionProps } from '../RichTextSection/RichTextSection';
 
 export default {
-  title: 'sections/CTAOnly',
+  title: 'slices/CTAOnly',
   component: CtaOnly,
   subcomponents: { RichTextSection },
 } as Meta<typeof CtaOnly>;

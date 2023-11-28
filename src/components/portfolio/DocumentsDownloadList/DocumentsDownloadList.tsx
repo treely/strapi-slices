@@ -1,4 +1,5 @@
-import StrapiLink from '@/models/strapi/StrapiLink';
+import React, { useContext } from 'react';
+import StrapiLink from '../../../models/strapi/StrapiLink';
 import {
   Center,
   Container,
@@ -10,7 +11,7 @@ import {
 } from 'boemly';
 import { DownloadSimple, FilePdf } from '@phosphor-icons/react';
 import Link from 'next/link';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { IntlContext } from '../../ContextProvider';
 
 export interface DocumentsDownloadListProps {
   documentUrls: StrapiLink[];
@@ -19,12 +20,14 @@ export interface DocumentsDownloadListProps {
 export const DocumentsDownloadList: React.FC<DocumentsDownloadListProps> = ({
   documentUrls,
 }: DocumentsDownloadListProps) => {
-  const { formatMessage } = useIntl();
+  const { formatMessage } = useContext(IntlContext);
 
   return (
     <Container p="2">
       <Heading size="xl" textAlign="left">
-        <FormattedMessage id="features.portfolio.documentsDownloadList.projectDocuments" />
+        {formatMessage({
+          id: 'features.portfolio.documentsDownloadList.projectDocuments',
+        })}
       </Heading>
 
       <Flex flexDir="column">

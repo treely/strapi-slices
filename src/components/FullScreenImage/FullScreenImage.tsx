@@ -1,7 +1,7 @@
+import React, { useEffect, useRef, useState } from 'react';
 import { BoemlyModal, Flex, IconButton } from 'boemly';
 import { useKey, useLockBodyScroll } from 'react-use';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import { useEffect, useRef, useState } from 'react';
+import StrapiImage from '../../models/strapi/StrapiImage';
 import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 import ZoomableImage from './ZoomableImage';
 

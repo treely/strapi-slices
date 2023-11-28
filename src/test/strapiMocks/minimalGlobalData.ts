@@ -1,5 +1,5 @@
-import IStrapiData from '@/models/strapi/IStrapiData';
-import StrapiGlobal from '@/models/strapi/StrapiGlobal';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import StrapiGlobal from '../../models/strapi/StrapiGlobal';
 import { strapiMediaMock } from './strapiMedia';
 import { strapiMetadataMock } from './strapiMetadata';
 

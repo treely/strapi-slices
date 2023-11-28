@@ -1,6 +1,6 @@
-import IStrapiData from '@/models/strapi/IStrapiData';
-import StrapiProject from '@/models/strapi/StrapiProject';
-import CreditsAvailableState from '@/models/CreditsAvailableState';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import StrapiProject from '../../models/strapi/StrapiProject';
+import CreditsAvailableState from '../../models/CreditsAvailableState';
 import { strapiPortfolioMock } from './strapiPortfolioMock';
 import fpmProjectMock from '../integrationMocks/fpmProjectMock';
 

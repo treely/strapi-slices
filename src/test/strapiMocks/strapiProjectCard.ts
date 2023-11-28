@@ -1,4 +1,4 @@
-import StrapiProjectCard from '@/models/strapi/StrapiProjectCard';
+import StrapiProjectCard from '../../models/strapi/StrapiProjectCard';
 import { strapiMediaMock } from './strapiMedia';
 import { strapiProjectMock } from './strapiProject';
 

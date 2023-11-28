@@ -1,10 +1,11 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import { storybookStrapiAvatarMock } from '@/test/storybookMocks/storybookStrapiMedia';
+import { storybookStrapiAvatarMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import FullWidthHighlightQuote from '.';
 
 export default {
-  title: 'sections/FullWidthHighlightQuote',
+  title: 'slices/FullWidthHighlightQuote',
   component: FullWidthHighlightQuote,
 } as Meta<typeof FullWidthHighlightQuote>;
 

@@ -1,10 +1,11 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import { storybookStrapiCoverMock } from '@/test/storybookMocks/storybookStrapiMedia';
+import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import SmallHero from '.';
 
 export default {
-  title: 'sections/SmallHero',
+  title: 'slices/SmallHero',
   component: SmallHero,
 } as Meta<typeof SmallHero>;
 

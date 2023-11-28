@@ -1,17 +1,17 @@
+import React, { useState } from 'react';
 import {
+  Box,
   DefaultSectionContainer,
   DefaultSectionHeader,
   Wrapper,
   useMediaQuery,
 } from 'boemly';
 import Image from 'next/image';
-import StrapiDefaultHeader from '@/models/strapi/StrapiDefaultHeader';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import FullScreenImage from '@/components/FullScreenImage';
-import { useState } from 'react';
-import { BREAKPOINT_MD_QUERY } from '@/constants/breakpoints';
-import { ImageContainer } from './styles';
+import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import FullScreenImage from '../../components/FullScreenImage';
+import { BREAKPOINT_MD_QUERY } from '../../constants/breakpoints';
 
 interface FullWidthImageSlice extends StrapiDefaultHeader {
   image: StrapiImage;
@@ -39,7 +39,7 @@ export const FullWidthImage: React.FC<FullWidthImageProps> = ({
           textProps={{ textAlign: 'center', maxW: '3xl', marginX: 'auto' }}
         />
 
-        <ImageContainer>
+        <Box position="relative" mt="20" height={['3xs', null, 'xl']}>
           <Image
             src={strapiMediaUrl(slice.image.img, 'xLarge')}
             alt={slice.image.alt}
@@ -47,6 +47,7 @@ export const FullWidthImage: React.FC<FullWidthImageProps> = ({
             style={{
               objectFit: slice.image.objectFit || 'cover',
               cursor: isMobile ? 'unset' : 'pointer',
+              borderRadius: 'var(--boemly-radii-2xl)',
             }}
             onClick={() => !isMobile && setIsOpen(true)}
           />
@@ -56,7 +57,7 @@ export const FullWidthImage: React.FC<FullWidthImageProps> = ({
             isOpen={isOpen}
             onClose={() => setIsOpen(false)}
           />
-        </ImageContainer>
+        </Box>
       </Wrapper>
     </DefaultSectionContainer>
   );

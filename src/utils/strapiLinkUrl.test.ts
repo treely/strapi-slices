@@ -1,4 +1,4 @@
-import { strapiLinkPageMock } from '@/test/strapiMocks/strapiLinkPage';
+import { strapiLinkPageMock } from '../test/strapiMocks/strapiLinkPage';
 import strapiLinkUrl from './strapiLinkUrl';
 
 describe('The strapiLinkUrl util', () => {

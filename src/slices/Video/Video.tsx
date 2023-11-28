@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, DefaultSectionContainer, Wrapper } from 'boemly';
 import { useMeasure } from 'react-use';
 

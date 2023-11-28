@@ -1,6 +1,7 @@
-import { render, screen } from '@/test/testUtils';
-import { storybookStrapiCoverMock } from '@/test/storybookMocks/storybookStrapiMedia';
-import { mergeDeep } from '@/utils/mergeDeep';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
+import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
+import { mergeDeep } from '../../utils/mergeDeep';
 import { pushSpy, useRouter } from '../../../__mocks__/next/router';
 import { CtaProps } from './Cta';
 import Cta from '.';

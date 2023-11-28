@@ -1,20 +1,24 @@
 import styled from '@emotion/styled';
-import { BREAKPOINT_MD } from '@/constants/breakpoints';
+import { BREAKPOINT_MD } from '../../constants/breakpoints';
+import { Box, Link } from 'boemly';
 
-export const BlogItemContainer = styled.a`
-  cursor: pointer;
+export const BlogItemContainer = styled(Link)`
+  text-decoration: none;
+
   & div img {
     transition: transform var(--default-ease) var(--medium-transition-duration);
   }
 
   &:hover {
+    text-decoration: none;
+
     & > div:first-of-type img {
       transform: scale(1.03);
     }
   }
 `;
 
-export const ImageContainer = styled.div`
+export const ImageContainer = styled(Box)`
   width: 100%;
   height: var(--boemly-sizes-xs);
   position: relative;

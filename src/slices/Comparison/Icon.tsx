@@ -1,3 +1,4 @@
+import React from 'react';
 import { Check, X } from '@phosphor-icons/react';
 import { Box } from 'boemly';
 

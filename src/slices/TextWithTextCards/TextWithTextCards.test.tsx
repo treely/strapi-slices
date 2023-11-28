@@ -1,6 +1,7 @@
-import { render, screen } from '@/test/testUtils';
-import { strapiMediaMock } from '@/test/strapiMocks/strapiMedia';
-import { strapiContactMock } from '@/test/strapiMocks/strapiContact';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
+import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
+import { strapiContactMock } from '../../test/strapiMocks/strapiContact';
 import TextWithTextCards from '.';
 import { TextWithTextCardsProps } from './TextWithTextCards';
 

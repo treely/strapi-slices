@@ -1,4 +1,4 @@
-import StrapiMetadata from '@/models/strapi/StrapiMetadata';
+import StrapiMetadata from '../../models/strapi/StrapiMetadata';
 import { strapiMediaMock } from './strapiMedia';
 
 export const strapiMetadataMock: StrapiMetadata = {

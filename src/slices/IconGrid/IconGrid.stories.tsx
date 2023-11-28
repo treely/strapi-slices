@@ -1,10 +1,11 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import { storybookStrapiTreeIconMock } from '@/test/storybookMocks/storybookStrapiMedia';
+import { storybookStrapiTreeIconMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import IconGrid from '.';
 
 export default {
-  title: 'sections/IconGrid',
+  title: 'slices/IconGrid',
   component: IconGrid,
 } as Meta<typeof IconGrid>;
 

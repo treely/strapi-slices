@@ -1,5 +1,6 @@
-import { render, screen, userEvent, waitFor } from '@/test/testUtils';
-import { DEFAULT_USE_ROUTER_RETURN_VALUE } from '@/test/defaultMocks/next';
+import React from 'react';
+import { render, screen, userEvent, waitFor } from '../../test/testUtils';
+import { DEFAULT_USE_ROUTER_RETURN_VALUE } from '../../test/defaultMocks/next';
 import { ShopCheckoutProps } from './ShopCheckout';
 import ShopCheckout from '.';
 import { useRouter } from '../../../__mocks__/next/router';

@@ -1,5 +1,5 @@
-import StrapiImage from '@/models/strapi/StrapiImage';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import { Box } from 'boemly';
 import Head from 'next/head';
 import Image from 'next/image';

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   DefaultSectionContainer,
@@ -10,11 +11,10 @@ import {
   Wrapper,
 } from 'boemly';
 import Image from 'next/image';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
-import { IconContainer, InnerIconContainer } from './styles';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import StrapiLink from '../../models/strapi/StrapiLink';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
 
 export interface IconGridProps {
   slice: {
@@ -59,8 +59,17 @@ export const IconGrid: React.FC<IconGridProps> = ({ slice }: IconGridProps) => (
       >
         {slice.iconsWithTextAndButton.map((iconWithTextAndButton) => (
           <Box key={iconWithTextAndButton.id}>
-            <IconContainer>
-              <InnerIconContainer>
+            <Box
+              margin="0 auto"
+              backgroundColor="primary.50"
+              borderRadius="full"
+              display="flex"
+              alignItems="center"
+              justifyContent="space-around"
+              width="6.5rem"
+              height="6.5rem"
+            >
+              <Box position="absolute" width="12" height="12">
                 <Image
                   src={strapiMediaUrl(iconWithTextAndButton.icon.img, 'xSmall')}
                   alt={iconWithTextAndButton.icon.alt}
@@ -70,8 +79,8 @@ export const IconGrid: React.FC<IconGridProps> = ({ slice }: IconGridProps) => (
                       iconWithTextAndButton.icon.objectFit || 'contain',
                   }}
                 />
-              </InnerIconContainer>
-            </IconContainer>
+              </Box>
+            </Box>
             <Heading size="xl" textAlign="center" mb="4" mt="8">
               {iconWithTextAndButton.title}
             </Heading>

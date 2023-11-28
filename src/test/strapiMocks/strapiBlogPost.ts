@@ -1,5 +1,5 @@
-import IStrapiData from '@/models/strapi/IStrapiData';
-import StrapiBlogPost from '@/models/strapi/StrapiBlogPost';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import StrapiBlogPost from '../../models/strapi/StrapiBlogPost';
 
 export const strapiBlogPostMock: IStrapiData<StrapiBlogPost> = {
   id: 1,

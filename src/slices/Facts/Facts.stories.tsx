@@ -1,8 +1,9 @@
+import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
 import Facts from '.';
 
 export default {
-  title: 'sections/Facts',
+  title: 'slices/Facts',
   component: Facts,
 } as Meta<typeof Facts>;
 

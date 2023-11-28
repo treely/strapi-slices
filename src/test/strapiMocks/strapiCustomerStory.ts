@@ -1,5 +1,5 @@
-import IStrapiData from '@/models/strapi/IStrapiData';
-import StrapiCustomerStory from '@/models/strapi/StrapiCustomerStory';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import StrapiCustomerStory from '../../models/strapi/StrapiCustomerStory';
 
 export const strapiCustomerStoryMock: IStrapiData<StrapiCustomerStory> = {
   id: 1,

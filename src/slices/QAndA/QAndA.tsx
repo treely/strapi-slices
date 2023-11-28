@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   Heading,
@@ -12,12 +13,12 @@ import {
 import { ArrowRight } from '@phosphor-icons/react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import strapiLinkUrl from '@/utils/strapiLinkUrl';
-import StrapiHeroCard from '@/models/strapi/StrapiHeroCard';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
-import convertToKebabCase from '@/utils/convertToKebabCase';
+import StrapiLink from '../../models/strapi/StrapiLink';
+import strapiLinkUrl from '../../utils/strapiLinkUrl';
+import StrapiHeroCard from '../../models/strapi/StrapiHeroCard';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
+import convertToKebabCase from '../../utils/convertToKebabCase';
 
 const VARIANTS = {
   gray: {

@@ -1,3 +1,4 @@
+import React, { useContext } from 'react';
 import {
   Box,
   Button,
@@ -10,9 +11,9 @@ import {
 } from 'boemly';
 import { MapPin } from '@phosphor-icons/react';
 import NextLink from 'next/link';
-import CreditsAvailableBadge from '@/components/CreditsAvailableBadge';
-import CreditsAvailableState from '@/models/CreditsAvailableState';
-import { FormattedMessage } from 'react-intl';
+import CreditsAvailableBadge from '../../components/CreditsAvailableBadge';
+import CreditsAvailableState from '../../models/CreditsAvailableState';
+import { IntlContext } from '../../components/ContextProvider';
 
 export interface MapMarkerProps {
   title: string;
@@ -29,6 +30,7 @@ const MapMarker = ({
   creditsAvailable,
   isPublic = false,
 }: MapMarkerProps) => {
+  const { formatMessage } = useContext(IntlContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const blue600 = useToken('colors', 'blue.600');
 
@@ -86,7 +88,7 @@ const MapMarker = ({
                 mt="4"
                 whiteSpace="nowrap"
               >
-                <FormattedMessage id="sections.projectsMap.link.text" />
+                {formatMessage({ id: 'sections.projectsMap.link.text' })}
               </Button>
             )}
           </Flex>

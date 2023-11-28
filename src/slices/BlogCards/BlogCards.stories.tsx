@@ -1,14 +1,15 @@
+import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
 import {
   storybookStrapiAvatarMock,
   storybookStrapiCoverMock,
-} from '@/test/storybookMocks/storybookStrapiMedia';
-import StrapiBlogPost from '@/models/strapi/StrapiBlogPost';
-import IStrapiData from '@/models/strapi/IStrapiData';
+} from '../../test/storybookMocks/storybookStrapiMedia';
+import StrapiBlogPost from '../../models/strapi/StrapiBlogPost';
+import IStrapiData from '../../models/strapi/IStrapiData';
 import BlogCards from '.';
 
 export default {
-  title: 'sections/BlogCards',
+  title: 'slices/BlogCards',
   component: BlogCards,
 } as Meta<typeof BlogCards>;
 

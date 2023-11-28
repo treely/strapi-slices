@@ -1,12 +1,12 @@
+import React, { useContext } from 'react';
 import {
   MAPBOX_INITIAL_ZOOM,
   MAPBOX_MAX_ZOOM,
   MAPBOX_TOKEN,
   MapBoxStyle,
-} from '@/constants/mapbox';
-import { useIntl } from 'react-intl';
-import BBox from '@/models/BBox';
-import mergeBoundingBoxes from '@/utils/mergeBoundingBoxes';
+} from '../../constants/mapbox';
+import BBox from '../../models/BBox';
+import mergeBoundingBoxes from '../../utils/mergeBoundingBoxes';
 import { css } from '@emotion/react';
 import {
   Box,
@@ -17,12 +17,13 @@ import {
 import mapboxgl, { LngLatBoundsLike, LngLatLike, Map, Marker } from 'mapbox-gl';
 import { MutableRefObject, createRef, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
-import PortfolioProject from '@/models/PortfolioProject';
-import MinimalProviders from '@/components/MinimalProviders';
+import PortfolioProject from '../../models/PortfolioProject';
+import MinimalProviders from '../../components/MinimalProviders';
 import MapMarker from './MapMarker';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import mapboxStyle from './mapboxStyle';
+import { IntlContext } from '../../components/ContextProvider';
 
-mapboxgl.accessToken = 'MAPBOX_TOKEN';
+mapboxgl.accessToken = MAPBOX_TOKEN;
 
 export interface ProjectsMapProps {
   slice: {
@@ -44,7 +45,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
   slice,
   projects,
 }: ProjectsMapProps) => {
-  const { locale } = useIntl();
+  const { locale } = useContext(IntlContext);
 
   const filteredProjects = projects.filter(
     (project) => project.geom
@@ -113,38 +114,48 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
 
     // Clean up on unmount
     return () => map.remove();
-  }, []);
+  }, [locale]);
 
   return (
     <DefaultSectionContainer>
-      <Wrapper>
-        {slice.title ? (
-          <>
-            <DefaultSectionHeader
-              tagline={slice.tagline}
-              title={slice.title}
-              text={slice.text}
-              taglineProps={{ textAlign: 'center' }}
-              titleProps={{ textAlign: 'center', maxW: '6xl', marginX: 'auto' }}
-              textProps={{ textAlign: 'center', maxW: '3xl', marginX: 'auto' }}
-            />
-            <Box height="16" />
-          </>
-        ) : (
-          <></>
-        )}
+      <Box css={mapboxStyle}>
+        <Wrapper>
+          {slice.title ? (
+            <>
+              <DefaultSectionHeader
+                tagline={slice.tagline}
+                title={slice.title}
+                text={slice.text}
+                taglineProps={{ textAlign: 'center' }}
+                titleProps={{
+                  textAlign: 'center',
+                  maxW: '6xl',
+                  marginX: 'auto',
+                }}
+                textProps={{
+                  textAlign: 'center',
+                  maxW: '3xl',
+                  marginX: 'auto',
+                }}
+              />
+              <Box height="16" />
+            </>
+          ) : (
+            <></>
+          )}
 
-        <Box
-          height="xl"
-          ref={mapContainer}
-          borderRadius="xl"
-          overflow="hidden"
-          boxShadow={['md', null, null, 'none']}
-          css={css`
-            mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
-          `}
-        />
-      </Wrapper>
+          <Box
+            height="xl"
+            ref={mapContainer}
+            borderRadius="xl"
+            overflow="hidden"
+            boxShadow={['md', null, null, 'none']}
+            css={css`
+              mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+            `}
+          />
+        </Wrapper>
+      </Box>
     </DefaultSectionContainer>
   );
 };

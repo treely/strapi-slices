@@ -1,9 +1,10 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import Glossary from '.';
 
 export default {
-  title: 'sections/Glossary',
+  title: 'slices/Glossary',
   component: Glossary,
 } as Meta<typeof Glossary>;
 

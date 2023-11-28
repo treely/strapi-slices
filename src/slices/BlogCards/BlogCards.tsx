@@ -1,3 +1,4 @@
+import React, { useContext, useMemo } from 'react';
 import {
   Text,
   Heading,
@@ -14,18 +15,17 @@ import {
 } from 'boemly';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useIntl } from 'react-intl';
 import { CaretRight } from '@phosphor-icons/react';
-import { useMemo } from 'react';
-import StrapiBlogPost from '@/models/strapi/StrapiBlogPost';
-import IStrapiData from '@/models/strapi/IStrapiData';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import StrapiCategory from '@/models/strapi/StrapiCategory';
-import IStrapi from '@/models/strapi/IStrapi';
-import { BREAKPOINT_LG_QUERY } from '@/constants/breakpoints';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
+import StrapiBlogPost from '../../models/strapi/StrapiBlogPost';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import StrapiCategory from '../../models/strapi/StrapiCategory';
+import IStrapi from '../../models/strapi/IStrapi';
+import { BREAKPOINT_LG_QUERY } from '../../constants/breakpoints';
+import StrapiLink from '../../models/strapi/StrapiLink';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
 import { BlogItemContainer, ImageContainer } from '../Blog/styles';
+import { IntlContext } from '../../components/ContextProvider';
 
 export interface BlogCardsProps {
   slice: {
@@ -59,7 +59,7 @@ export const BlogCards: React.FC<BlogCardsProps> = ({
   slice,
   blogPosts,
 }: BlogCardsProps) => {
-  const { formatDate } = useIntl();
+  const { formatDate } = useContext(IntlContext);
   const [mobile] = useMediaQuery(BREAKPOINT_LG_QUERY);
   const [gray700] = useToken('colors', ['gray.700']);
 
@@ -123,71 +123,68 @@ export const BlogCards: React.FC<BlogCardsProps> = ({
           flexShrink="0"
         >
           {blogPostsToDisplay.map((blogPost) => (
-            <Link
+            <BlogItemContainer
+              as={Link}
               href={`/blog/${blogPost.attributes.slug}`}
-              passHref
+              data-testid="blog-item"
               key={blogPost.attributes.slug}
-              legacyBehavior
             >
-              <BlogItemContainer data-testid="blog-item">
-                <ImageContainer>
-                  <Image
-                    src={strapiMediaUrl(blogPost.attributes.img.img, 'medium')}
-                    alt={blogPost.attributes.img.alt}
-                    fill
-                    style={{
-                      objectFit: blogPost.attributes.img.objectFit || 'cover',
-                    }}
-                  />
-                </ImageContainer>
-                <Box px="2" py="8">
-                  {blogPost.attributes.category && (
-                    <Text size="smMonoUppercase" color="primary.800" mb="2">
-                      {blogPost.attributes.category.data.attributes.name}
-                    </Text>
-                  )}
-                  <Heading size="lg">{blogPost.attributes.title}</Heading>
-                  {blogPost.attributes.teaser && (
-                    <Text size="mdRegularNormal" mt="2">
-                      {blogPost.attributes.teaser}
-                    </Text>
-                  )}
+              <ImageContainer>
+                <Image
+                  src={strapiMediaUrl(blogPost.attributes.img.img, 'medium')}
+                  alt={blogPost.attributes.img.alt}
+                  fill
+                  style={{
+                    objectFit: blogPost.attributes.img.objectFit || 'cover',
+                  }}
+                />
+              </ImageContainer>
+              <Box px="2" py="8">
+                {blogPost.attributes.category && (
+                  <Text size="smMonoUppercase" color="primary.800" mb="2">
+                    {blogPost.attributes.category.data.attributes.name}
+                  </Text>
+                )}
+                <Heading size="lg">{blogPost.attributes.title}</Heading>
+                {blogPost.attributes.teaser && (
+                  <Text size="mdRegularNormal" mt="2">
+                    {blogPost.attributes.teaser}
+                  </Text>
+                )}
 
-                  <Spacer height="4" />
+                <Spacer height="4" />
 
-                  <DatePersonPair
-                    date={formatDate(blogPost.attributes.createdAt)}
-                    person={
-                      blogPost.attributes.author
-                        ? {
-                            name: blogPost.attributes.author.data.attributes
-                              .name,
-                            image: (
-                              <Image
-                                src={strapiMediaUrl(
+                <DatePersonPair
+                  date={formatDate(blogPost.attributes.createdAt)}
+                  person={
+                    blogPost.attributes.author
+                      ? {
+                          name: blogPost.attributes.author.data.attributes.name,
+                          image: (
+                            <Image
+                              src={strapiMediaUrl(
+                                blogPost.attributes.author.data.attributes.img
+                                  .img,
+                                'thumbnail'
+                              )}
+                              alt={
+                                blogPost.attributes.author.data.attributes.img
+                                  .alt
+                              }
+                              fill
+                              style={{
+                                objectFit:
                                   blogPost.attributes.author.data.attributes.img
-                                    .img,
-                                  'thumbnail'
-                                )}
-                                alt={
-                                  blogPost.attributes.author.data.attributes.img
-                                    .alt
-                                }
-                                fill
-                                style={{
-                                  objectFit:
-                                    blogPost.attributes.author.data.attributes
-                                      .img.objectFit || 'cover',
-                                }}
-                              />
-                            ),
-                          }
-                        : undefined
-                    }
-                  />
-                </Box>
-              </BlogItemContainer>
-            </Link>
+                                    .objectFit || 'cover',
+                              }}
+                            />
+                          ),
+                        }
+                      : undefined
+                  }
+                />
+              </Box>
+            </BlogItemContainer>
           ))}
         </SimpleGrid>
         <>

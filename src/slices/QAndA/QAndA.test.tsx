@@ -1,5 +1,6 @@
-import { render, screen } from '@/test/testUtils';
-import { strapiHeroCardMock } from '@/test/strapiMocks/strapiHeroCard';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
+import { strapiHeroCardMock } from '../../test/strapiMocks/strapiHeroCard';
 import QAndA from '.';
 import { QAndAProps } from './QAndA';
 

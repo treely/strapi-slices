@@ -1,5 +1,5 @@
-import { STRAPI_URI } from '@/constants/strapi';
-import { strapiMediaMock } from '@/test/strapiMocks/strapiMedia';
+import { STRAPI_URI } from '../constants/strapi';
+import { strapiMediaMock } from '../test/strapiMocks/strapiMedia';
 import strapiMediaUrl from './strapiMediaUrl';
 
 const fileSizes: ('xSmall' | 'small' | 'medium' | 'large' | 'xLarge')[] = [

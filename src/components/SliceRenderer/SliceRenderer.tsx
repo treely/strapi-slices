@@ -1,47 +1,51 @@
-import FullWidthImage from '@/slices/FullWidthImage';
-import Hero from '@/slices/Hero';
-import IconGrid from '@/slices/IconGrid';
-import ImageGrid from '@/slices/ImageGrid';
-import ImageTextSequence from '@/slices/ImageTextSequence';
-import LeftTextRightCard from '@/slices/LeftTextRightCard';
-import LogoGridWithText from '@/slices/LogoGridWithText';
-import MapHero from '@/slices/MapHero';
-import QAndA from '@/slices/QAndA';
-import QuoteCards from '@/slices/QuoteCards';
-import RichTextSection from '@/slices/RichTextSection';
-import Steps from '@/slices/Steps';
-import TextCardGrid from '@/slices/TextCardGrid';
-import TextCarousel from '@/slices/TextCarousel';
-import TextWithTextCards from '@/slices/TextWithTextCards';
-import TextWithCard from '@/slices/TextWithCard';
-import LinkCardsGrid from '@/slices/LinkCardsGrid';
-import SmallHero from '@/slices/SmallHero';
-import Blog from '@/slices/Blog';
-import StrapiBlogPost from '@/models/strapi/StrapiBlogPost';
-import ProjectsGrid from '@/slices/ProjectsGrid';
-import ProjectsMap from '@/slices/ProjectsMap';
-import Video from '@/slices/Video';
-import FullWidthHighlightQuote from '@/slices/FullWidthHighlightQuote';
-import FullWidthImageSlider from '@/slices/FullWidthImageSlider';
-import SideBySideImages from '@/slices/SideBySideImages';
-import IStrapiData from '@/models/strapi/IStrapiData';
-import Cta from '@/slices/Cta';
-import CtaOnly from '@/slices/CtaOnly';
-import Glossary from '@/slices/Glossary';
-import ShopCheckout from '@/slices/ShopCheckout';
-import Facts from '@/slices/Facts';
-import BlogCards from '@/slices/BlogCards';
-import PortfolioProject from '@/models/PortfolioProject';
-import ProjectFacts from '@/slices/ProjectFacts';
-import CustomerStories from '@/slices/CustomerStories';
-import StrapiCustomerStory from '@/models/strapi/StrapiCustomerStory';
-import Comparison from '@/slices/Comparison';
+import React from 'react';
+import FullWidthImage from '../../slices/FullWidthImage';
+import Hero from '../../slices/Hero';
+import IconGrid from '../../slices/IconGrid';
+import ImageGrid from '../../slices/ImageGrid';
+import ImageTextSequence from '../../slices/ImageTextSequence';
+import LeftTextRightCard from '../../slices/LeftTextRightCard';
+import LogoGridWithText from '../../slices/LogoGridWithText';
+import MapHero from '../../slices/MapHero';
+import QAndA from '../../slices/QAndA';
+import QuoteCards from '../../slices/QuoteCards';
+import RichTextSection from '../../slices/RichTextSection';
+import Steps from '../../slices/Steps';
+import TextCardGrid from '../../slices/TextCardGrid';
+import TextCarousel from '../../slices/TextCarousel';
+import TextWithTextCards from '../../slices/TextWithTextCards';
+import TextWithCard from '../../slices/TextWithCard';
+import LinkCardsGrid from '../../slices/LinkCardsGrid';
+import SmallHero from '../../slices/SmallHero';
+import Blog from '../../slices/Blog';
+import StrapiBlogPost from '../../models/strapi/StrapiBlogPost';
+import ProjectsGrid from '../../slices/ProjectsGrid';
+import ProjectsMap from '../../slices/ProjectsMap';
+import Video from '../../slices/Video';
+import FullWidthHighlightQuote from '../../slices/FullWidthHighlightQuote';
+import FullWidthImageSlider from '../../slices/FullWidthImageSlider';
+import SideBySideImages from '../../slices/SideBySideImages';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import Cta from '../../slices/Cta';
+import CtaOnly from '../../slices/CtaOnly';
+import Glossary from '../../slices/Glossary';
+import ShopCheckout from '../../slices/ShopCheckout';
+import Facts from '../../slices/Facts';
+import BlogCards from '../../slices/BlogCards';
+import PortfolioProject from '../../models/PortfolioProject';
+import ProjectFacts from '../../slices/ProjectFacts';
+import CustomerStories from '../../slices/CustomerStories';
+import StrapiCustomerStory from '../../models/strapi/StrapiCustomerStory';
+import Comparison from '../../slices/Comparison';
+import Locale from '../../models/Locale';
+import { ContextProvider } from '../ContextProvider';
 
 export interface SliceRendererProps {
   slices: any;
   blogPosts: IStrapiData<StrapiBlogPost>[];
   projects: PortfolioProject[];
   customerStories: IStrapiData<StrapiCustomerStory>[];
+  locale?: Locale;
 }
 
 export const SliceRenderer = ({
@@ -49,8 +53,9 @@ export const SliceRenderer = ({
   blogPosts,
   projects,
   customerStories,
+  locale = 'en',
 }: SliceRendererProps): JSX.Element => (
-  <>
+  <ContextProvider locale={locale}>
     {slices.map((slice: any) => {
       switch (slice.__component) {
         case 'sections.hero':
@@ -290,5 +295,5 @@ export const SliceRenderer = ({
           );
       }
     })}
-  </>
+  </ContextProvider>
 );

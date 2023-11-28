@@ -1,6 +1,7 @@
-import { mergeDeep } from '@/utils/mergeDeep';
-import { render, screen } from '@/test/testUtils';
-import { strapiMediaMock } from '@/test/strapiMocks/strapiMedia';
+import React from 'react';
+import { mergeDeep } from '../../utils/mergeDeep';
+import { render, screen } from '../../test/testUtils';
+import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
 import { ComparisonProps } from './Comparison';
 import { pushSpy, useRouter } from '../../../__mocks__/next/router';
 import Comparison from '.';

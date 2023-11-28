@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import styled from '@emotion/styled';
-import { BREAKPOINT_MD } from '@/constants/breakpoints';
+import { BREAKPOINT_MD } from '../../constants/breakpoints';
+import { Box } from 'boemly';
 
-export const SliderContainer = styled.div`
+export const SliderContainer = styled(Box)`
   --mobile-image-width: calc(100vw - var(--boemly-space-24));
   --desktop-image-width: var(--boemly-sizes-md);
 
@@ -27,8 +28,8 @@ export const SliderContainer = styled.div`
 interface ButtonsContainerProps {
   show: boolean;
 }
-export const ButtonsContainer = styled.div<ButtonsContainerProps>`
-  display: ${({ show }) => (show ? 'flex' : 'none')};
+export const ButtonsContainer = styled(Box)<ButtonsContainerProps>`
+  display: ${({ show }: ButtonsContainerProps) => (show ? 'flex' : 'none')};
   pointer-events: none;
 
   // Place at 50% of height of tallest image minus size of button
@@ -57,7 +58,7 @@ export const SliderInnerContainer = styled(
   width: fit-content;
 `;
 
-export const ItemContainer = styled.div`
+export const ItemContainer = styled(Box)`
   width: var(--desktop-image-width);
 
   :last-of-type {
@@ -72,12 +73,13 @@ export const ItemContainer = styled.div`
 interface ImageContainerProps {
   aspectRatio: number;
 }
-export const ImageContainer = styled.div<ImageContainerProps>`
+export const ImageContainer = styled(Box)<ImageContainerProps>`
   position: relative;
 
   max-height: var(--boemly-sizes-xl);
   height: calc(
-    var(--desktop-image-width) / ${({ aspectRatio }) => aspectRatio}
+    var(--desktop-image-width) /
+      ${({ aspectRatio }: ImageContainerProps) => aspectRatio}
   );
   width: var(--desktop-image-width);
 
@@ -89,7 +91,8 @@ export const ImageContainer = styled.div<ImageContainerProps>`
 
   @media screen and (max-width: ${BREAKPOINT_MD}) {
     height: calc(
-      var(--mobile-image-width) / ${({ aspectRatio }) => aspectRatio}
+      var(--mobile-image-width) /
+        ${({ aspectRatio }: ImageContainerProps) => aspectRatio}
     );
     width: var(--mobile-image-width);
   }

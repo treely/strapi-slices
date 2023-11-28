@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   DefaultSectionContainer,
@@ -7,9 +8,9 @@ import {
 } from 'boemly';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MEDIUM_TRANSITION_DURATION } from '@/constants/animations';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import StrapiProjectCard from '@/models/strapi/StrapiProjectCard';
+import { MEDIUM_TRANSITION_DURATION } from '../../constants/animations';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import StrapiProjectCard from '../../models/strapi/StrapiProjectCard';
 
 export interface ProjectsGridProps {
   slice: {

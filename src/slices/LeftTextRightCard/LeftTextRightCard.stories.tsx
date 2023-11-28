@@ -1,10 +1,11 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import { storybookStrapiCoverMock } from '@/test/storybookMocks/storybookStrapiMedia';
+import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import LeftTextRightCard from '.';
 
 export default {
-  title: 'sections/LeftTextRightCard',
+  title: 'slices/LeftTextRightCard',
   component: LeftTextRightCard,
 } as Meta<typeof LeftTextRightCard>;
 

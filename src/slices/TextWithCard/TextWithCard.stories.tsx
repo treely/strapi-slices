@@ -1,10 +1,11 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import { storybookStrapiCoverMock } from '@/test/storybookMocks/storybookStrapiMedia';
+import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import TextWithCard from '.';
 
 export default {
-  title: 'sections/TextWithCard',
+  title: 'slices/TextWithCard',
   component: TextWithCard,
 } as Meta<typeof TextWithCard>;
 

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Box,
   IconButton,
@@ -11,10 +11,10 @@ import Image from 'next/image';
 import { useMeasure, useWindowSize } from 'react-use';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import FullScreenImage from '@/components/FullScreenImage';
-import { BREAKPOINT_MD_QUERY } from '@/constants/breakpoints';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import FullScreenImage from '../../components/FullScreenImage';
+import { BREAKPOINT_MD_QUERY } from '../../constants/breakpoints';
 import {
   ButtonsContainer,
   ItemContainer,

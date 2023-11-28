@@ -1,10 +1,11 @@
+import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
-import { storybookStrapiTreeIconMock } from '@/test/storybookMocks/storybookStrapiMedia';
+import { storybookStrapiTreeIconMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import Comparison from '.';
 import { ComparisonCard } from './Comparison';
 
 export default {
-  title: 'sections/Comparison',
+  title: 'slices/Comparison',
   component: Comparison,
 } as Meta<typeof Comparison>;
 

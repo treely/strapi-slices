@@ -1,4 +1,5 @@
-import { render, screen, userEvent, waitFor } from '@/test/testUtils';
+import React from 'react';
+import { render, screen, userEvent, waitFor } from '../../../test/testUtils';
 import { pushSpy } from '../../../../__mocks__/next/router';
 
 import SmallCheckout from '.';

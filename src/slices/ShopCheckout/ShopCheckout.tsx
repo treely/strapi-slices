@@ -1,3 +1,4 @@
+import React, { useContext, useCallback } from 'react';
 import {
   Badge,
   BoemlyFormControl,
@@ -18,14 +19,13 @@ import {
 } from 'boemly';
 import { Field, FieldProps, Form, Formik, FormikProps } from 'formik';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
-import { FPM_API_URI } from '@/constants/api';
-import CheckoutForm from '@/models/forms/CheckoutForm';
+import { FPM_API_URI } from '../../constants/api';
+import CheckoutForm from '../../models/forms/CheckoutForm';
 import {
   MAXIMUM_CONTRIBUTION_VALUE_IN_MONEY,
   MINIMUM_CONTRIBUTION_VALUE_IN_MONEY,
-} from '@/constants/domain';
+} from '../../constants/domain';
+import { IntlContext } from '../../components/ContextProvider';
 
 export interface ShopCheckoutProps {
   slice: {
@@ -44,28 +44,35 @@ export interface ShopCheckoutProps {
 
 export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
   const [primary50] = useToken('colors', ['primary.50']);
-  const { formatMessage, formatNumber } = useIntl();
+  const { formatMessage, formatNumber, locale } = useContext(IntlContext);
   const { push } = useRouter();
 
-  const validateForm = useCallback((values: CheckoutForm) => {
-    const errors: Partial<{ contributionValue: string }> = {};
+  const validateForm = useCallback(
+    (values: CheckoutForm) => {
+      const errors: Partial<{ contributionValue: string }> = {};
 
-    if (!values.contributionValue) {
-      errors.contributionValue = formatMessage({
-        id: 'sections.shopCheckout.contributionValue.validation.empty',
-      });
-    } else if (values.contributionValue < MINIMUM_CONTRIBUTION_VALUE_IN_MONEY) {
-      errors.contributionValue = formatMessage({
-        id: `sections.shopCheckout.contributionValue.validation.tooLow.${slice.currency}`,
-      });
-    } else if (values.contributionValue > MAXIMUM_CONTRIBUTION_VALUE_IN_MONEY) {
-      errors.contributionValue = formatMessage({
-        id: 'sections.shopCheckout.contributionValue.validation.tooHigh',
-      });
-    }
+      if (!values.contributionValue) {
+        errors.contributionValue = formatMessage({
+          id: 'sections.shopCheckout.contributionValue.validation.empty',
+        });
+      } else if (
+        values.contributionValue < MINIMUM_CONTRIBUTION_VALUE_IN_MONEY
+      ) {
+        errors.contributionValue = formatMessage({
+          id: `sections.shopCheckout.contributionValue.validation.tooLow.${slice.currency}`,
+        });
+      } else if (
+        values.contributionValue > MAXIMUM_CONTRIBUTION_VALUE_IN_MONEY
+      ) {
+        errors.contributionValue = formatMessage({
+          id: 'sections.shopCheckout.contributionValue.validation.tooHigh',
+        });
+      }
 
-    return errors;
-  }, []);
+      return errors;
+    },
+    [locale]
+  );
 
   const onSubmit = ({ contributionValue }: CheckoutForm) => {
     const url = new URL(`${FPM_API_URI}/v1/webhooks/shop/checkout`);
@@ -163,9 +170,9 @@ export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
                           })}
                           rightAddonsOrElements={[
                             <InputRightAddon key="1">
-                              <FormattedMessage
-                                id={`sections.shopCheckout.contributionValue.unit.${slice.currency}`}
-                              />
+                              {formatMessage({
+                                id: `sections.shopCheckout.contributionValue.unit.${slice.currency}`,
+                              })}
                             </InputRightAddon>,
                           ]}
                           isInvalid={
@@ -215,7 +222,7 @@ export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
                   <Spacer height="6" />
 
                   <Button type="submit" width="full">
-                    <FormattedMessage id="sections.shopCheckout.submit" />
+                    {formatMessage({ id: 'sections.shopCheckout.submit' })}
                   </Button>
                 </Form>
               )}

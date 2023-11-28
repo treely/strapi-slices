@@ -1,4 +1,4 @@
-import StrapiQuoteCard from '@/models/strapi/StrapiQuoteCard';
+import StrapiQuoteCard from '../../models/strapi/StrapiQuoteCard';
 import { strapiAvatarWithNameMock } from './strapiAvatarWithName';
 
 export const strapiQuoteCardMock: StrapiQuoteCard = {

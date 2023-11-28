@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import styled from '@emotion/styled';
-import { BREAKPOINT_MD } from '@/constants/breakpoints';
+import { BREAKPOINT_MD } from '../../constants/breakpoints';
+import { Box } from 'boemly';
 
-export const CarouselContainer = styled.div`
+export const CarouselContainer = styled(Box)`
   overflow-x: scroll;
 
   margin-top: var(--boemly-space-6);
@@ -28,14 +29,16 @@ export const CarouselInnerContainer = styled(
   justify-content: center;
   width: calc(
     (var(--boemly-sizes-sm) + var(--boemly-space-16)) *
-      ${({ numberOfItems }) => numberOfItems} + var(--boemly-space-16)
+      ${({ numberOfItems }: CarouselInnerContainerProps) => numberOfItems} +
+      var(--boemly-space-16)
   );
   min-width: var(--boemly-sizes-full);
 
   @media screen and (max-width: ${BREAKPOINT_MD}) {
     width: calc(
       (var(--boemly-sizes-xs) + var(--boemly-space-4)) *
-        ${({ numberOfItems }) => numberOfItems} + var(--boemly-space-6)
+        ${({ numberOfItems }: CarouselInnerContainerProps) => numberOfItems} +
+        var(--boemly-space-6)
     );
   }
 `;
@@ -43,8 +46,8 @@ export const CarouselInnerContainer = styled(
 interface CardContainerProps {
   numberOfItems: number;
 }
-export const CardContainer = styled.div<CardContainerProps>`
-  width: ${({ numberOfItems }) =>
+export const CardContainer = styled(Box)<CardContainerProps>`
+  width: ${({ numberOfItems }: CardContainerProps) =>
     numberOfItems === 3 ? 'var(--boemly-sizes-xl)' : 'var(--boemly-sizes-sm)'};
 
   margin-right: var(--boemly-space-16);

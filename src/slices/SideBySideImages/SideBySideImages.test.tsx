@@ -1,5 +1,6 @@
-import { render, screen } from '@/test/testUtils';
-import { strapiMediaMock } from '@/test/strapiMocks/strapiMedia';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
+import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
 import { SideBySideImagesProps } from './SideBySideImages';
 import SideBySideImages from '.';
 

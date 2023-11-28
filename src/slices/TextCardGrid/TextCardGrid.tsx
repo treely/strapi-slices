@@ -1,3 +1,4 @@
+import React from 'react';
 import { css } from '@emotion/react';
 import {
   Box,
@@ -13,11 +14,11 @@ import {
 } from 'boemly';
 import Image from 'next/image';
 import { CaretRight } from '@phosphor-icons/react';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
-import StrapiDefaultHeader from '@/models/strapi/StrapiDefaultHeader';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
+import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import StrapiLink from '../../models/strapi/StrapiLink';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
 
 interface TextCardGridSlice extends StrapiDefaultHeader {
   variant: 'shape' | 'image';

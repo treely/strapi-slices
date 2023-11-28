@@ -1,4 +1,5 @@
-import { render, screen } from '@/test/testUtils';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
 import RichTextSection from '.';
 import { RichTextSectionProps } from './RichTextSection';
 

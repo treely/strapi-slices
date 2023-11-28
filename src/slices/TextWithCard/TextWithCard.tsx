@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   DefaultSectionContainer,
   DefaultSectionHeader,
@@ -10,10 +11,10 @@ import {
 } from 'boemly';
 import Image from 'next/image';
 import { ArrowRight } from '@phosphor-icons/react';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import StrapiProjectCard from '@/models/strapi/StrapiProjectCard';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import StrapiLink from '../../models/strapi/StrapiLink';
+import StrapiProjectCard from '../../models/strapi/StrapiProjectCard';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
 
 interface TextWithCardSlice {
   tagline?: string;

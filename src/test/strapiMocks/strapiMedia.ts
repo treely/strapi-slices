@@ -1,5 +1,5 @@
-import IStrapiData from '@/models/strapi/IStrapiData';
-import StrapiMedia from '@/models/strapi/StrapiMedia';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import StrapiMedia from '../../models/strapi/StrapiMedia';
 
 export const strapiMediaMock: IStrapiData<StrapiMedia> = {
   id: 5,

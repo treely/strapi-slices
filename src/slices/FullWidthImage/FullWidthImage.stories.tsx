@@ -1,10 +1,11 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import { storybookStrapiCoverMock } from '@/test/storybookMocks/storybookStrapiMedia';
+import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import FullWidthImage from '.';
 
 export default {
-  title: 'sections/FullWidthImage',
+  title: 'slices/FullWidthImage',
   component: FullWidthImage,
 } as Meta<typeof FullWidthImage>;
 

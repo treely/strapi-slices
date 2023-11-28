@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   DefaultSectionContainer,
@@ -8,8 +9,8 @@ import {
   Wrapper,
 } from 'boemly';
 import Image from 'next/image';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
 
 export interface SideBySideImagesProps {
   slice: {

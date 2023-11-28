@@ -1,4 +1,5 @@
-import { render, screen } from '@/test/testUtils';
+import React from 'react';
+import { render, screen } from '../../../test/testUtils';
 import DocumentsDownloadList from '.';
 import { DocumentsDownloadListProps } from './DocumentsDownloadList';
 import messagesEn from './messages.en';

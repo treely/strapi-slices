@@ -1,3 +1,4 @@
+import React, { Fragment } from 'react';
 import {
   Box,
   DefaultSectionContainer,
@@ -10,20 +11,14 @@ import {
   Wrapper,
 } from 'boemly';
 import Image from 'next/image';
-import { Fragment } from 'react';
 import { CaretRight } from '@phosphor-icons/react';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import { BREAKPOINT_LG_QUERY } from '@/constants/breakpoints';
-import StrapiDefaultHeader from '@/models/strapi/StrapiDefaultHeader';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
-import {
-  DesktopMapContainer,
-  ImageContainer,
-  MobileMapContainer,
-} from './styles';
-import { CDN_URI } from '@/constants/api';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import { BREAKPOINT_LG_QUERY } from '../../constants/breakpoints';
+import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import StrapiLink from '../../models/strapi/StrapiLink';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
+import { CDN_URI } from '../../constants/api';
 
 interface ImageTextSequenceSlice extends StrapiDefaultHeader {
   imageTextRows: {
@@ -50,22 +45,32 @@ export const ImageTextSequence: React.FC<ImageTextSequenceProps> = ({
     <DefaultSectionContainer backgroundColor={primary50} title={slice.title}>
       {slice.background ? (
         <>
-          <DesktopMapContainer>
+          <Box
+            position="absolute"
+            top="0"
+            right="24"
+            display={['none', null, null, 'unset']}
+          >
             <Image
               src={`${CDN_URI}/assets/v3/strapi-slices/desktop-map-border.svg`}
               alt="Map"
               width="786"
               height="897"
             />
-          </DesktopMapContainer>
-          <MobileMapContainer>
+          </Box>
+          <Box
+            position="absolute"
+            top="64"
+            right="-14"
+            display={['unset', null, null, 'none']}
+          >
             <Image
               src={`${CDN_URI}/assets/v3/strapi-slices/mobile-map-border.svg`}
               alt="Map"
               width="227"
               height="452"
             />
-          </MobileMapContainer>
+          </Box>
         </>
       ) : (
         <></>
@@ -98,14 +103,18 @@ export const ImageTextSequence: React.FC<ImageTextSequenceProps> = ({
             ({ id, title, text, button, image }, index) => {
               const imageBox = (
                 <Box>
-                  <ImageContainer>
+                  <Box
+                    position="relative"
+                    width="full"
+                    minHeight={['2xs', null, null, 'sm']}
+                  >
                     <Image
                       src={strapiMediaUrl(image.img, 'large')}
                       alt={image.alt}
                       fill
                       style={{ objectFit: image.objectFit || 'contain' }}
                     />
-                  </ImageContainer>
+                  </Box>
                 </Box>
               );
               return (

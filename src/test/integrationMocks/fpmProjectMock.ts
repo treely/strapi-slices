@@ -1,4 +1,4 @@
-import FPMProject from '@/models/fpm/FPMProject';
+import FPMProject from '../../models/fpm/FPMProject';
 
 const fpmProjectMock: FPMProject = {
   id: '1',

@@ -1,9 +1,10 @@
-import { strapiCustomerStoryMock } from '@/test/strapiMocks/strapiCustomerStory';
+import React from 'react';
+import { strapiCustomerStoryMock } from '../../test/strapiMocks/strapiCustomerStory';
 import { Meta, StoryFn } from '@storybook/react';
 import CustomerStories from '.';
 
 export default {
-  title: 'sections/CustomerStories',
+  title: 'slices/CustomerStories',
   component: CustomerStories,
 } as Meta<typeof CustomerStories>;
 

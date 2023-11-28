@@ -1,10 +1,11 @@
+import React from 'react';
 import { DefaultSectionHeader, Flex, useMediaQuery, Wrapper } from 'boemly';
 import Image from 'next/image';
-import { BREAKPOINT_LG_QUERY } from '@/constants/breakpoints';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import StrapiLink from '@/models/strapi/StrapiLink';
+import { BREAKPOINT_LG_QUERY } from '../../constants/breakpoints';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import StrapiLink from '../../models/strapi/StrapiLink';
 import {
   MapHeroContainer,
   MapHeroTextContainer,

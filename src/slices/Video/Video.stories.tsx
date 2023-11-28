@@ -1,9 +1,10 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import Video from '.';
 
 export default {
-  title: 'sections/Video',
+  title: 'slices/Video',
   component: Video,
 } as Meta<typeof Video>;
 

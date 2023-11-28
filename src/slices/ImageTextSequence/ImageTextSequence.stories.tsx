@@ -1,10 +1,11 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import { storybookStrapiCoverMock } from '@/test/storybookMocks/storybookStrapiMedia';
+import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import ImageTextSequence from '.';
 
 export default {
-  title: 'sections/ImageTextSequence',
+  title: 'slices/ImageTextSequence',
   component: ImageTextSequence,
 } as Meta<typeof ImageTextSequence>;
 

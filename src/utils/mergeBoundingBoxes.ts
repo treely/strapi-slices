@@ -1,4 +1,4 @@
-import BBox from '@/models/BBox';
+import BBox from '../models/BBox';
 
 const mergeBoundingBoxes = (boundingBoxes: BBox[]): BBox => {
   let minLeft: number = 180;

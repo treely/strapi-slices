@@ -1,5 +1,5 @@
-import IStrapiData from '@/models/strapi/IStrapiData';
-import StrapiMedia from '@/models/strapi/StrapiMedia';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import StrapiMedia from '../../models/strapi/StrapiMedia';
 import { strapiMediaMock } from '../strapiMocks/strapiMedia';
 import { storybookAvatarUrl } from './storybookMedia';
 

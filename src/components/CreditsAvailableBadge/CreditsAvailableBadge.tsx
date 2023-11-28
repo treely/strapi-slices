@@ -1,7 +1,8 @@
-import CreditsAvailableState from '@/models/CreditsAvailableState';
+import React, { useContext } from 'react';
+import CreditsAvailableState from '../../models/CreditsAvailableState';
 import { Badge } from 'boemly';
 import NextLink from 'next/link';
-import { useIntl } from 'react-intl';
+import { IntlContext } from '../ContextProvider';
 
 export interface CreditsAvailableBadgeProps {
   status: CreditsAvailableState;
@@ -12,7 +13,7 @@ const CreditsAvailableBadge = ({
   status,
   href,
 }: CreditsAvailableBadgeProps) => {
-  const { formatMessage } = useIntl();
+  const { formatMessage } = useContext(IntlContext);
 
   const variants: Record<
     CreditsAvailableState,

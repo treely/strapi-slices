@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 import {
   Box,
@@ -9,9 +10,9 @@ import {
   Wrapper,
 } from 'boemly';
 import { CaretRight } from '@phosphor-icons/react';
-import { MEDIUM_TRANSITION_DURATION } from '@/constants/animations';
-import strapiLinkUrl from '@/utils/strapiLinkUrl';
-import StrapiLink from '@/models/strapi/StrapiLink';
+import { MEDIUM_TRANSITION_DURATION } from '../../constants/animations';
+import strapiLinkUrl from '../../utils/strapiLinkUrl';
+import StrapiLink from '../../models/strapi/StrapiLink';
 
 interface LinkCardsGridSlice {
   tagline?: string;
@@ -41,53 +42,54 @@ export const LinkCardsGrid: React.FC<LinkCardsGridProps> = ({
 
       <SimpleGrid mt="16" columns={[1, null, null, null, 2]} gap="4">
         {slice.cards.map(({ id, title, text, link }) => (
-          <Link key={id} href={strapiLinkUrl(link)} passHref legacyBehavior>
+          <Box
+            key={id}
+            as={Link}
+            href={strapiLinkUrl(link)}
+            data-testid="link"
+            px="10"
+            py="8"
+            borderStyle="solid"
+            borderWidth="thin"
+            borderColor="gray.200"
+            borderRadius="2xl"
+            display="flex"
+            flexDir="row"
+            alignItems="center"
+            justifyContent="space-between"
+            cursor="pointer"
+            transitionDuration={`${MEDIUM_TRANSITION_DURATION}s`}
+            _hover={{ backgroundColor: 'gray.50' }}
+          >
+            <div>
+              <Heading as="h4" size="lg">
+                {title}
+              </Heading>
+              {text && (
+                <Text mt="2" size="smRegularNormal">
+                  {text}
+                </Text>
+              )}
+            </div>
+
             <Box
-              data-testid="link"
-              px="10"
-              py="8"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
               borderStyle="solid"
               borderWidth="thin"
               borderColor="gray.200"
               borderRadius="2xl"
-              display="flex"
-              flexDir="row"
-              alignItems="center"
-              justifyContent="space-between"
-              cursor="pointer"
-              transitionDuration={`${MEDIUM_TRANSITION_DURATION}s`}
-              _hover={{ backgroundColor: 'gray.50' }}
+              height="12"
+              width="12"
+              minWidth="12"
+              minHeight="12"
+              ml="6"
+              backgroundColor="white"
             >
-              <div>
-                <Heading as="h4" size="lg">
-                  {title}
-                </Heading>
-                {text && (
-                  <Text mt="2" size="smRegularNormal">
-                    {text}
-                  </Text>
-                )}
-              </div>
-
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                borderStyle="solid"
-                borderWidth="thin"
-                borderColor="gray.200"
-                borderRadius="2xl"
-                height="12"
-                width="12"
-                minWidth="12"
-                minHeight="12"
-                ml="6"
-                backgroundColor="white"
-              >
-                <CaretRight />
-              </Box>
+              <CaretRight />
             </Box>
-          </Link>
+          </Box>
         ))}
       </SimpleGrid>
     </Wrapper>

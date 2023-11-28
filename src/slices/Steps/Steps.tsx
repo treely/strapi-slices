@@ -1,7 +1,10 @@
+import React, { createRef, useEffect, useRef, useState } from 'react';
 import {
   Box,
+  Center,
   DefaultSectionContainer,
   DefaultSectionHeader,
+  Flex,
   Gradient,
   Heading,
   RichText,
@@ -11,21 +14,13 @@ import {
   Wrapper,
 } from 'boemly';
 import Image from 'next/image';
-import { createRef, useEffect, useRef, useState } from 'react';
 import { useWindowScroll, useWindowSize } from 'react-use';
 import { useRouter } from 'next/router';
-import StrapiShapesCard from '@/models/strapi/StrapiShapesCard';
-import StrapiDefaultHeader from '@/models/strapi/StrapiDefaultHeader';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import strapiLinkUrl from '@/utils/strapiLinkUrl';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import {
-  ImageContainer,
-  ProgressDivider,
-  StepContainer,
-  StepNumber,
-  StepsContainer,
-} from './styles';
+import StrapiShapesCard from '../../models/strapi/StrapiShapesCard';
+import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import strapiLinkUrl from '../../utils/strapiLinkUrl';
+import StrapiImage from '../../models/strapi/StrapiImage';
 
 interface StepsSlice extends StrapiDefaultHeader {
   steps: {
@@ -77,7 +72,13 @@ export const Steps: React.FC<StepsProps> = ({ slice }: StepsProps) => {
       <DefaultSectionContainer backgroundColor={gray900} title={slice.title}>
         <>
           {slice.image && (
-            <ImageContainer>
+            <Box
+              position="absolute"
+              top="0"
+              left="0"
+              width="full"
+              height="full"
+            >
               <Image
                 src={strapiMediaUrl(slice.image.img, 'xLarge')}
                 alt={slice.image.alt}
@@ -85,7 +86,7 @@ export const Steps: React.FC<StepsProps> = ({ slice }: StepsProps) => {
                 style={{ objectFit: slice.image.objectFit || 'cover' }}
               />
               <Gradient />
-            </ImageContainer>
+            </Box>
           )}
         </>
         <Wrapper>
@@ -109,14 +110,19 @@ export const Steps: React.FC<StepsProps> = ({ slice }: StepsProps) => {
               }}
             />
 
-            <StepsContainer>
+            <Box marginTop={['16', null, '24']}>
               {slice.steps.map(({ id, step, title, text }, index) => (
-                <StepContainer key={id}>
-                  <StepNumber>
+                <Flex flexDir="column" alignItems="center" key={id}>
+                  <Center
+                    width="10"
+                    height="10"
+                    borderRadius="full"
+                    backgroundColor="white"
+                  >
                     <Text size="smRegularNormal" color="black">
                       {step}
                     </Text>
-                  </StepNumber>
+                  </Center>
                   <Heading size="lg" color="white" mt="4" textAlign="center">
                     {title}
                   </Heading>
@@ -134,17 +140,31 @@ export const Steps: React.FC<StepsProps> = ({ slice }: StepsProps) => {
                     </Box>
                   )}
                   {(index + 1 < slice.steps.length || slice.card) && (
-                    <ProgressDivider
+                    <Box
                       ref={stepRefs[index]}
-                      progress={stepProgress[index]}
+                      position="relative"
+                      marginTop="4"
+                      marginBottom="6"
+                      height="12"
                     >
-                      <div className="dotted" />
-                      <div className="progress" />
-                    </ProgressDivider>
+                      <Box
+                        position="absolute"
+                        height="full"
+                        borderLeft="dashed 1px white"
+                        opacity="0.5"
+                      />
+                      <Box
+                        position="absolute"
+                        height={`${stepProgress[index]}%`}
+                        borderRight="solid 1px white"
+                        opacity="1"
+                        transition="height ease var(--medium-transition-duration)"
+                      />
+                    </Box>
                   )}
-                </StepContainer>
+                </Flex>
               ))}
-            </StepsContainer>
+            </Box>
 
             {slice.card && (
               <ShapesCard

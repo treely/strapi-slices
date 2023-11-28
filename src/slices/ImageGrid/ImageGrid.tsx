@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   DefaultSectionContainer,
@@ -10,12 +11,11 @@ import {
   Wrapper,
 } from 'boemly';
 import Image from 'next/image';
-import StrapiLinkButtonWithIcon from '@/components/StrapiLinkButtonWithIcon';
-import StrapiDefaultHeader from '@/models/strapi/StrapiDefaultHeader';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import StrapiLinkWithIcon from '@/models/strapi/StrapiLinkWithIcon';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import { ImageContainer } from './styles';
+import StrapiLinkButtonWithIcon from '../../components/StrapiLinkButtonWithIcon';
+import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import StrapiLinkWithIcon from '../../models/strapi/StrapiLinkWithIcon';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
 
 interface ImageGridSlice extends StrapiDefaultHeader {
   images: {
@@ -56,14 +56,17 @@ export const ImageGrid: React.FC<ImageGridProps> = ({
         >
           {slice.images.map(({ id, title, subTitle, image, links }) => (
             <Box key={id}>
-              <ImageContainer>
+              <Box position="relative" height="sm" borderRadius="xl">
                 <Image
                   src={strapiMediaUrl(image.img, 'medium')}
                   alt={image.alt}
                   fill
-                  style={{ objectFit: image.objectFit || 'cover' }}
+                  style={{
+                    objectFit: image.objectFit || 'cover',
+                    borderRadius: 'var(--boemly-radii-xl)',
+                  }}
                 />
-              </ImageContainer>
+              </Box>
               <Heading size="xl" mt="4">
                 {title}
               </Heading>

@@ -1,4 +1,5 @@
-import { render, screen } from '@/test/testUtils';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
 import StrapiLinkButton from '.';
 import { detectAdBlockSpy } from '../../../__mocks__/adblock-detect-react';
 import { StrapiLinkButtonProps } from './StrapiLinkButton';

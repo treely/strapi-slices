@@ -1,13 +1,14 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import {
   storybookStrapiCoverMock,
   storybookStrapiGradientBottomUpMock,
-} from '@/test/storybookMocks/storybookStrapiMedia';
+} from '../../test/storybookMocks/storybookStrapiMedia';
 import Hero from '.';
 
 export default {
-  title: 'sections/Hero',
+  title: 'slices/Hero',
   component: Hero,
 } as Meta<typeof Hero>;
 

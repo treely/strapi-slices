@@ -1,10 +1,11 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import { storybookStrapiTreeIconMock } from '@/test/storybookMocks/storybookStrapiMedia';
+import { storybookStrapiTreeIconMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import LogoGridWithText from '.';
 
 export default {
-  title: 'sections/LogoGridWithText',
+  title: 'slices/LogoGridWithText',
   component: LogoGridWithText,
 } as Meta<typeof LogoGridWithText>;
 

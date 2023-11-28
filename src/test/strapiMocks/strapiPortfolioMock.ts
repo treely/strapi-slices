@@ -1,5 +1,5 @@
-import IStrapiData from '@/models/strapi/IStrapiData';
-import StrapiPortfolio from '@/models/strapi/StrapiPortfolio';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import StrapiPortfolio from '../../models/strapi/StrapiPortfolio';
 
 export const strapiPortfolioMock: IStrapiData<StrapiPortfolio> = {
   id: 1,

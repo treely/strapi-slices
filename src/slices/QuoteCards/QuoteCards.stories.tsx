@@ -1,14 +1,15 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import {
   storybookStrapiAvatarMock,
   storybookStrapiCoverMock,
   storybookStrapiGradientTopDownMock,
-} from '@/test/storybookMocks/storybookStrapiMedia';
+} from '../../test/storybookMocks/storybookStrapiMedia';
 import QuoteCards from '.';
 
 export default {
-  title: 'sections/QuoteCards',
+  title: 'slices/QuoteCards',
   component: QuoteCards,
 } as Meta<typeof QuoteCards>;
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   DefaultSectionHeader,
@@ -7,11 +8,10 @@ import {
   Wrapper,
 } from 'boemly';
 import Image from 'next/image';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import { HeadingContainer } from './styles';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import StrapiLink from '../../models/strapi/StrapiLink';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
 
 export interface SmallHeroProps {
   slice: {
@@ -66,7 +66,14 @@ export const SmallHero: React.FC<SmallHeroProps> = ({
         {slice.gradient && <Gradient />}
       </>
     )}
-    <HeadingContainer>
+    <Box
+      position="absolute"
+      left="0"
+      top="60%"
+      width="full"
+      textAlign="center"
+      transform="translateY(-50%)"
+    >
       <Wrapper>
         <>
           {slice.tags && (
@@ -111,6 +118,6 @@ export const SmallHero: React.FC<SmallHeroProps> = ({
           )}
         </>
       </Wrapper>
-    </HeadingContainer>
+    </Box>
   </Box>
 );

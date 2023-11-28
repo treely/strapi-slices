@@ -1,7 +1,8 @@
-import { render, screen } from '@/test/testUtils';
-import { strapiBlogPostMock } from '@/test/strapiMocks/strapiBlogPost';
-import { strapiMediaMock } from '@/test/strapiMocks/strapiMedia';
-import { mergeDeep } from '@/utils/mergeDeep';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
+import { strapiBlogPostMock } from '../../test/strapiMocks/strapiBlogPost';
+import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
+import { mergeDeep } from '../../utils/mergeDeep';
 import { BlogProps } from './Blog';
 import Blog from '.';
 

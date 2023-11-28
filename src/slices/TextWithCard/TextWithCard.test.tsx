@@ -1,5 +1,6 @@
-import { render, screen } from '@/test/testUtils';
-import { strapiProjectCardMock } from '@/test/strapiMocks/strapiProjectCard';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
+import { strapiProjectCardMock } from '../../test/strapiMocks/strapiProjectCard';
 import TextWithCard from '.';
 import { TextWithCardProps } from './TextWithCard';
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   DefaultSectionContainer,
   DefaultSectionHeader,
@@ -6,8 +7,8 @@ import {
   Spacer,
   Text,
 } from 'boemly';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
-import StrapiLink from '@/models/strapi/StrapiLink';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
+import StrapiLink from '../../models/strapi/StrapiLink';
 
 export interface FactsProps {
   slice: {

@@ -1,13 +1,14 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import {
   storybookStrapiGradientBottomUpMock,
   storybookStrapiMapMock,
-} from '@/test/storybookMocks/storybookStrapiMedia';
+} from '../../test/storybookMocks/storybookStrapiMedia';
 import MapHero from '.';
 
 export default {
-  title: 'sections/MapHero',
+  title: 'slices/MapHero',
   component: MapHero,
 } as Meta<typeof MapHero>;
 

@@ -1,7 +1,7 @@
-import { STRAPI_URI } from '@/constants/strapi';
-import IStrapi from '@/models/strapi/IStrapi';
-import IStrapiData from '@/models/strapi/IStrapiData';
-import StrapiMedia from '@/models/strapi/StrapiMedia';
+import { STRAPI_URI } from '../constants/strapi';
+import IStrapi from '../models/strapi/IStrapi';
+import IStrapiData from '../models/strapi/IStrapiData';
+import StrapiMedia from '../models/strapi/StrapiMedia';
 
 const strapiMediaUrl = (
   media: IStrapi<IStrapiData<StrapiMedia>>,

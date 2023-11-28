@@ -1,6 +1,7 @@
-import { FONT_CUSTOMIZATIONS } from '@/constants/fontCustomizations';
-import rootMessagesDe from '@/rootMessages.de';
-import rootMessagesEn from '@/rootMessages.en';
+import React from 'react';
+import { FONT_CUSTOMIZATIONS } from '../../constants/fontCustomizations';
+import rootMessagesDe from '../../rootMessages.de';
+import rootMessagesEn from '../../rootMessages.en';
 import { BoemlyThemeProvider } from 'boemly';
 import { IntlProvider } from 'react-intl';
 

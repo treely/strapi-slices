@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 import {
   DefaultSectionContainer,
@@ -6,8 +7,8 @@ import {
   Text,
   Box,
 } from 'boemly';
-import StrapiAvatarWithName from '@/models/strapi/StrapiAvatarWithName';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
+import StrapiAvatarWithName from '../../models/strapi/StrapiAvatarWithName';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
 
 export interface FullWidthHighlightQuoteProps {
   slice: {

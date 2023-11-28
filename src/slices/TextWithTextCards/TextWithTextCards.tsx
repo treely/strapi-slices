@@ -1,4 +1,6 @@
+import React from 'react';
 import {
+  Box,
   ContactArea,
   DefaultSectionContainer,
   DefaultSectionHeader,
@@ -11,14 +13,13 @@ import {
 } from 'boemly';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { BREAKPOINT_LG_QUERY } from '@/constants/breakpoints';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import strapiLinkUrl from '@/utils/strapiLinkUrl';
-import StrapiDefaultHeader from '@/models/strapi/StrapiDefaultHeader';
-import StrapiContactArea from '@/models/strapi/StrapiContactArea';
-import StrapiTextCardWithIcon from '@/models/strapi/StrapiTextCardWithIcons';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import { ShapeContainer } from './styles';
+import { BREAKPOINT_LG_QUERY } from '../../constants/breakpoints';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import strapiLinkUrl from '../../utils/strapiLinkUrl';
+import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
+import StrapiContactArea from '../../models/strapi/StrapiContactArea';
+import StrapiTextCardWithIcon from '../../models/strapi/StrapiTextCardWithIcons';
+import StrapiImage from '../../models/strapi/StrapiImage';
 
 interface TextWithTextCardsSlice extends StrapiDefaultHeader {
   cards: StrapiTextCardWithIcon[];
@@ -40,14 +41,24 @@ export const TextWithTextCards: React.FC<TextWithTextCardsProps> = ({
     <DefaultSectionContainer backgroundColor={white} title={slice.title}>
       <>
         {slice.shape && (
-          <ShapeContainer>
+          <Box
+            position="absolute"
+            right={['-28', null, null, '-136']}
+            top={['96', null, null, '-28']}
+            width={['sm', null, null, '4xl']}
+            height={['sm', null, null, '4xl']}
+            borderBottomRightRadius="full"
+          >
             <Image
               src={strapiMediaUrl(slice.shape.img, 'medium')}
               alt={slice.shape.alt}
               fill
-              style={{ objectFit: slice.shape.objectFit || 'cover' }}
+              style={{
+                objectFit: slice.shape.objectFit || 'cover',
+                borderBottomRightRadius: 'var(--boemly-radii-full)',
+              }}
             />
-          </ShapeContainer>
+          </Box>
         )}
       </>
       <Wrapper>

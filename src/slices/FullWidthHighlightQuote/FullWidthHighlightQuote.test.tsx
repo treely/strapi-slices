@@ -1,5 +1,6 @@
-import { render, screen } from '@/test/testUtils';
-import { strapiAvatarWithNameMock } from '@/test/strapiMocks/strapiAvatarWithName';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
+import { strapiAvatarWithNameMock } from '../../test/strapiMocks/strapiAvatarWithName';
 import FullWidthHighlightQuote from '.';
 import { FullWidthHighlightQuoteProps } from './FullWidthHighlightQuote';
 

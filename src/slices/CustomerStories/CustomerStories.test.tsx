@@ -1,6 +1,7 @@
-import { render, screen } from '@/test/testUtils';
-import { mergeDeep } from '@/utils/mergeDeep';
-import { strapiCustomerStoryMock } from '@/test/strapiMocks/strapiCustomerStory';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
+import { mergeDeep } from '../../utils/mergeDeep';
+import { strapiCustomerStoryMock } from '../../test/strapiMocks/strapiCustomerStory';
 import { CustomerStoriesProps } from './CustomerStories';
 import CustomerStories from '.';
 

@@ -1,11 +1,12 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import { storybookStrapiCoverMock } from '@/test/storybookMocks/storybookStrapiMedia';
-import Locale from '@/models/Locale';
+import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
+import Locale from '../../models/Locale';
 import ProjectsGrid from '.';
 
 export default {
-  title: 'sections/ProjectsGrid',
+  title: 'slices/ProjectsGrid',
   component: ProjectsGrid,
 } as Meta<typeof ProjectsGrid>;
 

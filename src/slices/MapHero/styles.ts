@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import { BREAKPOINT_LG } from '@/constants/breakpoints';
+import { BREAKPOINT_LG } from '../../constants/breakpoints';
+import { Box } from 'boemly';
 
-export const MapHeroContainer = styled.div`
+export const MapHeroContainer = styled(Box)`
   position: relative;
   width: 100vw;
   height: var(--default-hero-height);
@@ -15,7 +16,7 @@ export const MapHeroContainer = styled.div`
   }
 `;
 
-export const MapHeroTextContainer = styled.div`
+export const MapHeroTextContainer = styled(Box)`
   position: absolute;
   width: 100vw;
   top: 56%;
@@ -31,7 +32,7 @@ export const MapHeroTextContainer = styled.div`
   }
 `;
 
-export const ShapeContainer = styled.div`
+export const ShapeContainer = styled(Box)`
   position: absolute;
   bottom: calc(var(--boemly-space-8) * -1);
   left: 0;
@@ -51,7 +52,7 @@ export const ShapeContainer = styled.div`
   }
 `;
 
-export const MapContainer = styled.div`
+export const MapContainer = styled(Box)`
   position: absolute;
 
   width: 50%;
@@ -77,7 +78,7 @@ export const MapContainer = styled.div`
   }
 `;
 
-export const MapGradient = styled.div`
+export const MapGradient = styled(Box)`
   position: absolute;
   top: 0;
   right: 0;

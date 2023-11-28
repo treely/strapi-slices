@@ -1,5 +1,6 @@
-import { CDN_URI, FPM_API_URI } from '@/constants/api';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
+import React, { useContext, useCallback } from 'react';
+import { CDN_URI, FPM_API_URI } from '../../../constants/api';
+import StrapiLinkButton from '../../../components/StrapiLinkButton';
 import {
   BoemlyFormControl,
   Box,
@@ -19,14 +20,13 @@ import {
   FormikProps,
 } from 'formik';
 import { useRouter } from 'next/router';
-import { FormattedMessage, useIntl } from 'react-intl';
 import Image from 'next/image';
-import { useCallback } from 'react';
-import StrapiLink from '@/models/strapi/StrapiLink';
+import StrapiLink from '../../../models/strapi/StrapiLink';
 import {
   MAXIMUM_CONTRIBUTION_VALUE_IN_MONEY,
   MINIMUM_CONTRIBUTION_VALUE_IN_MONEY,
-} from '@/constants/domain';
+} from '../../../constants/domain';
+import { IntlContext } from '../../ContextProvider';
 
 export interface SmallCheckoutProps {
   batchId: string;
@@ -55,32 +55,35 @@ const SmallCheckout = ({
   subtitle,
   button,
 }: SmallCheckoutProps) => {
-  const { formatNumber, formatMessage } = useIntl();
+  const { formatNumber, formatMessage, locale } = useContext(IntlContext);
   const { push } = useRouter();
 
-  const validateForm = useCallback((values: SmallCheckoutForm) => {
-    const errors: FormikErrors<SmallCheckoutForm> = {};
+  const validateForm = useCallback(
+    (values: SmallCheckoutForm) => {
+      const errors: FormikErrors<SmallCheckoutForm> = {};
 
-    if (!values.contributionValueCurrency) {
-      errors.contributionValueCurrency = formatMessage({
-        id: 'portfolio.smallCheckout.contributionValueCurrency.validation.empty',
-      });
-    } else if (
-      values.contributionValueCurrency < MINIMUM_CONTRIBUTION_VALUE_IN_MONEY
-    ) {
-      errors.contributionValueCurrency = formatMessage({
-        id: `portfolio.smallCheckout.contributionValueCurrency.validation.tooLow.${currency}`,
-      });
-    } else if (
-      values.contributionValueCurrency > MAXIMUM_CONTRIBUTION_VALUE_IN_MONEY
-    ) {
-      errors.contributionValueCurrency = formatMessage({
-        id: 'portfolio.smallCheckout.contributionValueCurrency.validation.tooHigh',
-      });
-    }
+      if (!values.contributionValueCurrency) {
+        errors.contributionValueCurrency = formatMessage({
+          id: 'portfolio.smallCheckout.contributionValueCurrency.validation.empty',
+        });
+      } else if (
+        values.contributionValueCurrency < MINIMUM_CONTRIBUTION_VALUE_IN_MONEY
+      ) {
+        errors.contributionValueCurrency = formatMessage({
+          id: `portfolio.smallCheckout.contributionValueCurrency.validation.tooLow.${currency}`,
+        });
+      } else if (
+        values.contributionValueCurrency > MAXIMUM_CONTRIBUTION_VALUE_IN_MONEY
+      ) {
+        errors.contributionValueCurrency = formatMessage({
+          id: 'portfolio.smallCheckout.contributionValueCurrency.validation.tooHigh',
+        });
+      }
 
-    return errors;
-  }, []);
+      return errors;
+    },
+    [locale]
+  );
 
   const onSubmit = async ({ contributionValueCurrency }: SmallCheckoutForm) => {
     push(
@@ -158,9 +161,9 @@ const SmallCheckout = ({
                       })}
                       rightAddonsOrElements={[
                         <InputRightAddon key="currencyUnit">
-                          <FormattedMessage
-                            id={`portfolio.smallCheckout.contributionValueCurrency.unit.${currency}`}
-                          />
+                          {formatMessage({
+                            id: `portfolio.smallCheckout.contributionValueCurrency.unit.${currency}`,
+                          })}
                         </InputRightAddon>,
                       ]}
                       isInvalid={
@@ -212,7 +215,7 @@ const SmallCheckout = ({
             <Spacer height="4" />
 
             <Button type="submit" width="full">
-              <FormattedMessage id="portfolio.smallCheckout.submitButton" />
+              {formatMessage({ id: 'portfolio.smallCheckout.submitButton' })}
             </Button>
           </Form>
         )}

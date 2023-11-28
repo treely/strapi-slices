@@ -1,5 +1,6 @@
-import { render, screen } from '@/test/testUtils';
-import { strapiPortfolioCardMock } from '@/test/strapiMocks/strapiPortfolioCard';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
+import { strapiPortfolioCardMock } from '../../test/strapiMocks/strapiPortfolioCard';
 import LeftTextRightCard from '.';
 import { LeftTextRightCardProps } from './LeftTextRightCard';
 

@@ -1,6 +1,7 @@
-import { strapiMediaMock } from '@/test/strapiMocks/strapiMedia';
-import { mergeDeep } from '@/utils/mergeDeep';
-import { render, screen } from '@/test/testUtils';
+import React from 'react';
+import { strapiMediaMock } from '../../../test/strapiMocks/strapiMedia';
+import { mergeDeep } from '../../../utils/mergeDeep';
+import { render, screen } from '../../../test/testUtils';
 import { ContactProps } from './Contact';
 import Contact from '.';
 import { pushSpy, useRouter } from '../../../../__mocks__/next/router';

@@ -1,4 +1,4 @@
-import StrapiLink from '@/models/strapi/StrapiLink';
+import StrapiLink from '../models/strapi/StrapiLink';
 
 const strapiLinkUrl = (
   strapiLink: StrapiLink | undefined = undefined

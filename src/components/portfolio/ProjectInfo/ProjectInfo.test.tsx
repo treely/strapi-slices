@@ -1,5 +1,6 @@
-import { render, screen } from '@/test/testUtils';
-import portfolioProjectMock from '@/test/mocks/portfolioProjectMock';
+import React from 'react';
+import { render, screen } from '../../../test/testUtils';
+import portfolioProjectMock from '../../../test/mocks/portfolioProjectMock';
 import ProjectInfo from '.';
 import { ProjectInfoProps } from './ProjectInfo';
 

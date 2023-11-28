@@ -1,9 +1,10 @@
+import React from 'react';
 import { Button } from 'boemly';
 import Link from 'next/link';
 import { useDetectAdBlock } from 'adblock-detect-react';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import strapiLinkUrl from '@/utils/strapiLinkUrl';
-import openHubSpotChat from '@/utils/openHubSpotChat';
+import StrapiLink from '../../models/strapi/StrapiLink';
+import strapiLinkUrl from '../../utils/strapiLinkUrl';
+import openHubSpotChat from '../../utils/openHubSpotChat';
 
 export interface StrapiLinkButtonProps {
   link: StrapiLink;
@@ -30,11 +31,9 @@ export const StrapiLinkButton: React.FC<StrapiLinkButtonProps> = ({
   if (link.intercomLauncher) {
     if (adBlockDetected) {
       return (
-        <Link href="mailto:hello@tree.ly" passHref legacyBehavior>
-          <Button {...buttonProps} as="a">
-            {link.text}
-          </Button>
-        </Link>
+        <Button {...buttonProps} as={Link} href="mailto:hello@tree.ly">
+          {link.text}
+        </Button>
       );
     }
 
@@ -46,10 +45,8 @@ export const StrapiLinkButton: React.FC<StrapiLinkButtonProps> = ({
   }
 
   return (
-    <Link href={strapiLinkUrl(link)} passHref legacyBehavior>
-      <Button {...buttonProps} as="a">
-        {link.text}
-      </Button>
-    </Link>
+    <Button {...buttonProps} as={Link} href={strapiLinkUrl(link)}>
+      {link.text}
+    </Button>
   );
 };

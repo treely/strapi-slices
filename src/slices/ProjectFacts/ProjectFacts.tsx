@@ -1,11 +1,12 @@
+import React from 'react';
 import { DefaultSectionContainer, Flex, Wrapper } from 'boemly';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import PortfolioProject from '@/models/PortfolioProject';
-import SmallCheckout from '@/components/portfolio/SmallCheckout';
-import ProjectInfo from '@/components/portfolio/ProjectInfo';
-import DocumentsDownloadList from '@/components/portfolio/DocumentsDownloadList';
-import Contact from '@/components/portfolio/Contact';
-import StrapiImage from '@/models/strapi/StrapiImage';
+import StrapiLink from '../../models/strapi/StrapiLink';
+import PortfolioProject from '../../models/PortfolioProject';
+import SmallCheckout from '../../components/portfolio/SmallCheckout';
+import ProjectInfo from '../../components/portfolio/ProjectInfo';
+import DocumentsDownloadList from '../../components/portfolio/DocumentsDownloadList';
+import Contact from '../../components/portfolio/Contact';
+import StrapiImage from '../../models/strapi/StrapiImage';
 
 export interface ProjectFactsProps {
   project?: PortfolioProject;

@@ -73,6 +73,8 @@
     ]
   },
   "peerDependencies": {
+    "@emotion/react": ">=11",
+    "@emotion/styled": ">=11",
     "next": "^14.0.3",
     "react": ">=18",
     "react-intl": ">=6"
@@ -83,11 +85,11 @@
   "size-limit": [
     {
       "path": "dist/strapi-slices.cjs.production.min.js",
-      "limit": "10 KB"
+      "limit": "2 MB"
     },
     {
       "path": "dist/strapi-slices.esm.js",
-      "limit": "10 KB"
+      "limit": "600 KB"
     }
   ],
   "devDependencies": {
@@ -113,13 +115,13 @@
     "esbuild": "^0.19.8",
     "husky": "^8.0.3",
     "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
     "mq-polyfill": "^1.1.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "semantic-release": "^22.0.8",
     "size-limit": "^11.0.0",
     "storybook": "^7.5.3",
-    "tslib": "^2.6.2",
     "typescript": "^5.3.2"
   },
   "dependencies": {
@@ -127,6 +129,7 @@
     "adblock-detect-react": "^1.1.0",
     "boemly": "^5.3.0",
     "formik": "^2.4.5",
+    "framer-motion": "^10.16.5",
     "mapbox-gl": "^2.15.0"
   }
 }

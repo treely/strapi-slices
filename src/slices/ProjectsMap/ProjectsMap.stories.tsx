@@ -1,11 +1,12 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import fpmProjectMock from '@/test/integrationMocks/fpmProjectMock';
-import CreditsAvailableState from '@/models/CreditsAvailableState';
+import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
+import CreditsAvailableState from '../../models/CreditsAvailableState';
 import ProjectsMap from '.';
 
 export default {
-  title: 'sections/ProjectsMap',
+  title: 'slices/ProjectsMap',
   component: ProjectsMap,
 } as Meta<typeof ProjectsMap>;
 

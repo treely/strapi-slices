@@ -1,6 +1,7 @@
-import { render, screen } from '@/test/testUtils';
-import fpmProjectMock from '@/test/integrationMocks/fpmProjectMock';
-import { MAPBOX_INITIAL_ZOOM } from '@/constants/mapbox';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
+import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
+import { MAPBOX_INITIAL_ZOOM } from '../../constants/mapbox';
 import ProjectsMap from '.';
 import { ProjectsMapProps } from './ProjectsMap';
 import {

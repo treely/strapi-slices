@@ -1,6 +1,7 @@
-import { strapiLinkPageMock } from '@/test/strapiMocks/strapiLinkPage';
-import { render, screen } from '@/test/testUtils';
-import { strapiMediaMock } from '@/test/strapiMocks/strapiMedia';
+import React from 'react';
+import { strapiLinkPageMock } from '../../test/strapiMocks/strapiLinkPage';
+import { render, screen } from '../../test/testUtils';
+import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
 import TextCarousel from '.';
 import { TextCarouselProps } from './TextCarousel';
 

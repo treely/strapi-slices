@@ -1,6 +1,7 @@
+import React from 'react';
 import { Box, Wrapper } from 'boemly';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
-import StrapiLink from '@/models/strapi/StrapiLink';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
+import StrapiLink from '../../models/strapi/StrapiLink';
 
 export interface CtaOnlyProps {
   slice: {

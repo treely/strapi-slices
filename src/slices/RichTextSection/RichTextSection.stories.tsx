@@ -1,9 +1,10 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import RichTextSection from '.';
 
 export default {
-  title: 'sections/RichTextSection',
+  title: 'slices/RichTextSection',
   component: RichTextSection,
 } as Meta<typeof RichTextSection>;
 

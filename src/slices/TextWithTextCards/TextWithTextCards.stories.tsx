@@ -1,14 +1,15 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import {
   storybookStrapiAvatarMock,
   storybookStrapiGradientTopDownMock,
   storybookStrapiTreeIconMock,
-} from '@/test/storybookMocks/storybookStrapiMedia';
+} from '../../test/storybookMocks/storybookStrapiMedia';
 import TextWithTextCards from '.';
 
 export default {
-  title: 'sections/TextWithTextCards',
+  title: 'slices/TextWithTextCards',
   component: TextWithTextCards,
 } as Meta<typeof TextWithTextCards>;
 

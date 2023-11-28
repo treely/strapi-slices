@@ -1,7 +1,8 @@
-import { render, screen } from '@/test/testUtils';
+import React from 'react';
+import { render, screen } from '../../test/testUtils';
 import ProjectFacts from '.';
 import { ProjectFactsProps } from './ProjectFacts';
-import portfolioProjectMock from '@/test/mocks/portfolioProjectMock';
+import portfolioProjectMock from '../../test/mocks/portfolioProjectMock';
 
 const defaultProps: ProjectFactsProps = {
   slice: {

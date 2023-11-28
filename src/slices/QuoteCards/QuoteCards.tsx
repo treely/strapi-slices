@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 import {
   Box,
@@ -8,14 +9,13 @@ import {
   SimpleGrid,
   Wrapper,
 } from 'boemly';
-import StrapiDefaultHeader from '@/models/strapi/StrapiDefaultHeader';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import StrapiQuoteCard from '@/models/strapi/StrapiQuoteCard';
-import StrapiHeroCard from '@/models/strapi/StrapiHeroCard';
-import strapiLinkUrl from '@/utils/strapiLinkUrl';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import convertToKebabCase from '@/utils/convertToKebabCase';
-import { QuoteCardHeroContainer, QuoteCardsContainer } from './styles';
+import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import StrapiQuoteCard from '../../models/strapi/StrapiQuoteCard';
+import StrapiHeroCard from '../../models/strapi/StrapiHeroCard';
+import strapiLinkUrl from '../../utils/strapiLinkUrl';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import convertToKebabCase from '../../utils/convertToKebabCase';
 
 interface QuoteCardsSlice extends StrapiDefaultHeader {
   cards: StrapiQuoteCard[];
@@ -30,9 +30,11 @@ export const QuoteCards: React.FC<QuoteCardsProps> = ({
   slice,
 }: QuoteCardsProps) => (
   <>
-    <QuoteCardsContainer
-      withHero={!!slice.hero}
+    <Box
       id={convertToKebabCase(slice.title)}
+      position="relative"
+      paddingTop="28"
+      paddingBottom={!!slice.hero ? '80' : '28'}
     >
       {slice.shapes && slice.shapes.length === 2 && (
         <>
@@ -104,9 +106,9 @@ export const QuoteCards: React.FC<QuoteCardsProps> = ({
           ))}
         </SimpleGrid>
       </Wrapper>
-    </QuoteCardsContainer>
+    </Box>
     {slice.hero && (
-      <QuoteCardHeroContainer>
+      <Box marginTop="-40" paddingBottom="28">
         <Wrapper>
           <HeroCard
             title={slice.hero.title}
@@ -129,7 +131,7 @@ export const QuoteCards: React.FC<QuoteCardsProps> = ({
             }
           />
         </Wrapper>
-      </QuoteCardHeroContainer>
+      </Box>
     )}
   </>
 );

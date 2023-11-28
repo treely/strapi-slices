@@ -1,11 +1,12 @@
+import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
-import { storybookStrapiCoverMock } from '@/test/storybookMocks/storybookStrapiMedia';
-import StrapiLinkWithIcon from '@/models/strapi/StrapiLinkWithIcon';
+import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
+import StrapiLinkWithIcon from '../../models/strapi/StrapiLinkWithIcon';
 import ImageGrid from '.';
 
 export default {
-  title: 'sections/ImageGrid',
+  title: 'slices/ImageGrid',
   component: ImageGrid,
 } as Meta<typeof ImageGrid>;
 

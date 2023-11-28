@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
+import React from 'react';
 import { BoemlyThemeProvider } from 'boemly';
 import { IntlProvider } from 'react-intl';
 import { render as rtlRender } from '@testing-library/react';
-import rootMessagesEn from '@/rootMessages.en';
+import rootMessagesEn from '../rootMessages.en';
 import userEvent from '@testing-library/user-event';
 
 interface WrapperProps {
-  children?: ReactNode;
+  children?: React.ReactNode;
 }
 
 const render = (ui: any, { locale = 'en', ...renderOptions } = {}) => {

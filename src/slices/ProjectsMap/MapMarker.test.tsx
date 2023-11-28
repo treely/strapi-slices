@@ -1,5 +1,6 @@
-import { fireEvent, render, screen, waitFor } from '@/test/testUtils';
-import CreditsAvailableState from '@/models/CreditsAvailableState';
+import React from 'react';
+import { fireEvent, render, screen, waitFor } from '../../test/testUtils';
+import CreditsAvailableState from '../../models/CreditsAvailableState';
 import MapMarker, { MapMarkerProps } from './MapMarker';
 import messagesEn from './messages.en';
 

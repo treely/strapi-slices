@@ -1,7 +1,8 @@
-import StrapiLinkButton from '@/components/StrapiLinkButton';
-import StrapiImage from '@/models/strapi/StrapiImage';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
+import React, { useContext } from 'react';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
+import StrapiImage from '../../models/strapi/StrapiImage';
+import StrapiLink from '../../models/strapi/StrapiLink';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import {
   Container,
   DefaultSectionContainer,
@@ -18,9 +19,9 @@ import {
 } from 'boemly';
 import Image from 'next/image';
 import { CaretRight } from '@phosphor-icons/react';
-import { useIntl } from 'react-intl';
 import { Icon } from './Icon';
-import { CDN_URI } from '@/constants/api';
+import { CDN_URI } from '../../constants/api';
+import { IntlContext } from '../../components/ContextProvider';
 
 export interface ComparisonProps {
   slice: {
@@ -76,7 +77,7 @@ const VARIANTS = {
 export const Comparison: React.FC<ComparisonProps> = ({
   slice,
 }: ComparisonProps) => {
-  const { formatMessage } = useIntl();
+  const { formatMessage } = useContext(IntlContext);
 
   return (
     <DefaultSectionContainer>

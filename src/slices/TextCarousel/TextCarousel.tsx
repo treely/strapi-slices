@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import {
   Center,
   DefaultSectionContainer,
@@ -6,13 +7,12 @@ import {
   useToken,
   Wrapper,
 } from 'boemly';
-import { useRef } from 'react';
 import Image from 'next/image';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
-import StrapiDefaultHeader from '@/models/strapi/StrapiDefaultHeader';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import StrapiTextCardWithIcon from '@/models/strapi/StrapiTextCardWithIcons';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
+import StrapiLink from '../../models/strapi/StrapiLink';
+import StrapiTextCardWithIcon from '../../models/strapi/StrapiTextCardWithIcons';
+import StrapiLinkButton from '../../components/StrapiLinkButton';
 import {
   CardContainer,
   CarouselContainer,

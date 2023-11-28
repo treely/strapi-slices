@@ -1,9 +1,10 @@
-import StrapiImage from '@/models/strapi/StrapiImage';
-import StrapiLink from '@/models/strapi/StrapiLink';
-import strapiMediaUrl from '@/utils/strapiMediaUrl';
+import React from 'react';
+import StrapiImage from '../../../models/strapi/StrapiImage';
+import StrapiLink from '../../../models/strapi/StrapiLink';
+import strapiMediaUrl from '../../../utils/strapiMediaUrl';
 import { Text, Heading, Flex, Box, Container } from 'boemly';
 import Image from 'next/image';
-import StrapiLinkButton from '@/components/StrapiLinkButton';
+import StrapiLinkButton from '../../../components/StrapiLinkButton';
 
 export interface ContactProps {
   avatar?: StrapiImage;

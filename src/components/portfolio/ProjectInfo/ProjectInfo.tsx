@@ -1,3 +1,4 @@
+import React, { useContext } from 'react';
 import {
   Box,
   Container,
@@ -8,17 +9,17 @@ import {
   SimpleGrid,
   Spacer,
 } from 'boemly';
-import { FormattedMessage, useIntl } from 'react-intl';
 import Image from 'next/image';
-import convertAreaM2ToHa from '@/utils/convertAreaM2ToHa';
-import convertCo2AmountKgToTons from '@/utils/convertCo2AmountKgToTons';
-import CreditsAvailableBadge from '@/components/CreditsAvailableBadge';
-import PortfolioProject from '@/models/PortfolioProject';
+import convertAreaM2ToHa from '../../../utils/convertAreaM2ToHa';
+import convertCo2AmountKgToTons from '../../../utils/convertCo2AmountKgToTons';
+import CreditsAvailableBadge from '../../../components/CreditsAvailableBadge';
+import PortfolioProject from '../../../models/PortfolioProject';
 import {
   FORMAT_AS_HECTARE_CONFIG,
   FORMAT_AS_PERCENT_CONFIG,
-} from '@/constants/formatter';
-import getTimeSpanInYears from '@/utils/getTimeSpanInYears';
+} from '../../../constants/formatter';
+import getTimeSpanInYears from '../../../utils/getTimeSpanInYears';
+import { IntlContext } from '../../ContextProvider';
 
 export interface ProjectInfoProps {
   project: PortfolioProject;
@@ -40,12 +41,12 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({
   project,
   subtitles,
 }: ProjectInfoProps) => {
-  const { formatMessage, formatNumber, formatDate } = useIntl();
+  const { formatMessage, formatNumber, formatDate } = useContext(IntlContext);
 
   return (
     <Container p="2" width="full">
       <Heading size="xl" textAlign="left">
-        <FormattedMessage id="features.projectInfo.projectInfo.value" />
+        {formatMessage({ id: 'features.projectInfo.projectInfo.value' })}
       </Heading>
 
       <Spacer height="8" />

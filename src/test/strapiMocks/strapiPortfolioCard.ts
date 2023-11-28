@@ -1,4 +1,4 @@
-import StrapiPortfolioCard from '@/models/strapi/StrapiPortfolioCard';
+import StrapiPortfolioCard from '../../models/strapi/StrapiPortfolioCard';
 import { strapiMediaMock } from './strapiMedia';
 
 export const strapiPortfolioCardMock: StrapiPortfolioCard = {

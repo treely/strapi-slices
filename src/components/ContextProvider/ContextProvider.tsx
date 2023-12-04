@@ -6,6 +6,7 @@ import Locale from '../../models/Locale';
 import { BoemlyThemeProvider } from 'boemly';
 import { Global } from '@emotion/react';
 import { GLOBAL_STYLE } from '../../constants/globalStyle';
+import { FONT_CUSTOMIZATIONS } from '../../constants/fontCustomizations';
 
 const cache = createIntlCache();
 
@@ -30,7 +31,7 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
   locale,
 }: ContextProviderProps): JSX.Element => {
   return (
-    <BoemlyThemeProvider>
+    <BoemlyThemeProvider fonts={FONT_CUSTOMIZATIONS}>
       <Global styles={{ GLOBAL_STYLE }} />
       <IntlContext.Provider value={intlFactory(locale)}>
         {children}

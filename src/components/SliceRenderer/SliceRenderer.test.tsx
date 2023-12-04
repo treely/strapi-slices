@@ -10,7 +10,7 @@ const defaultProps: SliceRendererProps = {
   customerStories: [],
 };
 
-const setup = (props = {}) => {
+const setup = (props: Partial<SliceRendererProps> = {}) => {
   const combinedProps = { ...defaultProps, ...props };
   return render(<SliceRenderer {...combinedProps} />);
 };
@@ -32,5 +32,16 @@ describe('The SliceRenderer component', () => {
     });
 
     expect(screen.getByText('Rich text')).toBeInTheDocument();
+  });
+
+  it('renders a custom slice if given', () => {
+    const CustomSlice = () => <div>Custom slice</div>;
+
+    setup({
+      slices: [{ id: 1, __component: 'custom.slice' }],
+      additionalSlices: [{ id: 'custom.slice', component: <CustomSlice /> }],
+    });
+
+    expect(screen.getByText('Custom slice')).toBeInTheDocument();
   });
 });

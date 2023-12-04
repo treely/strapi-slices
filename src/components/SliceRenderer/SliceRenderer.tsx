@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import FullWidthImage from '../../slices/FullWidthImage';
 import Hero from '../../slices/Hero';
 import IconGrid from '../../slices/IconGrid';
@@ -40,12 +40,18 @@ import Comparison from '../../slices/Comparison';
 import Locale from '../../models/Locale';
 import { ContextProvider } from '../ContextProvider';
 
+interface CustomSliceProps {
+  slice: any;
+  key: string;
+}
+
 export interface SliceRendererProps {
   slices: any;
   blogPosts: IStrapiData<StrapiBlogPost>[];
   projects: PortfolioProject[];
   customerStories: IStrapiData<StrapiCustomerStory>[];
   locale?: Locale;
+  additionalSlices?: { id: string; component: ReactNode }[];
 }
 
 export const SliceRenderer = ({
@@ -54,6 +60,7 @@ export const SliceRenderer = ({
   projects,
   customerStories,
   locale = 'en',
+  additionalSlices = [],
 }: SliceRendererProps): JSX.Element => (
   <ContextProvider locale={locale}>
     {slices.map((slice: any) => {
@@ -288,6 +295,17 @@ export const SliceRenderer = ({
             />
           );
         default:
+          const additionalSlice = additionalSlices.find(
+            (additionalSlice) => additionalSlice.id === slice.__component
+          );
+          if (additionalSlice) {
+            return (
+              <div key={`${slice.__component}-${slice.id}`}>
+                {additionalSlice.component}
+              </div>
+            );
+          }
+
           return (
             <div key={`${slice.__component}-${slice.id}`}>
               Slice component not supported

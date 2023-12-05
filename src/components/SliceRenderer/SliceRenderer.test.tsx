@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '../../test/testUtils';
 import { SliceRenderer } from '.';
-import { SliceRendererProps } from './SliceRenderer';
+import { CustomSliceProps, SliceRendererProps } from './SliceRenderer';
 
 const defaultProps: SliceRendererProps = {
   slices: [],
@@ -35,13 +35,15 @@ describe('The SliceRenderer component', () => {
   });
 
   it('renders a custom slice if given', () => {
-    const CustomSlice = () => <div>Custom slice</div>;
+    const CustomSlice = ({ id }: CustomSliceProps): JSX.Element => (
+      <div>Custom slice {id}</div>
+    );
 
     setup({
       slices: [{ id: 1, __component: 'custom.slice' }],
-      additionalSlices: [{ id: 'custom.slice', component: <CustomSlice /> }],
+      CustomSlice,
     });
 
-    expect(screen.getByText('Custom slice')).toBeInTheDocument();
+    expect(screen.getByText('Custom slice custom.slice')).toBeInTheDocument();
   });
 });

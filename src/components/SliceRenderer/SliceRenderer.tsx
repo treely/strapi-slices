@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import FullWidthImage from '../../slices/FullWidthImage';
 import Hero from '../../slices/Hero';
 import IconGrid from '../../slices/IconGrid';
@@ -40,9 +40,9 @@ import Comparison from '../../slices/Comparison';
 import Locale from '../../models/Locale';
 import { ContextProvider } from '../ContextProvider';
 
-interface CustomSliceProps {
+export interface CustomSliceProps {
   slice: any;
-  key: string;
+  id: string;
 }
 
 export interface SliceRendererProps {
@@ -51,7 +51,7 @@ export interface SliceRendererProps {
   projects: PortfolioProject[];
   customerStories: IStrapiData<StrapiCustomerStory>[];
   locale?: Locale;
-  additionalSlices?: { id: string; component: ReactNode }[];
+  CustomSlice?: ({ slice, id }: CustomSliceProps) => JSX.Element;
 }
 
 export const SliceRenderer = ({
@@ -60,7 +60,7 @@ export const SliceRenderer = ({
   projects,
   customerStories,
   locale = 'en',
-  additionalSlices = [],
+  CustomSlice,
 }: SliceRendererProps): JSX.Element => (
   <ContextProvider locale={locale}>
     {slices.map((slice: any) => {
@@ -295,14 +295,13 @@ export const SliceRenderer = ({
             />
           );
         default:
-          const additionalSlice = additionalSlices.find(
-            (additionalSlice) => additionalSlice.id === slice.__component
-          );
-          if (additionalSlice) {
+          if (CustomSlice) {
             return (
-              <div key={`${slice.__component}-${slice.id}`}>
-                {additionalSlice.component}
-              </div>
+              <CustomSlice
+                key={`${slice.__component}-${slice.id}`}
+                id={slice.__component}
+                slice={slice}
+              />
             );
           }
 

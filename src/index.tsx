@@ -47,6 +47,8 @@ import mergeGlobalAndStrapiBlogPostData from './utils/mergeGlobalAndStrapiBlogPo
 import mergeGlobalAndStrapiCustomerStoryData from './utils/mergeGlobalAndStrapiCustomerStoryData';
 import mergeGlobalAndStrapiPageData from './utils/mergeGlobalAndStrapiPageData';
 import mergeGlobalAndStrapiProjectData from './utils/mergeGlobalAndStrapiProjectData';
+import strapiLinkUrl from './utils/strapiLinkUrl';
+import strapiMediaUrl from './utils/strapiMediaUrl';
 
 import {
   SECTIONS_WITH_BLOG_POSTS,
@@ -63,6 +65,8 @@ export {
   mergeGlobalAndStrapiCustomerStoryData,
   mergeGlobalAndStrapiPageData,
   mergeGlobalAndStrapiProjectData,
+  strapiLinkUrl,
+  strapiMediaUrl,
 
   // Constants
   SECTIONS_WITH_BLOG_POSTS,

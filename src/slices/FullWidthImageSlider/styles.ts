@@ -26,7 +26,7 @@ export const SliderContainer = styled(Box)`
 `;
 
 interface ButtonsContainerProps {
-  show: boolean;
+  show: string;
 }
 export const ButtonsContainer = styled(Box)<ButtonsContainerProps>`
   display: ${({ show }: ButtonsContainerProps) => (show ? 'flex' : 'none')};

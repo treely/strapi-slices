@@ -97,7 +97,7 @@ export const FullWidthImageSlider: React.FC<FullWidthImageSliderProps> = ({
         </SliderInnerContainer>
       </SliderContainer>
 
-      <ButtonsContainer show={allowScroll && !isOpen}>
+      <ButtonsContainer show={(allowScroll && !isOpen).toString()}>
         <Box>
           <AnimatePresence>
             {canMoveLeft && (

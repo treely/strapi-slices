@@ -20,7 +20,7 @@ export const CarouselContainer = styled(Box)`
 `;
 
 interface CarouselInnerContainerProps {
-  numberOfItems: number;
+  numberofitems: number;
 }
 export const CarouselInnerContainer = styled(
   motion.div
@@ -29,7 +29,7 @@ export const CarouselInnerContainer = styled(
   justify-content: center;
   width: calc(
     (var(--boemly-sizes-sm) + var(--boemly-space-16)) *
-      ${({ numberOfItems }: CarouselInnerContainerProps) => numberOfItems} +
+      ${({ numberofitems }: CarouselInnerContainerProps) => numberofitems} +
       var(--boemly-space-16)
   );
   min-width: var(--boemly-sizes-full);
@@ -37,18 +37,18 @@ export const CarouselInnerContainer = styled(
   @media screen and (max-width: ${BREAKPOINT_MD}) {
     width: calc(
       (var(--boemly-sizes-xs) + var(--boemly-space-4)) *
-        ${({ numberOfItems }: CarouselInnerContainerProps) => numberOfItems} +
+        ${({ numberofitems }: CarouselInnerContainerProps) => numberofitems} +
         var(--boemly-space-6)
     );
   }
 `;
 
 interface CardContainerProps {
-  numberOfItems: number;
+  numberofitems: number;
 }
 export const CardContainer = styled(Box)<CardContainerProps>`
-  width: ${({ numberOfItems }: CardContainerProps) =>
-    numberOfItems === 3 ? 'var(--boemly-sizes-xl)' : 'var(--boemly-sizes-sm)'};
+  width: ${({ numberofitems }: CardContainerProps) =>
+    numberofitems === 3 ? 'var(--boemly-sizes-xl)' : 'var(--boemly-sizes-sm)'};
 
   margin-right: var(--boemly-space-16);
 

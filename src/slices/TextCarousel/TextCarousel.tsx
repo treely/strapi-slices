@@ -51,10 +51,10 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
         <CarouselInnerContainer
           drag="x"
           dragConstraints={containerRef}
-          numberOfItems={slice.slides.length}
+          numberofitems={slice.slides.length}
         >
           {slice.slides.map(({ id, title, text, icon }) => (
-            <CardContainer key={id} numberOfItems={slice.slides.length}>
+            <CardContainer key={id} numberofitems={slice.slides.length}>
               <TextCardWithIcon
                 title={title}
                 text={text}

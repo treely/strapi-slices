@@ -40,8 +40,10 @@ import StrapiTopBanner from './models/strapi/StrapiTopBanner';
 
 import HeaderType from './models/HeaderType';
 import Image from './models/Image';
+import Locale from './models/Locale';
 import PageMetadata from './models/PageMetadata';
 import PageProps from './models/PageProps';
+import PortfolioProject from './models/PortfolioProject';
 
 import mergeGlobalAndStrapiBlogPostData from './utils/mergeGlobalAndStrapiBlogPostData';
 import mergeGlobalAndStrapiCustomerStoryData from './utils/mergeGlobalAndStrapiCustomerStoryData';
@@ -119,6 +121,8 @@ export type {
   // Models
   HeaderType,
   Image,
+  Locale,
   PageMetadata,
   PageProps,
+  PortfolioProject,
 };

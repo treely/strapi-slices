@@ -142,13 +142,13 @@ const mapboxStyle = css`
   .mapboxgl-ctrl button:disabled .mapboxgl-ctrl-icon {
     opacity: 0.25;
   }
-  .mapboxgl-ctrl-group button:first-child {
+  .mapboxgl-ctrl-group button:first-of-type {
     border-radius: 4px 4px 0 0;
   }
-  .mapboxgl-ctrl-group button:last-child {
+  .mapboxgl-ctrl-group button:last-of-type {
     border-radius: 0 0 4px 4px;
   }
-  .mapboxgl-ctrl-group button:only-child {
+  .mapboxgl-ctrl-group button:only-of-type {
     border-radius: inherit;
   }
   .mapboxgl-ctrl button:not(:disabled):hover {

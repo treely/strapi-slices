@@ -2,6 +2,7 @@ import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
+import { storybookStrapiAvatarMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import CreditsAvailableState from '../../models/CreditsAvailableState';
 import ProjectFacts from '.';
 
@@ -87,6 +88,58 @@ FullProps.args = {
       id: 1,
       text: 'Contact our Sales Team',
       url: 'https://example.org',
+    },
+  },
+};
+
+export const WithContact = Template.bind({});
+WithContact.args = {
+  project: fpmProjectMock,
+  slice: {
+    projectId: fpmProjectMock.id,
+
+    contactTitle: 'Contact Title',
+    contactText: 'Contact Text',
+    contactButton: {
+      id: 1,
+      text: 'Contact our Sales Team',
+      url: 'https://example.org',
+    },
+    contactAvatar: {
+      id: 1,
+      alt: 'Avatar image alt text',
+      img: {
+        data: storybookStrapiAvatarMock,
+      },
+    },
+  },
+};
+
+export const WithDocumentsAndContact = Template.bind({});
+WithDocumentsAndContact.args = {
+  project: fpmProjectMock,
+  slice: {
+    projectId: fpmProjectMock.id,
+
+    documentUrls: [
+      { id: 1, text: 'Document 1', url: 'https://example.org' },
+      { id: 2, text: 'Document 2', url: 'https://example.org' },
+      { id: 3, text: 'Document 3', url: 'https://example.org' },
+    ],
+
+    contactTitle: 'Contact Title',
+    contactText: 'Contact Text',
+    contactButton: {
+      id: 1,
+      text: 'Contact our Sales Team',
+      url: 'https://example.org',
+    },
+    contactAvatar: {
+      id: 1,
+      alt: 'Avatar image alt text',
+      img: {
+        data: storybookStrapiAvatarMock,
+      },
     },
   },
 };

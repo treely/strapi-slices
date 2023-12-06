@@ -1,6 +1,4 @@
-import React, { useContext, useCallback } from 'react';
-import { CDN_URI, FPM_API_URI } from '../../../constants/api';
-import StrapiLinkButton from '../../../components/StrapiLinkButton';
+import React, { useCallback, useContext } from 'react';
 import {
   BoemlyFormControl,
   Box,
@@ -21,12 +19,14 @@ import {
 } from 'formik';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import StrapiLink from '../../../models/strapi/StrapiLink';
+import { StrapiLink } from '../../..';
+import { IntlContext } from '../../ContextProvider';
 import {
   MAXIMUM_CONTRIBUTION_VALUE_IN_MONEY,
   MINIMUM_CONTRIBUTION_VALUE_IN_MONEY,
 } from '../../../constants/domain';
-import { IntlContext } from '../../ContextProvider';
+import { CDN_URI, FPM_API_URI } from '../../../constants/api';
+import StrapiLinkButton from '../../StrapiLinkButton';
 
 export interface SmallCheckoutProps {
   batchId: string;
@@ -85,13 +85,12 @@ const SmallCheckout = ({
     [locale]
   );
 
-  const onSubmit = async ({ contributionValueCurrency }: SmallCheckoutForm) => {
+  const onSubmit = async ({ contributionValueCurrency }: SmallCheckoutForm) =>
     push(
       `${FPM_API_URI}/v1/webhooks/shop/checkout?batchId=${batchId}&quantity=${Math.floor(
         contributionValueCurrency / pricePerKg
       )}`
     );
-  };
 
   return (
     <Flex
@@ -143,12 +142,12 @@ const SmallCheckout = ({
                     <BoemlyFormControl
                       id="contributionValueCurrency"
                       size="md"
-                      inputType="NumberInput"
-                      numberInputProps={{
+                      inputProps={{
+                        type: 'number',
                         value: field.value,
-                        onChange: (valueString) => {
+                        onChange: (e) => {
                           // valueAsNumber might be NaN
-                          const value = parseInt(valueString || '0', 10);
+                          const value = e.target.valueAsNumber || 0;
 
                           setValues({
                             contributionValueCurrency: value,
@@ -182,11 +181,11 @@ const SmallCheckout = ({
                     <BoemlyFormControl
                       id="contributionValueKgs"
                       size="md"
-                      inputType="NumberInput"
-                      numberInputProps={{
+                      inputProps={{
+                        type: 'number',
                         value: field.value,
-                        onChange: (valueString) => {
-                          const value = parseInt(valueString || '0', 10);
+                        onChange: (e) => {
+                          const value = e.target.valueAsNumber || 0;
 
                           setValues({
                             contributionValueCurrency:

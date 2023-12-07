@@ -1,4 +1,4 @@
-export default {
+const messagesEn = {
   'portfolio.smallCheckout.contributionValueCurrency.label.CHF':
     'Contribution Amount in CHF',
   'portfolio.smallCheckout.contributionValueCurrency.label.EUR':
@@ -24,3 +24,4 @@ export default {
     'For enterprise-customers we offer custom solutions. Feel free to contact us.',
   'portfolio.smallCheckout.cta.button': 'Contact our Sales Team',
 };
+export default messagesEn;

@@ -1,4 +1,4 @@
-export default {
+const messagesDe = {
   'sections.shopCheckout.intro.price': 'Preis',
 
   'sections.shopCheckout.contributionValue.label.EUR':
@@ -21,3 +21,4 @@ export default {
 
   'sections.shopCheckout.submit': 'Kaufen',
 };
+export default messagesDe;

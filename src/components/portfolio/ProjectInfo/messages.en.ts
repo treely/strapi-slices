@@ -1,4 +1,4 @@
-export default {
+const messagesEn = {
   'features.projectInfo.projectInfo.value': 'Project Infos',
   'features.projectInfo.properties.area': 'Project Area',
   'features.projectInfo.properties.location': 'Location',
@@ -17,3 +17,4 @@ export default {
   'features.projectInfo.properties.year':
     '{years} {years, plural, one {year} other {years} }',
 };
+export default messagesEn;

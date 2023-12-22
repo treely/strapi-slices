@@ -3,6 +3,7 @@ import { render, screen } from '../../test/testUtils';
 import { strapiProjectCardMock } from '../../test/strapiMocks/strapiProjectCard';
 import TextWithCard from '.';
 import { TextWithCardProps } from './TextWithCard';
+import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
 
 const defaultProps: TextWithCardProps = {
   slice: {
@@ -11,6 +12,7 @@ const defaultProps: TextWithCardProps = {
     text: 'Text',
     cardPosition: 'left',
   },
+  projects: [{ ...fpmProjectMock, slug: 'slug' }],
 };
 
 const setup = (props = {}) => {

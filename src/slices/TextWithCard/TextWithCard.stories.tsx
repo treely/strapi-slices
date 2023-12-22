@@ -2,6 +2,8 @@ import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
+import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
+import { strapiProjectMock } from '../../test/strapiMocks/strapiProject';
 import TextWithCard from '.';
 
 export default {
@@ -33,9 +35,9 @@ const card = {
     { id: 3, text: 'Fact 3' },
     { id: 4, text: 'Fact 4' },
   ],
-  footerTitle: 'Footer title',
-  footerSubTitle: 'Footer sub title',
+  project: { data: strapiProjectMock },
 };
+const projects = [{ ...fpmProjectMock, slug: 'slug' }];
 
 export const Minimal = Template.bind({});
 Minimal.args = {
@@ -43,6 +45,7 @@ Minimal.args = {
     title: 'Title',
     cardPosition: 'left',
   },
+  projects,
 };
 
 export const WithTagline = Template.bind({});
@@ -52,6 +55,7 @@ WithTagline.args = {
     title: 'Title',
     cardPosition: 'left',
   },
+  projects,
 };
 
 export const WithTaglineAndText = Template.bind({});
@@ -62,6 +66,7 @@ WithTaglineAndText.args = {
     text: 'Text',
     cardPosition: 'left',
   },
+  projects,
 };
 
 export const WithList = Template.bind({});
@@ -73,6 +78,7 @@ WithList.args = {
     listItems,
     cardPosition: 'left',
   },
+  projects,
 };
 
 export const WithButton = Template.bind({});
@@ -85,6 +91,7 @@ WithButton.args = {
     button,
     cardPosition: 'left',
   },
+  projects,
 };
 
 export const WithCard = Template.bind({});
@@ -98,6 +105,7 @@ WithCard.args = {
     card,
     cardPosition: 'left',
   },
+  projects,
 };
 
 export const WithCardOnRight = Template.bind({});
@@ -111,4 +119,5 @@ WithCardOnRight.args = {
     card,
     cardPosition: 'right',
   },
+  projects,
 };

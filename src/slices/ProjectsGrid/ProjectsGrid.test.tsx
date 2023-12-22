@@ -3,11 +3,13 @@ import { render, screen } from '../../test/testUtils';
 import { strapiProjectCardMock } from '../../test/strapiMocks/strapiProjectCard';
 import ProjectsGrid from '.';
 import { ProjectsGridProps } from './ProjectsGrid';
+import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
 
 const defaultProps: ProjectsGridProps = {
   slice: {
     projects: [strapiProjectCardMock],
   },
+  projects: [{ ...fpmProjectMock, slug: 'slug' }],
 };
 
 const setup = (props = {}) => {

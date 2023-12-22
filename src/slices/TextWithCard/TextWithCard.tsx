@@ -15,6 +15,9 @@ import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import StrapiLink from '../../models/strapi/StrapiLink';
 import StrapiProjectCard from '../../models/strapi/StrapiProjectCard';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
+import PortfolioProject from '../../models/PortfolioProject';
+import { useIntl } from 'react-intl';
+import { FORMAT_AS_HECTARE_CONFIG } from '../../constants/formatter';
 
 interface TextWithCardSlice {
   tagline?: string;
@@ -30,11 +33,19 @@ interface TextWithCardSlice {
 }
 export interface TextWithCardProps {
   slice: TextWithCardSlice;
+  projects: PortfolioProject[];
 }
 
 export const TextWithCard: React.FC<TextWithCardProps> = ({
   slice,
+  projects,
 }: TextWithCardProps) => {
+  const { formatNumber } = useIntl();
+
+  const fpmData = projects.find(
+    (project) => project.slug === slice.card?.project?.data?.attributes.slug
+  );
+
   const card = (
     <GridItem
       colSpan={[4, null, null, null, 2]}
@@ -44,7 +55,16 @@ export const TextWithCard: React.FC<TextWithCardProps> = ({
     >
       {slice.card && (
         <ProjectCard
-          facts={slice.card.facts}
+          facts={[
+            {
+              id: 1,
+              text: formatNumber(
+                (fpmData?.area || 0) / 10000,
+                FORMAT_AS_HECTARE_CONFIG
+              ),
+            },
+            { id: 2, text: fpmData?.location || '' },
+          ]}
           footerSubTitle={slice.card.footerSubTitle}
           footerTitle={slice.card.footerTitle}
           title={slice.card.title}

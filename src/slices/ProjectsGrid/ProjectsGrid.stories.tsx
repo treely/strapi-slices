@@ -2,8 +2,9 @@ import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
-import Locale from '../../models/Locale';
 import ProjectsGrid from '.';
+import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
+import { strapiProjectMock } from '../../test/strapiMocks/strapiProject';
 
 export default {
   title: 'slices/ProjectsGrid',
@@ -22,27 +23,9 @@ const card = {
     img: { data: storybookStrapiCoverMock },
   },
   title: 'Card title',
-  facts: [
-    { id: 1, text: 'Fact 1' },
-    { id: 2, text: 'Fact 2' },
-  ],
   footerTitle: 'Footer title',
   footerSubTitle: 'Footer sub title',
-  project: {
-    data: {
-      id: 1,
-      attributes: {
-        slug: 'slug',
-        metadata: null,
-        slices: [],
-        locale: 'en' as Locale,
-        createdAt: '2020-01-01T00:00:00.000Z',
-        updatedAt: '2020-01-01T00:00:00.000Z',
-        localizations: [],
-        portfolio: { data: undefined },
-      },
-    },
-  },
+  project: { data: strapiProjectMock },
 };
 
 export const Minimal = Template.bind({});
@@ -51,23 +34,12 @@ Minimal.args = {
     projects: [
       {
         ...card,
-        project: {
-          data: {
-            ...card.project.data,
-            attributes: { ...card.project.data.attributes, slug: 'slug-1' },
-          },
-        },
       },
       {
         ...card,
         id: 2,
-        project: {
-          data: {
-            ...card.project.data,
-            attributes: { ...card.project.data.attributes, slug: 'slug-2' },
-          },
-        },
       },
     ],
   },
+  projects: [{ ...fpmProjectMock, slug: 'slug' }],
 };

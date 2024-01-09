@@ -300,7 +300,7 @@ export const Cta: React.FC<CtaProps> = ({ slice }: CtaProps) => {
                       minWidth={[null, null, null, null, '50%']}
                     >
                       <Image
-                        src={strapiMediaUrl(ctaCard.image.img, 'medium')}
+                        src={strapiMediaUrl(ctaCard.image.img, 'xLarge')}
                         alt={ctaCard.image.alt}
                         fill
                         style={{
@@ -390,7 +390,7 @@ export const Cta: React.FC<CtaProps> = ({ slice }: CtaProps) => {
                       minWidth={[null, null, null, null, '50%']}
                     >
                       <Image
-                        src={strapiMediaUrl(ctaCard.image.img, 'medium')}
+                        src={strapiMediaUrl(ctaCard.image.img, 'xLarge')}
                         alt={ctaCard.image.alt}
                         fill
                         style={{

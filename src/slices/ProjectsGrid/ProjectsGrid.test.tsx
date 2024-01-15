@@ -5,8 +5,12 @@ import { ProjectsGridProps } from './ProjectsGrid';
 import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
 import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
 import CreditsAvailableState from '../../models/CreditsAvailableState';
+import { strapiProjectMock } from '../../test/strapiMocks/strapiProject';
 
 const defaultProps: ProjectsGridProps = {
+  slice: {
+    projects: { data: [strapiProjectMock] },
+  },
   projects: [
     {
       ...fpmProjectMock,

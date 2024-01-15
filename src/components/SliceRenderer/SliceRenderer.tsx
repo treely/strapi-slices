@@ -195,6 +195,7 @@ export const SliceRenderer = ({
           return (
             <ProjectsGrid
               key={`${slice.__component}-${slice.id}`}
+              slice={slice}
               projects={projects}
             />
           );

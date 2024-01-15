@@ -15,6 +15,7 @@ export const SECTIONS_WITH_BLOG_POSTS = [
 ];
 export const SECTIONS_WITH_CUSTOMER_STORIES = ['sections.customer-stories'];
 export const SECTIONS_WITH_PROJECTS = [
+  'sections.projects-grid',
   'sections.projects-map',
   'sections.project-facts',
 ];

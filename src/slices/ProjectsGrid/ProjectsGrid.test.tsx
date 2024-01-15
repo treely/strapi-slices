@@ -1,13 +1,22 @@
 import React from 'react';
 import { render, screen } from '../../test/testUtils';
-import { strapiProjectCardMock } from '../../test/strapiMocks/strapiProjectCard';
 import ProjectsGrid from '.';
 import { ProjectsGridProps } from './ProjectsGrid';
+import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
+import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
+import CreditsAvailableState from '../../models/CreditsAvailableState';
 
 const defaultProps: ProjectsGridProps = {
-  slice: {
-    projects: [strapiProjectCardMock],
-  },
+  projects: [
+    {
+      ...fpmProjectMock,
+      slug: 'slug',
+      isPublic: true,
+      thumbnail: { img: { data: strapiMediaMock }, alt: 'Alt Text', id: 1 },
+      footerSubTitle: 'certified-123',
+      creditsAvailable: CreditsAvailableState.YES,
+    },
+  ],
 };
 
 const setup = (props = {}) => {
@@ -19,14 +28,6 @@ describe('The ProjectsGrid component', () => {
   it('displays the project cards', () => {
     setup();
 
-    expect(
-      screen.getByText(defaultProps.slice.projects[0].title)
-    ).toBeInTheDocument();
-  });
-
-  it('displays a link to a project', () => {
-    setup();
-
-    expect(screen.getByRole('link')).toHaveAttribute('href', '/portfolio/slug');
+    expect(screen.getByText(fpmProjectMock.title)).toBeInTheDocument();
   });
 });

@@ -3,6 +3,7 @@ import StrapiProject from '../../models/strapi/StrapiProject';
 import CreditsAvailableState from '../../models/CreditsAvailableState';
 import { strapiPortfolioMock } from './strapiPortfolioMock';
 import fpmProjectMock from '../integrationMocks/fpmProjectMock';
+import { strapiMediaMock } from './strapiMedia';
 
 export const strapiProjectMock: IStrapiData<StrapiProject> = {
   id: 1,
@@ -11,6 +12,7 @@ export const strapiProjectMock: IStrapiData<StrapiProject> = {
     locale: 'en',
     fpmProjectId: fpmProjectMock.id,
     creditsAvailable: CreditsAvailableState.YES,
+    footerSubTitle: 'Certified, 2023',
     createdAt: '2022-01-10T15:04:32.897Z',
     updatedAt: '2022-01-11T10:21:42.317Z',
     metadata: null,
@@ -23,6 +25,11 @@ export const strapiProjectMock: IStrapiData<StrapiProject> = {
     ],
     portfolio: {
       data: strapiPortfolioMock,
+    },
+    thumbnail: {
+      img: { data: strapiMediaMock },
+      alt: 'Project Thumbnail',
+      id: 1,
     },
     localizations: [
       {

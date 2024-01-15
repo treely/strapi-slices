@@ -9,6 +9,7 @@ import creditsAvailableBadgeMessagesDe from './components/CreditsAvailableBadge/
 import portfolioDocumentsDownloadListMessagesDe from './components/portfolio/DocumentsDownloadList/messages.de';
 import portfolioProjectInfoMessagesDe from './components/portfolio/ProjectInfo/messages.de';
 import portfolioSmallCheckoutMessagesDe from './components/portfolio/SmallCheckout/messages.de';
+import portfolioProjectCardMessagesDe from './components/portfolio/PortfolioProjectCard/messages.de';
 
 import unitMessagesDe from './unit.messages.en';
 
@@ -18,6 +19,7 @@ const rootMessagesDe = {
   //
   ...creditsAvailableBadgeMessagesDe,
   ...portfolioDocumentsDownloadListMessagesDe,
+  ...portfolioProjectCardMessagesDe,
   ...portfolioProjectInfoMessagesDe,
   ...portfolioSmallCheckoutMessagesDe,
 

@@ -4,8 +4,12 @@ import Link from 'next/link';
 import { MEDIUM_TRANSITION_DURATION } from '../../constants/animations';
 import PortfolioProject from '../../models/PortfolioProject';
 import PortfolioProjectCard from '../../components/portfolio/PortfolioProjectCard';
+import { IStrapi, IStrapiData, StrapiProject } from '../..';
 
 export interface ProjectsGridProps {
+  slice: {
+    projects: IStrapi<IStrapiData<StrapiProject>[]>;
+  };
   projects: PortfolioProject[];
 }
 
@@ -21,9 +25,15 @@ const ConditionalWrapper = ({
 
 export const ProjectsGrid: React.FC<ProjectsGridProps> = ({
   projects,
+  slice,
 }: ProjectsGridProps) => {
   const filteredProjects = projects.filter(
-    (p) => p.thumbnail && p.slug && p.isPublic
+    (fpmProject) =>
+      fpmProject.thumbnail &&
+      slice.projects.data.some(
+        (strapiProject) =>
+          strapiProject.attributes.fpmProjectId === fpmProject.id
+      )
   );
 
   return (

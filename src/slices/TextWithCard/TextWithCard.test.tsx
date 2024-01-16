@@ -3,9 +3,6 @@ import { render, screen } from '../../test/testUtils';
 import { strapiProjectCardMock } from '../../test/strapiMocks/strapiProjectCard';
 import TextWithCard from '.';
 import { TextWithCardProps } from './TextWithCard';
-import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
-import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
-import CreditsAvailableState from '../../models/CreditsAvailableState';
 
 const defaultProps: TextWithCardProps = {
   slice: {
@@ -14,16 +11,6 @@ const defaultProps: TextWithCardProps = {
     text: 'Text',
     cardPosition: 'left',
   },
-  projects: [
-    {
-      ...fpmProjectMock,
-      slug: 'slug',
-      isPublic: true,
-      thumbnail: { img: { data: strapiMediaMock }, alt: 'Alt Text', id: 1 },
-      footerSubTitle: 'certified-123',
-      creditsAvailable: CreditsAvailableState.YES,
-    },
-  ],
 };
 
 const setup = (props = {}) => {
@@ -74,15 +61,17 @@ describe('The TextWithCard component', () => {
   it('displays no card if there is no card in the slice', () => {
     setup();
 
-    expect(screen.queryByText(fpmProjectMock.title)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(strapiProjectCardMock.title)
+    ).not.toBeInTheDocument();
   });
 
-  it('displays the card if a project has been selected', () => {
+  it('displays a card if there is a card in the slice', () => {
     setup({
       slice: { ...defaultProps.slice, card: strapiProjectCardMock },
     });
 
-    expect(screen.getByText(fpmProjectMock.title)).toBeInTheDocument();
+    expect(screen.getByText(strapiProjectCardMock.title)).toBeInTheDocument();
   });
 
   const cardPositions = ['left', 'right'];

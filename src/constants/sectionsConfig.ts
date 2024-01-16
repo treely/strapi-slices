@@ -18,4 +18,5 @@ export const SECTIONS_WITH_PROJECTS = [
   'sections.projects-grid',
   'sections.projects-map',
   'sections.project-facts',
+  'sections.text-with-card',
 ];

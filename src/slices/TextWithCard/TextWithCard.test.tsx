@@ -3,8 +3,11 @@ import { render, screen } from '../../test/testUtils';
 import { strapiProjectCardMock } from '../../test/strapiMocks/strapiProjectCard';
 import TextWithCard from '.';
 import { TextWithCardProps } from './TextWithCard';
+import { strapiProjectMock } from '../../test/strapiMocks/strapiProject';
+import portfolioProjectMock from '../../test/mocks/portfolioProjectMock';
 
 const defaultProps: TextWithCardProps = {
+  projects: [],
   slice: {
     tagline: 'Tagline',
     title: 'Title',
@@ -72,6 +75,15 @@ describe('The TextWithCard component', () => {
     });
 
     expect(screen.getByText(strapiProjectCardMock.title)).toBeInTheDocument();
+  });
+
+  it('displays the card, filled with information from the FPM if a project is selected', () => {
+    setup({
+      projects: [portfolioProjectMock],
+      slice: { ...defaultProps.slice, project: { data: strapiProjectMock } },
+    });
+
+    expect(screen.getByText(portfolioProjectMock.title)).toBeInTheDocument();
   });
 
   const cardPositions = ['left', 'right'];

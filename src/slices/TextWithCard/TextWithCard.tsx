@@ -15,6 +15,8 @@ import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import StrapiLink from '../../models/strapi/StrapiLink';
 import StrapiProjectCard from '../../models/strapi/StrapiProjectCard';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
+import { IStrapi, IStrapiData, PortfolioProject, StrapiProject } from '../..';
+import PortfolioProjectCard from '../../components/portfolio/PortfolioProjectCard';
 
 interface TextWithCardSlice {
   tagline?: string;
@@ -26,15 +28,24 @@ interface TextWithCardSlice {
   }[];
   button?: StrapiLink;
   card?: StrapiProjectCard;
+  project?: IStrapi<IStrapiData<StrapiProject>>;
   cardPosition: 'left' | 'right';
 }
 export interface TextWithCardProps {
   slice: TextWithCardSlice;
+  projects: PortfolioProject[];
 }
 
 export const TextWithCard: React.FC<TextWithCardProps> = ({
   slice,
+  projects,
 }: TextWithCardProps) => {
+  const portfolioProject = projects.find(
+    (p) =>
+      slice.project?.data.attributes.fpmProjectId &&
+      p.id === slice.project?.data.attributes.fpmProjectId
+  );
+
   const card = (
     <GridItem
       colSpan={[4, null, null, null, 2]}
@@ -42,7 +53,8 @@ export const TextWithCard: React.FC<TextWithCardProps> = ({
       position="relative"
       data-testid={`card-position-${slice.cardPosition}`}
     >
-      {slice.card && (
+      {portfolioProject && <PortfolioProjectCard project={portfolioProject} />}
+      {!portfolioProject && slice.card && (
         <ProjectCard
           facts={slice.card.facts}
           footerSubTitle={slice.card.footerSubTitle}

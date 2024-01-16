@@ -4,16 +4,17 @@ import {
   DefaultSectionHeader,
   Grid,
   GridItem,
+  ProjectCard,
   Spacer,
   BoemlyList,
   Wrapper,
 } from 'boemly';
+import Image from 'next/image';
 import { ArrowRight } from '@phosphor-icons/react';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import StrapiLink from '../../models/strapi/StrapiLink';
 import StrapiProjectCard from '../../models/strapi/StrapiProjectCard';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
-import PortfolioProject from '../../models/PortfolioProject';
-import PortfolioProjectCard from '../../components/portfolio/PortfolioProjectCard';
 
 interface TextWithCardSlice {
   tagline?: string;
@@ -29,17 +30,11 @@ interface TextWithCardSlice {
 }
 export interface TextWithCardProps {
   slice: TextWithCardSlice;
-  projects: PortfolioProject[];
 }
 
 export const TextWithCard: React.FC<TextWithCardProps> = ({
   slice,
-  projects,
 }: TextWithCardProps) => {
-  const fpmData = projects.find(
-    (project) => project.slug === slice.card?.project?.data.attributes.slug
-  );
-
   const card = (
     <GridItem
       colSpan={[4, null, null, null, 2]}
@@ -47,8 +42,21 @@ export const TextWithCard: React.FC<TextWithCardProps> = ({
       position="relative"
       data-testid={`card-position-${slice.cardPosition}`}
     >
-      {slice.card && fpmData && (
-        <PortfolioProjectCard project={{ ...slice.card, ...fpmData }} />
+      {slice.card && (
+        <ProjectCard
+          facts={slice.card.facts}
+          footerSubTitle={slice.card.footerSubTitle}
+          footerTitle={slice.card.footerTitle}
+          title={slice.card.title}
+          image={
+            <Image
+              src={strapiMediaUrl(slice.card.image.img, 'medium')}
+              alt={slice.card.image.alt}
+              fill
+              style={{ objectFit: slice.card.image.objectFit || 'cover' }}
+            />
+          }
+        />
       )}
     </GridItem>
   );

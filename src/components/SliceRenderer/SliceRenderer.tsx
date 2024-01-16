@@ -92,6 +92,7 @@ export const SliceRenderer = ({
             <TextWithCard
               key={`${slice.__component}-${slice.id}`}
               slice={slice}
+              projects={projects}
             />
           );
         case 'sections.logo-grid-with-text':

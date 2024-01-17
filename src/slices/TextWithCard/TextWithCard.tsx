@@ -15,7 +15,7 @@ import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import StrapiLink from '../../models/strapi/StrapiLink';
 import StrapiProjectCard from '../../models/strapi/StrapiProjectCard';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
-import { IStrapi, IStrapiData, PortfolioProject, StrapiProject } from '../..';
+import { IStrapiData, PortfolioProject, StrapiProject } from '../..';
 import PortfolioProjectCard from '../../components/portfolio/PortfolioProjectCard';
 
 interface TextWithCardSlice {
@@ -28,7 +28,7 @@ interface TextWithCardSlice {
   }[];
   button?: StrapiLink;
   card?: StrapiProjectCard;
-  project?: IStrapi<IStrapiData<StrapiProject>>;
+  project?: { data?: IStrapiData<StrapiProject> };
   cardPosition: 'left' | 'right';
 }
 export interface TextWithCardProps {
@@ -42,8 +42,8 @@ export const TextWithCard: React.FC<TextWithCardProps> = ({
 }: TextWithCardProps) => {
   const portfolioProject = projects.find(
     (p) =>
-      slice.project?.data.attributes.fpmProjectId &&
-      p.id === slice.project?.data.attributes.fpmProjectId
+      slice.project?.data?.attributes.fpmProjectId &&
+      p.id === slice.project.data.attributes.fpmProjectId
   );
 
   const card = (

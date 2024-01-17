@@ -3,6 +3,7 @@ import { strapiBlogPostMock } from '../test/strapiMocks/strapiBlogPost';
 import minimalGlobalData from '../test/strapiMocks/minimalGlobalData';
 import getStaticPropsContextMock from '../test/mocks/getStaticPropsContext';
 import { strapiMetadataMock } from '../test/strapiMocks/strapiMetadata';
+import portfolioProjectMock from '../test/integrationMocks/portfolioProjectMock';
 
 describe('The mergeGlobalAndStrapiBlogPostData util', () => {
   it('returns the global metadata if there is no page metadata', () => {
@@ -150,5 +151,51 @@ describe('The mergeGlobalAndStrapiBlogPostData util', () => {
     expect(result.footerLinks).toStrictEqual([
       { id: Infinity, title: 'Title', links: [] },
     ]);
+  });
+
+  it('returns the blog posts if the page includes slices which need blog posts', () => {
+    const result = mergeGlobalAndStrapiBlogPostData(
+      getStaticPropsContextMock,
+      minimalGlobalData,
+      {
+        ...strapiBlogPostMock,
+        attributes: {
+          ...strapiBlogPostMock.attributes,
+          slices: [
+            {
+              __component: 'sections.blog',
+            },
+          ],
+        },
+      },
+      [strapiBlogPostMock],
+      []
+    );
+
+    expect(result.blogPosts).toStrictEqual([strapiBlogPostMock]);
+    expect(result.projects).toStrictEqual([]);
+  });
+
+  it('returns the projects if the page includes slices which need projects', () => {
+    const result = mergeGlobalAndStrapiBlogPostData(
+      getStaticPropsContextMock,
+      minimalGlobalData,
+      {
+        ...strapiBlogPostMock,
+        attributes: {
+          ...strapiBlogPostMock.attributes,
+          slices: [
+            {
+              __component: 'sections.projects-grid',
+            },
+          ],
+        },
+      },
+      [],
+      [portfolioProjectMock]
+    );
+
+    expect(result.blogPosts).toStrictEqual([]);
+    expect(result.projects).toStrictEqual([portfolioProjectMock]);
   });
 });

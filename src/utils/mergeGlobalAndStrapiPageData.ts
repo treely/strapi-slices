@@ -12,6 +12,9 @@ import PortfolioProject from '../models/PortfolioProject';
 import {
   DARK_THEME_HEADER_SECTIONS,
   EXTENDABLE_HEADER_SECTIONS,
+  SECTIONS_WITH_BLOG_POSTS,
+  SECTIONS_WITH_CUSTOMER_STORIES,
+  SECTIONS_WITH_PROJECTS,
 } from '../constants/sectionsConfig';
 import { DEFAULT_SHARE_ALT, DEFAULT_SHARE_IMAGE } from '../constants/metadata';
 
@@ -31,10 +34,20 @@ const mergeGlobalAndStrapiPageData = (
       )
     : DEFAULT_SHARE_IMAGE;
 
+  const returnBlogPosts = page.attributes.slices.some((slice) =>
+    SECTIONS_WITH_BLOG_POSTS.includes(slice.__component)
+  );
+  const returnCustomerStories = page.attributes.slices.some((slice) =>
+    SECTIONS_WITH_CUSTOMER_STORIES.includes(slice.__component)
+  );
+  const returnProjects = page.attributes.slices.some((slice) =>
+    SECTIONS_WITH_PROJECTS.includes(slice.__component)
+  );
+
   return {
     ...page,
     // Portfolio Projects
-    projects,
+    projects: returnProjects ? projects : [],
     // StrapiPage
     attributes: {
       ...page?.attributes,
@@ -71,10 +84,10 @@ const mergeGlobalAndStrapiPageData = (
       favicon: strapiMediaUrl(global.attributes.favicon, 'thumbnail'),
     },
     slices: page?.attributes.slices,
-    blogPosts,
+    blogPosts: returnBlogPosts ? blogPosts : [],
     banner: global.attributes.banner,
     topBanner: page?.attributes.topBanner || global.attributes.topBanner,
-    customerStories,
+    customerStories: returnCustomerStories ? customerStories : [],
   };
 };
 

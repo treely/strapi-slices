@@ -146,4 +146,25 @@ describe('The mergeGlobalAndStrapiCustomerStoryData util', () => {
       { id: Infinity, title: 'Title', links: [] },
     ]);
   });
+
+  it('returns the customer stories if the page includes slices which need customer stories', () => {
+    const result = mergeGlobalAndStrapiCustomerStoryData(
+      getStaticPropsContextMock,
+      minimalGlobalData,
+      {
+        ...strapiCustomerStoryMock,
+        attributes: {
+          ...strapiCustomerStoryMock.attributes,
+          slices: [
+            {
+              __component: 'sections.customer-stories',
+            },
+          ],
+        },
+      },
+      [strapiCustomerStoryMock]
+    );
+
+    expect(result.customerStories).toStrictEqual([strapiCustomerStoryMock]);
+  });
 });

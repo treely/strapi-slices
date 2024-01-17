@@ -11,6 +11,8 @@ import PortfolioProject from '../models/PortfolioProject';
 import {
   DARK_THEME_HEADER_SECTIONS,
   EXTENDABLE_HEADER_SECTIONS,
+  SECTIONS_WITH_BLOG_POSTS,
+  SECTIONS_WITH_PROJECTS,
 } from '../constants/sectionsConfig';
 import { DEFAULT_SHARE_ALT, DEFAULT_SHARE_IMAGE } from '../constants/metadata';
 
@@ -29,10 +31,17 @@ const mergeGlobalAndStrapiProject = (
       )
     : DEFAULT_SHARE_IMAGE;
 
+  const returnBlogPosts = project.attributes.slices.some((slice) =>
+    SECTIONS_WITH_BLOG_POSTS.includes(slice.__component)
+  );
+  const returnProjects = project.attributes.slices.some((slice) =>
+    SECTIONS_WITH_PROJECTS.includes(slice.__component)
+  );
+
   return {
     ...project,
     // Portfolio Projects
-    projects,
+    projects: returnProjects ? projects : [],
     // StrapiProject
     attributes: {
       ...project.attributes,
@@ -69,7 +78,7 @@ const mergeGlobalAndStrapiProject = (
       favicon: strapiMediaUrl(global.attributes.favicon, 'thumbnail'),
     },
     slices: project.attributes.slices,
-    blogPosts,
+    blogPosts: returnBlogPosts ? blogPosts : [],
     banner: global.attributes.banner,
     topBanner: project?.attributes.topBanner || global.attributes.topBanner,
     customerStories: [],

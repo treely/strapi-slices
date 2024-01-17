@@ -32,6 +32,16 @@ Run the tests:
 npm run test
 ```
 
+For local testing, you can link the package to your project:
+
+```bash
+npm run build
+npm pack
+
+cd ../path/to/your/project
+npm install ../path/to/strapi-slices-package.tgz
+```
+
 Commit message guideline
 
 The project uses the Angular commit message guideline. Find the documentation
@@ -62,7 +72,7 @@ import {
   IStrapiData,
   SliceRenderer,
   StrapiBlogPost,
-  StrapiCustomerStory
+  StrapiCustomerStory,
 } from '@tree-ly/strapi-slices';
 
 // Get the slices, blog posts, and customer stories from Strapi
@@ -71,7 +81,6 @@ const slices: any[] = [];
 const blogPosts: IStrapiData<StrapiBlogPost> = [];
 const projects: PortfolioProject[] = [];
 const customerStories: IStrapiData<StrapiCustomerStory> = [];
-
 
 const App = (): JSX.Element => (
   <SliceRenderer

@@ -2,6 +2,7 @@ import { GetStaticPropsContext } from 'next';
 import strapiMediaUrl from './strapiMediaUrl';
 import {
   IStrapiData,
+  SECTIONS_WITH_CUSTOMER_STORIES,
   StrapiCustomerStory,
   StrapiCustomerStoryProps,
   StrapiGlobal,
@@ -21,6 +22,10 @@ const mergeGlobalAndStrapiCustomerStoryData = (
         'large'
       )
     : DEFAULT_SHARE_IMAGE;
+
+  const returnCustomerStories = customerStory.attributes.slices.some((slice) =>
+    SECTIONS_WITH_CUSTOMER_STORIES.includes(slice.__component)
+  );
 
   return {
     ...customerStory,
@@ -57,7 +62,7 @@ const mergeGlobalAndStrapiCustomerStoryData = (
       favicon: strapiMediaUrl(global.attributes.favicon, 'thumbnail'),
     },
     slices: customerStory?.attributes.slices,
-    customerStories,
+    customerStories: returnCustomerStories ? customerStories : [],
     banner: global.attributes.banner,
     topBanner:
       customerStory?.attributes.topBanner || global.attributes.topBanner,

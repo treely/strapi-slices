@@ -2,12 +2,12 @@ import { GetStaticPropsContext } from 'next';
 import strapiMediaUrl from './strapiMediaUrl';
 import {
   IStrapiData,
-  SECTIONS_WITH_CUSTOMER_STORIES,
   StrapiCustomerStory,
   StrapiCustomerStoryProps,
   StrapiGlobal,
 } from '..';
 import { DEFAULT_SHARE_ALT, DEFAULT_SHARE_IMAGE } from '../constants/metadata';
+import { SLICES_WITH_CUSTOMER_STORIES } from '../constants/slicesConfig';
 
 const mergeGlobalAndStrapiCustomerStoryData = (
   context: GetStaticPropsContext,
@@ -24,7 +24,7 @@ const mergeGlobalAndStrapiCustomerStoryData = (
     : DEFAULT_SHARE_IMAGE;
 
   const returnCustomerStories = customerStory.attributes.slices.some((slice) =>
-    SECTIONS_WITH_CUSTOMER_STORIES.includes(slice.__component)
+    SLICES_WITH_CUSTOMER_STORIES.includes(slice.__component)
   );
 
   return {

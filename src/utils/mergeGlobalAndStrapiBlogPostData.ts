@@ -2,14 +2,16 @@ import { GetStaticPropsContext } from 'next';
 import strapiMediaUrl from './strapiMediaUrl';
 import {
   IStrapiData,
-  SECTIONS_WITH_BLOG_POSTS,
-  SECTIONS_WITH_PROJECTS,
   StrapiBlogPost,
   StrapiBlogPostProps,
   StrapiGlobal,
 } from '..';
 import PortfolioProject from '../models/PortfolioProject';
 import { DEFAULT_SHARE_ALT, DEFAULT_SHARE_IMAGE } from '../constants/metadata';
+import {
+  SLICES_WITH_BLOG_POSTS,
+  SLICES_WITH_PROJECTS,
+} from '../constants/slicesConfig';
 
 const mergeGlobalAndStrapiBlogPostData = (
   context: GetStaticPropsContext,
@@ -27,10 +29,10 @@ const mergeGlobalAndStrapiBlogPostData = (
     : DEFAULT_SHARE_IMAGE;
 
   const returnBlog = post.attributes.slices.some((slice) =>
-    SECTIONS_WITH_BLOG_POSTS.includes(slice.__component)
+    SLICES_WITH_BLOG_POSTS.includes(slice.__component)
   );
   const returnProjects = post.attributes.slices.some((slice) =>
-    SECTIONS_WITH_PROJECTS.includes(slice.__component)
+    SLICES_WITH_PROJECTS.includes(slice.__component)
   );
 
   return {

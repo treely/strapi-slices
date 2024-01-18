@@ -52,12 +52,6 @@ import mergeGlobalAndStrapiProjectData from './utils/mergeGlobalAndStrapiProject
 import strapiLinkUrl from './utils/strapiLinkUrl';
 import strapiMediaUrl from './utils/strapiMediaUrl';
 
-import {
-  SECTIONS_WITH_BLOG_POSTS,
-  SECTIONS_WITH_CUSTOMER_STORIES,
-  SECTIONS_WITH_PROJECTS,
-} from './constants/sectionsConfig';
-
 export * from './components/SEOTags';
 export * from './components/SliceRenderer';
 
@@ -69,11 +63,6 @@ export {
   mergeGlobalAndStrapiProjectData,
   strapiLinkUrl,
   strapiMediaUrl,
-
-  // Constants
-  SECTIONS_WITH_BLOG_POSTS,
-  SECTIONS_WITH_CUSTOMER_STORIES,
-  SECTIONS_WITH_PROJECTS,
 };
 
 export type {

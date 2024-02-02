@@ -10,6 +10,7 @@ import portfolioDocumentsDownloadListMessagesEn from './components/portfolio/Doc
 import portfolioProjectInfoMessagesEn from './components/portfolio/ProjectInfo/messages.en';
 import portfolioSmallCheckoutMessagesEn from './components/portfolio/SmallCheckout/messages.en';
 import portfolioProjectCardMessagesEn from './components/portfolio/PortfolioProjectCard/messages.en';
+import timelineMessagesEn from './slices/Timeline/messages.en';
 
 import unitMessagesEn from './unit.messages.en';
 
@@ -33,6 +34,7 @@ const rootMessagesEn = {
   ...projectFactsMessagesEn,
   ...projectsMapMessagesEn,
   ...shopCheckoutMessagesEn,
+  ...timelineMessagesEn,
 
   //
   // Units

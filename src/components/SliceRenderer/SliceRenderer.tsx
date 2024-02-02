@@ -39,6 +39,7 @@ import StrapiCustomerStory from '../../models/strapi/StrapiCustomerStory';
 import Comparison from '../../slices/Comparison';
 import Locale from '../../models/Locale';
 import { ContextProvider } from '../ContextProvider';
+import Timeline from '../../slices/Timeline';
 
 export interface CustomSliceProps {
   slice: any;
@@ -295,6 +296,10 @@ export const SliceRenderer = ({
               key={`${slice.__component}-${slice.id}`}
               slice={slice}
             />
+          );
+        case 'sections.timeline':
+          return (
+            <Timeline key={`${slice.__component}-${slice.id}`} slice={slice} />
           );
         default:
           if (CustomSlice) {

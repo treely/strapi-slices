@@ -62,7 +62,7 @@ Find the build in the `dist` folder.
 Install the package:
 
 ```bash
-npm install @tree-ly/strapi-slices
+npm install @treely/strapi-slices
 ```
 
 Use the slices:
@@ -73,7 +73,7 @@ import {
   SliceRenderer,
   StrapiBlogPost,
   StrapiCustomerStory,
-} from '@tree-ly/strapi-slices';
+} from '@treely/strapi-slices';
 
 // Get the slices, blog posts, and customer stories from Strapi
 // Get the projects from the FPM API

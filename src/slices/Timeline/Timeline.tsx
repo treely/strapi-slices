@@ -218,7 +218,7 @@ export const Timeline: React.FC<TimelineProps> = ({ slice }: TimelineProps) => {
                             </Tag>
                           )}
                           {item.logo && (
-                            <Box position="relative" height="8" width="20">
+                            <Box position="relative" height="8" width="16">
                               <Image
                                 src={strapiMediaUrl(item.logo.img, 'small')}
                                 alt={item.logo.alt}

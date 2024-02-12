@@ -34,6 +34,12 @@ const icon = {
   alt: 'Icon alt text',
   img: { data: storybookStrapiTreeIconMock },
 };
+const logo = {
+  id: 2,
+  alt: 'Avatar image alt text',
+  img: { data: storybookStrapiAvatarMock },
+  objectFit: 'contain',
+};
 
 export const Minimal = Template.bind({});
 Minimal.args = {
@@ -122,15 +128,9 @@ WithBadgeOrLogo.args = {
       { ...timelineItem, badge },
       {
         ...timelineItem,
-        logo: {
-          id: 2,
-          alt: 'Avatar image alt text',
-          img: { data: storybookStrapiAvatarMock },
-          objectFit: 'contain',
-        },
+        logo,
       },
-      { ...timelineItem, badge },
-
+      { ...timelineItem, logo, badge },
       { ...timelineItem, badge },
       { ...timelineItem, badge },
     ],

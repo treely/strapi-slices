@@ -108,6 +108,7 @@ export const Timeline: React.FC<TimelineProps> = ({ slice }: TimelineProps) => {
               'dashed 1px var(--boemly-colors-gray-200)',
             ]}
             position="relative"
+            width="full"
           >
             <Flex
               flexDir="column"

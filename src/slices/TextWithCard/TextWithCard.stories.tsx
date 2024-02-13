@@ -3,6 +3,7 @@ import { StoryFn, Meta } from '@storybook/react';
 
 import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import TextWithCard from '.';
+import CreditsAvailableState from '../../models/CreditsAvailableState';
 
 export default {
   title: 'slices/TextWithCard',
@@ -36,6 +37,96 @@ const card = {
   footerTitle: 'Footer title',
   footerSubTitle: 'Footer sub title',
 };
+const portfolioProject = {
+  id: '1',
+  title: 'Project 1',
+  geom: {
+    type: 'Point',
+    coordinates: [10.036542145100883, 47.42636837845707],
+  },
+  area: 2000000,
+  location: 'Austria',
+  start: new Date('2020-01-01'),
+  end: new Date('2050-12-31'),
+  projectType: {
+    title: 'Project Type 1',
+    id: '1',
+    createdAt: new Date('2020-01-01'),
+    updatedAt: new Date('2020-01-01'),
+  },
+  projectDeveloper: {
+    name: 'Project Developer 1',
+    id: '1',
+    createdAt: new Date('2020-01-01'),
+    updatedAt: new Date('2020-01-01'),
+  },
+  verificationStandard: {
+    id: 'SilvaconsultFCSISO14',
+    createdAt: new Date('2020-01-01'),
+    updatedAt: new Date('2020-01-01'),
+  },
+  forecastedAmountYearly: 100,
+  riskBuffer: 10,
+  createdAt: new Date('2020-01-01'),
+  updatedAt: new Date('2020-01-01'),
+  creditsAvailable: CreditsAvailableState.YES,
+  slug: 'portfolio-slug',
+  thumbnail: {
+    img: { data: storybookStrapiCoverMock },
+    alt: 'Project Thumbnail',
+    id: 1,
+  },
+};
+const project = {
+  id: 1,
+  attributes: {
+    slug: 'slug',
+    locale: 'en',
+    fpmProjectId: portfolioProject.id,
+    creditsAvailable: CreditsAvailableState.YES,
+    footerSubTitle: 'Certified, 2023',
+    createdAt: '2022-01-10T15:04:32.897Z',
+    updatedAt: '2022-01-11T10:21:42.317Z',
+    metadata: null,
+    slices: [
+      {
+        __component: 'sections.rich-text',
+        id: 6,
+        content: '# This is my rich text!',
+      },
+    ],
+    portfolio: {
+      data: {
+        id: 1,
+        attributes: {
+          name: 'my-portfolio',
+          title: 'My Portfolio',
+          locale: 'en',
+          createdAt: '2022-01-10T15:04:32.897Z',
+          updatedAt: '2022-01-11T10:21:42.317Z',
+          slices: [
+            {
+              __component: 'sections.rich-text',
+              id: 6,
+              content: '# This is my rich text!',
+            },
+          ],
+        },
+      },
+    },
+    thumbnail: {
+      img: { data: storybookStrapiCoverMock },
+      alt: 'Project Thumbnail',
+      id: 1,
+    },
+    localizations: [
+      {
+        id: 2,
+        locale: 'de',
+      },
+    ],
+  },
+};
 
 export const Minimal = Template.bind({});
 Minimal.args = {
@@ -43,6 +134,7 @@ Minimal.args = {
     title: 'Title',
     cardPosition: 'left',
   },
+  projects: [],
 };
 
 export const WithTagline = Template.bind({});
@@ -52,6 +144,7 @@ WithTagline.args = {
     title: 'Title',
     cardPosition: 'left',
   },
+  projects: [],
 };
 
 export const WithTaglineAndText = Template.bind({});
@@ -62,6 +155,7 @@ WithTaglineAndText.args = {
     text: 'Text',
     cardPosition: 'left',
   },
+  projects: [],
 };
 
 export const WithList = Template.bind({});
@@ -73,6 +167,7 @@ WithList.args = {
     listItems,
     cardPosition: 'left',
   },
+  projects: [],
 };
 
 export const WithButton = Template.bind({});
@@ -85,6 +180,7 @@ WithButton.args = {
     button,
     cardPosition: 'left',
   },
+  projects: [],
 };
 
 export const WithCard = Template.bind({});
@@ -98,6 +194,7 @@ WithCard.args = {
     card,
     cardPosition: 'left',
   },
+  projects: [],
 };
 
 export const WithCardOnRight = Template.bind({});
@@ -111,4 +208,17 @@ WithCardOnRight.args = {
     card,
     cardPosition: 'right',
   },
+  projects: [],
+};
+
+export const WithProjects = Template.bind({});
+WithProjects.args = {
+  slice: {
+    tagline: 'Tagline',
+    title: 'Title',
+    text: 'Text',
+    cardPosition: 'left',
+    project: { data: project },
+  },
+  projects: [portfolioProject],
 };

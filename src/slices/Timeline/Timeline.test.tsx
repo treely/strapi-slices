@@ -2,7 +2,6 @@ import React from 'react';
 import Timeline from '.';
 import { mergeDeep } from '../../utils/mergeDeep';
 import { TimelineProps } from './Timeline';
-import { pushSpy, useRouter } from '../../../__mocks__/next/router';
 import { render, screen, userEvent, waitFor } from '../../test/testUtils';
 import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
 import messagesEn from './messages.en';

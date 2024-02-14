@@ -121,7 +121,7 @@ export const Timeline: React.FC<TimelineProps> = ({ slice }: TimelineProps) => {
                   key={item.id}
                   columns={[1, null, null, 2]}
                   alignContent="center"
-                  gridTemplateColumns={[null, null, null, '5% 85%']}
+                  gridTemplateColumns={[null, null, null, '1fr 16fr']}
                   position="relative"
                 >
                   <Flex

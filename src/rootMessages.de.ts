@@ -12,7 +12,7 @@ import portfolioSmallCheckoutMessagesDe from './components/portfolio/SmallChecko
 import portfolioProjectCardMessagesDe from './components/portfolio/PortfolioProjectCard/messages.de';
 import timelineMessagesDe from './slices/Timeline/messages.de';
 
-import unitMessagesDe from './unit.messages.en';
+import unitMessagesDe from './unit.messages.de';
 
 const rootMessagesDe = {
   //

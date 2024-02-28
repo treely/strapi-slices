@@ -97,6 +97,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
             <MapMarker
               title={project.title}
               isPublic={project.isPublic}
+              portfolioHost={project.portfolioHost}
               slug={project.slug}
               creditsAvailable={project.creditsAvailable}
               projectDeveloper={project.projectDeveloper?.name}

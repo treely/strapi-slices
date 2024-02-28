@@ -20,6 +20,7 @@ export interface MapMarkerProps {
   isPublic?: boolean;
   projectDeveloper?: string;
   slug?: string;
+  portfolioHost?: string;
   creditsAvailable?: CreditsAvailableState;
 }
 
@@ -28,6 +29,7 @@ const MapMarker = ({
   projectDeveloper,
   slug,
   creditsAvailable,
+  portfolioHost = '',
   isPublic = false,
 }: MapMarkerProps) => {
   const { formatMessage } = useContext(IntlContext);
@@ -42,7 +44,10 @@ const MapMarker = ({
       onMouseLeave={onClose}
       cursor="grab"
     >
-      <Box as={slug ? NextLink : undefined} href={slug && `/portfolio/${slug}`}>
+      <Box
+        as={slug ? NextLink : undefined}
+        href={slug && `${portfolioHost}/portfolio/${slug}`}
+      >
         <MapPin
           size="40px"
           color={blue600}
@@ -64,7 +69,7 @@ const MapMarker = ({
               <>
                 <CreditsAvailableBadge
                   status={creditsAvailable}
-                  href={slug && `/portfolio/${slug}`}
+                  href={slug && `${portfolioHost}/portfolio/${slug}`}
                 />
                 <Box height="3" />
               </>
@@ -84,7 +89,7 @@ const MapMarker = ({
                 variant="outline"
                 size="sm"
                 as={NextLink}
-                href={`/portfolio/${slug}`}
+                href={`${portfolioHost}/portfolio/${slug}`}
                 mt="4"
                 whiteSpace="nowrap"
               >

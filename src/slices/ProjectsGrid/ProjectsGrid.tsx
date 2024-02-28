@@ -46,7 +46,9 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({
               condition={!!project.slug}
               wrapper={(children: JSX.Element) => (
                 <Link
-                  href={`/portfolio/${project.slug}`}
+                  href={`${project.portfolioHost || ''}/portfolio/${
+                    project.slug
+                  }`}
                   passHref
                   key={project.id}
                   legacyBehavior

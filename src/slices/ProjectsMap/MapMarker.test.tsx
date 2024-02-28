@@ -6,6 +6,7 @@ import messagesEn from './messages.en';
 
 const defaultProps: MapMarkerProps = {
   title: 'Project title',
+  portfolioHost: '',
   isPublic: true,
 };
 
@@ -37,7 +38,26 @@ describe('The MapMarker component', () => {
 
     expect(screen.getByTestId('mapmarker-pin').parentElement).toHaveProperty(
       'href',
-      expect.stringContaining('/portfolio/slug')
+      'http://localhost/portfolio/slug'
+    );
+
+    fireEvent.mouseEnter(screen.getByTestId('mapmarker-pin'));
+
+    waitFor(() => {
+      const button = screen.getByText(
+        messagesEn['sections.projectsMap.link.text']
+      );
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveProperty('href', '/portfolio/slug');
+    });
+  });
+
+  it('prefixes the url with the portfolio host', () => {
+    setup({ slug: 'slug', portfolioHost: 'https://example.com' });
+
+    expect(screen.getByTestId('mapmarker-pin').parentElement).toHaveProperty(
+      'href',
+      'https://example.com/portfolio/slug'
     );
 
     fireEvent.mouseEnter(screen.getByTestId('mapmarker-pin'));
@@ -49,7 +69,7 @@ describe('The MapMarker component', () => {
       expect(button).toBeInTheDocument();
       expect(button).toHaveProperty(
         'href',
-        expect.stringContaining('/portfolio/slug')
+        'https://example.com/portfolio/slug'
       );
     });
   });

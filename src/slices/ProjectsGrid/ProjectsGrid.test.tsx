@@ -34,4 +34,27 @@ describe('The ProjectsGrid component', () => {
 
     expect(screen.getByText(fpmProjectMock.title)).toBeInTheDocument();
   });
+
+  it('links to the portfolio', () => {
+    setup();
+
+    expect(screen.getByRole('link')).toHaveProperty(
+      'href',
+      'http://localhost/portfolio/slug'
+    );
+  });
+
+  it('prefixes the url with the portfolio host', () => {
+    setup({
+      ...defaultProps,
+      projects: [
+        { ...defaultProps.projects[0], portfolioHost: 'https://example.org' },
+      ],
+    });
+
+    expect(screen.getByRole('link')).toHaveProperty(
+      'href',
+      'https://example.org/portfolio/slug'
+    );
+  });
 });

@@ -56,6 +56,7 @@ const STATES: Record<CtaCardType, Record<string, any>> = {
     justifyContent: 'space-between',
     buttonJustifyContent: 'start',
     textMarginLeft: ['0', null, null, null, '14'],
+    textMarginRight: '0',
   },
   centerWithoutImage: {
     textAlign: 'center',
@@ -64,6 +65,7 @@ const STATES: Record<CtaCardType, Record<string, any>> = {
     justifyContent: 'center',
     buttonJustifyContent: 'center',
     textMarginLeft: '0',
+    textMarginRight: '0',
   },
   centerWithImage: {
     textAlign: 'center',
@@ -72,6 +74,7 @@ const STATES: Record<CtaCardType, Record<string, any>> = {
     justifyContent: 'center',
     buttonJustifyContent: 'center',
     textMarginLeft: '0',
+    textMarginRight: '0',
   },
   right: {
     textAlign: 'left',
@@ -80,6 +83,7 @@ const STATES: Record<CtaCardType, Record<string, any>> = {
     justifyContent: 'start',
     buttonJustifyContent: 'start',
     textMarginLeft: '0',
+    textMarginRight: ['0', null, null, null, '10'],
   },
 };
 
@@ -316,6 +320,7 @@ export const Cta: React.FC<CtaProps> = ({ slice }: CtaProps) => {
                   <Box
                     zIndex="base"
                     marginLeft={STATES[ctaCardType].textMarginLeft}
+                    marginRight={STATES[ctaCardType].textMarginRight}
                     maxWidth="3xl"
                   >
                     <Spacer height={['0', null, null, null, '20']} />

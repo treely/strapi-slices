@@ -1,14 +1,11 @@
 import StrapiImage from './StrapiImage';
+import StrapiLink from './StrapiLink';
 
 interface StrapiHeroCard {
   id: number;
   title: string;
   subTitle: string;
-  button?: {
-    id: number;
-    url: string;
-    text: string;
-  };
+  button?: StrapiLink;
   image?: StrapiImage;
 }
 

@@ -34,7 +34,7 @@ export interface BlogCardsProps {
     subTitle: string;
     button?: StrapiLink;
     variant: 'white' | 'gray';
-    blogPostCategory?: IStrapi<IStrapiData<StrapiCategory>>;
+    blogPostCategory: IStrapi<IStrapiData<StrapiCategory> | null>;
   };
   blogPosts: IStrapiData<StrapiBlogPost>[];
 }
@@ -74,7 +74,7 @@ export const BlogCards: React.FC<BlogCardsProps> = ({
         ? sortedBlogPosts
             .filter(
               (blogPost) =>
-                blogPost.attributes.category?.data.attributes.name ===
+                blogPost.attributes.category.data?.attributes.name ===
                 slice.blogPostCategory?.data?.attributes.name
             )
             .slice(0, 3)
@@ -142,7 +142,7 @@ export const BlogCards: React.FC<BlogCardsProps> = ({
               <Box px="2" py="8">
                 {blogPost.attributes.category && (
                   <Text size="smMonoUppercase" color="primary.800" mb="2">
-                    {blogPost.attributes.category.data.attributes.name}
+                    {blogPost.attributes.category.data?.attributes.name}
                   </Text>
                 )}
                 <Heading size="lg">{blogPost.attributes.title}</Heading>
@@ -157,7 +157,7 @@ export const BlogCards: React.FC<BlogCardsProps> = ({
                 <DatePersonPair
                   date={formatDate(blogPost.attributes.createdAt)}
                   person={
-                    blogPost.attributes.author
+                    blogPost.attributes.author.data
                       ? {
                           name: blogPost.attributes.author.data.attributes.name,
                           image: (

@@ -12,6 +12,7 @@ const defaultProps: BlogCardsProps = {
     title: 'Main Title',
     subTitle: 'Subtitle',
     variant: 'white',
+    blogPostCategory: { data: null },
   },
   blogPosts: [strapiBlogPostMock],
 };

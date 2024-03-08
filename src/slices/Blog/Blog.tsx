@@ -59,7 +59,7 @@ export const Blog: React.FC<BlogProps> = ({ slice, blogPosts }: BlogProps) => {
                   />
                 </ImageContainer>
                 <Box px="2" py="8">
-                  {blogPost.attributes.category && (
+                  {blogPost.attributes.category.data && (
                     <Text size="smMonoUppercase" color="primary.800" mb="2">
                       {blogPost.attributes.category.data.attributes.name}
                     </Text>
@@ -74,7 +74,7 @@ export const Blog: React.FC<BlogProps> = ({ slice, blogPosts }: BlogProps) => {
                   <DatePersonPair
                     date={formatDate(blogPost.attributes.createdAt)}
                     person={
-                      blogPost.attributes.author
+                      blogPost.attributes.author.data
                         ? {
                             name: blogPost.attributes.author.data.attributes
                               .name,

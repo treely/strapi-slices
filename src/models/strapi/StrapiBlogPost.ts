@@ -13,8 +13,8 @@ interface StrapiBlogPost {
   slug: string;
   teaser: string | null;
   img: StrapiImage;
-  author?: IStrapi<IStrapiData<StrapiAuthor>>;
-  category?: IStrapi<IStrapiData<StrapiCategory>>;
+  author: IStrapi<IStrapiData<StrapiAuthor> | null>;
+  category: IStrapi<IStrapiData<StrapiCategory> | null>;
   locale: Locale;
   createdAt: string;
   updatedAt: string;

@@ -252,9 +252,8 @@ const SmallCheckout = ({
         {button && (
           <StrapiLinkButton
             link={{
-              id: 1,
               intercomLauncher: true,
-              text: button.text,
+              ...button,
             }}
             variant="outline"
           />

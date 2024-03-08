@@ -20,7 +20,7 @@ interface StrapiProject {
   thumbnail: StrapiImage | null;
   slices: any[];
   localizations: StrapiLocalization[];
-  portfolio: IStrapi<IStrapiData<StrapiPortfolio>>;
+  portfolio: IStrapi<IStrapiData<StrapiPortfolio> | null>;
   topBanner?: StrapiTopBanner;
 }
 

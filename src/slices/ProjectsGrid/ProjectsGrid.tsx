@@ -58,11 +58,10 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({
               )}
             >
               <Box
+                width="full"
                 as="a"
                 cursor="pointer"
                 borderRadius="2xl"
-                width="fit-content"
-                height="fit-content"
                 transition={`box-shadow ease ${MEDIUM_TRANSITION_DURATION}s`}
                 _hover={{ boxShadow: 'lg' }}
               >

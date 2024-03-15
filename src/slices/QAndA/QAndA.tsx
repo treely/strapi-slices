@@ -74,7 +74,12 @@ export const QAndA: React.FC<QAndAProps> = ({ slice }: QAndAProps) => {
       >
         <Wrapper>
           <SimpleGrid columns={[1, null, null, 2]}>
-            <Box mr="16" paddingY="28">
+            <Box
+              mr="16"
+              paddingY="28"
+              position={[null, null, null, 'sticky']}
+              height="full"
+            >
               <Text size="mdMonoUppercase" color={variant.tagLineColor}>
                 {slice.tagline}
               </Text>
@@ -92,7 +97,9 @@ export const QAndA: React.FC<QAndAProps> = ({ slice }: QAndAProps) => {
               maxHeight={['unset', null, null, 'xl']}
               paddingTop={['0', null, null, '28']}
               paddingRight={['0', null, null, '6']}
-              overflowY={['unset', null, null, 'scroll']}
+              overflow="hidden"
+              //  overflowY={['unset', null, null, 'visible']}
+              position="relative"
             >
               <Box>
                 <BoemlyAccordion

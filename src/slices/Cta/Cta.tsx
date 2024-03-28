@@ -341,7 +341,7 @@ export const Cta: React.FC<CtaProps> = ({ slice }: CtaProps) => {
                       }}
                       title={ctaCard.title}
                       titleProps={{
-                        fontFamily: 'Inter',
+                        fontFamily: 'heading',
                         fontSize: '4xl',
                         fontWeight: '600',
                         lineHeight: '9',

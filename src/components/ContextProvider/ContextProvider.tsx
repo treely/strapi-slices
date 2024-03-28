@@ -3,10 +3,8 @@ import { createIntl, createIntlCache } from 'react-intl';
 import rootMessagesDe from '../../rootMessages.de';
 import rootMessagesEn from '../../rootMessages.en';
 import Locale from '../../models/Locale';
-import { BoemlyThemeProvider } from 'boemly';
 import { Global } from '@emotion/react';
 import { GLOBAL_STYLE } from '../../constants/globalStyle';
-import { FONT_CUSTOMIZATIONS } from '../../constants/fontCustomizations';
 
 const cache = createIntlCache();
 
@@ -31,11 +29,11 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
   locale,
 }: ContextProviderProps): JSX.Element => {
   return (
-    <BoemlyThemeProvider fonts={FONT_CUSTOMIZATIONS}>
+    <>
       <Global styles={{ GLOBAL_STYLE }} />
       <IntlContext.Provider value={intlFactory(locale)}>
         {children}
       </IntlContext.Provider>
-    </BoemlyThemeProvider>
+    </>
   );
 };

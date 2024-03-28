@@ -63,17 +63,19 @@ Install the package:
 
 ```bash
 npm install @treely/strapi-slices
+npm install boemly
 ```
 
 Use the slices:
 
-```typescript
+```tsx
 import {
   IStrapiData,
   SliceRenderer,
   StrapiBlogPost,
   StrapiCustomerStory,
 } from '@treely/strapi-slices';
+import { BoemlyThemeProvider } from 'boemly';
 
 // Get the slices, blog posts, and customer stories from Strapi
 // Get the projects from the FPM API
@@ -83,11 +85,13 @@ const projects: PortfolioProject[] = [];
 const customerStories: IStrapiData<StrapiCustomerStory> = [];
 
 const App = (): JSX.Element => (
-  <SliceRenderer
-    slices={slices}
-    blogPosts={blogPosts}
-    projects={projects}
-    customerStories={customerStories}
-  />
+  <BoemlyThemeProvider>
+    <SliceRenderer
+      slices={slices}
+      blogPosts={blogPosts}
+      projects={projects}
+      customerStories={customerStories}
+    />
+  </BoemlyThemeProvider>
 );
 ```

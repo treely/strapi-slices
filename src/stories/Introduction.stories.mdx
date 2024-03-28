@@ -11,3 +11,31 @@ It contains documentation for the Strapi sections that are implemented.
 Sections are pieces of the marketing part of the website that also exist as slices
 in our CMS (Strapi). So if you add a slice on, e.g. a page in Strapi,
 one of the sections will visualise the data.
+
+## Setup
+
+The components of this package need to be inside a `BoemlyThemeProvider`.
+This library will use all customizations that have been applied to the `BoemlyThemeProvider`.
+For more information, check out the documentation at [boemly.tree.ly](https://boemly.tree.ly/).
+
+```tsx
+import { BoemlyThemeProvider } from 'boemly';
+import { SliceRenderer } from '@treely/strapi-slices';
+
+const fonts = {
+  body: 'Ubuntu',
+  heading: 'Ubuntu',
+  display: 'Montserrat',
+  mono: 'JetbrainsMono',
+};
+
+function App({ props }) {
+  return (
+    <BoemlyThemeProvider fonts={fonts}>
+      <SliceRenderer {...props} />
+    </BoemlyThemeProvider>
+  );
+}
+
+export default App;
+```

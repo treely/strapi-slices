@@ -30,7 +30,7 @@ describe('The CustomerStories component', () => {
     setup();
 
     expect(
-      screen.getByText(strapiCustomerStoryMock.attributes.title)
+      screen.getByText(strapiCustomerStoryMock.attributes.title || '')
     ).toBeInTheDocument();
   });
 
@@ -38,7 +38,7 @@ describe('The CustomerStories component', () => {
     setup({ customerStories: [] });
 
     expect(
-      screen.queryByText(strapiCustomerStoryMock.attributes.title)
+      screen.queryByText(strapiCustomerStoryMock.attributes.title || '')
     ).not.toBeInTheDocument();
   });
 });

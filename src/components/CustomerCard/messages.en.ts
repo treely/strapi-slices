@@ -1,4 +1,4 @@
 const messagesEn = {
-  'sections.customerStories.more': 'Read more',
+  'sections.customerCard.more': 'Read more',
 };
 export default messagesEn;

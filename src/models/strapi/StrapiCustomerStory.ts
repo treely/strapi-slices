@@ -8,9 +8,11 @@ interface StrapiCustomerStory {
   title: string;
   slug: string;
   img: StrapiImage;
-  customerName: string;
-  customerIndustry: string;
-  customerLogo: StrapiImage;
+  customerName?: string;
+  customerCardCustomerIndustry?: string;
+  quoteCardCustomerTitle?: string;
+  cardImage?: StrapiImage;
+  quoteCardQuote?: string;
   locale: Locale;
   createdAt: string;
   updatedAt: string;
@@ -18,6 +20,7 @@ interface StrapiCustomerStory {
   slices: any[];
   localizations: StrapiLocalization[];
   topBanner?: StrapiTopBanner;
+  variant?: 'customerCard' | 'quoteCard';
 }
 
 export default StrapiCustomerStory;

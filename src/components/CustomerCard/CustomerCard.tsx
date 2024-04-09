@@ -45,7 +45,7 @@ export const CustomerCard = ({
             </Text>
           )}
           {customerStory.title && (
-            <Heading size="xl" fontWeight="500">
+            <Heading size="md" fontWeight="500">
               {customerStory.title}
             </Heading>
           )}

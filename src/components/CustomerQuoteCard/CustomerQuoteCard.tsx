@@ -1,8 +1,9 @@
-import { Container, Heading, Button, Link, Box, Text } from 'boemly';
+import { Container, Heading, Button, Box, Text } from 'boemly';
 import React, { useContext } from 'react';
 import { StrapiCustomerStory, strapiMediaUrl } from '../..';
 import Image from 'next/image';
 import { IntlContext } from '../../components/ContextProvider';
+import Link from 'next/link';
 
 export interface CustomerQuoteCardProps {
   customerStory: StrapiCustomerStory;
@@ -44,11 +45,15 @@ export const CustomerQuoteCard = ({
         <Text size="xs" color="black">
           {customerStory.quoteCardQuote}
         </Text>
-        <Link href={`/customer-stories/${customerStory.slug}`}>
-          <Button variant="outline" size="sm" mt="8">
-            {formatMessage({ id: 'sections.customerQuoteCard.more' })}
-          </Button>
-        </Link>
+        <Button
+          href={`/customer-stories/${customerStory.slug}`}
+          as={Link}
+          variant="outline"
+          size="sm"
+          mt="8"
+        >
+          {formatMessage({ id: 'sections.customerQuoteCard.more' })}
+        </Button>
       </Box>
     </Container>
   );

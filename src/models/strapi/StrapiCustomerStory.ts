@@ -20,7 +20,7 @@ interface StrapiCustomerStory {
   slices: any[];
   localizations: StrapiLocalization[];
   topBanner?: StrapiTopBanner;
-  variant?: 'customerCard' | 'quoteCard';
+  variant?: 'customerCard' | 'quoteCard' | 'logoCard';
 }
 
 export default StrapiCustomerStory;

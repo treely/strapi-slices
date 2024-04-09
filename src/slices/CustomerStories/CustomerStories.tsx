@@ -4,6 +4,7 @@ import StrapiCustomerStory from '../../models/strapi/StrapiCustomerStory';
 import { Box, DefaultSectionContainer, SimpleGrid, Wrapper } from 'boemly';
 import CustomerCard from '../../components/CustomerCard';
 import CustomerQuoteCard from '../../components/CustomerQuoteCard';
+import LogoCard from '../../components/LogoCard';
 
 export interface CustomerStoriesProps {
   slice: {
@@ -35,6 +36,9 @@ export const CustomerStories = ({
                 )}
                 {attributes.variant === 'quoteCard' && (
                   <CustomerQuoteCard customerStory={customerStory.attributes} />
+                )}
+                {attributes.variant === 'logoCard' && (
+                  <LogoCard customerStory={customerStory.attributes} />
                 )}
               </Box>
             );

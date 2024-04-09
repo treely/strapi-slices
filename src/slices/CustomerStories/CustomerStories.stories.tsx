@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   strapiCustomerStoryMock,
-  strapiCustomerStoryMock1,
+  strapiCustomerStoryWithCustomerQuoteCardMock,
+  strapiCustomerStoryWithLogoCardMock,
 } from '../../test/strapiMocks/strapiCustomerStory';
 import { Meta, StoryFn } from '@storybook/react';
 import CustomerStories from '.';
@@ -26,25 +27,35 @@ WithCustomerCard.args = {
 export const WithQuoteCard = Template.bind({});
 WithQuoteCard.args = {
   slice: {
-    customer_stories: [strapiCustomerStoryMock1],
+    customer_stories: [strapiCustomerStoryWithCustomerQuoteCardMock],
   },
-  customerStories: [strapiCustomerStoryMock1],
+  customerStories: [strapiCustomerStoryWithCustomerQuoteCardMock],
+};
+
+export const WithLogoCard = Template.bind({});
+WithLogoCard.args = {
+  slice: {
+    customer_stories: [strapiCustomerStoryWithLogoCardMock],
+  },
+  customerStories: [strapiCustomerStoryWithLogoCardMock],
 };
 
 export const WithMultipleCards = Template.bind({});
 WithMultipleCards.args = {
   slice: {
     customer_stories: [
-      strapiCustomerStoryMock1,
       strapiCustomerStoryMock,
+      strapiCustomerStoryWithCustomerQuoteCardMock,
+      strapiCustomerStoryWithLogoCardMock,
       strapiCustomerStoryMock,
-      strapiCustomerStoryMock1,
+      strapiCustomerStoryWithCustomerQuoteCardMock,
     ],
   },
   customerStories: [
-    strapiCustomerStoryMock1,
     strapiCustomerStoryMock,
+    strapiCustomerStoryWithCustomerQuoteCardMock,
+    strapiCustomerStoryWithLogoCardMock,
     strapiCustomerStoryMock,
-    strapiCustomerStoryMock1,
+    strapiCustomerStoryWithCustomerQuoteCardMock,
   ],
 };

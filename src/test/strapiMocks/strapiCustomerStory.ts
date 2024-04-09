@@ -46,16 +46,32 @@ export const strapiCustomerStoryMock: IStrapiData<StrapiCustomerStory> = {
   },
 };
 
-export const strapiCustomerStoryMock1: IStrapiData<StrapiCustomerStory> = {
-  id: 2,
-  attributes: {
-    ...strapiCustomerStoryMock.attributes,
-    variant: 'quoteCard',
-    cardImage: {
-      id: 2,
-      alt: 'Avatar image alt text',
-      img: { data: storybookStrapiAvatarMock },
-      objectFit: 'contain',
+export const strapiCustomerStoryWithCustomerQuoteCardMock: IStrapiData<StrapiCustomerStory> =
+  {
+    id: 2,
+    attributes: {
+      ...strapiCustomerStoryMock.attributes,
+      variant: 'quoteCard',
+      cardImage: {
+        id: 2,
+        alt: 'Avatar image alt text',
+        img: { data: storybookStrapiAvatarMock },
+        objectFit: 'contain',
+      },
     },
-  },
-};
+  };
+
+export const strapiCustomerStoryWithLogoCardMock: IStrapiData<StrapiCustomerStory> =
+  {
+    id: 2,
+    attributes: {
+      ...strapiCustomerStoryMock.attributes,
+      variant: 'logoCard',
+      cardImage: {
+        id: 2,
+        alt: 'Avatar image alt text',
+        img: { data: storybookStrapiTreeIconMock },
+        objectFit: 'contain',
+      },
+    },
+  };

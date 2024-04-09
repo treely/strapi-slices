@@ -36,7 +36,7 @@ export const CustomerQuoteCard = ({
       )}
       <Box>
         <Box my="8">
-          <Heading size="xl" fontWeight="500">
+          <Heading size="md" fontWeight="500">
             {customerStory.customerName}
           </Heading>
           <Text size="xs">{customerStory.quoteCardCustomerTitle}</Text>

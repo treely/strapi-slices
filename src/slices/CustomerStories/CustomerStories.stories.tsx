@@ -47,6 +47,7 @@ WithMultipleCards.args = {
       strapiCustomerStoryMock,
       strapiCustomerStoryWithCustomerQuoteCardMock,
       strapiCustomerStoryWithLogoCardMock,
+      strapiCustomerStoryWithLogoCardMock,
       strapiCustomerStoryMock,
       strapiCustomerStoryWithCustomerQuoteCardMock,
     ],
@@ -54,6 +55,7 @@ WithMultipleCards.args = {
   customerStories: [
     strapiCustomerStoryMock,
     strapiCustomerStoryWithCustomerQuoteCardMock,
+    strapiCustomerStoryWithLogoCardMock,
     strapiCustomerStoryWithLogoCardMock,
     strapiCustomerStoryMock,
     strapiCustomerStoryWithCustomerQuoteCardMock,

@@ -187,6 +187,7 @@ export const Cta: React.FC<CtaProps> = ({ slice }: CtaProps) => {
   return (
     <DefaultSectionContainer
       backgroundColor={VARIANTS[slice.variant].backgroundColor.left}
+      title={slice.title}
     >
       <Wrapper>
         {slice.title ? (

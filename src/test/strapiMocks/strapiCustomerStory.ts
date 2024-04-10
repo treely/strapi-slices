@@ -24,6 +24,7 @@ export const strapiCustomerStoryMock: IStrapiData<StrapiCustomerStory> = {
       id: 1,
       alt: 'Icon alt text',
       img: { data: storybookStrapiTreeIconMock },
+      objectFit: 'contain',
     },
     img: {
       id: 1,

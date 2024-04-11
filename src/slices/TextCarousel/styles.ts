@@ -4,18 +4,20 @@ import { BREAKPOINT_MD } from '../../constants/breakpoints';
 import { Box } from 'boemly';
 
 export const CarouselContainer = styled(Box)`
-  overflow-x: scroll;
-
   margin-top: var(--boemly-space-6);
   padding: var(--boemly-space-8) 0;
 
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
   @media screen and (max-width: ${BREAKPOINT_MD}) {
     margin-top: var(--boemly-space-4);
+    width: var(--boemly-size-full);
+  }
+
+  width: var(--boemly-size-full);
+
+  overflow-x: hidden;
+
+  @media screen and (max-width: ${BREAKPOINT_MD}) {
+    overflow-x: scroll;
   }
 `;
 
@@ -35,8 +37,9 @@ export const CarouselInnerContainer = styled(
   min-width: var(--boemly-sizes-full);
 
   @media screen and (max-width: ${BREAKPOINT_MD}) {
+    justify-content: flex-start;
     width: calc(
-      (var(--boemly-sizes-xs) + var(--boemly-space-4)) *
+      (var(--boemly-sizes-2xs) + var(--boemly-space-4)) *
         ${({ numberofitems }: CarouselInnerContainerProps) => numberofitems} +
         var(--boemly-space-6)
     );
@@ -50,14 +53,14 @@ export const CardContainer = styled(Box)<CardContainerProps>`
   width: ${({ numberofitems }: CardContainerProps) =>
     numberofitems === 3 ? 'var(--boemly-sizes-xl)' : 'var(--boemly-sizes-sm)'};
 
-  margin-right: var(--boemly-space-16);
+  margin-right: var(--boemly-space-6);
 
   &:first-of-type {
-    margin-left: var(--boemly-space-16);
+    margin-left: var(--boemly-space-6);
   }
 
   @media screen and (max-width: ${BREAKPOINT_MD}) {
-    width: var(--boemly-sizes-xs);
+    width: var(--boemly-sizes-2xs);
 
     margin-right: var(--boemly-space-4);
 

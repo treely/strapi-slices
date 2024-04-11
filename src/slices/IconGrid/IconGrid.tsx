@@ -55,7 +55,7 @@ export const IconGrid: React.FC<IconGridProps> = ({ slice }: IconGridProps) => (
       <SimpleGrid
         columns={[1, null, null, 2, 3]}
         gap="16"
-        rowGap={['16', null, null, '20']}
+        rowGap={['16', null, null, null, '20']}
       >
         {slice.iconsWithTextAndButton.map((iconWithTextAndButton) => (
           <Box key={iconWithTextAndButton.id}>

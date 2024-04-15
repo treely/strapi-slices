@@ -124,7 +124,7 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
                     })}
                     icon={<ArrowLeft size={16} />}
                     pointerEvents="auto"
-                    boxShadow="sm"
+                    boxShadow="md"
                   />
                 )}
               </AnimatePresence>

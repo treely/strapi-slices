@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import {
   Box,
   Center,
@@ -23,6 +23,7 @@ import {
 import { useMeasure, useWindowSize } from 'react-use';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
+import { IntlContext } from '../../components/ContextProvider';
 
 interface TextCarouselSlice extends StrapiDefaultHeader {
   slides: StrapiTextCardWithIcon[];
@@ -37,6 +38,7 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
 }: TextCarouselProps) => {
   const [primary50] = useToken('colors', ['primary.50']);
   const [slideRef, { width: slideWidth }] = useMeasure<HTMLDivElement>();
+  const { formatMessage } = useContext(IntlContext);
 
   const containerRef = useRef(null);
 
@@ -117,7 +119,9 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
                     size="lg"
                     variant="outline"
                     onClick={() => setSliderIndex(sliderIndex - 1)}
-                    aria-label="Move left"
+                    aria-label={formatMessage({
+                      id: 'sections.textCarousel.moveLeft',
+                    })}
                     icon={<ArrowLeft size={16} />}
                     pointerEvents="auto"
                     boxShadow="sm"
@@ -137,10 +141,12 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
                     size="lg"
                     variant="outline"
                     onClick={() => setSliderIndex(sliderIndex + 1)}
-                    aria-label="Move right"
+                    aria-label={formatMessage({
+                      id: 'sections.textCarousel.moveRight',
+                    })}
                     icon={<ArrowRight size={16} />}
                     pointerEvents="auto"
-                    boxShadow="0px 4px 8px -1px rgba(0, 0, 0, 0.08), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)"
+                    boxShadow="md"
                   />
                 )}
               </AnimatePresence>

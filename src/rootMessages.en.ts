@@ -11,6 +11,7 @@ import portfolioProjectInfoMessagesEn from './components/portfolio/ProjectInfo/m
 import portfolioProjectCardMessagesEn from './components/portfolio/PortfolioProjectCard/messages.en';
 import portfolioSmallCheckoutMessagesEn from './components/portfolio/SmallCheckout/messages.en';
 import shopCheckoutMessagesEn from './slices/ShopCheckout/messages.en';
+import textCarouselMessagesEn from './slices/TextCarousel/messages.en';
 import timelineMessagesEn from './slices/Timeline/messages.en';
 
 import unitMessagesEn from './unit.messages.en';
@@ -36,6 +37,7 @@ const rootMessagesEn = {
   ...projectFactsMessagesEn,
   ...projectsMapMessagesEn,
   ...shopCheckoutMessagesEn,
+  ...textCarouselMessagesEn,
   ...timelineMessagesEn,
 
   //

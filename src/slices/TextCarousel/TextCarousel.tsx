@@ -83,6 +83,7 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
                 <TextCardWithIcon
                   title={title}
                   text={text}
+                  height="full"
                   icon={
                     <Image
                       src={strapiMediaUrl(icon.img, 'small')}

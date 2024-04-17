@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useMemo, useRef, useState } from 'react';
 import {
   Box,
   Center,
@@ -33,22 +33,49 @@ export interface TextCarouselProps {
   slice: TextCarouselSlice;
 }
 
+const ITEM_GAP = 24;
+const MAX_OFFSET_RIGHT = 55;
+
 export const TextCarousel: React.FC<TextCarouselProps> = ({
   slice,
 }: TextCarouselProps) => {
-  const [primary50] = useToken('colors', ['primary.50']);
-  const [slideRef, { width: slideWidth }] = useMeasure<HTMLDivElement>();
-  const { formatMessage } = useContext(IntlContext);
-
   const containerRef = useRef(null);
-
+  const [primary50] = useToken('colors', ['primary.50']);
+  const [itemRef, { width: itemWidth }] = useMeasure<HTMLDivElement>();
+  const { formatMessage } = useContext(IntlContext);
   const { width: windowWidth } = useWindowSize();
 
   const [sliderIndex, setSliderIndex] = useState(0);
 
-  const allowScroll = windowWidth / 2 / slideWidth < slice.slides.length;
-  const canMoveRight = sliderIndex < slice.slides.length - 1;
-  const canMoveLeft = sliderIndex !== 0;
+  const numberOfItems = useMemo(
+    () => slice.slides.length,
+    [slice.slides.length]
+  );
+
+  const sliderItemsWidth = useMemo(
+    () => numberOfItems * (itemWidth + ITEM_GAP) - ITEM_GAP,
+    [itemWidth, numberOfItems]
+  );
+
+  const offsetLeft = useMemo(
+    () => sliderIndex * (itemWidth + ITEM_GAP) * -1,
+    [sliderIndex, itemWidth]
+  );
+
+  const allowScroll = useMemo(
+    () => sliderItemsWidth + ITEM_GAP * 2 > windowWidth,
+
+    [sliderItemsWidth, windowWidth]
+  );
+
+  const canMoveRight = useMemo(() => {
+    const offsetRight = windowWidth - (sliderItemsWidth + offsetLeft);
+
+    return offsetRight < MAX_OFFSET_RIGHT;
+  }, [itemWidth, sliderIndex, sliderItemsWidth, windowWidth]);
+
+  const canMoveLeft = useMemo(() => sliderIndex !== 0, [sliderIndex]);
+
   return (
     <DefaultSectionContainer backgroundColor={primary50} title={slice.title}>
       <Wrapper>
@@ -65,9 +92,9 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
       <CarouselContainer ref={containerRef}>
         <Box position="relative" width="full">
           <CarouselInnerContainer
-            numberofitems={slice.slides.length}
+            numberOfItems={slice.slides.length}
             animate={{
-              x: slideWidth * -sliderIndex,
+              x: offsetLeft,
             }}
             transition={{
               duration: 0.3,
@@ -75,11 +102,7 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
             }}
           >
             {slice.slides.map(({ id, title, text, icon }) => (
-              <CardContainer
-                key={id}
-                ref={slideRef}
-                numberofitems={slice.slides.length}
-              >
+              <CardContainer key={id} ref={itemRef}>
                 <TextCardWithIcon
                   title={title}
                   text={text}

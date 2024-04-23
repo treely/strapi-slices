@@ -22,6 +22,7 @@ const imageTextRows = [
       id: 1,
       alt: 'Alt text',
       img: { data: storybookStrapiCoverMock },
+      objectFit: 'cover',
     },
   },
   {
@@ -32,6 +33,7 @@ const imageTextRows = [
       id: 1,
       alt: 'Alt text',
       img: { data: storybookStrapiCoverMock },
+      objectFit: 'cover',
     },
   },
   {
@@ -42,6 +44,7 @@ const imageTextRows = [
       id: 1,
       alt: 'Alt text',
       img: { data: storybookStrapiCoverMock },
+      objectFit: 'cover',
     },
   },
 ];

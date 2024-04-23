@@ -112,7 +112,10 @@ export const ImageTextSequence: React.FC<ImageTextSequenceProps> = ({
                       src={strapiMediaUrl(image.img, 'large')}
                       alt={image.alt}
                       fill
-                      style={{ objectFit: image.objectFit || 'contain' }}
+                      style={{
+                        objectFit: image.objectFit || 'contain',
+                        borderRadius: 'var(--boemly-radii-xl)',
+                      }}
                     />
                   </Box>
                 </Box>

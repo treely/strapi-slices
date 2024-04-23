@@ -25,27 +25,6 @@ export const SliderContainer = styled(Box)`
   }
 `;
 
-interface ButtonsContainerProps {
-  show: string;
-}
-export const ButtonsContainer = styled(Box)<ButtonsContainerProps>`
-  display: ${({ show }: ButtonsContainerProps) => (show ? 'flex' : 'none')};
-  pointer-events: none;
-
-  // Place at 50% of height of tallest image minus size of button
-  position: absolute;
-  top: calc(50% - var(--boemly-sizes-12));
-  left: 0;
-  width: var(--boemly-sizes-full);
-
-  padding: 0 var(--boemly-sizes-32);
-  justify-content: space-between;
-
-  @media screen and (max-width: ${BREAKPOINT_MD}) {
-    display: none;
-  }
-`;
-
 interface SliderInnerContainerProps {
   imageCount: number;
 }

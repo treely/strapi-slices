@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import {
   Box,
   IconButton,
@@ -16,7 +16,6 @@ import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import FullScreenImage from '../../components/FullScreenImage';
 import { BREAKPOINT_MD_QUERY } from '../../constants/breakpoints';
 import {
-  ButtonsContainer,
   ItemContainer,
   SliderContainer,
   SliderInnerContainer,
@@ -33,6 +32,10 @@ export interface FullWidthImageSliderProps {
     }[];
   };
 }
+
+const ITEM_GAP = 24;
+const MAX_OFFSET_RIGHT = 162;
+
 export const FullWidthImageSlider: React.FC<FullWidthImageSliderProps> = ({
   slice,
 }: FullWidthImageSliderProps) => {
@@ -44,9 +47,34 @@ export const FullWidthImageSlider: React.FC<FullWidthImageSliderProps> = ({
   const [sliderIndex, setSliderIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
-  const allowScroll = windowWidth / 2 / imageWidth < slice.images.length;
-  const canMoveRight = sliderIndex < slice.images.length - 1;
-  const canMoveLeft = sliderIndex !== 0;
+  const numberOfItems = useMemo(
+    () => slice.images.length,
+    [slice.images.length]
+  );
+
+  const sliderItemsWidth = useMemo(
+    () => numberOfItems * (imageWidth + ITEM_GAP) - ITEM_GAP,
+    [imageWidth, numberOfItems]
+  );
+
+  const offsetLeft = useMemo(
+    () => sliderIndex * (imageWidth + ITEM_GAP) * -1,
+    [sliderIndex, imageWidth]
+  );
+
+  const allowScroll = useMemo(
+    () => sliderItemsWidth + ITEM_GAP * 3 > windowWidth,
+
+    [sliderItemsWidth, windowWidth]
+  );
+
+  const canMoveRight = useMemo(() => {
+    const offsetRight = windowWidth - (sliderItemsWidth + offsetLeft);
+
+    return offsetRight < MAX_OFFSET_RIGHT;
+  }, [imageWidth, sliderIndex, sliderItemsWidth, windowWidth]);
+
+  const canMoveLeft = useMemo(() => sliderIndex !== 0, [sliderIndex]);
 
   return (
     <DefaultSectionContainer>
@@ -97,7 +125,17 @@ export const FullWidthImageSlider: React.FC<FullWidthImageSliderProps> = ({
         </SliderInnerContainer>
       </SliderContainer>
 
-      <ButtonsContainer show={(allowScroll && !isOpen).toString()}>
+      <Box
+        display={['none', null, null, !!allowScroll ? 'flex' : 'none']}
+        pointerEvents="none"
+        position="absolute"
+        top="calc(50% - var(--boemly-sizes-12))"
+        left="0"
+        width="full"
+        py="0"
+        px="32"
+        justifyContent="space-between"
+      >
         <Box>
           <AnimatePresence>
             {canMoveLeft && (
@@ -136,7 +174,7 @@ export const FullWidthImageSlider: React.FC<FullWidthImageSliderProps> = ({
             )}
           </AnimatePresence>
         </Box>
-      </ButtonsContainer>
+      </Box>
 
       <FullScreenImage
         images={slice.images.map((image) => image.img)}

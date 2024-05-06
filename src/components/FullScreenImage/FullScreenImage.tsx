@@ -48,7 +48,6 @@ export const FullScreenImage = ({
   }, [imageIndex, containerRef]);
 
   const onCloseLocal = () => {
-    setImageIndex(0);
     onClose();
   };
 
@@ -80,9 +79,11 @@ export const FullScreenImage = ({
             height="full"
             width="full"
           >
-            {images.map((image) => (
-              <ZoomableImage key={image.id} image={image} />
-            ))}
+            {images
+              .filter((image) => image.id === imageIndex + 1)
+              .map((image) => {
+                return <ZoomableImage key={image.id} image={image} />;
+              })}
           </Flex>
 
           <Flex

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { BoemlyModal, Flex, IconButton } from 'boemly';
 import { useKey, useLockBodyScroll } from 'react-use';
 import StrapiImage from '../../models/strapi/StrapiImage';
@@ -9,52 +9,62 @@ export interface FullScreenImageProps {
   images: StrapiImage[];
   isOpen: boolean;
   onClose: () => void;
-  openIndex?: number;
+  currentIndex?: number;
+  setCurrentIndex?: (callback: (c: number) => number) => void;
 }
 
 export const FullScreenImage = ({
   images,
   isOpen,
   onClose,
-  openIndex,
+  currentIndex = 0,
+  setCurrentIndex,
 }: FullScreenImageProps) => {
-  const [imageIndex, setImageIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useLockBodyScroll(isOpen);
 
-  const canMoveRight = imageIndex < images.length - 1;
-  const canMoveLeft = imageIndex !== 0;
+  const canMoveRight = useMemo(
+    () => currentIndex < images.length - 1,
+    [currentIndex, images.length]
+  );
+  const canMoveLeft = useMemo(() => currentIndex !== 0, [currentIndex]);
 
-  const onRight = () => setImageIndex((p) => (canMoveRight ? p + 1 : p));
-  const onLeft = () => setImageIndex((p) => (canMoveLeft ? p - 1 : p));
+  const onRight = useCallback(
+    () => canMoveRight && setCurrentIndex && setCurrentIndex((c) => c + 1),
+    [canMoveRight]
+  );
+  const onLeft = useCallback(
+    () => canMoveLeft && setCurrentIndex && setCurrentIndex((c) => c - 1),
+    [canMoveLeft]
+  );
 
   useKey('ArrowRight', onRight, {}, [onRight]);
   useKey('ArrowLeft', onLeft, {}, [onLeft]);
 
   useEffect(() => {
-    if (openIndex !== undefined) {
-      setImageIndex(openIndex);
+    if (!!isOpen) {
+      setTimeout(() => {
+        containerRef?.current?.scrollTo({
+          left: currentIndex * containerRef.current.clientWidth,
+          behavior: 'instant',
+        });
+      }, 10);
     }
-  }, [openIndex]);
+  }, [isOpen]);
 
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.scrollTo({
-        left: imageIndex * containerRef.current.clientWidth,
+        left: currentIndex * containerRef.current.clientWidth,
         behavior: 'smooth',
       });
     }
-  }, [imageIndex, containerRef]);
-
-  const onCloseLocal = () => {
-    setImageIndex(0);
-    onClose();
-  };
+  }, [currentIndex, containerRef]);
 
   return (
     <BoemlyModal
-      onClose={onCloseLocal}
+      onClose={onClose}
       isOpen={isOpen}
       title=""
       trigger=""

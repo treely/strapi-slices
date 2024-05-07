@@ -178,7 +178,8 @@ export const FullWidthImageSlider: React.FC<FullWidthImageSliderProps> = ({
 
       <FullScreenImage
         images={slice.images.map((image) => image.img)}
-        openIndex={sliderIndex}
+        currentIndex={sliderIndex}
+        setCurrentIndex={setSliderIndex}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
       />

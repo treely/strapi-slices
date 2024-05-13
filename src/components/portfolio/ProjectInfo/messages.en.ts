@@ -10,6 +10,8 @@ const messagesEn = {
     'Verification Standard',
   'features.projectInfo.properties.verificationStandard.value.SilvaconsultFCSISO14':
     'SILVACONSULT® Forest Carbon Standard, ISO 14064-2',
+  'features.projectInfo.properties.verificationStandard.value.MfKWCH':
+    'Methodik für Klimaschutzprojekte im Wald für die Schweiz',
   'features.projectInfo.properties.forecastedAmountYear.label':
     'Project Volume',
   'features.projectInfo.properties.riskBuffer': 'Risk Buffer Share',
@@ -17,4 +19,5 @@ const messagesEn = {
   'features.projectInfo.properties.year':
     '{years} {years, plural, one {year} other {years} }',
 };
+
 export default messagesEn;

@@ -56,7 +56,7 @@ const SmallCheckout = ({
   button,
 }: SmallCheckoutProps) => {
   const { formatNumber, formatMessage, locale } = useContext(IntlContext);
-  const { push } = useRouter();
+  const { asPath, push } = useRouter();
 
   const validateForm = useCallback(
     (values: SmallCheckoutForm) => {
@@ -85,12 +85,20 @@ const SmallCheckout = ({
     [locale]
   );
 
-  const onSubmit = async ({ contributionValueCurrency }: SmallCheckoutForm) =>
-    push(
-      `${FPM_API_URI}/v1/webhooks/shop/checkout?batchId=${batchId}&quantity=${Math.floor(
-        contributionValueCurrency / pricePerKg
-      )}`
+  const onSubmit = async ({ contributionValueCurrency }: SmallCheckoutForm) => {
+    const url = new URL(`${FPM_API_URI}/v1/webhooks/shop/checkout`);
+
+    url.searchParams.append('batchId', batchId);
+
+    url.searchParams.append(
+      'quantity',
+      Math.floor(contributionValueCurrency / pricePerKg).toString()
     );
+
+    url.searchParams.append('cancelPath', asPath);
+
+    push(url.toString());
+  };
 
   return (
     <Flex

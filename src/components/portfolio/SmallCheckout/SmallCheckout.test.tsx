@@ -80,7 +80,7 @@ describe('The SmallCheckout component', () => {
 
     await waitFor(() => {
       expect(pushSpy).toHaveBeenCalledWith(
-        'https://api.fpm.t-staging.com/v1/webhooks/shop/checkout?batchId=batchId&quantity=2000'
+        'https://api.fpm.t-staging.com/v1/webhooks/shop/checkout?batchId=batchId&quantity=2000&cancelPath=%2F'
       );
     });
   });
@@ -106,7 +106,7 @@ describe('The SmallCheckout component', () => {
 
     await waitFor(() => {
       expect(pushSpy).toHaveBeenCalledWith(
-        'https://api.fpm.t-staging.com/v1/webhooks/shop/checkout?batchId=batchId&quantity=3000'
+        'https://api.fpm.t-staging.com/v1/webhooks/shop/checkout?batchId=batchId&quantity=3000&cancelPath=%2F'
       );
     });
   });

@@ -18,7 +18,6 @@ import {
   Wrapper,
 } from 'boemly';
 import { Field, FieldProps, Form, Formik, FormikProps } from 'formik';
-import { useRouter } from 'next/router';
 import { FPM_API_URI } from '../../constants/api';
 import CheckoutForm from '../../models/forms/CheckoutForm';
 import {
@@ -26,6 +25,7 @@ import {
   MINIMUM_CONTRIBUTION_VALUE_IN_MONEY,
 } from '../../constants/domain';
 import { IntlContext } from '../../components/ContextProvider';
+import { useRouter } from 'next/router';
 
 export interface ShopCheckoutProps {
   slice: {
@@ -45,7 +45,7 @@ export interface ShopCheckoutProps {
 export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
   const [primary50] = useToken('colors', ['primary.50']);
   const { formatMessage, formatNumber, locale } = useContext(IntlContext);
-  const { push } = useRouter();
+  const { asPath, push } = useRouter();
 
   const validateForm = useCallback(
     (values: CheckoutForm) => {
@@ -83,6 +83,8 @@ export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
       'quantity',
       Math.floor(contributionValue / slice.pricePerKg).toString()
     );
+
+    url.searchParams.append('cancelPath', asPath);
 
     if (slice.couponId) url.searchParams.append('couponId', slice.couponId);
 

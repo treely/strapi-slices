@@ -3,6 +3,7 @@ import { StoryFn, Meta } from '@storybook/react';
 
 import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import ImageTextSequence from '.';
+import { StrapiImage, StrapiLink } from '../..';
 
 export default {
   title: 'slices/ImageTextSequence',
@@ -13,7 +14,13 @@ const Template: StoryFn<typeof ImageTextSequence> = (args) => (
   <ImageTextSequence {...args} />
 );
 
-const imageTextRows = [
+const imageTextRows: {
+  id: number;
+  title: string;
+  text: string;
+  button?: StrapiLink;
+  image: StrapiImage;
+}[] = [
   {
     id: 1,
     title: 'Row title 1',

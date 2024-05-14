@@ -7,6 +7,7 @@ import {
 import StrapiBlogPost from '../../models/strapi/StrapiBlogPost';
 import IStrapiData from '../../models/strapi/IStrapiData';
 import BlogCards from '.';
+import { IStrapi, StrapiCategory } from '../..';
 
 export default {
   title: 'slices/BlogCards',
@@ -14,6 +15,17 @@ export default {
 } as Meta<typeof BlogCards>;
 
 const Template: StoryFn<typeof BlogCards> = (args) => <BlogCards {...args} />;
+const blogPostCategory: IStrapi<IStrapiData<StrapiCategory>> = {
+  data: {
+    id: 1,
+    attributes: {
+      name: 'Business',
+      locale: 'en',
+      createdAt: '2022-01-10T14:59:44.830Z',
+      updatedAt: '2022-01-10T14:59:44.839Z',
+    },
+  },
+};
 const blogPost: IStrapiData<StrapiBlogPost> = {
   id: 1,
   attributes: {
@@ -40,17 +52,7 @@ const blogPost: IStrapiData<StrapiBlogPost> = {
         },
       },
     },
-    category: {
-      data: {
-        id: 1,
-        attributes: {
-          name: 'Business',
-          locale: 'en',
-          createdAt: '2022-01-10T14:59:44.830Z',
-          updatedAt: '2022-01-10T14:59:44.839Z',
-        },
-      },
-    },
+    category: blogPostCategory,
     locale: 'en',
     createdAt: '2022-01-10T15:04:32.897Z',
     updatedAt: '2022-01-11T10:21:42.317Z',
@@ -85,6 +87,7 @@ White.args = {
     title: 'Title',
     subTitle: 'Sub title',
     variant: 'white',
+    blogPostCategory,
   },
   blogPosts: [
     blogPost,
@@ -108,6 +111,7 @@ Gray.args = {
     title: 'Title',
     subTitle: 'Sub title',
     variant: 'gray',
+    blogPostCategory,
   },
   blogPosts: [
     blogPost,
@@ -131,6 +135,7 @@ WithButton.args = {
     title: 'Title',
     subTitle: 'Sub title',
     variant: 'white',
+    blogPostCategory,
     button: { id: 1, url: 'url', text: 'Button' },
   },
   blogPosts: [

@@ -24,7 +24,7 @@ Minimal.args = {
       ...fpmProjectMock,
       geom: {
         type: 'Point',
-        coordinates: [10.336542145100883, 47.82636837845707],
+        coordinates: [10.33654214510088, 47.82636837845707],
       },
     },
   ],
@@ -45,7 +45,7 @@ WithHero.args = {
       ...fpmProjectMock,
       geom: {
         type: 'Point',
-        coordinates: [10.336542145100883, 47.82636837845707],
+        coordinates: [10.33654214510088, 47.82636837845707],
       },
     },
   ],
@@ -67,7 +67,7 @@ InitialPosition.args = {
       isPublic: true,
       geom: {
         type: 'Point',
-        coordinates: [10.336542145100883, 47.82636837845707],
+        coordinates: [10.33654214510088, 47.82636837845707],
       },
     },
   ],
@@ -82,7 +82,7 @@ FullProps.args = {
 
     defaultCenterCoordinates: {
       latitude: 47.82636837845707,
-      longitude: 10.336542145100883,
+      longitude: 10.33654214510088,
     },
     defaultZoomLevel: 10,
   },
@@ -95,7 +95,7 @@ FullProps.args = {
       isPublic: true,
       geom: {
         type: 'Point',
-        coordinates: [10.336542145100883, 47.82636837845707],
+        coordinates: [10.33654214510088, 47.82636837845707],
       },
     },
   ],

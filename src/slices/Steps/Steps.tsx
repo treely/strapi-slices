@@ -175,6 +175,7 @@ export const Steps: React.FC<StepsProps> = ({ slice }: StepsProps) => {
                   slice.card.shapes &&
                   slice.card.shapes?.map((shape) => (
                     <Image
+                      key={shape.id}
                       src={strapiMediaUrl(shape.img, 'small')}
                       alt={shape.alt}
                       fill

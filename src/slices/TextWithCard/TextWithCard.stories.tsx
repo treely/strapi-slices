@@ -4,6 +4,7 @@ import { StoryFn, Meta } from '@storybook/react';
 import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import TextWithCard from '.';
 import CreditsAvailableState from '../../models/CreditsAvailableState';
+import { IStrapiData, PortfolioProject, StrapiProject } from '../..';
 
 export default {
   title: 'slices/TextWithCard',
@@ -37,7 +38,7 @@ const card = {
   footerTitle: 'Footer title',
   footerSubTitle: 'Footer sub title',
 };
-const portfolioProject = {
+const portfolioProject: PortfolioProject = {
   id: '1',
   title: 'Project 1',
   geom: {
@@ -77,7 +78,7 @@ const portfolioProject = {
     id: 1,
   },
 };
-const project = {
+const project: IStrapiData<StrapiProject> = {
   id: 1,
   attributes: {
     slug: 'slug',

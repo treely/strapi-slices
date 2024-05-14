@@ -7,6 +7,7 @@ import {
 } from '../../test/storybookMocks/storybookStrapiMedia';
 import Timeline from '.';
 import { TimelineItem } from './Timeline';
+import { StrapiImage } from '../..';
 
 export default {
   title: 'slices/Timeline',
@@ -27,14 +28,17 @@ const button = {
   text: 'Button',
   url: 'https://tree.ly',
 };
-const badge = { text: 'Badge', variant: 'green' };
+const badge: { text: string; variant: 'orange' | 'green' | 'red' | 'gray' } = {
+  text: 'Badge',
+  variant: 'green',
+};
 const image = { id: 71, alt: 'Alt', img: { data: storybookStrapiCoverMock } };
 const icon = {
   id: 1,
   alt: 'Icon alt text',
   img: { data: storybookStrapiTreeIconMock },
 };
-const logo = {
+const logo: StrapiImage = {
   id: 2,
   alt: 'Avatar image alt text',
   img: { data: storybookStrapiAvatarMock },

@@ -45,7 +45,7 @@ export interface ShopCheckoutProps {
 export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
   const [primary50] = useToken('colors', ['primary.50']);
   const { formatMessage, formatNumber, locale } = useContext(IntlContext);
-  const { asPath, push } = useRouter();
+  const { push } = useRouter();
 
   const validateForm = useCallback(
     (values: CheckoutForm) => {
@@ -75,20 +75,22 @@ export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
   );
 
   const onSubmit = ({ contributionValue }: CheckoutForm) => {
-    const url = new URL(`${FPM_API_URI}/v1/webhooks/shop/checkout`);
+    const checkoutURL = new URL(`${FPM_API_URI}/v1/webhooks/shop/checkout`);
+    const currentURL = new URL(window.location.href);
 
-    url.searchParams.append('batchId', slice.batchId);
+    checkoutURL.searchParams.append('batchId', slice.batchId);
 
-    url.searchParams.append(
+    checkoutURL.searchParams.append(
       'quantity',
       Math.floor(contributionValue / slice.pricePerKg).toString()
     );
 
-    url.searchParams.append('cancelPath', asPath);
+    checkoutURL.searchParams.append('cancelPath', currentURL.pathname);
 
-    if (slice.couponId) url.searchParams.append('couponId', slice.couponId);
+    if (slice.couponId)
+      checkoutURL.searchParams.append('couponId', slice.couponId);
 
-    push(url.toString());
+    push(checkoutURL.toString());
   };
 
   return (

@@ -2,7 +2,7 @@
   "name": "@treely/strapi-slices",
   "version": "0.0.0-development",
   "license": "MIT",
-  "author": "Tree.ly GmbH",
+  "author": "Tree.ly FlexCo",
   "description": "@treely/strapi-slices is a open source library maintained by Tree.ly.",
   "repository": {
     "type": "git",

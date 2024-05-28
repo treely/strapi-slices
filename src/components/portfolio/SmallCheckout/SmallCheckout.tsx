@@ -155,12 +155,10 @@ const SmallCheckout = ({
                         type: 'number',
                         value: field.value,
                         onChange: (e) => {
-                          // valueAsNumber might be NaN
-                          const value = e.target.valueAsNumber || 0;
-
                           setValues({
-                            contributionValueCurrency: value,
-                            contributionValueKgs: value / pricePerKg / 1000,
+                            contributionValueCurrency: e.target.valueAsNumber,
+                            contributionValueKgs:
+                              e.target.valueAsNumber / pricePerKg / 1000,
                           });
                         },
                       }}

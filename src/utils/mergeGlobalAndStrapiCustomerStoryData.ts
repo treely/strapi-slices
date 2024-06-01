@@ -67,6 +67,7 @@ const mergeGlobalAndStrapiCustomerStoryData = (
     topBanner:
       customerStory?.attributes.topBanner || global.attributes.topBanner,
     blogPosts: [],
+    preview: !!context.preview,
   };
 };
 

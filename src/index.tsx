@@ -45,6 +45,10 @@ import PageMetadata from './models/PageMetadata';
 import PageProps from './models/PageProps';
 import PortfolioProject from './models/PortfolioProject';
 
+import getPortfolioProjects from './integrations/strapi/getPortfolioProjects';
+import getStaticPathsFromStrapi from './integrations/strapi/getStaticPathsFromStrapi';
+import getStaticPropsFromStrapi from './integrations/strapi/getStaticPropsFromStrapi';
+
 import mergeGlobalAndStrapiBlogPostData from './utils/mergeGlobalAndStrapiBlogPostData';
 import mergeGlobalAndStrapiCustomerStoryData from './utils/mergeGlobalAndStrapiCustomerStoryData';
 import mergeGlobalAndStrapiPageData from './utils/mergeGlobalAndStrapiPageData';
@@ -63,6 +67,11 @@ export {
   mergeGlobalAndStrapiProjectData,
   strapiLinkUrl,
   strapiMediaUrl,
+
+  // Integrations
+  getPortfolioProjects,
+  getStaticPathsFromStrapi,
+  getStaticPropsFromStrapi,
 };
 
 export type {

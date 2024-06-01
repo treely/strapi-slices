@@ -82,6 +82,7 @@ const mergeGlobalAndStrapiProject = (
     banner: global.attributes.banner,
     topBanner: project?.attributes.topBanner || global.attributes.topBanner,
     customerStories: [],
+    preview: !!context.preview,
   };
 };
 

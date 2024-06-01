@@ -27,6 +27,7 @@ interface PageProps {
   banner?: StrapiBanner;
   topBanner?: StrapiTopBanner;
   customerStories: IStrapiData<StrapiCustomerStory>[];
+  preview: boolean;
 }
 
 export default PageProps;

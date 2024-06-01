@@ -1,8 +1,8 @@
 {
   // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
   "extends": "@tsconfig/vite-react/tsconfig.json",
-  "include": ["src", "types", "index.d.ts"],
-  "exclude": ["node_modules", "__mocks__"],
+  "include": ["src", "types", "index.d.ts", "__mocks__"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "jsx": "react",
     "esModuleInterop": true

@@ -73,6 +73,7 @@ const mergeGlobalAndStrapiBlogPostData = (
     banner: global.attributes.banner,
     topBanner: post?.attributes.topBanner || global.attributes.topBanner,
     customerStories: [],
+    preview: !!context.preview,
   };
 };
 

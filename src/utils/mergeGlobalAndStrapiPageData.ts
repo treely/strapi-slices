@@ -88,6 +88,7 @@ const mergeGlobalAndStrapiPageData = (
     banner: global.attributes.banner,
     topBanner: page?.attributes.topBanner || global.attributes.topBanner,
     customerStories: returnCustomerStories ? customerStories : [],
+    preview: !!context.preview,
   };
 };
 

@@ -10,18 +10,25 @@ import fpmClient from '../fpmClient';
 import strapiClient from './strapiClient';
 
 const getPortfolioProjects = async (
-  locale?: string
+  locale: string = 'en',
+  preview: boolean = false
 ): Promise<PortfolioProject[]> => {
+  const params: Record<string, any> = {
+    populate: 'deep,6',
+    locale,
+    'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
+  };
+
+  if (preview) {
+    params.publicationState = 'preview';
+  }
+
   const [{ data: fpmProjects }, { data: strapiProjects }] = await Promise.all([
     fpmClient.get<FPMProject[]>('/public/projects'),
     strapiClient.get<IStrapiResponse<IStrapiData<StrapiProject>[]>>(
       '/projects',
       {
-        params: {
-          populate: 'deep,6',
-          locale,
-          'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
-        },
+        params,
       }
     ),
   ]);

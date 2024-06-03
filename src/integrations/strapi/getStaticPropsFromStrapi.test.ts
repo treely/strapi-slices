@@ -38,6 +38,22 @@ describe('The getStaticPropsFromStrapi function', () => {
     expect(result.data).toStrictEqual([strapiProjectMock]);
   });
 
+  it('returns the data from Strapi filtered by any other filter', async () => {
+    const resultPromise = getStaticPropsFromStrapi('/projects', {
+      locale: 'en',
+      filters: { test: 'test' },
+    });
+
+    MockAxios.mockResponseFor(
+      { url: '/projects' },
+      { data: [strapiProjectMock] }
+    );
+
+    const result = await resultPromise;
+
+    expect(result.data).toStrictEqual([strapiProjectMock]);
+  });
+
   it('returns the data from Strapi in preview mode', async () => {
     const resultPromise = getStaticPropsFromStrapi('/projects', {
       locale: 'en',

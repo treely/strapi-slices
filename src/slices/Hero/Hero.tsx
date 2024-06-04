@@ -20,7 +20,7 @@ export interface HeroProps {
   };
 }
 
-export const Hero: React.FC<HeroProps> = ({ slice }: HeroProps) => (
+export const Hero = ({ slice }: HeroProps): JSX.Element => (
   <Box
     position="relative"
     width="full"

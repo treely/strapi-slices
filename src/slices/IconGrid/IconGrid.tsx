@@ -31,7 +31,7 @@ export interface IconGridProps {
   };
 }
 
-export const IconGrid: React.FC<IconGridProps> = ({ slice }: IconGridProps) => {
+export const IconGrid = ({ slice }: IconGridProps): JSX.Element => {
   const columns = () => {
     if (slice.iconsWithTextAndButton.length === 2) {
       return [1, null, null, 2, 2];

@@ -56,6 +56,7 @@ import mergeGlobalAndStrapiProjectData from './utils/mergeGlobalAndStrapiProject
 import strapiLinkUrl from './utils/strapiLinkUrl';
 import strapiMediaUrl from './utils/strapiMediaUrl';
 
+export * from './components/PreviewAlert';
 export * from './components/SEOTags';
 export * from './components/SliceRenderer';
 

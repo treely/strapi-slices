@@ -27,6 +27,7 @@ import {
 } from '../../../constants/domain';
 import { CDN_URI, FPM_API_URI } from '../../../constants/api';
 import StrapiLinkButton from '../../StrapiLinkButton';
+import SmallCheckoutForm from '../../../models/forms/SmallCheckoutForm';
 
 export interface SmallCheckoutProps {
   batchId: string;
@@ -38,11 +39,6 @@ export interface SmallCheckoutProps {
   title?: string;
   subtitle?: string;
   button?: StrapiLink;
-}
-
-interface SmallCheckoutForm {
-  contributionValueCurrency: number;
-  contributionValueKgs: number;
 }
 
 const SmallCheckout = ({
@@ -61,20 +57,16 @@ const SmallCheckout = ({
   const validateForm = useCallback(
     (values: SmallCheckoutForm) => {
       const errors: FormikErrors<SmallCheckoutForm> = {};
-
-      if (!values.contributionValueCurrency) {
+      const value = parseInt(values.contributionValueCurrency);
+      if (!values.contributionValueCurrency || isNaN(value)) {
         errors.contributionValueCurrency = formatMessage({
           id: 'portfolio.smallCheckout.contributionValueCurrency.validation.empty',
         });
-      } else if (
-        values.contributionValueCurrency < MINIMUM_CONTRIBUTION_VALUE_IN_MONEY
-      ) {
+      } else if (value < MINIMUM_CONTRIBUTION_VALUE_IN_MONEY) {
         errors.contributionValueCurrency = formatMessage({
           id: `portfolio.smallCheckout.contributionValueCurrency.validation.tooLow.${currency}`,
         });
-      } else if (
-        values.contributionValueCurrency > MAXIMUM_CONTRIBUTION_VALUE_IN_MONEY
-      ) {
+      } else if (value > MAXIMUM_CONTRIBUTION_VALUE_IN_MONEY) {
         errors.contributionValueCurrency = formatMessage({
           id: 'portfolio.smallCheckout.contributionValueCurrency.validation.tooHigh',
         });
@@ -93,7 +85,7 @@ const SmallCheckout = ({
 
     checkoutURL.searchParams.append(
       'quantity',
-      Math.floor(contributionValueCurrency / pricePerKg).toString()
+      Math.floor(parseInt(contributionValueCurrency) / pricePerKg).toString()
     );
 
     checkoutURL.searchParams.append('cancelPath', currentURL.pathname);
@@ -131,8 +123,12 @@ const SmallCheckout = ({
 
       <Formik
         initialValues={{
-          contributionValueCurrency: initialContributionValue,
-          contributionValueKgs: initialContributionValue / pricePerKg / 1000,
+          contributionValueCurrency: initialContributionValue.toString(),
+          contributionValueKgs: (
+            initialContributionValue /
+            pricePerKg /
+            1000
+          ).toString(),
         }}
         validate={validateForm}
         onSubmit={onSubmit}
@@ -153,12 +149,16 @@ const SmallCheckout = ({
                       size="md"
                       inputProps={{
                         type: 'number',
-                        value: field.value,
+                        value: field.value || '',
                         onChange: (e) => {
+                          const value = e.target.valueAsNumber;
                           setValues({
-                            contributionValueCurrency: e.target.valueAsNumber,
-                            contributionValueKgs:
-                              e.target.valueAsNumber / pricePerKg / 1000,
+                            contributionValueCurrency: value.toString(),
+                            contributionValueKgs: (
+                              value /
+                              pricePerKg /
+                              1000
+                            ).toString(),
                           });
                         },
                       }}
@@ -190,14 +190,16 @@ const SmallCheckout = ({
                       size="md"
                       inputProps={{
                         type: 'number',
-                        value: field.value,
+                        value: field.value || '',
                         onChange: (e) => {
-                          const value = e.target.valueAsNumber || 0;
-
+                          const value = e.target.valueAsNumber;
                           setValues({
-                            contributionValueCurrency:
-                              value * pricePerKg * 1000,
-                            contributionValueKgs: value,
+                            contributionValueCurrency: (
+                              value *
+                              pricePerKg *
+                              1000
+                            ).toString(),
+                            contributionValueKgs: value.toString(),
                           });
                         },
                       }}

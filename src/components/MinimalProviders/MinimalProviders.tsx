@@ -1,14 +1,8 @@
 import React from 'react';
 import { FONT_CUSTOMIZATIONS } from '../../constants/fontCustomizations';
-import rootMessagesDe from '../../rootMessages.de';
-import rootMessagesEn from '../../rootMessages.en';
 import { BoemlyThemeProvider } from 'boemly';
 import { IntlProvider } from 'react-intl';
-
-const messages = {
-  en: rootMessagesEn,
-  de: rootMessagesDe,
-};
+import getMessages from '../../utils/getMessages';
 
 interface MinimalProvidersProps {
   locale: string;
@@ -16,7 +10,7 @@ interface MinimalProvidersProps {
 }
 
 const MinimalProviders = ({ children, locale }: MinimalProvidersProps) => (
-  <IntlProvider messages={messages[locale as 'en' | 'de']} locale={locale}>
+  <IntlProvider messages={getMessages(locale)} locale={locale}>
     <BoemlyThemeProvider fonts={FONT_CUSTOMIZATIONS}>
       {children}
     </BoemlyThemeProvider>

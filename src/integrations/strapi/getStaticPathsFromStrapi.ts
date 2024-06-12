@@ -6,6 +6,7 @@ interface Options {
   filters?: Record<string, any>;
 }
 
+/** @deprecated Migrate to getAllSlugsFromStrapi */
 const getStaticPathsFromStrapi = async (
   path: string,
   { filters = {} }: Options = { filters: {} }

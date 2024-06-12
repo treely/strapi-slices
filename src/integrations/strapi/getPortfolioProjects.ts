@@ -9,6 +9,8 @@ import FPMProject from '../../models/fpm/FPMProject';
 import fpmClient from '../fpmClient';
 import strapiClient from './strapiClient';
 
+const FALLBACK_LOCALE = 'en';
+
 const getPortfolioProjects = async (
   locale: string = 'en',
   preview: boolean = false
@@ -23,7 +25,11 @@ const getPortfolioProjects = async (
     params.publicationState = 'preview';
   }
 
-  const [{ data: fpmProjects }, { data: strapiProjects }] = await Promise.all([
+  const [
+    { data: fpmProjects },
+    { data: strapiProjectsLocalized },
+    { data: strapiProjectsEnglish },
+  ] = await Promise.all([
     fpmClient.get<FPMProject[]>('/public/projects'),
     strapiClient.get<IStrapiResponse<IStrapiData<StrapiProject>[]>>(
       '/projects',
@@ -31,13 +37,27 @@ const getPortfolioProjects = async (
         params,
       }
     ),
+    strapiClient.get<IStrapiResponse<IStrapiData<StrapiProject>[]>>(
+      '/projects',
+      {
+        params: { ...params, locale: FALLBACK_LOCALE },
+      }
+    ),
   ]);
 
+  const strapiProjects = new Map<string, IStrapiData<StrapiProject>>();
+
+  for (const project of [
+    ...strapiProjectsEnglish.data,
+    ...strapiProjectsLocalized.data,
+  ]) {
+    if (project.attributes.fpmProjectId) {
+      strapiProjects.set(project.attributes.fpmProjectId, project);
+    }
+  }
+
   return fpmProjects.map((fpmProject: FPMProject) => {
-    const strapiProject = strapiProjects.data.find(
-      (sp: IStrapiData<StrapiProject>) =>
-        sp.attributes.fpmProjectId === fpmProject.id
-    );
+    const strapiProject = strapiProjects.get(fpmProject.id);
 
     const toReturn: PortfolioProject = fpmProject;
 

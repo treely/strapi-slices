@@ -39,6 +39,7 @@ export interface ShopCheckoutProps {
     initialContributionValue: number;
     checkoutText: string;
     currency: 'EUR' | 'CHF';
+    taxInPercent?: number;
   };
 }
 
@@ -142,6 +143,9 @@ export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
                 style: 'unit',
                 unit: 'kilogram',
               })}  CO₂`}
+              caption={formatMessage({
+                id: 'sections.shopCheckout.summary.price.taxNotIncluded',
+              })}
             />
 
             <Spacer height="6" />
@@ -160,76 +164,102 @@ export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
                 touched,
                 handleSubmit,
                 values,
-              }: FormikProps<CheckoutForm>) => (
-                <Form onSubmit={handleSubmit}>
-                  <Box width="full">
-                    <Field name="contributionValue">
-                      {({ field }: FieldProps) => (
-                        <BoemlyFormControl
-                          id="contributionValue"
-                          size="md"
-                          inputProps={{ type: 'number', ...field }}
-                          label={formatMessage({
-                            id: `sections.shopCheckout.contributionValue.label.${slice.currency}`,
-                          })}
-                          rightAddonsOrElements={[
-                            <InputRightAddon key="1">
-                              {formatMessage({
-                                id: `sections.shopCheckout.contributionValue.unit.${slice.currency}`,
-                              })}
-                            </InputRightAddon>,
-                          ]}
-                          isInvalid={
-                            !!errors.contributionValue &&
-                            touched.contributionValue
+              }: FormikProps<CheckoutForm>) => {
+                const summaryPrice =
+                  Math.floor(values.contributionValue / slice.pricePerKg) *
+                  slice.pricePerKg;
+
+                return (
+                  <Form onSubmit={handleSubmit}>
+                    <Box width="full">
+                      <Field name="contributionValue">
+                        {({ field }: FieldProps) => (
+                          <BoemlyFormControl
+                            id="contributionValue"
+                            size="md"
+                            inputProps={{ type: 'number', ...field }}
+                            label={formatMessage({
+                              id: `sections.shopCheckout.contributionValue.label.${slice.currency}`,
+                            })}
+                            rightAddonsOrElements={[
+                              <InputRightAddon key="1">
+                                {formatMessage({
+                                  id: `sections.shopCheckout.contributionValue.unit.${slice.currency}`,
+                                })}
+                              </InputRightAddon>,
+                            ]}
+                            isInvalid={
+                              !!errors.contributionValue &&
+                              touched.contributionValue
+                            }
+                            errorMessage={errors.contributionValue}
+                          />
+                        )}
+                      </Field>
+                    </Box>
+
+                    <Spacer height="6" />
+
+                    <SimpleGrid columns={2} gap="4">
+                      <LabelNumberPair
+                        label={formatMessage({
+                          id: 'sections.shopCheckout.summary.kg',
+                        })}
+                        number={`${formatNumber(
+                          Math.floor(
+                            values.contributionValue / slice.pricePerKg
+                          ),
+                          {
+                            style: 'unit',
+                            unit: 'kilogram',
+                            maximumFractionDigits: 0,
                           }
-                          errorMessage={errors.contributionValue}
-                        />
-                      )}
-                    </Field>
-                  </Box>
-
-                  <Spacer height="6" />
-
-                  <SimpleGrid columns={2} gap="4">
-                    <LabelNumberPair
-                      label={formatMessage({
-                        id: 'sections.shopCheckout.summary.kg',
-                      })}
-                      number={`${formatNumber(
-                        Math.floor(values.contributionValue / slice.pricePerKg),
-                        {
-                          style: 'unit',
-                          unit: 'kilogram',
-                          maximumFractionDigits: 0,
-                        }
-                      )} CO₂`}
-                    />
-                    <LabelNumberPair
-                      label={formatMessage({
-                        id: 'sections.shopCheckout.summary.price',
-                      })}
-                      number={formatNumber(
-                        Math.floor(
-                          values.contributionValue / slice.pricePerKg
-                        ) * slice.pricePerKg,
-                        {
+                        )} CO₂`}
+                      />
+                      <LabelNumberPair
+                        label={formatMessage({
+                          id: 'sections.shopCheckout.summary.price',
+                        })}
+                        number={formatNumber(summaryPrice, {
                           style: 'currency',
                           currency: slice.currency,
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
+                        })}
+                        caption={
+                          slice.taxInPercent &&
+                          slice.taxInPercent > 0 &&
+                          summaryPrice > 0
+                            ? formatMessage(
+                                {
+                                  id: 'sections.shopCheckout.summary.price.taxIncluded',
+                                },
+                                {
+                                  number: formatNumber(
+                                    summaryPrice +
+                                      summaryPrice * (slice.taxInPercent / 100),
+                                    {
+                                      style: 'currency',
+                                      currency: slice.currency,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }
+                                  ),
+                                }
+                              )
+                            : ''
                         }
-                      )}
-                    />
-                  </SimpleGrid>
+                      />
+                    </SimpleGrid>
 
-                  <Spacer height="6" />
+                    <Spacer height="6" />
 
-                  <Button type="submit" width="full">
-                    {formatMessage({ id: 'sections.shopCheckout.submit' })}
-                  </Button>
-                </Form>
-              )}
+                    <Button type="submit" width="full">
+                      {formatMessage({ id: 'sections.shopCheckout.submit' })}
+                    </Button>
+                  </Form>
+                );
+              }}
             </Formik>
           </Container>
         </Flex>

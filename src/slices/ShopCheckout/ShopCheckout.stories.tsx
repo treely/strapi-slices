@@ -75,3 +75,16 @@ WithCHF.args = {
     currency: 'CHF',
   },
 };
+
+export const WithTaxMessage = Template.bind({});
+WithTaxMessage.args = {
+  slice: {
+    title: 'Title',
+    batchId: 'batchId',
+    pricePerKg: 0.06,
+    initialContributionValue: 60,
+    checkoutText: 'Checkout Text',
+    taxInPercent: 20,
+    currency: 'EUR',
+  },
+};

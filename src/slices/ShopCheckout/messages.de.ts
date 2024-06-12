@@ -18,6 +18,9 @@ const messagesDe = {
 
   'sections.shopCheckout.summary.kg': 'Menge',
   'sections.shopCheckout.summary.price': 'Preis',
+  'sections.shopCheckout.summary.taxNotIncluded': 'ohne Steuern',
+  'sections.shopCheckout.summary.taxIncluded':
+    'Preis inklusive Steuern: {number}',
 
   'sections.shopCheckout.submit': 'Kaufen',
 };

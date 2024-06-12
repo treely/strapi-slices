@@ -89,6 +89,7 @@ FullProps.args = {
       text: 'Contact our Sales Team',
       url: 'https://example.org',
     },
+    taxInPercent: 20,
   },
 };
 

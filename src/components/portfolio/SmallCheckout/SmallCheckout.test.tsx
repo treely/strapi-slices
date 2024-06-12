@@ -12,6 +12,7 @@ const defaultProps: SmallCheckoutProps = {
   initialContributionValue: 60,
   checkoutText: 'Checkout text',
   currency: 'EUR',
+  taxInPercent: 20,
 };
 
 const setup = (props = {}) => {
@@ -44,6 +45,12 @@ describe('The SmallCheckout component', () => {
         messagesEn['portfolio.smallCheckout.contributionValueKgs.label']
       )
     ).toBeInTheDocument();
+  });
+
+  it('displays the amount in euro included taxes', () => {
+    setup();
+
+    expect(screen.getByText('Price including tax: €72.00')).toBeInTheDocument();
   });
 
   it('displays the submit button', () => {

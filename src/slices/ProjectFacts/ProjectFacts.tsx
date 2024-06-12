@@ -16,6 +16,7 @@ export interface ProjectFactsProps {
     batchId?: string;
     currency?: 'EUR' | 'CHF';
     pricePerKg?: number;
+    taxInPercent?: number;
     initialContributionValue?: number;
     checkoutText?: string;
 
@@ -74,6 +75,7 @@ export const ProjectFacts: React.FC<ProjectFactsProps> = ({
                 title={slice.customTitle}
                 subtitle={slice.customSubtitle}
                 button={slice.customButton}
+                taxInPercent={slice.taxInPercent}
               />
             ) : (
               (slice.contactTitle ||

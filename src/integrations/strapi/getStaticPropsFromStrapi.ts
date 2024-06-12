@@ -9,6 +9,7 @@ interface Options {
   filters?: Record<string, any>;
 }
 
+/** @deprecated Migrate to getStrapiSingleType or getStrapiCollectionType */
 const getStaticPropsFromStrapi = async (
   path: string,
   { locale = 'en', slug, preview = false, filters = {} }: Options

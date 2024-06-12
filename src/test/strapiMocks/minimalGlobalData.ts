@@ -6,6 +6,7 @@ import { strapiMetadataMock } from './strapiMetadata';
 const minimalGlobalData: IStrapiData<StrapiGlobal> = {
   id: 1,
   attributes: {
+    locale: 'en',
     metadata: strapiMetadataMock,
     favicon: { data: strapiMediaMock },
     metaTitleSuffix: 'Meta title suffix',

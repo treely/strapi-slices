@@ -1,3 +1,4 @@
+import Locale from '../Locale';
 import IStrapi from './IStrapi';
 import IStrapiData from './IStrapiData';
 import StrapiBanner from './StrapiBanner';
@@ -9,6 +10,7 @@ import StrapiNavMenu from './StrapiNavMenu';
 import StrapiTopBanner from './StrapiTopBanner';
 
 interface StrapiGlobal {
+  locale: Locale;
   metadata: StrapiMetadata;
   favicon: IStrapi<IStrapiData<StrapiMedia>>;
   metaTitleSuffix: string;

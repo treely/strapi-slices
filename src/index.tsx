@@ -31,8 +31,8 @@ import StrapiPageProps from './models/strapi/StrapiPageProps';
 import StrapiPortfolio from './models/strapi/StrapiPortfolio';
 import StrapiPortfolioCard from './models/strapi/StrapiPortfolioCard';
 import StrapiProject from './models/strapi/StrapiProject';
-import StrapiProjectProps from './models/strapi/StrapiProjectProps';
 import StrapiProjectCard from './models/strapi/StrapiProjectCard';
+import StrapiProjectProps from './models/strapi/StrapiProjectProps';
 import StrapiQuoteCard from './models/strapi/StrapiQuoteCard';
 import StrapiShapesCard from './models/strapi/StrapiShapesCard';
 import StrapiTextCardWithIcons from './models/strapi/StrapiTextCardWithIcons';
@@ -45,9 +45,12 @@ import PageMetadata from './models/PageMetadata';
 import PageProps from './models/PageProps';
 import PortfolioProject from './models/PortfolioProject';
 
+import getAllSlugsFromStrapi from './integrations/strapi/getAllSlugsFromStrapi';
 import getPortfolioProjects from './integrations/strapi/getPortfolioProjects';
 import getStaticPathsFromStrapi from './integrations/strapi/getStaticPathsFromStrapi';
 import getStaticPropsFromStrapi from './integrations/strapi/getStaticPropsFromStrapi';
+import getStrapiCollectionType from './integrations/strapi/getStrapiCollectionType';
+import getStrapiSingleType from './integrations/strapi/getStrapiSingleType';
 
 import mergeGlobalAndStrapiBlogPostData from './utils/mergeGlobalAndStrapiBlogPostData';
 import mergeGlobalAndStrapiCustomerStoryData from './utils/mergeGlobalAndStrapiCustomerStoryData';
@@ -70,9 +73,12 @@ export {
   strapiMediaUrl,
 
   // Integrations
+  getAllSlugsFromStrapi,
   getPortfolioProjects,
   getStaticPathsFromStrapi,
   getStaticPropsFromStrapi,
+  getStrapiCollectionType,
+  getStrapiSingleType,
 };
 
 export type {
@@ -110,8 +116,8 @@ export type {
   StrapiPortfolio,
   StrapiPortfolioCard,
   StrapiProject,
-  StrapiProjectProps,
   StrapiProjectCard,
+  StrapiProjectProps,
   StrapiQuoteCard,
   StrapiShapesCard,
   StrapiTextCardWithIcons,

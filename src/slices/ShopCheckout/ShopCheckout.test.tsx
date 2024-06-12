@@ -14,6 +14,7 @@ const defaultProps: ShopCheckoutProps = {
     batchId: 'batchId',
     pricePerKg: 0.06,
     initialContributionValue: 60,
+    taxInPercent: 20,
     checkoutText: 'Checkout Text',
     currency: 'EUR',
   },
@@ -47,6 +48,12 @@ describe('The ShowCheckout section', () => {
     setup({ slice: { ...defaultProps.slice, badge: 'Badge Text' } });
 
     expect(screen.getByText('Badge Text')).toBeInTheDocument();
+  });
+
+  it('displays the amount in euro included taxes', () => {
+    setup();
+
+    expect(screen.getByText('Price including tax: €72.00')).toBeInTheDocument();
   });
 
   it('navigates to the checkout on submit', async () => {

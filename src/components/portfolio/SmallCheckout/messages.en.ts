@@ -1,4 +1,7 @@
 const messagesEn = {
+  'portfolio.smallCheckout.price.taxNotIncluded': 'not including tax',
+  'portfolio.smallCheckout.price.taxIncluded': 'Price including tax: {number}',
+
   'portfolio.smallCheckout.contributionValueCurrency.label.CHF':
     'Contribution Amount in CHF',
   'portfolio.smallCheckout.contributionValueCurrency.label.EUR':

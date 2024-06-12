@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import {
   BoemlyFormControl,
   Box,
@@ -28,11 +28,13 @@ import {
 import { CDN_URI, FPM_API_URI } from '../../../constants/api';
 import StrapiLinkButton from '../../StrapiLinkButton';
 import SmallCheckoutForm from '../../../models/forms/SmallCheckoutForm';
+import { FormattedMessage } from 'react-intl';
 
 export interface SmallCheckoutProps {
   batchId: string;
   pricePerKg: number;
   initialContributionValue: number;
+  taxInPercent?: number;
   checkoutText?: string;
   currency: 'EUR' | 'CHF';
 
@@ -46,6 +48,7 @@ const SmallCheckout = ({
   currency,
   batchId,
   initialContributionValue,
+  taxInPercent,
   checkoutText,
   title,
   subtitle,
@@ -53,6 +56,9 @@ const SmallCheckout = ({
 }: SmallCheckoutProps) => {
   const { formatNumber, formatMessage, locale } = useContext(IntlContext);
   const { push } = useRouter();
+  const [contributionValue, setContributionValue] = useState<number>(
+    initialContributionValue
+  );
 
   const validateForm = useCallback(
     (values: SmallCheckoutForm) => {
@@ -102,7 +108,7 @@ const SmallCheckout = ({
       padding="6"
       direction="column"
     >
-      <Flex gap="1" alignItems="end" mb="6">
+      <Flex gap="2" alignItems="end" mb="6">
         <Text color="black" lineHeight="0">
           {formatMessage(
             { id: 'unit.formatter.tonsCo2' },
@@ -118,6 +124,9 @@ const SmallCheckout = ({
               ),
             }
           )}
+        </Text>
+        <Text size="smLowNormal">
+          <FormattedMessage id="portfolio.smallCheckout.price.taxNotIncluded" />
         </Text>
       </Flex>
 
@@ -152,6 +161,8 @@ const SmallCheckout = ({
                         value: field.value || '',
                         onChange: (e) => {
                           const value = e.target.valueAsNumber;
+                          setContributionValue(value);
+
                           setValues({
                             contributionValueCurrency: value.toString(),
                             contributionValueKgs: (
@@ -219,6 +230,24 @@ const SmallCheckout = ({
                 </Field>
               </Box>
             </Flex>
+            {contributionValue > 0 && taxInPercent && taxInPercent > 0 && (
+              <Text size="smLowNormal" mt="2">
+                {formatMessage(
+                  { id: 'portfolio.smallCheckout.price.taxIncluded' },
+                  {
+                    number: formatNumber(
+                      contributionValue +
+                        (contributionValue * taxInPercent) / 100,
+                      {
+                        style: 'currency',
+                        currency,
+                        maximumFractionDigits: 2,
+                      }
+                    ),
+                  }
+                )}
+              </Text>
+            )}
 
             <Spacer height="4" />
 

@@ -1,4 +1,8 @@
 const messagesDe = {
+  'portfolio.smallCheckout.price.taxNotIncluded': 'ohne Steuern',
+  'portfolio.smallCheckout.price.taxIncluded':
+    'Preis inklusive Steuern: {number}',
+
   'portfolio.smallCheckout.contributionValueCurrency.label.CHF':
     'Geben Sie den Beitrag in Fr. ein',
   'portfolio.smallCheckout.contributionValueCurrency.label.EUR':

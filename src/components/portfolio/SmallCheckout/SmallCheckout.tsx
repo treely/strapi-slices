@@ -28,7 +28,6 @@ import {
 import { CDN_URI, FPM_API_URI } from '../../../constants/api';
 import StrapiLinkButton from '../../StrapiLinkButton';
 import SmallCheckoutForm from '../../../models/forms/SmallCheckoutForm';
-import { FormattedMessage } from 'react-intl';
 
 export interface SmallCheckoutProps {
   batchId: string;
@@ -126,7 +125,9 @@ const SmallCheckout = ({
           )}
         </Text>
         <Text size="smLowNormal">
-          <FormattedMessage id="portfolio.smallCheckout.price.taxNotIncluded" />
+          {formatMessage({
+            id: 'portfolio.smallCheckout.price.taxNotIncluded',
+          })}
         </Text>
       </Flex>
 

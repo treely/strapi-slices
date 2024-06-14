@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext } from 'react';
 import {
   BoemlyFormControl,
   Box,
@@ -29,6 +29,17 @@ import { CDN_URI, FPM_API_URI } from '../../../constants/api';
 import StrapiLinkButton from '../../StrapiLinkButton';
 import SmallCheckoutForm from '../../../models/forms/SmallCheckoutForm';
 
+const calculateTaxIncludedValue = (
+  values: SmallCheckoutForm,
+  taxInPercent: number
+) => {
+  const value = parseInt(values.contributionValueCurrency);
+
+  if (isNaN(value)) return 0;
+
+  return value + value * (taxInPercent / 100);
+};
+
 export interface SmallCheckoutProps {
   batchId: string;
   pricePerKg: number;
@@ -55,9 +66,6 @@ const SmallCheckout = ({
 }: SmallCheckoutProps) => {
   const { formatNumber, formatMessage, locale } = useContext(IntlContext);
   const { push } = useRouter();
-  const [contributionValue, setContributionValue] = useState<number>(
-    initialContributionValue
-  );
 
   const validateForm = useCallback(
     (values: SmallCheckoutForm) => {
@@ -79,7 +87,7 @@ const SmallCheckout = ({
 
       return errors;
     },
-    [locale]
+    [currency, locale]
   );
 
   const onSubmit = async ({ contributionValueCurrency }: SmallCheckoutForm) => {
@@ -148,6 +156,7 @@ const SmallCheckout = ({
           touched,
           handleSubmit,
           setValues,
+          values,
         }: FormikProps<SmallCheckoutForm>) => (
           <Form onSubmit={handleSubmit}>
             <Flex gap="4">
@@ -162,7 +171,6 @@ const SmallCheckout = ({
                         value: field.value || '',
                         onChange: (e) => {
                           const value = e.target.valueAsNumber;
-                          setContributionValue(value);
 
                           setValues({
                             contributionValueCurrency: value.toString(),
@@ -231,24 +239,25 @@ const SmallCheckout = ({
                 </Field>
               </Box>
             </Flex>
-            {contributionValue > 0 && taxInPercent && taxInPercent > 0 && (
-              <Text size="smLowNormal" mt="2">
-                {formatMessage(
-                  { id: 'portfolio.smallCheckout.price.taxIncluded' },
-                  {
-                    number: formatNumber(
-                      contributionValue +
-                        (contributionValue * taxInPercent) / 100,
-                      {
-                        style: 'currency',
-                        currency,
-                        maximumFractionDigits: 2,
-                      }
-                    ),
-                  }
-                )}
-              </Text>
-            )}
+            {values.contributionValueCurrency &&
+              taxInPercent &&
+              taxInPercent > 0 && (
+                <Text size="smLowNormal" mt="2">
+                  {formatMessage(
+                    { id: 'portfolio.smallCheckout.price.taxIncluded' },
+                    {
+                      number: formatNumber(
+                        calculateTaxIncludedValue(values, taxInPercent),
+                        {
+                          style: 'currency',
+                          currency,
+                          maximumFractionDigits: 2,
+                        }
+                      ),
+                    }
+                  )}
+                </Text>
+              )}
 
             <Spacer height="4" />
 

@@ -83,6 +83,7 @@ const mergeGlobalAndStrapiProject = (
     topBanner: project?.attributes.topBanner || global.attributes.topBanner,
     customerStories: [],
     preview: !!context.preview,
+    isFallbackLocale: context.locale !== project.attributes.locale,
   };
 };
 

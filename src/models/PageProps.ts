@@ -28,6 +28,7 @@ interface PageProps {
   topBanner?: StrapiTopBanner;
   customerStories: IStrapiData<StrapiCustomerStory>[];
   preview: boolean;
+  isFallbackLocale: boolean;
 }
 
 export default PageProps;

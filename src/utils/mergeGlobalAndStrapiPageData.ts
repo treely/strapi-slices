@@ -89,6 +89,7 @@ const mergeGlobalAndStrapiPageData = (
     topBanner: page?.attributes.topBanner || global.attributes.topBanner,
     customerStories: returnCustomerStories ? customerStories : [],
     preview: !!context.preview,
+    isFallbackLocale: context.locale !== page.attributes.locale,
   };
 };
 

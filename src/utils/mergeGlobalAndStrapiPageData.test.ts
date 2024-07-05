@@ -35,6 +35,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
     expect(result.metadata.description).toBe(
       minimalGlobalData.attributes.metadata.description
     );
+    expect(result.isFallbackLocale).toBeFalsy();
   });
 
   it('returns the pages metadata if the page data includes metadata', () => {
@@ -316,5 +317,26 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
     expect(result.projects).toStrictEqual([portfolioProjectMock]);
     expect(result.blogPosts).toStrictEqual([]);
     expect(result.customerStories).toStrictEqual([]);
+  });
+
+  it('returns isFallbackLocale=true if the page is in a different language', () => {
+    const pageDataInDe = {
+      ...strapiPageMock,
+      attributes: {
+        ...strapiPageMock.attributes,
+        locale: 'de',
+      },
+    };
+
+    const result = mergeGlobalAndStrapiPageData(
+      getStaticPropsContextMock,
+      minimalGlobalData,
+      pageDataInDe,
+      [],
+      [],
+      []
+    );
+
+    expect(result.isFallbackLocale).toBeTruthy();
   });
 });

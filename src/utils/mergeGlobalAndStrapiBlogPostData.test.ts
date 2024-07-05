@@ -7,7 +7,7 @@ import portfolioProjectMock from '../test/integrationMocks/portfolioProjectMock'
 
 describe('The mergeGlobalAndStrapiBlogPostData util', () => {
   it('returns the global metadata if there is no page metadata', () => {
-    const pageDataWithoutMetadata = {
+    const blogPostDataWithoutMetadata = {
       ...strapiBlogPostMock,
       attributes: {
         ...strapiBlogPostMock.attributes,
@@ -18,7 +18,7 @@ describe('The mergeGlobalAndStrapiBlogPostData util', () => {
     const result = mergeGlobalAndStrapiBlogPostData(
       getStaticPropsContextMock,
       minimalGlobalData,
-      pageDataWithoutMetadata,
+      blogPostDataWithoutMetadata,
       [],
       []
     );
@@ -32,10 +32,11 @@ describe('The mergeGlobalAndStrapiBlogPostData util', () => {
     expect(result.metadata.description).toBe(
       minimalGlobalData.attributes.metadata.description
     );
+    expect(result.isFallbackLocale).toBeFalsy();
   });
 
   it('returns the pages metadata if the page data includes metadata', () => {
-    const pageDataWithMetadata = {
+    const blogPostDataWithMetadata = {
       ...strapiBlogPostMock,
       data: {
         ...strapiBlogPostMock,
@@ -49,7 +50,7 @@ describe('The mergeGlobalAndStrapiBlogPostData util', () => {
     const result = mergeGlobalAndStrapiBlogPostData(
       getStaticPropsContextMock,
       minimalGlobalData,
-      pageDataWithMetadata,
+      blogPostDataWithMetadata,
       [],
       []
     );
@@ -197,5 +198,25 @@ describe('The mergeGlobalAndStrapiBlogPostData util', () => {
 
     expect(result.blogPosts).toStrictEqual([]);
     expect(result.projects).toStrictEqual([portfolioProjectMock]);
+  });
+
+  it('returns isFallbackLocale=true if the blog post is in a different language', () => {
+    const blogPostDataInDe = {
+      ...strapiBlogPostMock,
+      attributes: {
+        ...strapiBlogPostMock.attributes,
+        locale: 'de',
+      },
+    };
+
+    const result = mergeGlobalAndStrapiBlogPostData(
+      getStaticPropsContextMock,
+      minimalGlobalData,
+      blogPostDataInDe,
+      [],
+      []
+    );
+
+    expect(result.isFallbackLocale).toBeTruthy();
   });
 });

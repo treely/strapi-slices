@@ -6,7 +6,7 @@ import { strapiMetadataMock } from '../test/strapiMocks/strapiMetadata';
 
 describe('The mergeGlobalAndStrapiCustomerStoryData util', () => {
   it('returns the global metadata if there is no page metadata', () => {
-    const pageDataWithoutMetadata = {
+    const customerStoryDataWithoutMetadata = {
       ...strapiCustomerStoryMock,
       attributes: {
         ...strapiCustomerStoryMock.attributes,
@@ -17,7 +17,7 @@ describe('The mergeGlobalAndStrapiCustomerStoryData util', () => {
     const result = mergeGlobalAndStrapiCustomerStoryData(
       getStaticPropsContextMock,
       minimalGlobalData,
-      pageDataWithoutMetadata,
+      customerStoryDataWithoutMetadata,
       []
     );
 
@@ -30,10 +30,11 @@ describe('The mergeGlobalAndStrapiCustomerStoryData util', () => {
     expect(result.metadata.description).toBe(
       minimalGlobalData.attributes.metadata.description
     );
+    expect(result.isFallbackLocale).toBeFalsy();
   });
 
   it('returns the pages metadata if the page data includes metadata', () => {
-    const pageDataWithMetadata = {
+    const customerStoryDataWithMetadata = {
       ...strapiCustomerStoryMock,
       data: {
         ...strapiCustomerStoryMock,
@@ -47,7 +48,7 @@ describe('The mergeGlobalAndStrapiCustomerStoryData util', () => {
     const result = mergeGlobalAndStrapiCustomerStoryData(
       getStaticPropsContextMock,
       minimalGlobalData,
-      pageDataWithMetadata,
+      customerStoryDataWithMetadata,
       []
     );
 
@@ -166,5 +167,24 @@ describe('The mergeGlobalAndStrapiCustomerStoryData util', () => {
     );
 
     expect(result.customerStories).toStrictEqual([strapiCustomerStoryMock]);
+  });
+
+  it('returns isFallbackLocale=true if the customer story is in a different language', () => {
+    const customerStoryDataInDe = {
+      ...strapiCustomerStoryMock,
+      attributes: {
+        ...strapiCustomerStoryMock.attributes,
+        locale: 'de',
+      },
+    };
+
+    const result = mergeGlobalAndStrapiCustomerStoryData(
+      getStaticPropsContextMock,
+      minimalGlobalData,
+      customerStoryDataInDe,
+      []
+    );
+
+    expect(result.isFallbackLocale).toBeTruthy();
   });
 });

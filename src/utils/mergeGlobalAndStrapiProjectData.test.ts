@@ -8,7 +8,7 @@ import mergeGlobalAndStrapiProjectData from './mergeGlobalAndStrapiProjectData';
 
 describe('The mergeGlobalAndStrapiProjectData util', () => {
   it('returns the global metadata if there is no page metadata', () => {
-    const pageDataWithoutMetadata = {
+    const projectDataWithoutMetadata = {
       ...strapiProjectMock,
       attributes: {
         ...strapiProjectMock.attributes,
@@ -19,7 +19,7 @@ describe('The mergeGlobalAndStrapiProjectData util', () => {
     const result = mergeGlobalAndStrapiProjectData(
       getStaticPropsContextMock,
       minimalGlobalData,
-      pageDataWithoutMetadata,
+      projectDataWithoutMetadata,
       [],
       []
     );
@@ -33,10 +33,11 @@ describe('The mergeGlobalAndStrapiProjectData util', () => {
     expect(result.metadata.description).toBe(
       minimalGlobalData.attributes.metadata.description
     );
+    expect(result.isFallbackLocale).toBeFalsy();
   });
 
   it('returns the pages metadata if the page data includes metadata', () => {
-    const pageDataWithMetadata = {
+    const projectDataWithMetadata = {
       ...strapiProjectMock,
       attributes: {
         ...strapiProjectMock.attributes,
@@ -47,7 +48,7 @@ describe('The mergeGlobalAndStrapiProjectData util', () => {
     const result = mergeGlobalAndStrapiProjectData(
       getStaticPropsContextMock,
       minimalGlobalData,
-      pageDataWithMetadata,
+      projectDataWithMetadata,
       [],
       []
     );
@@ -279,5 +280,25 @@ describe('The mergeGlobalAndStrapiProjectData util', () => {
 
     expect(result.blogPosts).toStrictEqual([]);
     expect(result.projects).toStrictEqual([portfolioProjectMock]);
+  });
+
+  it('returns isFallbackLocale=true if the project is in a different language', () => {
+    const projectDataInDe = {
+      ...strapiProjectMock,
+      attributes: {
+        ...strapiProjectMock.attributes,
+        locale: 'de',
+      },
+    };
+
+    const result = mergeGlobalAndStrapiProjectData(
+      getStaticPropsContextMock,
+      minimalGlobalData,
+      projectDataInDe,
+      [],
+      []
+    );
+
+    expect(result.isFallbackLocale).toBeTruthy();
   });
 });

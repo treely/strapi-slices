@@ -74,7 +74,8 @@ type Variant = {
 const variants: { shape: Variant; image: Variant } = {
   shape: {
     padding: ['6', null, null, '8'],
-    positionIcon: (index: number) => shapePositions[index],
+    positionIcon: (index: number) =>
+      shapePositions[index % shapePositions.length],
     width: '40',
     height: '40',
     position: 'absolute',

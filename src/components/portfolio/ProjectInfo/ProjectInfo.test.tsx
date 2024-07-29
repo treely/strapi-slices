@@ -1,8 +1,14 @@
 import React from 'react';
-import { render, screen } from '../../../test/testUtils';
+import {
+  render,
+  screen,
+  userEvent,
+  waitForElementToBeRemoved,
+} from '../../../test/testUtils';
 import portfolioProjectMock from '../../../test/mocks/portfolioProjectMock';
 import ProjectInfo from '.';
 import { ProjectInfoProps } from './ProjectInfo';
+import messagesEn from './messages.en';
 
 const defaultProps: ProjectInfoProps = {
   project: portfolioProjectMock,
@@ -64,6 +70,24 @@ describe('The ProjectInfo component', () => {
 
     expect(screen.getByText('Project Time Span')).toBeInTheDocument();
     expect(screen.getByText('1 year')).toBeInTheDocument();
+  });
+
+  it('sets the tooltip when hovered over the forecasted amount subtitle', async () => {
+    setup({
+      ...defaultProps,
+    });
+
+    const trigger = screen.getByText('Forecasted amount subtitle');
+    await userEvent.hover(trigger);
+
+    const tooltip = await screen.findByRole('tooltip');
+    expect(tooltip).toHaveTextContent(
+      messagesEn['features.projectInfo.properties.forecastedAmountYear.toolTip']
+    );
+
+    await userEvent.unhover(trigger);
+    await waitForElementToBeRemoved(() => screen.queryByRole('tooltip'));
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
   });
 
   it('displays the issuer of the project if it exists', () => {

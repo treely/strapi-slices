@@ -8,6 +8,7 @@ import {
   LabelTextPair,
   SimpleGrid,
   Spacer,
+  Tooltip,
 } from 'boemly';
 import Image from 'next/image';
 import convertAreaM2ToHa from '../../../utils/convertAreaM2ToHa';
@@ -201,27 +202,33 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({
           <Divider />
           <Spacer height="8" />
           <SimpleGrid columns={[1, null, null, 2]} spacingX="10" spacingY="8">
-            <Box>
-              <LabelTextPair
-                label={formatMessage({
-                  id: 'features.projectInfo.properties.forecastedAmountYear.label',
-                })}
-                text={formatMessage(
-                  {
-                    id: 'unit.formatter.tonsCo2PerYear',
-                  },
-                  {
-                    number: formatNumber(
-                      convertCo2AmountKgToTons(
-                        project.forecastedAmountYearly.toString()
+            <Tooltip
+              label={formatMessage({
+                id: 'features.projectInfo.properties.forecastedAmountYear.toolTip',
+              })}
+            >
+              <Box>
+                <LabelTextPair
+                  label={formatMessage({
+                    id: 'features.projectInfo.properties.forecastedAmountYear.label',
+                  })}
+                  text={formatMessage(
+                    {
+                      id: 'unit.formatter.tonsCo2PerYear',
+                    },
+                    {
+                      number: formatNumber(
+                        convertCo2AmountKgToTons(
+                          project.forecastedAmountYearly.toString()
+                        ),
+                        { maximumFractionDigits: 0 }
                       ),
-                      { maximumFractionDigits: 0 }
-                    ),
-                  }
-                )}
-                caption={subtitles.forecastedAmountSubtitle}
-              />
-            </Box>
+                    }
+                  )}
+                  caption={subtitles.forecastedAmountSubtitle}
+                />
+              </Box>
+            </Tooltip>
 
             <Box>
               <LabelTextPair

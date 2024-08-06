@@ -5,6 +5,7 @@ import {
   Container,
   Flex,
   Heading,
+  Spacer,
   Text,
   useDisclosure,
   useToken,
@@ -12,8 +13,8 @@ import {
 import { MapPin } from '@phosphor-icons/react';
 import NextLink from 'next/link';
 import CreditsAvailableBadge from '../../components/CreditsAvailableBadge';
-import CreditsAvailableState from '../../models/CreditsAvailableState';
 import { IntlContext } from '../../components/ContextProvider';
+import { CreditAvailability } from '../../models/fpm/FPMProject';
 
 export interface MapMarkerProps {
   title: string;
@@ -21,14 +22,14 @@ export interface MapMarkerProps {
   projectDeveloper?: string;
   slug?: string;
   portfolioHost?: string;
-  creditsAvailable?: CreditsAvailableState;
+  creditAvailability: CreditAvailability;
 }
 
 const MapMarker = ({
   title,
   projectDeveloper,
   slug,
-  creditsAvailable,
+  creditAvailability,
   portfolioHost = '',
   isPublic = false,
 }: MapMarkerProps) => {
@@ -65,15 +66,11 @@ const MapMarker = ({
           maxWidth={['3xs', null, null, 'sm']}
         >
           <Flex direction="column">
-            {creditsAvailable && (
-              <>
-                <CreditsAvailableBadge
-                  status={creditsAvailable}
-                  href={slug && `${portfolioHost}/portfolio/${slug}`}
-                />
-                <Box height="3" />
-              </>
-            )}
+            <CreditsAvailableBadge
+              status={creditAvailability}
+              href={slug && `${portfolioHost}/portfolio/${slug}`}
+            />
+            <Spacer height="3" />
 
             <Heading size="md">{title}</Heading>
 

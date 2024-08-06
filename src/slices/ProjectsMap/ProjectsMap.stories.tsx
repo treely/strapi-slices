@@ -2,7 +2,6 @@ import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
-import CreditsAvailableState from '../../models/CreditsAvailableState';
 import ProjectsMap from '.';
 
 export default {
@@ -91,7 +90,6 @@ FullProps.args = {
     {
       ...fpmProjectMock,
       slug: 'project-slug',
-      creditsAvailable: CreditsAvailableState.YES,
       isPublic: true,
       geom: {
         type: 'Point',

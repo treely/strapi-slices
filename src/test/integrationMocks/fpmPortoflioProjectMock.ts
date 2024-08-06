@@ -2,10 +2,10 @@ import { PortfolioProject } from '../..';
 import fpmProjectMock from './fpmProjectMock';
 import { storybookStrapiCoverMock } from '../storybookMocks/storybookStrapiMedia';
 
-const portfolioProjectMock: PortfolioProject = {
+const fpmPortfolioProjectMock: PortfolioProject = {
   ...fpmProjectMock,
   isPublic: true,
-  slug: 'slug',
+  footerSubTitle: 'Certified, 2023',
   thumbnail: {
     id: 1,
     img: { data: storybookStrapiCoverMock },
@@ -13,4 +13,4 @@ const portfolioProjectMock: PortfolioProject = {
   },
 };
 
-export default portfolioProjectMock;
+export default fpmPortfolioProjectMock;

@@ -64,9 +64,6 @@ const getPortfolioProjects = async (
     if (strapiProject?.attributes.slug) {
       toReturn.slug = strapiProject.attributes.slug;
     }
-    if (strapiProject?.attributes.creditsAvailable) {
-      toReturn.creditsAvailable = strapiProject?.attributes.creditsAvailable;
-    }
     if (strapiProject?.attributes.thumbnail) {
       toReturn.thumbnail = strapiProject?.attributes.thumbnail;
     }

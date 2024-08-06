@@ -3,7 +3,6 @@ import { StoryFn, Meta } from '@storybook/react';
 
 import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
 import { storybookStrapiAvatarMock } from '../../test/storybookMocks/storybookStrapiMedia';
-import CreditsAvailableState from '../../models/CreditsAvailableState';
 import ProjectFacts from '.';
 
 export default {
@@ -53,7 +52,7 @@ WithCheckout.args = {
 
 export const FullProps = Template.bind({});
 FullProps.args = {
-  project: { ...fpmProjectMock, creditsAvailable: CreditsAvailableState.YES },
+  project: fpmProjectMock,
   slice: {
     projectId: fpmProjectMock.id,
 

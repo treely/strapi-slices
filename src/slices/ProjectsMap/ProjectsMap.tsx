@@ -99,7 +99,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
               isPublic={project.isPublic}
               portfolioHost={project.portfolioHost}
               slug={project.slug}
-              creditsAvailable={project.creditsAvailable}
+              creditAvailability={project.creditAvailability}
               projectDeveloper={project.projectDeveloper?.name}
             />
           </MinimalProviders>

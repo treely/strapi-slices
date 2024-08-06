@@ -16,7 +16,7 @@ import StrapiLink from '../../models/strapi/StrapiLink';
 import StrapiProjectCard from '../../models/strapi/StrapiProjectCard';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
 import { IStrapiData, PortfolioProject, StrapiProject } from '../..';
-import PortfolioProjectCard from '../../components/portfolio/PortfolioProjectCard';
+import ProjectGridCard from '../ProjectGridCard';
 
 interface TextWithCardSlice {
   tagline?: string;
@@ -53,7 +53,7 @@ export const TextWithCard: React.FC<TextWithCardProps> = ({
       position="relative"
       data-testid={`card-position-${slice.cardPosition}`}
     >
-      {portfolioProject && <PortfolioProjectCard project={portfolioProject} />}
+      {portfolioProject && <ProjectGridCard project={portfolioProject} />}
       {!portfolioProject && slice.card && (
         <ProjectCard
           facts={slice.card.facts}

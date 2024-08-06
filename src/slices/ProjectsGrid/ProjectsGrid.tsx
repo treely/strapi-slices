@@ -2,9 +2,11 @@ import React from 'react';
 import { Box, DefaultSectionContainer, SimpleGrid, Wrapper } from 'boemly';
 import Link from 'next/link';
 import { MEDIUM_TRANSITION_DURATION } from '../../constants/animations';
+import ProjectGridCard from '../ProjectGridCard';
 import PortfolioProject from '../../models/PortfolioProject';
-import PortfolioProjectCard from '../../components/portfolio/PortfolioProjectCard';
-import { IStrapi, IStrapiData, StrapiProject } from '../..';
+import IStrapi from '../../models/strapi/IStrapi';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import StrapiProject from '../../models/strapi/StrapiProject';
 
 export interface ProjectsGridProps {
   slice: {
@@ -65,7 +67,7 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({
                 transition={`box-shadow ease ${MEDIUM_TRANSITION_DURATION}s`}
                 _hover={{ boxShadow: 'lg' }}
               >
-                <PortfolioProjectCard project={project} />
+                <ProjectGridCard project={project} />
               </Box>
             </ConditionalWrapper>
           ))}

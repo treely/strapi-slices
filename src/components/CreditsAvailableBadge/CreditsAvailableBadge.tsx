@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
-import CreditsAvailableState from '../../models/CreditsAvailableState';
-import { Badge } from 'boemly';
+import { Flex, Spacer, Tag, Text } from 'boemly';
 import NextLink from 'next/link';
 import { IntlContext } from '../ContextProvider';
+import { CreditAvailability } from '../../models/fpm/FPMProject';
+import { Info } from '@phosphor-icons/react';
 
 export interface CreditsAvailableBadgeProps {
-  status: CreditsAvailableState;
+  status: CreditAvailability;
   href?: string;
 }
 
@@ -16,40 +17,51 @@ const CreditsAvailableBadge = ({
   const { formatMessage } = useContext(IntlContext);
 
   const variants: Record<
-    CreditsAvailableState,
-    { color: string; text: string }
+    CreditAvailability,
+    { message: string; color: string }
   > = {
-    [CreditsAvailableState.YES]: {
-      color: 'green',
-      text: formatMessage({ id: 'components.creditsAvailableBadge.text.yes' }),
+    [CreditAvailability.CREDITS_AVAILABLE]: {
+      message: formatMessage({
+        id: 'components.creditsAvailableBadge.text.yes',
+      }),
+      color: 'var(--boemly-colors-primary-800)',
     },
-    [CreditsAvailableState.SOME]: {
-      color: 'orange',
-      text: formatMessage({ id: 'components.creditsAvailableBadge.text.some' }),
+    [CreditAvailability.NO_CREDITS_AVAILABLE]: {
+      message: formatMessage({
+        id: 'components.creditsAvailableBadge.text.no',
+      }),
+      color: 'var(--boemly-colors-red-600)',
     },
-    [CreditsAvailableState.NO]: {
-      color: 'red',
-      text: formatMessage({ id: 'components.creditsAvailableBadge.text.no' }),
+    [CreditAvailability.SOME_CREDITS_AVAILABLE]: {
+      message: formatMessage({
+        id: 'components.creditsAvailableBadge.text.some',
+      }),
+      color: 'var(--boemly-colors-orange-500)',
     },
-    [CreditsAvailableState.NOT_YET]: {
-      color: 'blue',
-      text: formatMessage({
+    [CreditAvailability.SOON_CREDITS_AVAILABLE]: {
+      message: formatMessage({
         id: 'components.creditsAvailableBadge.text.notYet',
       }),
+      color: 'var(--boemly-colors-blue-500)',
     },
   };
 
   const variant = variants[status];
 
   return (
-    <Badge
+    <Flex
+      justifyContent="flex-start"
       as={href ? NextLink : undefined}
       href={href}
-      colorScheme={variant.color}
-      width="fit-content"
     >
-      {variant.text}
-    </Badge>
+      <Tag backgroundColor={variant.color} mt="2" mb="1">
+        <Info size={12} color="white" weight="fill" />
+        <Spacer width="1" />
+        <Text color="white" size="xsLowBold">
+          {variant.message}
+        </Text>
+      </Tag>
+    </Flex>
   );
 };
 

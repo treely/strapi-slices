@@ -27,7 +27,7 @@ describe('The getPortfolioProjects function', () => {
     expect(projects[0]).toStrictEqual({
       ...fpmProjectMock,
       slug: strapiProjectMock.attributes.slug,
-      creditsAvailable: strapiProjectMock.attributes.creditsAvailable,
+      creditAvailability: fpmProjectMock.creditAvailability,
     });
   });
 
@@ -50,7 +50,7 @@ describe('The getPortfolioProjects function', () => {
     expect(projects[0]).toStrictEqual({
       ...fpmProjectMock,
       slug: strapiProjectMock.attributes.slug,
-      creditsAvailable: strapiProjectMock.attributes.creditsAvailable,
+      creditAvailability: fpmProjectMock.creditAvailability,
     });
   });
 });

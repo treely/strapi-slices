@@ -2,8 +2,8 @@ import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 
 import ProjectsGrid from '.';
-import portfolioProjectMock from '../../test/integrationMocks/portfolioProjectMock';
 import { strapiProjectMock } from '../../test/strapiMocks/strapiProject';
+import portfolioProjectMock from '../../test/integrationMocks/portfolioProjectMock';
 
 export default {
   title: 'slices/ProjectsGrid',

@@ -1,4 +1,3 @@
-import CreditsAvailableState from '../CreditsAvailableState';
 import Locale from '../Locale';
 import IStrapi from './IStrapi';
 import IStrapiData from './IStrapiData';
@@ -12,7 +11,6 @@ interface StrapiProject {
   slug: string;
   locale: Locale;
   fpmProjectId?: string;
-  creditsAvailable?: CreditsAvailableState;
   footerSubTitle?: string;
   createdAt: string;
   updatedAt: string;

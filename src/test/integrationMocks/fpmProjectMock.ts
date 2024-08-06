@@ -1,4 +1,4 @@
-import FPMProject from '../../models/fpm/FPMProject';
+import FPMProject, { CreditAvailability } from '../../models/fpm/FPMProject';
 
 const fpmProjectMock: FPMProject = {
   id: '1',
@@ -32,6 +32,7 @@ const fpmProjectMock: FPMProject = {
   riskBuffer: 10,
   createdAt: new Date('2020-01-01'),
   updatedAt: new Date('2020-01-01'),
+  creditAvailability: CreditAvailability.CREDITS_AVAILABLE,
 };
 
 export default fpmProjectMock;

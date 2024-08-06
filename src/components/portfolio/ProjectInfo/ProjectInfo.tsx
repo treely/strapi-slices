@@ -248,13 +248,9 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({
         <></>
       )}
 
-      {project.creditsAvailable ? (
-        <Box mt="2">
-          <CreditsAvailableBadge status={project.creditsAvailable} />
-        </Box>
-      ) : (
-        <></>
-      )}
+      <Box mt="2">
+        <CreditsAvailableBadge status={project.creditAvailability} />
+      </Box>
     </Container>
   );
 };

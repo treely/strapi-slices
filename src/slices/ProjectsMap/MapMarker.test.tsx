@@ -1,13 +1,14 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '../../test/testUtils';
-import CreditsAvailableState from '../../models/CreditsAvailableState';
 import MapMarker, { MapMarkerProps } from './MapMarker';
 import messagesEn from './messages.en';
+import { CreditAvailability } from '../../models/fpm/FPMProject';
 
 const defaultProps: MapMarkerProps = {
   title: 'Project title',
   portfolioHost: '',
   isPublic: true,
+  creditAvailability: CreditAvailability.CREDITS_AVAILABLE,
 };
 
 const setup = (props: Partial<MapMarkerProps> = {}) => {
@@ -88,7 +89,7 @@ describe('The MapMarker component', () => {
 
   it('renders the credit availability if it is defined', () => {
     setup({
-      creditsAvailable: CreditsAvailableState.YES,
+      creditAvailability: CreditAvailability.CREDITS_AVAILABLE,
     });
 
     fireEvent.mouseEnter(screen.getByTestId('mapmarker-pin'));

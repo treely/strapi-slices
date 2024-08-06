@@ -37,10 +37,16 @@ For local testing, you can link the package to your project:
 ```bash
 npm run build
 npm pack
+```
 
+Go to the project which uses the strapi-slices package and install the package there:
+
+```bash
 cd ../path/to/your/project
 npm install ../path/to/strapi-slices-package.tgz
 ```
+
+Note: The Strapi CMS uses the data from the `fpm-api` for staging.
 
 Commit message guideline
 

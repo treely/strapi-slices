@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen } from '../../test/testUtils';
-import CreditsAvailableState from '../../models/CreditsAvailableState';
 import CreditsAvailableBadge, {
   CreditsAvailableBadgeProps,
 } from './CreditsAvailableBadge';
 import messagesEn from './messages.en';
+import { CreditAvailability } from '../../models/fpm/FPMProject';
 
 const defaultProps: CreditsAvailableBadgeProps = {
-  status: CreditsAvailableState.YES,
+  status: CreditAvailability.CREDITS_AVAILABLE,
 };
 
 const setup = (props: Partial<CreditsAvailableBadgeProps> = {}) => {
@@ -34,12 +34,14 @@ describe('The CreditsAvailableBadge component', () => {
       screen.getByText(messagesEn['components.creditsAvailableBadge.text.yes'])
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messagesEn['components.creditsAvailableBadge.text.yes'])
+      screen
+        .getByText(messagesEn['components.creditsAvailableBadge.text.yes'])
+        .closest('a')
     ).toHaveAttribute('href', 'link-to');
   });
 
   it('renders correctly for the "some" case', () => {
-    setup({ status: CreditsAvailableState.SOME });
+    setup({ status: CreditAvailability.SOME_CREDITS_AVAILABLE });
 
     expect(
       screen.getByText(messagesEn['components.creditsAvailableBadge.text.some'])
@@ -47,7 +49,7 @@ describe('The CreditsAvailableBadge component', () => {
   });
 
   it('renders correctly for the "no" case', () => {
-    setup({ status: CreditsAvailableState.NO });
+    setup({ status: CreditAvailability.NO_CREDITS_AVAILABLE });
 
     expect(
       screen.getByText(messagesEn['components.creditsAvailableBadge.text.no'])
@@ -55,7 +57,7 @@ describe('The CreditsAvailableBadge component', () => {
   });
 
   it('renders correctly for the "notYet" case', () => {
-    setup({ status: CreditsAvailableState.NOT_YET });
+    setup({ status: CreditAvailability.SOON_CREDITS_AVAILABLE });
 
     expect(
       screen.getByText(

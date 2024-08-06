@@ -3,8 +3,8 @@ import { StoryFn, Meta } from '@storybook/react';
 
 import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import TextWithCard from '.';
-import CreditsAvailableState from '../../models/CreditsAvailableState';
 import { IStrapiData, PortfolioProject, StrapiProject } from '../..';
+import { CreditAvailability } from '../../models/fpm/FPMProject';
 
 export default {
   title: 'slices/TextWithCard',
@@ -70,7 +70,7 @@ const portfolioProject: PortfolioProject = {
   riskBuffer: 10,
   createdAt: new Date('2020-01-01'),
   updatedAt: new Date('2020-01-01'),
-  creditsAvailable: CreditsAvailableState.YES,
+  creditAvailability: CreditAvailability.CREDITS_AVAILABLE,
   slug: 'portfolio-slug',
   thumbnail: {
     img: { data: storybookStrapiCoverMock },
@@ -84,7 +84,6 @@ const project: IStrapiData<StrapiProject> = {
     slug: 'slug',
     locale: 'en',
     fpmProjectId: portfolioProject.id,
-    creditsAvailable: CreditsAvailableState.YES,
     footerSubTitle: 'Certified, 2023',
     createdAt: '2022-01-10T15:04:32.897Z',
     updatedAt: '2022-01-11T10:21:42.317Z',

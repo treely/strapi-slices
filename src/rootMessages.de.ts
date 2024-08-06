@@ -8,7 +8,6 @@ import portfolioDocumentsDownloadListMessagesDe from './components/portfolio/Doc
 import projectFactsMessagesDe from './slices/ProjectFacts/messages.de';
 import projectsMapMessagesDe from './slices/ProjectsMap/messages.de';
 import portfolioProjectInfoMessagesDe from './components/portfolio/ProjectInfo/messages.de';
-import portfolioProjectCardMessagesDe from './components/portfolio/PortfolioProjectCard/messages.de';
 import portfolioSmallCheckoutMessagesDe from './components/portfolio/SmallCheckout/messages.de';
 import shopCheckoutMessagesDe from './slices/ShopCheckout/messages.de';
 import textCarouselMessagesDe from './slices/TextCarousel/messages.de';
@@ -22,7 +21,6 @@ const rootMessagesDe = {
   //
   ...creditsAvailableBadgeMessagesDe,
   ...portfolioDocumentsDownloadListMessagesDe,
-  ...portfolioProjectCardMessagesDe,
   ...portfolioProjectInfoMessagesDe,
   ...portfolioSmallCheckoutMessagesDe,
 

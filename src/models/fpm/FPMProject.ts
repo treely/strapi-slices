@@ -1,5 +1,12 @@
 import Issuer from './Issuer';
 
+export enum CreditAvailability {
+  CREDITS_AVAILABLE = 'credits_available',
+  NO_CREDITS_AVAILABLE = 'no_credits_available',
+  SOME_CREDITS_AVAILABLE = 'some_credits_available',
+  SOON_CREDITS_AVAILABLE = 'soon_credits_available',
+}
+
 interface FPMProject {
   id: string;
   title: string;
@@ -33,6 +40,7 @@ interface FPMProject {
   forecastedAmountYearly?: number;
   riskBuffer?: number;
   defaultIssuer?: Issuer;
+  creditAvailability: CreditAvailability;
 
   createdAt: Date;
   updatedAt: Date;

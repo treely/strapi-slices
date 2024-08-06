@@ -15,6 +15,7 @@ const getPortfolioProjects = async (
   locale: string = 'en',
   preview: boolean = false
 ): Promise<PortfolioProject[]> => {
+  const cache = preview ? false : undefined;
   const params: Record<string, any> = {
     populate: 'deep,6',
     locale,
@@ -30,17 +31,16 @@ const getPortfolioProjects = async (
     { data: strapiProjectsLocalized },
     { data: strapiProjectsEnglish },
   ] = await Promise.all([
-    fpmClient.get<FPMProject[]>('/public/projects'),
+    fpmClient.get<FPMProject[]>('/public/projects', { cache }),
     strapiClient.get<IStrapiResponse<IStrapiData<StrapiProject>[]>>(
       '/projects',
-      {
-        params,
-      }
+      { params, cache }
     ),
     strapiClient.get<IStrapiResponse<IStrapiData<StrapiProject>[]>>(
       '/projects',
       {
         params: { ...params, locale: FALLBACK_LOCALE },
+        cache,
       }
     ),
   ]);

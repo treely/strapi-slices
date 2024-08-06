@@ -14,6 +14,7 @@ const getStaticPropsFromStrapi = async (
   path: string,
   { locale = 'en', slug, preview = false, filters = {} }: Options
 ): Promise<AxiosResponse> => {
+  const cache = preview ? false : undefined;
   const enrichedFilters: Record<string, string> = filters;
 
   if (slug) {
@@ -31,7 +32,7 @@ const getStaticPropsFromStrapi = async (
     params.publicationState = 'preview';
   }
 
-  return strapiClient.get(path, { params });
+  return strapiClient.get(path, { params, cache });
 };
 
 export default getStaticPropsFromStrapi;

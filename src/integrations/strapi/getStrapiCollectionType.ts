@@ -22,6 +22,7 @@ const getStrapiCollectionType = async <
   key: K,
   { locale = 'en', preview = false, filters = {} }: Options
 ): Promise<IStrapiData<T>[]> => {
+  const cache = preview ? false : undefined;
   const params: Record<string, any> = {
     populate: 'deep,6',
     locale: 'all',
@@ -35,7 +36,7 @@ const getStrapiCollectionType = async <
 
   const { data } = await strapiClient.get<IStrapiResponse<IStrapiData<T>[]>>(
     path,
-    { params }
+    { params, cache }
   );
 
   const localizedResponses = data.data.filter(

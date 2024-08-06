@@ -17,6 +17,7 @@ const getStrapiSingleType = async <T>(
   path: string,
   { locale = 'en', preview = false, filters = {} }: Options
 ): Promise<IStrapiData<T>> => {
+  const cache = preview ? false : undefined;
   const params: Record<string, any> = {
     populate: 'deep,6',
     locale,
@@ -31,13 +32,14 @@ const getStrapiSingleType = async <T>(
   let response: AxiosResponse<IStrapiResponse<IStrapiData<T>>>;
 
   try {
-    response = await strapiClient.get(path, { params });
+    response = await strapiClient.get(path, { params, cache });
     return response.data.data;
   } catch (error: any) {
     if (error.isAxiosError && error.response?.status === 404) {
       // Retry request with fallback locale
       response = await strapiClient.get(path, {
         params: { ...params, locale: STRAPI_FALLBACK_LOCALE },
+        cache,
       });
 
       return response.data.data;

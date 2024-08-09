@@ -67,9 +67,6 @@ const getPortfolioProjects = async (
     if (strapiProject?.attributes.thumbnail) {
       toReturn.thumbnail = strapiProject?.attributes.thumbnail;
     }
-    if (strapiProject?.attributes.footerSubTitle) {
-      toReturn.footerSubTitle = strapiProject?.attributes.footerSubTitle;
-    }
     if (strapiProject?.attributes.portfolio.data?.attributes.host) {
       toReturn.portfolioHost =
         strapiProject.attributes.portfolio.data.attributes.host;

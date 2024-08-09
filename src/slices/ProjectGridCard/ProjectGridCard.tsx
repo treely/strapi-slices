@@ -14,7 +14,7 @@ export interface ProjectGridCardProps {
 export const ProjectGridCard = ({
   project,
 }: ProjectGridCardProps): JSX.Element => {
-  const { formatNumber } = useContext(IntlContext);
+  const { formatNumber, formatMessage } = useContext(IntlContext);
 
   return (
     <Container>
@@ -49,6 +49,24 @@ export const ProjectGridCard = ({
               {project.location}
             </Text>
           </Tag>
+          {project.certificationDate ? (
+            <Tag>
+              <Text size="xsLowBold" color="gray.800">
+                {formatMessage(
+                  { id: 'sections.projectCardGrid.certified' },
+                  { year: project.certificationDate.getFullYear() }
+                )}
+              </Text>
+            </Tag>
+          ) : (
+            <Tag>
+              <Text size="xsLowBold" color="gray.800">
+                {formatMessage({
+                  id: 'sections.projectCardGrid.certificationInProgres',
+                })}
+              </Text>
+            </Tag>
+          )}
         </Flex>
         <CreditsAvailableBadge status={project.creditAvailability} />
       </Flex>

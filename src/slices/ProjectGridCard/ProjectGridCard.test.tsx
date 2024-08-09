@@ -44,6 +44,12 @@ describe('The ProjectGridCard component', () => {
     expect(screen.getByText('Austria')).toBeInTheDocument();
   });
 
+  it('displays the certification date if it is defined', () => {
+    setup();
+
+    expect(screen.getByText('Certified, 2020')).toBeInTheDocument();
+  });
+
   it('displays the credits available badge', () => {
     setup();
 

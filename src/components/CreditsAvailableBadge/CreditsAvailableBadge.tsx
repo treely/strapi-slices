@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import { Flex, Spacer, Tag, Text } from 'boemly';
+import { Flex, Tag, Text } from 'boemly';
 import NextLink from 'next/link';
 import { IntlContext } from '../ContextProvider';
 import { CreditAvailability } from '../../models/fpm/FPMProject';
-import { Info } from '@phosphor-icons/react';
 
 export interface CreditsAvailableBadgeProps {
   status: CreditAvailability;
@@ -55,8 +54,6 @@ const CreditsAvailableBadge = ({
       href={href}
     >
       <Tag backgroundColor={variant.color} mt="2" mb="1">
-        <Info size={12} color="white" weight="fill" />
-        <Spacer width="1" />
         <Text color="white" size="xsLowBold">
           {variant.message}
         </Text>

@@ -33,6 +33,7 @@ const fpmProjectMock: FPMProject = {
   createdAt: new Date('2020-01-01'),
   updatedAt: new Date('2020-01-01'),
   creditAvailability: CreditAvailability.CREDITS_AVAILABLE,
+  certificationDate: new Date('2020-02-02'),
 };
 
 export default fpmProjectMock;

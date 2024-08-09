@@ -6,6 +6,7 @@ import customerQuoteCardMessagesDe from './components/CustomerQuoteCard/messages
 import glossaryMessagesDe from './slices/Glossary/messages.de';
 import portfolioDocumentsDownloadListMessagesDe from './components/portfolio/DocumentsDownloadList/messages.de';
 import projectFactsMessagesDe from './slices/ProjectFacts/messages.de';
+import projectGridCardMesssagesDe from './slices/ProjectGridCard/messages.de';
 import projectsMapMessagesDe from './slices/ProjectsMap/messages.de';
 import portfolioProjectInfoMessagesDe from './components/portfolio/ProjectInfo/messages.de';
 import portfolioSmallCheckoutMessagesDe from './components/portfolio/SmallCheckout/messages.de';
@@ -33,6 +34,7 @@ const rootMessagesDe = {
   ...customerQuoteCardMessagesDe,
   ...glossaryMessagesDe,
   ...projectFactsMessagesDe,
+  ...projectGridCardMesssagesDe,
   ...projectsMapMessagesDe,
   ...shopCheckoutMessagesDe,
   ...textCarouselMessagesDe,

@@ -4,7 +4,7 @@ import ProjectGridCard from '.';
 import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
 import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
 import React from 'react';
-import messagesEn from '../../components/CreditsAvailableBadge/messages.en';
+import messagesEn from '../CreditsAvailableBadge/messages.en';
 
 const defaultProps: ProjectGridCardProps = {
   project: {

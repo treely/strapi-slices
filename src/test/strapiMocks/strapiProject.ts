@@ -10,7 +10,6 @@ export const strapiProjectMock: IStrapiData<StrapiProject> = {
     slug: 'slug',
     locale: 'en',
     fpmProjectId: fpmProjectMock.id,
-    footerSubTitle: 'Certified, 2023',
     createdAt: '2022-01-10T15:04:32.897Z',
     updatedAt: '2022-01-11T10:21:42.317Z',
     metadata: null,

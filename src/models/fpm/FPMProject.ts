@@ -41,6 +41,7 @@ interface FPMProject {
   riskBuffer?: number;
   defaultIssuer?: Issuer;
   creditAvailability: CreditAvailability;
+  certificationDate?: Date;
 
   createdAt: Date;
   updatedAt: Date;

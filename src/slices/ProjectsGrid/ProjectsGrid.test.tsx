@@ -16,7 +16,6 @@ const defaultProps: ProjectsGridProps = {
       slug: 'slug',
       isPublic: true,
       thumbnail: { img: { data: strapiMediaMock }, alt: 'Alt Text', id: 1 },
-      footerSubTitle: 'certified-123',
     },
   ],
 };

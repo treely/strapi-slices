@@ -6,7 +6,6 @@ interface PortfolioProject extends FPMProject {
   slug?: string;
   portfolioHost?: string;
   thumbnail?: StrapiImage | null;
-  footerSubTitle?: string;
 }
 
 export default PortfolioProject;

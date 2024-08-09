@@ -5,11 +5,11 @@ import customerCardMessagesDe from './components/CustomerCard/messages.de';
 import customerQuoteCardMessagesDe from './components/CustomerQuoteCard/messages.de';
 import glossaryMessagesDe from './slices/Glossary/messages.de';
 import portfolioDocumentsDownloadListMessagesDe from './components/portfolio/DocumentsDownloadList/messages.de';
-import projectFactsMessagesDe from './slices/ProjectFacts/messages.de';
-import projectGridCardMesssagesDe from './slices/ProjectGridCard/messages.de';
-import projectsMapMessagesDe from './slices/ProjectsMap/messages.de';
 import portfolioProjectInfoMessagesDe from './components/portfolio/ProjectInfo/messages.de';
 import portfolioSmallCheckoutMessagesDe from './components/portfolio/SmallCheckout/messages.de';
+import projectFactsMessagesDe from './slices/ProjectFacts/messages.de';
+import projectGridCardMessagesDe from './components/ProjectGridCard/messages.de';
+import projectsMapMessagesDe from './slices/ProjectsMap/messages.de';
 import shopCheckoutMessagesDe from './slices/ShopCheckout/messages.de';
 import textCarouselMessagesDe from './slices/TextCarousel/messages.de';
 import timelineMessagesDe from './slices/Timeline/messages.de';
@@ -24,6 +24,7 @@ const rootMessagesDe = {
   ...portfolioDocumentsDownloadListMessagesDe,
   ...portfolioProjectInfoMessagesDe,
   ...portfolioSmallCheckoutMessagesDe,
+  ...projectGridCardMessagesDe,
 
   //
   // Slices
@@ -34,7 +35,6 @@ const rootMessagesDe = {
   ...customerQuoteCardMessagesDe,
   ...glossaryMessagesDe,
   ...projectFactsMessagesDe,
-  ...projectGridCardMesssagesDe,
   ...projectsMapMessagesDe,
   ...shopCheckoutMessagesDe,
   ...textCarouselMessagesDe,

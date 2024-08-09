@@ -16,7 +16,7 @@ import StrapiLink from '../../models/strapi/StrapiLink';
 import StrapiProjectCard from '../../models/strapi/StrapiProjectCard';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
 import { IStrapiData, PortfolioProject, StrapiProject } from '../..';
-import ProjectGridCard from '../ProjectGridCard';
+import ProjectGridCard from '../../components/ProjectGridCard';
 
 interface TextWithCardSlice {
   tagline?: string;

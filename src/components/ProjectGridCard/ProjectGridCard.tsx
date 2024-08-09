@@ -5,7 +5,7 @@ import PortfolioProject from '../../models/PortfolioProject';
 import { strapiMediaUrl } from '../..';
 import { IntlContext } from 'react-intl';
 import { FORMAT_AS_HECTARE_CONFIG } from '../../constants/formatter';
-import CreditsAvailableBadge from '../../components/CreditsAvailableBadge';
+import CreditsAvailableBadge from '../CreditsAvailableBadge';
 
 export interface ProjectGridCardProps {
   project: PortfolioProject;
@@ -15,6 +15,14 @@ export const ProjectGridCard = ({
   project,
 }: ProjectGridCardProps): JSX.Element => {
   const { formatNumber, formatMessage } = useContext(IntlContext);
+
+  let certificationDate = null;
+  if (project?.certificationDate) {
+    const date = new Date(project.certificationDate);
+    if (!isNaN(date.getTime())) {
+      certificationDate = date.getFullYear();
+    }
+  }
 
   return (
     <Container>
@@ -26,7 +34,7 @@ export const ProjectGridCard = ({
               alt={project.thumbnail?.alt}
               fill
               style={{
-                objectFit: project.thumbnail?.objectFit || 'cover',
+                objectFit: 'cover',
                 borderRadius: 'var(--boemly-radii-xl)',
               }}
             />
@@ -35,7 +43,7 @@ export const ProjectGridCard = ({
         <Heading my="4" size="lg">
           {project.title}
         </Heading>
-        <Flex flexDir="row" gap="2">
+        <Flex flexDir="row" gap="2" flexWrap="wrap">
           <Tag>
             <Text size="xsLowBold" color="gray.800">
               {formatNumber(
@@ -49,12 +57,13 @@ export const ProjectGridCard = ({
               {project.location}
             </Text>
           </Tag>
+
           {project.certificationDate ? (
             <Tag>
               <Text size="xsLowBold" color="gray.800">
                 {formatMessage(
-                  { id: 'sections.projectCardGrid.certified' },
-                  { year: project.certificationDate.getFullYear() }
+                  { id: 'components.projectGridCard.certified' },
+                  { number: certificationDate }
                 )}
               </Text>
             </Tag>
@@ -62,7 +71,7 @@ export const ProjectGridCard = ({
             <Tag>
               <Text size="xsLowBold" color="gray.800">
                 {formatMessage({
-                  id: 'sections.projectCardGrid.certificationInProgres',
+                  id: 'components.projectGridCard.certificationInProgress',
                 })}
               </Text>
             </Tag>

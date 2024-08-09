@@ -24,7 +24,6 @@ import { CDN_URI } from '../../constants/api';
 import { IntlContext } from 'react-intl';
 import { BREAKPOINT_MD_QUERY } from '../../constants/breakpoints';
 import { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
 import FullScreenImage from '../../components/FullScreenImage';
 
 export interface TimelineProps {
@@ -319,7 +318,7 @@ export const Timeline: React.FC<TimelineProps> = ({ slice }: TimelineProps) => {
                     onClick={showMoreItems}
                     m={[null, null, null, '8']}
                   >
-                    <FormattedMessage id="sections.timeline.showMoreButton" />
+                    {formatMessage({ id: 'sections.timeline.showMoreButton' })}
                   </Button>
                 </Box>
               </>

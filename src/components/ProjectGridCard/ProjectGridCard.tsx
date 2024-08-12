@@ -17,7 +17,7 @@ export const ProjectGridCard = ({
   const { formatNumber, formatMessage } = useContext(IntlContext);
 
   return (
-    <Container>
+    <Container height="full">
       <Flex flexDir="column" height="full">
         {project.thumbnail && (
           <Box borderRadius="xl" position="relative" height="36" mb="2">

@@ -2,11 +2,11 @@ import React from 'react';
 import { Box, DefaultSectionContainer, SimpleGrid, Wrapper } from 'boemly';
 import Link from 'next/link';
 import { MEDIUM_TRANSITION_DURATION } from '../../constants/animations';
-import ProjectGridCard from '../ProjectGridCard';
 import PortfolioProject from '../../models/PortfolioProject';
 import IStrapi from '../../models/strapi/IStrapi';
 import IStrapiData from '../../models/strapi/IStrapiData';
 import StrapiProject from '../../models/strapi/StrapiProject';
+import ProjectGridCard from '../../components/ProjectGridCard';
 
 export interface ProjectsGridProps {
   slice: {

@@ -3,9 +3,9 @@ import React, { useContext } from 'react';
 import Image from 'next/image';
 import PortfolioProject from '../../models/PortfolioProject';
 import { strapiMediaUrl } from '../..';
-import { IntlContext } from 'react-intl';
 import { FORMAT_AS_HECTARE_CONFIG } from '../../constants/formatter';
 import CreditsAvailableBadge from '../../components/CreditsAvailableBadge';
+import { IntlContext } from '../ContextProvider';
 
 export interface ProjectGridCardProps {
   project: PortfolioProject;
@@ -53,8 +53,8 @@ export const ProjectGridCard = ({
             <Tag>
               <Text size="xsLowBold" color="gray.800">
                 {formatMessage(
-                  { id: 'sections.projectCardGrid.certified' },
-                  { year: project.certificationDate.getFullYear() }
+                  { id: 'components.projectGridCard.certified' },
+                  { year: new Date(project.certificationDate).getFullYear() }
                 )}
               </Text>
             </Tag>
@@ -62,7 +62,7 @@ export const ProjectGridCard = ({
             <Tag>
               <Text size="xsLowBold" color="gray.800">
                 {formatMessage({
-                  id: 'sections.projectCardGrid.certificationInProgres',
+                  id: 'components.projectGridCard.certificationInProgress',
                 })}
               </Text>
             </Tag>

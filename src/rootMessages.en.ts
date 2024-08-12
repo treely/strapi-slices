@@ -6,7 +6,7 @@ import customerQuoteCardMessagesEn from './components/CustomerQuoteCard/messages
 import glossaryMessagesEn from './slices/Glossary/messages.en';
 import portfolioDocumentsDownloadListMessagesEn from './components/portfolio/DocumentsDownloadList/messages.en';
 import projectFactsMessagesEn from './slices/ProjectFacts/messages.en';
-import projectGridCardMesssagesEn from './slices/ProjectGridCard/messages.en';
+import projectGridCardMessagesEn from './components/ProjectGridCard/messages.en';
 import projectsMapMessagesEn from './slices/ProjectsMap/messages.en';
 import portfolioProjectInfoMessagesEn from './components/portfolio/ProjectInfo/messages.en';
 import portfolioSmallCheckoutMessagesEn from './components/portfolio/SmallCheckout/messages.en';
@@ -24,6 +24,7 @@ const rootMessagesEn = {
   ...portfolioDocumentsDownloadListMessagesEn,
   ...portfolioProjectInfoMessagesEn,
   ...portfolioSmallCheckoutMessagesEn,
+  ...projectGridCardMessagesEn,
 
   //
   // Slices
@@ -34,7 +35,6 @@ const rootMessagesEn = {
   ...customerQuoteCardMessagesEn,
   ...glossaryMessagesEn,
   ...projectFactsMessagesEn,
-  ...projectGridCardMesssagesEn,
   ...projectsMapMessagesEn,
   ...shopCheckoutMessagesEn,
   ...textCarouselMessagesEn,

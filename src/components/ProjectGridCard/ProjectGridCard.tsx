@@ -35,7 +35,7 @@ export const ProjectGridCard = ({
         <Heading my="4" size="lg">
           {project.title}
         </Heading>
-        <Flex flexDir="row" gap="2">
+        <Flex flexDir="row" gap="2" flexWrap="wrap">
           <Tag>
             <Text size="xsLowBold" color="gray.800">
               {formatNumber(
@@ -67,8 +67,8 @@ export const ProjectGridCard = ({
               </Text>
             </Tag>
           )}
+          <CreditsAvailableBadge status={project.creditAvailability} />
         </Flex>
-        <CreditsAvailableBadge status={project.creditAvailability} />
       </Flex>
     </Container>
   );

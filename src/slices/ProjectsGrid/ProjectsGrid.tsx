@@ -60,6 +60,7 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({
               )}
             >
               <Box
+                height="full"
                 width="full"
                 as="a"
                 cursor="pointer"

@@ -1,6 +1,6 @@
 const messagesDe = {
   'components.projectGridCard.certified': 'Certified, {year}',
-  'components.projectGridCard.certificationInProgres':
+  'components.projectGridCard.certificationInProgress':
     'Certification in progress',
 };
 export default messagesDe;

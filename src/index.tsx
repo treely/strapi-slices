@@ -47,8 +47,6 @@ import PortfolioProject from './models/PortfolioProject';
 
 import getAllSlugsFromStrapi from './integrations/strapi/getAllSlugsFromStrapi';
 import getPortfolioProjects from './integrations/strapi/getPortfolioProjects';
-import getStaticPathsFromStrapi from './integrations/strapi/getStaticPathsFromStrapi';
-import getStaticPropsFromStrapi from './integrations/strapi/getStaticPropsFromStrapi';
 import getStrapiCollectionType from './integrations/strapi/getStrapiCollectionType';
 import getStrapiSingleType from './integrations/strapi/getStrapiSingleType';
 
@@ -75,8 +73,6 @@ export {
   // Integrations
   getAllSlugsFromStrapi,
   getPortfolioProjects,
-  getStaticPathsFromStrapi,
-  getStaticPropsFromStrapi,
   getStrapiCollectionType,
   getStrapiSingleType,
 };

@@ -6,6 +6,7 @@ import { strapiMediaUrl } from '../..';
 import { IntlContext } from 'react-intl';
 import { FORMAT_AS_HECTARE_CONFIG } from '../../constants/formatter';
 import CreditsAvailableBadge from '../CreditsAvailableBadge';
+import { getYear } from '../../utils/getYear';
 
 export interface ProjectGridCardProps {
   project: PortfolioProject;
@@ -16,13 +17,11 @@ export const ProjectGridCard = ({
 }: ProjectGridCardProps): JSX.Element => {
   const { formatNumber, formatMessage } = useContext(IntlContext);
 
-  let certificationDate = null;
-  if (project?.certificationDate) {
-    const date = new Date(project.certificationDate);
-    if (!isNaN(date.getTime())) {
-      certificationDate = date.getFullYear();
-    }
-  }
+  // let certificationDate = null;
+  // if (project?.certificationDate) {
+  //   const date = new Date(project.certificationDate);
+  //   return getYear(date);
+  // }
 
   return (
     <Container>
@@ -63,7 +62,7 @@ export const ProjectGridCard = ({
               <Text size="xsLowBold" color="gray.800">
                 {formatMessage(
                   { id: 'components.projectGridCard.certified' },
-                  { number: certificationDate }
+                  { number: getYear(new Date(project.certificationDate)) }
                 )}
               </Text>
             </Tag>

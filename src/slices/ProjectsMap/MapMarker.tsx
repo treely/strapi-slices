@@ -5,7 +5,6 @@ import {
   Container,
   Flex,
   Heading,
-  Spacer,
   Text,
   useDisclosure,
   useToken,
@@ -70,9 +69,9 @@ const MapMarker = ({
               status={creditAvailability}
               href={slug && `${portfolioHost}/portfolio/${slug}`}
             />
-            <Spacer height="3" />
-
-            <Heading size="md">{title}</Heading>
+            <Heading mt="3" size="md">
+              {title}
+            </Heading>
 
             {projectDeveloper && (
               <Text size="smLowNormal" mt="1">

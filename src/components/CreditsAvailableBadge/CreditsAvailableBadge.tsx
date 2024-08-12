@@ -53,7 +53,7 @@ const CreditsAvailableBadge = ({
       as={href ? NextLink : undefined}
       href={href}
     >
-      <Tag backgroundColor={variant.color} mt="2" mb="1">
+      <Tag backgroundColor={variant.color}>
         <Text color="white" size="xsLowBold">
           {variant.message}
         </Text>

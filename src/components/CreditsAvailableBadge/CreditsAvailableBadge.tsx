@@ -23,25 +23,25 @@ const CreditsAvailableBadge = ({
       message: formatMessage({
         id: 'components.creditsAvailableBadge.text.yes',
       }),
-      color: 'var(--boemly-colors-primary-800)',
+      color: 'green.600',
     },
     [CreditAvailability.NO_CREDITS_AVAILABLE]: {
       message: formatMessage({
         id: 'components.creditsAvailableBadge.text.no',
       }),
-      color: 'var(--boemly-colors-red-600)',
+      color: 'red.600',
     },
     [CreditAvailability.SOME_CREDITS_AVAILABLE]: {
       message: formatMessage({
         id: 'components.creditsAvailableBadge.text.some',
       }),
-      color: 'var(--boemly-colors-orange-500)',
+      color: 'orange.500',
     },
     [CreditAvailability.SOON_CREDITS_AVAILABLE]: {
       message: formatMessage({
         id: 'components.creditsAvailableBadge.text.notYet',
       }),
-      color: 'var(--boemly-colors-blue-500)',
+      color: 'blue.500',
     },
   };
 

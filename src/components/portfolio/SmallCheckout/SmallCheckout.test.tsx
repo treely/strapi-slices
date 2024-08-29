@@ -42,7 +42,7 @@ describe('The SmallCheckout component', () => {
 
     expect(
       screen.getByText(
-        messagesEn['portfolio.smallCheckout.contributionValueKgs.label']
+        messagesEn['portfolio.smallCheckout.contributionValueTons.label']
       )
     ).toBeInTheDocument();
   });
@@ -97,12 +97,12 @@ describe('The SmallCheckout component', () => {
 
     await userEvent.clear(
       screen.getByLabelText(
-        messagesEn['portfolio.smallCheckout.contributionValueKgs.label']
+        messagesEn['portfolio.smallCheckout.contributionValueTons.label']
       )
     );
     await userEvent.type(
       screen.getByLabelText(
-        messagesEn['portfolio.smallCheckout.contributionValueKgs.label']
+        messagesEn['portfolio.smallCheckout.contributionValueTons.label']
       ),
       '3'
     );

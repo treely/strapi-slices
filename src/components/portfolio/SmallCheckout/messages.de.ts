@@ -16,16 +16,10 @@ const messagesDe = {
   'portfolio.smallCheckout.contributionValueCurrency.validation.empty':
     'Bitte geben Sie einen Wert ein',
   'portfolio.smallCheckout.contributionValueCurrency.validation.tooHigh':
-    'Für größere Einkäufe kontaktieren Sie bitte unser Verkaufsteam über den unten stehenden Button',
+    'Für größere Einkäufe kontaktieren Sie bitte unser Verkaufsteam',
 
-  'portfolio.smallCheckout.contributionValueKgs.label': 'Beitrag in Tonnen',
+  'portfolio.smallCheckout.contributionValueTons.label': 'Beitrag in Tonnen',
 
   'portfolio.smallCheckout.submitButton': 'Credits kaufen',
-
-  'portfolio.smallCheckout.cta.title':
-    'Möchten Sie mehr als 10.000 tCO₂ kaufen?',
-  'portfolio.smallCheckout.cta.subTitle':
-    'Für Unternehmenskunden bieten wir individuelle Lösungen an. Kontaktieren Sie uns.',
-  'portfolio.smallCheckout.cta.button': 'Unser Vertriebsteam kontaktieren',
 };
 export default messagesDe;

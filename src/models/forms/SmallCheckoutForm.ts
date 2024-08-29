@@ -1,6 +1,6 @@
 interface SmallCheckoutForm {
   contributionValueCurrency: string;
-  contributionValueKgs: string;
+  contributionValueTons: string;
 }
 
 export default SmallCheckoutForm;

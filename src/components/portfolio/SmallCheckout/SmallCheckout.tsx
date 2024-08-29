@@ -142,7 +142,7 @@ const SmallCheckout = ({
       <Formik
         initialValues={{
           contributionValueCurrency: initialContributionValue.toString(),
-          contributionValueKgs: (
+          contributionValueTons: (
             initialContributionValue /
             pricePerKg /
             1000
@@ -174,7 +174,7 @@ const SmallCheckout = ({
 
                           setValues({
                             contributionValueCurrency: value.toString(),
-                            contributionValueKgs: (
+                            contributionValueTons: (
                               value /
                               pricePerKg /
                               1000
@@ -203,10 +203,10 @@ const SmallCheckout = ({
               </Box>
 
               <Box width="full">
-                <Field name="contributionValueKgs">
+                <Field name="contributionValueTons">
                   {({ field }: FieldProps) => (
                     <BoemlyFormControl
-                      id="contributionValueKgs"
+                      id="contributionValueTons"
                       size="md"
                       inputProps={{
                         type: 'number',
@@ -219,21 +219,21 @@ const SmallCheckout = ({
                               pricePerKg *
                               1000
                             ).toString(),
-                            contributionValueKgs: value.toString(),
+                            contributionValueTons: value.toString(),
                           });
                         },
                       }}
                       label={formatMessage({
-                        id: 'portfolio.smallCheckout.contributionValueKgs.label',
+                        id: 'portfolio.smallCheckout.contributionValueTons.label',
                       })}
                       rightAddonsOrElements={[
                         <InputRightAddon key="tCO₂">tCO₂</InputRightAddon>,
                       ]}
                       isInvalid={
-                        !!errors.contributionValueKgs &&
-                        touched.contributionValueKgs
+                        !!errors.contributionValueTons &&
+                        touched.contributionValueTons
                       }
-                      errorMessage={errors.contributionValueKgs}
+                      errorMessage={errors.contributionValueTons}
                     />
                   )}
                 </Field>

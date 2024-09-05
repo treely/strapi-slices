@@ -65,6 +65,7 @@ export const Glossary: React.FC<GlossaryProps> = ({ slice }: GlossaryProps) => {
                   <GridItem key={item.slug}>
                     <Flex mb="2" gap="1.5" alignItems="center">
                       <Heading
+                        wordBreak="break-word"
                         size="xl"
                         id={item.slug}
                         scrollMarginTop="calc(var(--header-height) + var(--boemly-sizes-10))"
@@ -90,7 +91,9 @@ export const Glossary: React.FC<GlossaryProps> = ({ slice }: GlossaryProps) => {
                         onClick={async () => handleAnchorClick(item.slug)}
                       />
                     </Flex>
-                    <Text color="black">{item.text}</Text>
+                    <Text color="black" wordBreak="break-word">
+                      {item.text}
+                    </Text>
                   </GridItem>
                 ))}
               </SimpleGrid>

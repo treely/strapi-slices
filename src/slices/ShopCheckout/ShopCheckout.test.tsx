@@ -65,7 +65,7 @@ describe('The ShowCheckout section', () => {
 
     await waitFor(() => {
       expect(pushSpy).toHaveBeenCalledWith(
-        'https://api.fpm.t-staging.com/v1/webhooks/shop/checkout?batchId=batchId&quantity=1000&cancelPath=%2F'
+        'https://api.fpm.t-staging.com/v1/webhooks/shop/checkout?batchId=batchId&quantity=1000&cancelPath=%2F&locale=en'
       );
     });
   });
@@ -79,7 +79,7 @@ describe('The ShowCheckout section', () => {
 
     await waitFor(() => {
       expect(pushSpy).toHaveBeenCalledWith(
-        'https://api.fpm.t-staging.com/v1/webhooks/shop/checkout?batchId=batchId&quantity=1000&cancelPath=%2F&couponId=coupon-id'
+        'https://api.fpm.t-staging.com/v1/webhooks/shop/checkout?batchId=batchId&quantity=1000&cancelPath=%2F&couponId=coupon-id&locale=en'
       );
     });
   });

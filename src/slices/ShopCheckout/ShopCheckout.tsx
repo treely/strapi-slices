@@ -91,6 +91,8 @@ export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
     if (slice.couponId)
       checkoutURL.searchParams.append('couponId', slice.couponId);
 
+    checkoutURL.searchParams.append('locale', locale);
+
     push(checkoutURL.toString());
   };
 

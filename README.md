@@ -17,7 +17,7 @@ npm install
 Run the app in DEV mode:
 
 ```bash
-npm run dev
+npm run storybook
 ```
 
 Run the linter:

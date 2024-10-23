@@ -88,4 +88,47 @@ describe('The TextCarousel component', () => {
 
     expect(screen.getByRole('link')).toHaveTextContent('Link text');
   });
+
+  it('displays the text card button if a button is in the slice', () => {
+    setup({
+      slice: {
+        ...defaultProps.slice,
+        slides: [
+          {
+            ...defaultProps.slice.slides[0],
+            button: {
+              id: 1,
+              text: 'Text Card Button',
+              page: strapiLinkPageMock,
+            },
+          },
+        ],
+      },
+    });
+
+    expect(screen.getByRole('button')).toHaveTextContent('Text Card Button');
+  });
+
+  it('displays the image if an image is in the slice', () => {
+    setup({
+      slice: {
+        ...defaultProps.slice,
+        slides: [
+          {
+            ...defaultProps.slice.slides[0],
+            image: {
+              id: 1,
+              alt: 'Alt image text',
+              img: { data: strapiMediaMock },
+            },
+          },
+        ],
+      },
+    });
+
+    expect(screen.getAllByRole('img')[0]).toHaveAttribute(
+      'alt',
+      'Alt image text'
+    );
+  });
 });

@@ -24,6 +24,8 @@ import { useMeasure, useWindowSize } from 'react-use';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 import { IntlContext } from '../../components/ContextProvider';
+import strapiLinkUrl from '../../utils/strapiLinkUrl';
+import { useRouter } from 'next/router';
 
 interface TextCarouselSlice extends StrapiDefaultHeader {
   slides: StrapiTextCardWithIcon[];
@@ -44,6 +46,7 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
   const [itemRef, { width: itemWidth }] = useMeasure<HTMLDivElement>();
   const { formatMessage } = useContext(IntlContext);
   const { width: windowWidth } = useWindowSize();
+  const { push } = useRouter();
 
   const [sliderIndex, setSliderIndex] = useState(0);
 
@@ -101,7 +104,7 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
               ease: 'easeInOut',
             }}
           >
-            {slice.slides.map(({ id, title, text, icon }) => (
+            {slice.slides.map(({ id, title, text, icon, image, button }) => (
               <CardContainer key={id} ref={itemRef}>
                 <TextCardWithIcon
                   title={title}
@@ -114,6 +117,25 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
                       fill
                       style={{ objectFit: icon.objectFit || 'contain' }}
                     />
+                  }
+                  image={
+                    image && (
+                      <Image
+                        src={strapiMediaUrl(image?.img, 'medium')}
+                        alt={image?.alt}
+                        fill
+                        style={{
+                          objectFit: image?.objectFit || 'cover',
+                          borderRadius: 'var(--boemly-radii-xl)',
+                        }}
+                      />
+                    )
+                  }
+                  button={
+                    button && {
+                      text: button.text,
+                      onClick: () => push(strapiLinkUrl(button)),
+                    }
                   }
                   displayAs="column"
                 />

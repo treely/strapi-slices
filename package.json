@@ -134,7 +134,7 @@
     "adblock-detect-react": "^1.1.0",
     "axios": "^1.7.2",
     "axios-cache-interceptor": "^1.5.3",
-    "boemly": "^5.13.0",
+    "boemly": "^6.2.1",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.5",
     "mapbox-gl": "^2.15.0"

@@ -39,6 +39,7 @@ export const CarouselInnerContainer = styled(
   min-width: var(--boemly-sizes-full);
 
   @media screen and (max-width: ${BREAKPOINT_MD}) {
+    gap: var(--boemly-space-1);
     justify-content: flex-start;
     width: calc(
       (var(--boemly-sizes-2xs) + var(--boemly-space-4)) *
@@ -52,7 +53,7 @@ export const CardContainer = styled(Box)`
   width: var(--boemly-sizes-sm);
 
   @media screen and (max-width: ${BREAKPOINT_MD}) {
-    width: var(--boemly-sizes-2xs);
+    min-width: var(--boemly-sizes-sm);
 
     margin-right: var(--boemly-space-4);
 

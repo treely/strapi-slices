@@ -47,6 +47,15 @@ Minimal.args = {
   },
 };
 
+export const WithShuffledCards = Template.bind({});
+WithShuffledCards.args = {
+  slice: {
+    title: 'Title',
+    slides,
+    isShuffled: true,
+  },
+};
+
 export const WithTagline = Template.bind({});
 WithTagline.args = {
   slice: {

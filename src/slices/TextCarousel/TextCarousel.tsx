@@ -26,10 +26,12 @@ import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 import { IntlContext } from '../../components/ContextProvider';
 import strapiLinkUrl from '../../utils/strapiLinkUrl';
 import { useRouter } from 'next/router';
+import shuffleElements from '../../utils/shuffleElements';
 
 interface TextCarouselSlice extends StrapiDefaultHeader {
   slides: StrapiTextCardWithIcon[];
   button?: StrapiLink;
+  isShuffled?: boolean;
 }
 export interface TextCarouselProps {
   slice: TextCarouselSlice;
@@ -78,6 +80,12 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
   }, [itemWidth, sliderIndex, sliderItemsWidth, windowWidth]);
 
   const canMoveLeft = useMemo(() => sliderIndex !== 0, [sliderIndex]);
+  const shuffleSlides = useMemo(
+    () => shuffleElements(slice.slides),
+    [slice.slides]
+  );
+  const { slides, isShuffled = false } = slice;
+  const displaySlides = isShuffled ? shuffleSlides : slides;
 
   return (
     <DefaultSectionContainer backgroundColor={primary50} title={slice.title}>
@@ -104,7 +112,7 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
               ease: 'easeInOut',
             }}
           >
-            {slice.slides.map(({ id, title, text, icon, image, button }) => (
+            {displaySlides.map(({ id, title, text, icon, image, button }) => (
               <CardContainer key={id} ref={itemRef}>
                 <TextCardWithIcon
                   title={title}

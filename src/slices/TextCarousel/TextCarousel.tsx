@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Box,
   Center,
@@ -50,6 +50,7 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
   const { width: windowWidth } = useWindowSize();
   const { push } = useRouter();
 
+  const [displaySlides, setDisplaySlides] = useState(slice.slides);
   const [sliderIndex, setSliderIndex] = useState(0);
 
   const numberOfItems = useMemo(
@@ -80,12 +81,14 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
   }, [itemWidth, sliderIndex, sliderItemsWidth, windowWidth]);
 
   const canMoveLeft = useMemo(() => sliderIndex !== 0, [sliderIndex]);
-  const shuffleSlides = useMemo(
-    () => shuffleElements(slice.slides),
-    [slice.slides]
-  );
+
   const { slides, isShuffled = false } = slice;
-  const displaySlides = isShuffled ? shuffleSlides : slides;
+
+  useEffect(() => {
+    if (isShuffled && typeof window === 'undefined') {
+      setDisplaySlides(shuffleElements(slides));
+    }
+  }, [slides, isShuffled]);
 
   return (
     <DefaultSectionContainer backgroundColor={primary50} title={slice.title}>

@@ -85,7 +85,7 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
   const { slides, isShuffled = false } = slice;
 
   useEffect(() => {
-    if (isShuffled && typeof window === 'undefined') {
+    if (isShuffled) {
       setDisplaySlides(shuffleElements(slides));
     }
   }, [slides, isShuffled]);

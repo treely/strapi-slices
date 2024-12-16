@@ -21,7 +21,7 @@ import {
   SliderInnerContainer,
   ImageContainer,
 } from './styles';
-import { getClosestRatio } from './utils';
+import { getClosestRatio } from '../../utils/getClosestRatio';
 
 export interface FullWidthImageSliderProps {
   slice: {

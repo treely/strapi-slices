@@ -37,6 +37,7 @@ import ProjectFacts from '../../slices/ProjectFacts';
 import CustomerStories from '../../slices/CustomerStories';
 import StrapiCustomerStory from '../../models/strapi/StrapiCustomerStory';
 import Comparison from '../../slices/Comparison';
+import CarouselMarqueeBanner from '../../slices/CarouselMarqueeBanner';
 import Locale from '../../models/Locale';
 import { ContextProvider } from '../ContextProvider';
 import Timeline from '../../slices/Timeline';
@@ -300,6 +301,13 @@ export const SliceRenderer = ({
         case 'sections.timeline':
           return (
             <Timeline key={`${slice.__component}-${slice.id}`} slice={slice} />
+          );
+        case 'sections.carousel-marquee-banner':
+          return (
+            <CarouselMarqueeBanner
+              key={`${slice.__component}-${slice.id}`}
+              slice={slice}
+            />
           );
         default:
           if (CustomSlice) {

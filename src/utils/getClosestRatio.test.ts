@@ -1,4 +1,4 @@
-import { getClosestRatio } from './utils';
+import { getClosestRatio } from './getClosestRatio';
 
 describe('The getClosestRatio util', () => {
   it('calculates the closest allowed ratio', () => {

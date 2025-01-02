@@ -3,6 +3,7 @@ import {
   StrapiBanner,
   StrapiBlogPost,
   StrapiCustomerStory,
+  StrapiEvent,
   StrapiLink,
   StrapiLinkList,
   StrapiNavMenu,
@@ -27,6 +28,8 @@ interface PageProps {
   banner?: StrapiBanner;
   topBanner?: StrapiTopBanner;
   customerStories: IStrapiData<StrapiCustomerStory>[];
+  //  TODO: should it be here?
+  events: IStrapiData<StrapiEvent>[];
   preview: boolean;
   isFallbackLocale: boolean;
 }

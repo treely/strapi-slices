@@ -54,8 +54,10 @@ import mergeGlobalAndStrapiBlogPostData from './utils/mergeGlobalAndStrapiBlogPo
 import mergeGlobalAndStrapiCustomerStoryData from './utils/mergeGlobalAndStrapiCustomerStoryData';
 import mergeGlobalAndStrapiPageData from './utils/mergeGlobalAndStrapiPageData';
 import mergeGlobalAndStrapiProjectData from './utils/mergeGlobalAndStrapiProjectData';
+import mergeGlobalAndStrapiEventData from './utils/mergeGlobalAndStrapiEventData';
 import strapiLinkUrl from './utils/strapiLinkUrl';
 import strapiMediaUrl from './utils/strapiMediaUrl';
+import StrapiEvent from './models/strapi/StrapiEvent';
 
 export * from './components/PreviewAlert';
 export * from './components/SEOTags';
@@ -65,6 +67,7 @@ export {
   // Utils
   mergeGlobalAndStrapiBlogPostData,
   mergeGlobalAndStrapiCustomerStoryData,
+  mergeGlobalAndStrapiEventData,
   mergeGlobalAndStrapiPageData,
   mergeGlobalAndStrapiProjectData,
   strapiLinkUrl,
@@ -93,6 +96,7 @@ export type {
   StrapiCustomerStory,
   StrapiCustomerStoryProps,
   StrapiDefaultHeader,
+  StrapiEvent,
   StrapiGlobal,
   StrapiGlossaryItem,
   StrapiHeroCard,

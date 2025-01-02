@@ -41,6 +41,8 @@ import CarouselMarqueeBanner from '../../slices/CarouselMarqueeBanner';
 import Locale from '../../models/Locale';
 import { ContextProvider } from '../ContextProvider';
 import Timeline from '../../slices/Timeline';
+import StrapiEvent from '../../models/strapi/StrapiEvent';
+import Events from '../../slices/Events';
 
 export interface CustomSliceProps {
   slice: any;
@@ -52,6 +54,7 @@ export interface SliceRendererProps {
   blogPosts: IStrapiData<StrapiBlogPost>[];
   projects: PortfolioProject[];
   customerStories: IStrapiData<StrapiCustomerStory>[];
+  events: IStrapiData<StrapiEvent>[];
   locale?: Locale;
   CustomSlice?: ({ slice, id }: CustomSliceProps) => JSX.Element;
 }
@@ -61,6 +64,7 @@ export const SliceRenderer = ({
   blogPosts,
   projects,
   customerStories,
+  events,
   locale = 'en',
   CustomSlice,
 }: SliceRendererProps): JSX.Element => (
@@ -307,6 +311,17 @@ export const SliceRenderer = ({
             <CarouselMarqueeBanner
               key={`${slice.__component}-${slice.id}`}
               slice={slice}
+            />
+          );
+        case 'sections.events':
+          return (
+            <Events
+              key={`${slice.__component}-${slice.id}`}
+              slice={{
+                ...slice,
+                events: slice.events.data,
+              }}
+              events={events}
             />
           );
         default:

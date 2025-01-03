@@ -49,9 +49,16 @@
     "trailingComma": "es5"
   },
   "jest": {
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
     "testEnvironment": "jsdom",
     "setupFilesAfterEnv": [
       "./src/test/setupTests.ts"
+    ],
+    "extensionsToTreatAsEsm": [
+      ".ts",
+      ".tsx"
     ],
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1",

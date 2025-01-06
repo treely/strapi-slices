@@ -145,3 +145,21 @@ WithTaglineAndTitle.args = {
     ],
   },
 };
+
+export const WithFilerSearch = Template.bind({});
+WithFilerSearch.args = {
+  slice: {
+    filterSearch: true,
+    eventCards: [
+      eventCard,
+      {
+        ...eventCard,
+        id: 2,
+      },
+      {
+        ...eventCard,
+        id: 3,
+      },
+    ],
+  },
+};

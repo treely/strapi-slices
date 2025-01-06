@@ -51,6 +51,7 @@ interface EventCardsProps {
   slice: {
     title?: string;
     tagline?: string;
+    filterSearch?: boolean;
     eventCards: {
       id: number;
       image: StrapiImage;
@@ -67,7 +68,6 @@ interface EventCardsProps {
       button: StrapiLink;
       buttonVariant?: 'outline' | 'ghost' | 'link' | 'solid' | 'outlineWhite';
       recommended?: boolean;
-      filter?: boolean;
       speakers: {
         id: number;
         caption: string;
@@ -77,7 +77,7 @@ interface EventCardsProps {
   };
 }
 
-const MAX_LENGTH = 150;
+const MAX_LENGTH = 160;
 
 const getEventIcon = (eventType: string): JSX.Element => {
   switch (eventType) {
@@ -118,9 +118,20 @@ export const EventCards = ({ slice }: EventCardsProps): JSX.Element => {
     return value < 10 ? `0${value}` : value.toString();
   };
 
+  // TODO: fix card height
+  // TODO: zum Hoehe: ich habe in der linken Kachel testweise einen Titel mit 90 Zeichen und eine Beschreibung mit 450 Zeichen eingegeben – das würde ich auch als character-limit festlegen. Diese Höhe könnte dann theoretisch als feste Höhe festgelegt werden. Es könnte allerdings vorkommen, dass die tags (wenn die maximale Anzahl ausgewählt wurde) auf 2 Zeilen verteilt werden. In diesem Fall müsste die Kachel eigentlich noch höher sein. Das sollte aber wahrscheinlich nicht so häufig vorkommen, was denkst du ?
+
   return (
     <DefaultSectionContainer>
       <Wrapper>
+        {mobile && slice.filterSearch ? (
+          <>
+            TODO: Filter search modal here
+            <Spacer h="6" />
+          </>
+        ) : (
+          <></>
+        )}
         {slice.title ? (
           <>
             <DefaultSectionHeader
@@ -210,6 +221,7 @@ export const EventCards = ({ slice }: EventCardsProps): JSX.Element => {
                     <></>
                   )}
                   <Flex flexWrap="wrap" gap="2">
+                    {/* TODO: allow multiple: max 2 */}
                     <Tag>
                       {getEventIcon(card.eventType)}&nbsp;
                       <Text size="xsLowBold" color="gray.800">
@@ -217,6 +229,8 @@ export const EventCards = ({ slice }: EventCardsProps): JSX.Element => {
                       </Text>
                     </Tag>
                     <Tag>
+                      {/* TODO: allow multiple max 2 */}
+                      {/* TODO: change flag graphic */}
                       {getCountryFlag(card.languageCountryCode)}&nbsp;
                       <Text size="xsLowBold" color="gray.800">
                         {card.language}
@@ -231,7 +245,6 @@ export const EventCards = ({ slice }: EventCardsProps): JSX.Element => {
                   my="4"
                   flexDir={mobile ? 'column' : 'row'}
                 >
-                  {/* // TODO: add show more to text */}
                   {card.online && (
                     <Flex gap="2" alignItems="center">
                       <Laptop
@@ -288,9 +301,9 @@ export const EventCards = ({ slice }: EventCardsProps): JSX.Element => {
                       {formatMessage(
                         isExpanded
                           ? {
-                              id: 'sections.eventCards.buttonShowMore',
+                              id: 'sections.eventCards.buttonShowLess',
                             }
-                          : { id: 'sections.eventCards.buttonShowLess' }
+                          : { id: 'sections.eventCards.buttonShowMore' }
                       )}
                     </Button>
                   </Flex>
@@ -314,7 +327,6 @@ export const EventCards = ({ slice }: EventCardsProps): JSX.Element => {
                   <Flex flexDir="row" gap="2">
                     {card.speakers.map((speaker) => (
                       // TODO: talk to Tobi about predefined images for internal speakers -
-                      // we will have to change the code every time there new colleagues / someone is leaving the company
                       <Box key={speaker.id}>
                         <Box
                           width="12"

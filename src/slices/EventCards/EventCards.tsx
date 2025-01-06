@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import {
   DefaultSectionContainer,
   DefaultSectionHeader,
@@ -11,6 +11,8 @@ import {
   SimpleGrid,
   Tooltip,
   Tag,
+  useMediaQuery,
+  Button,
 } from 'boemly';
 import { css } from '@emotion/react';
 import StrapiImage from '../../models/strapi/StrapiImage';
@@ -21,24 +23,29 @@ import StrapiLinkButton from '../../components/StrapiLinkButton';
 import {
   BowlFood,
   CalendarDots,
+  CaretDown,
   CaretRight,
+  CaretUp,
   ChalkboardTeacher,
   Confetti,
   Handshake,
   Headset,
   Info,
+  Laptop,
   MapPinArea,
   PersonSimpleWalk,
   ProjectorScreenChart,
+  Star,
   UsersThree,
   VideoConference,
 } from '@phosphor-icons/react';
 import getCountryFlag from '../../utils/getCountryFlag';
+import { BREAKPOINT_MD_QUERY } from '../../constants/breakpoints';
+import { IntlContext } from 'react-intl';
 
 // TODO: fetCountryFlag - change the emogi style - only possible using api
 // TODO: add test
 // TODO: check the storybook File
-// TODO: add logo on the image
 // TODO: add comment in github for the npm and node versions compatibility
 interface EventCardsProps {
   slice: {
@@ -51,12 +58,16 @@ interface EventCardsProps {
       eventType: string;
       language: string;
       languageCountryCode: string;
-      location: string;
+      location?: string;
+      online?: boolean;
       start: Date;
       end: Date;
       title: string;
-      text: string;
+      description: string;
       button: StrapiLink;
+      buttonVariant?: 'outline' | 'ghost' | 'link' | 'solid' | 'outlineWhite';
+      recommended?: boolean;
+      filter?: boolean;
       speakers: {
         id: number;
         caption: string;
@@ -65,6 +76,9 @@ interface EventCardsProps {
     }[];
   };
 }
+
+const MAX_LENGTH = 150;
+
 const getEventIcon = (eventType: string): JSX.Element => {
   switch (eventType) {
     case 'Webinar':
@@ -91,6 +105,14 @@ const getEventIcon = (eventType: string): JSX.Element => {
 };
 
 export const EventCards = ({ slice }: EventCardsProps): JSX.Element => {
+  const [mobile] = useMediaQuery(BREAKPOINT_MD_QUERY);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const { formatMessage } = useContext(IntlContext);
+
+  const toggleText = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   const getTime = (date: Date, action: () => number): string => {
     const value = action.call(date);
     return value < 10 ? `0${value}` : value.toString();
@@ -150,54 +172,86 @@ export const EventCards = ({ slice }: EventCardsProps): JSX.Element => {
                     objectFit: card.image?.objectFit || 'cover',
                   }}
                 />
-              </Box>
-              <Box
-                position="relative"
-                top="-36"
-                borderTopRightRadius="full"
-                width="16"
-                height="16"
-                // TODO: add the right position for the mobile
-                right={['-250px', '-580px', '-490px']}
-                //  right={['-580px', null, '-800px', null, '24']}
-                // right={['-16', null, '24']}
-              >
-                <Image
-                  src={strapiMediaUrl(card.logo.img, 'medium')}
-                  alt={card.logo.alt}
-                  fill
-                  style={{
-                    objectFit: card.logo.objectFit || 'contain',
-                    //  borderTopRightRadius: 'var(--boemly-radii-full)',
-                  }}
-                />
-              </Box>
 
+                <Box
+                  position="absolute"
+                  top="8"
+                  right="8"
+                  zIndex="1"
+                  width="16"
+                  height="16"
+                >
+                  <Image
+                    src={strapiMediaUrl(card.logo.img, 'medium')}
+                    alt={card.logo.alt}
+                    fill
+                    style={{
+                      objectFit: card.logo.objectFit || 'contain',
+                      borderRadius: '6px',
+                    }}
+                  />
+                </Box>
+              </Box>
               <Flex flexDir="column" p="8">
-                <Flex flexDir="row" mb="4" gap="2">
-                  <Tag>
-                    {getEventIcon(card.eventType)}&nbsp;
-                    <Text size="xsLowBold" color="gray.800">
-                      {card.eventType}
-                    </Text>
-                  </Tag>
-                  <Tag>
-                    {getCountryFlag(card.languageCountryCode)}&nbsp;
-                    <Text size="xsLowBold" color="gray.800">
-                      {card.language}
-                    </Text>
-                  </Tag>
+                <Flex flexDir="row" mb="4" gap="2" flexWrap="wrap">
+                  {card.recommended ? (
+                    <Flex>
+                      <Tag backgroundColor="green.600">
+                        <Star size={12} weight="fill" color="white" />
+                        &nbsp;
+                        <Text size="xsLowBold" color="white">
+                          {formatMessage({
+                            id: 'sections.eventCards.recommendedEvent',
+                          })}
+                        </Text>
+                      </Tag>
+                    </Flex>
+                  ) : (
+                    <></>
+                  )}
+                  <Flex flexWrap="wrap" gap="2">
+                    <Tag>
+                      {getEventIcon(card.eventType)}&nbsp;
+                      <Text size="xsLowBold" color="gray.800">
+                        {card.eventType}
+                      </Text>
+                    </Tag>
+                    <Tag>
+                      {getCountryFlag(card.languageCountryCode)}&nbsp;
+                      <Text size="xsLowBold" color="gray.800">
+                        {card.language}
+                      </Text>
+                    </Tag>
+                  </Flex>
                 </Flex>
                 <Heading>{card.title}</Heading>
-                <Flex gap="6" alignItems="center" my="4">
-                  <Flex gap="2" alignItems="center">
-                    <MapPinArea
-                      size={20}
-                      color={'var(--boemly-colors-primary-700)'}
-                      weight="fill"
-                    />
-                    <Text size="smLowBold">{card.location}</Text>
-                  </Flex>
+                <Flex
+                  gap="6"
+                  alignItems={mobile ? 'flex-start' : 'center'}
+                  my="4"
+                  flexDir={mobile ? 'column' : 'row'}
+                >
+                  {/* // TODO: add show more to text */}
+                  {card.online && (
+                    <Flex gap="2" alignItems="center">
+                      <Laptop
+                        size={20}
+                        color={'var(--boemly-colors-primary-700)'}
+                      />
+                      {/* TODO: translate */}
+                      <Text size="smLowBold">Online</Text>
+                    </Flex>
+                  )}
+                  {!card.online && card.location && (
+                    <Flex gap="2" alignItems="center">
+                      <MapPinArea
+                        size={20}
+                        color={'var(--boemly-colors-primary-700)'}
+                        weight="fill"
+                      />
+                      <Text size="smLowBold">{card.location}</Text>
+                    </Flex>
+                  )}
                   <Flex alignItems="center" gap="2">
                     <CalendarDots
                       size={20}
@@ -212,19 +266,55 @@ export const EventCards = ({ slice }: EventCardsProps): JSX.Element => {
                     </Text>
                   </Flex>
                 </Flex>
-                <Text>{card.text}</Text>
-                <Flex mt="7" justifyContent="space-between">
-                  <Box textAlign="center">
+                <Text>
+                  {isExpanded || !mobile
+                    ? card.description
+                    : `${card.description.substring(0, MAX_LENGTH)}...`}
+                </Text>
+                {card.description.length > MAX_LENGTH && mobile && (
+                  <Flex justifyContent="flex-start">
+                    <Button
+                      mt="2"
+                      onClick={toggleText}
+                      variant="link"
+                      rightIcon={
+                        isExpanded ? (
+                          <CaretUp size="12" />
+                        ) : (
+                          <CaretDown size="12" />
+                        )
+                      }
+                    >
+                      {formatMessage(
+                        isExpanded
+                          ? {
+                              id: 'sections.eventCards.buttonShowMore',
+                            }
+                          : { id: 'sections.eventCards.buttonShowLess' }
+                      )}
+                    </Button>
+                  </Flex>
+                )}
+                <Flex
+                  mt="7"
+                  justifyContent={mobile ? 'undefined' : 'space-between'}
+                  flexDir={mobile ? 'column-reverse' : 'row'}
+                  gap={mobile ? '4' : '0'}
+                >
+                  <Flex width={mobile ? 'full' : 'auto'}>
                     <StrapiLinkButton
                       key={card.button.id}
                       size="md"
-                      variant="outline"
+                      variant={card.buttonVariant}
                       link={card.button}
                       rightIcon={<CaretRight size="10" />}
+                      width="full"
                     />
-                  </Box>
+                  </Flex>
                   <Flex flexDir="row" gap="2">
                     {card.speakers.map((speaker) => (
+                      // TODO: talk to Tobi about predefined images for internal speakers -
+                      // we will have to change the code every time there new colleagues / someone is leaving the company
                       <Box key={speaker.id}>
                         <Box
                           width="12"

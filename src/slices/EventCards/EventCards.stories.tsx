@@ -39,11 +39,12 @@ const eventCard = {
   },
   title:
     'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo eget dolor.',
-  text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+  description:
+    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
   eventType: 'Webinar',
   language: 'English',
   languageCountryCode: 'GB',
-  location: 'London',
+  location: 'Klagenfurt am Wörthersee',
   start: new Date('Thu Mar 17 2024 08:00:00 GMT+0000 (GMT)'),
   end: new Date('Thu Mar 17 2024 09:30:00 GMT+0000 (GMT)'),
   button: {
@@ -51,6 +52,7 @@ const eventCard = {
     text: 'Call to Action Button',
     url: 'https://tree.ly',
   },
+  buttonVariant: 'solid' as 'solid' | 'outline' | 'ghost' | 'link',
   speakers: [speaker],
 };
 
@@ -64,7 +66,49 @@ Minimal.args = {
         id: 2,
         eventType: 'Conference',
       },
-      { ...eventCard, id: 3 },
+      {
+        ...eventCard,
+        id: 3,
+      },
+    ],
+  },
+};
+
+export const WithRecommendedTag = Template.bind({});
+WithRecommendedTag.args = {
+  slice: {
+    eventCards: [
+      { ...eventCard, recommended: true, online: true },
+      {
+        ...eventCard,
+        id: 2,
+        recommended: true,
+      },
+      {
+        ...eventCard,
+        id: 3,
+        recommended: true,
+      },
+    ],
+  },
+};
+
+export const WithOutlineButton = Template.bind({});
+WithOutlineButton.args = {
+  slice: {
+    eventCards: [
+      { ...eventCard, buttonVariant: 'outline' },
+      {
+        ...eventCard,
+        id: 2,
+        eventType: 'Conference',
+        buttonVariant: 'outline',
+      },
+      {
+        ...eventCard,
+        id: 3,
+        buttonVariant: 'outline',
+      },
     ],
   },
 };
@@ -82,7 +126,7 @@ WithTaglineAndTitle.args = {
         eventType: 'Meet Up',
         speakers: [
           speaker,
-          { ...speaker, id: 2, caption: 'Lukas' },
+          { ...speaker, id: 2, caption: 'Lukas Bals' },
           { ...speaker, id: 3 },
         ],
       },

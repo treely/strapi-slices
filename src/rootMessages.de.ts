@@ -3,6 +3,7 @@ import creditsAvailableBadgeMessagesDe from './components/CreditsAvailableBadge/
 import ctaMessagesDe from './slices/Cta/messages.de';
 import customerCardMessagesDe from './components/CustomerCard/messages.de';
 import customerQuoteCardMessagesDe from './components/CustomerQuoteCard/messages.de';
+import eventCardsMessagesDe from './slices/EventCards/messages.de';
 import glossaryMessagesDe from './slices/Glossary/messages.de';
 import portfolioDocumentsDownloadListMessagesDe from './components/portfolio/DocumentsDownloadList/messages.de';
 import projectFactsMessagesDe from './slices/ProjectFacts/messages.de';
@@ -33,6 +34,7 @@ const rootMessagesDe = {
   ...ctaMessagesDe,
   ...customerCardMessagesDe,
   ...customerQuoteCardMessagesDe,
+  ...eventCardsMessagesDe,
   ...glossaryMessagesDe,
   ...projectFactsMessagesDe,
   ...projectsMapMessagesDe,

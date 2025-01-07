@@ -1,5 +1,5 @@
 import { SlidersHorizontal } from '@phosphor-icons/react';
-import { Button, useDisclosure } from 'boemly';
+import { Button, useDisclosure, Text } from 'boemly';
 import {
   Modal,
   ModalOverlay,
@@ -12,7 +12,6 @@ import {
   CheckboxGroup,
   RadioGroup,
   HStack,
-  Text,
   useRadio,
   chakra,
 } from '@chakra-ui/react';
@@ -30,21 +29,14 @@ const CustomCheckbox = (props: any) => {
       <input {...input} />
       <chakra.div
         {...checkbox}
-        bg="white"
-        //  borderWidth="2px"
-        borderColor="gray.100"
+        bg="gray.100"
         rounded="6px"
-        color="gray.800"
         p={2}
         textAlign="center"
         _checked={{
           bg: 'green.100',
           color: 'green.800',
-          weight: 'bold',
         }}
-        // _hover={{
-        //   borderColor: 'green.500',
-        // }}
       >
         {props.children}
       </chakra.div>
@@ -56,7 +48,7 @@ export const FilterSearchModal = () => {
   const { onClose, onOpen, isOpen } = useDisclosure();
   const [filters, setFilters] = useState(null); // Simulated search function
   const handleSearch = (values: any) => {
-    setFilters(values); // Store the current filters
+    setFilters(values);
     console.log('Searching with filters: ', values);
   };
 
@@ -68,7 +60,17 @@ export const FilterSearchModal = () => {
         leftIcon={<SlidersHorizontal size="14" weight="fill" />}
       >
         {/* TODO: translate */}
-        Filter ({filters ? Object.keys(filters).length : 0})
+        Filter&nbsp;&nbsp;
+        <span
+          style={{
+            backgroundColor: 'var(--boemly-colors-green-100)',
+            color: 'var(--boemly-colors-green-800)',
+            borderRadius: '6px',
+            padding: '2px 6px',
+          }}
+        >
+          {filters ? Object.keys(filters).length : 0}
+        </span>
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

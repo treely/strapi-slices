@@ -42,6 +42,7 @@ import {
 import getCountryFlag from '../../utils/getCountryFlag';
 import { BREAKPOINT_MD_QUERY } from '../../constants/breakpoints';
 import { IntlContext } from 'react-intl';
+import FilterSearchModal from '../../components/FilterSearchModal';
 
 // TODO: fetCountryFlag - change the emogi style - only possible using api
 // TODO: add test
@@ -126,7 +127,7 @@ export const EventCards = ({ slice }: EventCardsProps): JSX.Element => {
       <Wrapper>
         {mobile && slice.filterSearch ? (
           <>
-            TODO: Filter search modal here
+            <FilterSearchModal />
             <Spacer h="6" />
           </>
         ) : (

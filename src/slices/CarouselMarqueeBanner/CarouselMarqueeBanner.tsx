@@ -6,6 +6,7 @@ import {
   Spacer,
   Box,
   useMediaQuery,
+  useToken,
 } from 'boemly';
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -31,6 +32,7 @@ export interface CarouselMarqueeBannerProps {
 export const CarouselMarqueeBanner: React.FC<CarouselMarqueeBannerProps> = ({
   slice,
 }: CarouselMarqueeBannerProps) => {
+  const [primary50] = useToken('colors', ['primary.50']);
   const { width: windowWidth } = useWindowSize();
   const shouldDuplicateLogos = slice.logos.length < 5;
   const LOOP_ARRAY_LENGTH = windowWidth > 2000 ? 5 : 4;
@@ -159,18 +161,8 @@ export const CarouselMarqueeBanner: React.FC<CarouselMarqueeBannerProps> = ({
   };
 
   return (
-    <DefaultSectionContainer>
-      <Box
-        maxWidth="full"
-        margin="auto"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        height="2xs"
-        backgroundColor="gray.50"
-        padding="42px 0 56px"
-      >
+    <DefaultSectionContainer backgroundColor={primary50}>
+      <>
         {slice.title ? (
           <>
             <Flex alignItems="center" flexDirection="column">
@@ -178,12 +170,12 @@ export const CarouselMarqueeBanner: React.FC<CarouselMarqueeBannerProps> = ({
                 {slice.title}
               </Heading>
             </Flex>
-            <Spacer height="12" />
+            <Spacer height="12" minHeight="12" />
           </>
         ) : null}
 
         {renderLogos()}
-      </Box>
+      </>
     </DefaultSectionContainer>
   );
 };

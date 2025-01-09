@@ -22,7 +22,29 @@ export interface EventsProps {
   events: IStrapiData<StrapiEvent>[];
 }
 
+// const sortByTime = (
+//   a: IStrapiData<StrapiEvent>,
+//   b: IStrapiData<StrapiEvent>
+// ): number =>
+//   new Date(b.attributes.start).getTime() - new Date(a.attributes.end).getTime();
+
 export const Events = ({ slice, events }: EventsProps): JSX.Element => {
+  // const sortedEvents = useMemo(() => events.sort(sortByTime), [events]);
+
+  // const eventsToDisplay = useMemo(
+  //   (i) =>
+  //     slice.events[i].attributes.title
+  //       ? sortedEvents
+  //           .filter(
+  //             (event) =>
+  //               event.attributes.data?.attributes.title ===
+  //               slice.events.attributes.title
+  //           )
+  //           .slice(0, 3)
+  //       : sortedEvents.slice(0, 3),
+  //   [sortedEvents, slice]
+  // );
+
   return (
     <DefaultSectionContainer>
       <Wrapper>

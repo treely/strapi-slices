@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   DefaultSectionContainer,
   Flex,
@@ -22,25 +22,32 @@ import { CarouselInnerContainer, LogoGrid } from './styles';
 export interface CarouselMarqueeBannerProps {
   slice: {
     title?: string;
-    logos: {
-      id: number;
-      img: StrapiImage;
-    }[];
+    logos: StrapiImage[];
   };
 }
 
-export const CarouselMarqueeBanner: React.FC<CarouselMarqueeBannerProps> = ({
+export const CarouselMarqueeBanner = ({
   slice,
-}: CarouselMarqueeBannerProps) => {
+}: CarouselMarqueeBannerProps): JSX.Element => {
   const [primary50] = useToken('colors', ['primary.50']);
   const { width: windowWidth } = useWindowSize();
   const shouldDuplicateLogos = slice.logos.length < 5;
   const LOOP_ARRAY_LENGTH = windowWidth > 2000 ? 5 : 4;
+  console.log('logos: ', slice.logos[0]);
+  const [logosToRender, setLogosToRender] = useState(slice.logos);
 
   // Duplicate Logos to create a full loop
-  const logosToRender = shouldDuplicateLogos
-    ? slice.logos
-    : Array.from({ length: LOOP_ARRAY_LENGTH }, () => slice.logos).flat();
+  useEffect(() => {
+    // const LOOP_ARRAY_LENGTH = windowWidth > 2000 ? 5 : 4;
+    const updatedLogos = shouldDuplicateLogos
+      ? slice.logos
+      : Array.from({ length: LOOP_ARRAY_LENGTH }, () => slice.logos).flat();
+    setLogosToRender(updatedLogos);
+  }, [windowWidth, shouldDuplicateLogos, slice.logos]);
+
+  // const logosToRender = shouldDuplicateLogos
+  //   ? slice.logos
+  //   : Array.from({ length: LOOP_ARRAY_LENGTH }, () => slice.logos).flat();
 
   const [isMobile] = useMediaQuery(BREAKPOINT_MD_QUERY);
 
@@ -89,18 +96,18 @@ export const CarouselMarqueeBanner: React.FC<CarouselMarqueeBannerProps> = ({
                       ? 'var(--boemly-sizes-16)'
                       : 'var(--boemly-sizes-36)'
                   } / ${getClosestRatio(
-                    logo.img.img.data.attributes.width,
-                    logo.img.img.data.attributes.height
+                    logo.img.data.attributes.width,
+                    logo.img.data.attributes.height
                   )})`}
                   width={isMobile ? '16' : '36'}
                   borderRadius="xl"
                 >
                   <Image
-                    src={strapiMediaUrl(logo.img.img, 'large')}
-                    alt={logo.img.alt}
+                    src={strapiMediaUrl(logo.img, 'large')}
+                    alt={logo.alt}
                     fill
                     style={{
-                      objectFit: logo.img.objectFit || 'contain',
+                      objectFit: logo.objectFit || 'contain',
                       borderRadius: 'var(--boemly-radii-xl)',
                     }}
                   />
@@ -136,18 +143,18 @@ export const CarouselMarqueeBanner: React.FC<CarouselMarqueeBannerProps> = ({
                       ? 'var(--boemly-sizes-16)'
                       : 'var(--boemly-sizes-36)'
                   } / ${getClosestRatio(
-                    logo.img.img.data.attributes.width,
-                    logo.img.img.data.attributes.height
+                    logo.img.data.attributes.width,
+                    logo.img.data.attributes.height
                   )})`}
                   width={isMobile ? '16' : '36'}
                   borderRadius="xl"
                 >
                   <Image
-                    src={strapiMediaUrl(logo.img.img, 'large')}
-                    alt={logo.img.alt}
+                    src={strapiMediaUrl(logo.img, 'large')}
+                    alt={logo.alt}
                     fill
                     style={{
-                      objectFit: logo.img.objectFit || 'contain',
+                      objectFit: logo.objectFit || 'contain',
                       borderRadius: 'var(--boemly-radii-xl)',
                     }}
                   />

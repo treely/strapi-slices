@@ -83,6 +83,7 @@ Minimal.args = {
         id: 2,
         attributes: {
           ...eventCard.attributes,
+          slug: 'event-2',
           eventTypes: [{ id: 1, eventType: EventType.CONFERENCE }],
           description:
             'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ',
@@ -91,6 +92,91 @@ Minimal.args = {
       {
         ...eventCard,
         id: 3,
+        attributes: { ...eventCard.attributes, slug: 'event-3' },
+      },
+    ],
+  },
+};
+
+export const WithTaglineAndTitle = Template.bind({});
+WithTaglineAndTitle.args = {
+  slice: {
+    tagline: 'Tagline',
+    title: 'Title',
+    events: [
+      eventCard,
+      {
+        ...eventCard,
+        id: 2,
+        attributes: {
+          ...eventCard.attributes,
+          eventTypes: [
+            { id: 1, eventType: EventType.FAIR },
+            { id: 2, eventType: EventType.FOREST_WALK },
+          ],
+          slug: 'event-2',
+          speakers: [
+            speaker,
+            { ...speaker, id: 2, caption: 'Lukas Bals' },
+            { ...speaker, id: 3 },
+          ],
+        },
+      },
+      {
+        ...eventCard,
+        id: 3,
+        attributes: {
+          ...eventCard.attributes,
+          eventTypes: [
+            { id: 1, eventType: EventType.FAIR },
+            { id: 2, eventType: EventType.CONFERENCE },
+          ],
+          slug: 'event-3',
+          speakers: [
+            speaker,
+            { ...speaker, id: 2 },
+            { ...speaker, id: 3 },
+            { ...speaker, id: 4 },
+            { ...speaker, id: 5 },
+          ],
+        },
+      },
+    ],
+  },
+};
+
+export const WithMultipleSpeakers = Template.bind({});
+WithMultipleSpeakers.args = {
+  slice: {
+    events: [
+      eventCard,
+      {
+        ...eventCard,
+        id: 2,
+        attributes: {
+          ...eventCard.attributes,
+          slug: 'event-2',
+          speakers: [
+            speaker,
+            { ...speaker, id: 2, caption: 'Lukas Bals' },
+            { ...speaker, id: 3, caption: 'Morty Smith' },
+          ],
+        },
+      },
+      {
+        ...eventCard,
+        id: 3,
+        attributes: {
+          ...eventCard.attributes,
+          slug: 'event-3',
+          speakers: [
+            speaker,
+            { ...speaker, id: 2, caption: 'Lukas Bals' },
+            { ...speaker, id: 3, caption: 'Rick Sanchez' },
+            { ...speaker, id: 4, caption: 'Summer Smith' },
+            { ...speaker, id: 5, caption: 'Morty Smith' },
+          ],
+        },
       },
     ],
   },
@@ -114,6 +200,7 @@ WithRecommendedTag.args = {
         attributes: {
           ...eventCard.attributes,
           recommended: true,
+          slug: 'event-2',
         },
       },
       {
@@ -122,6 +209,7 @@ WithRecommendedTag.args = {
         attributes: {
           ...eventCard.attributes,
           recommended: true,
+          slug: 'event-3',
         },
       },
     ],
@@ -147,8 +235,9 @@ WithMultipleLanguages.args = {
         id: 2,
         attributes: {
           ...eventCard.attributes,
+          slug: 'event-2',
           languages: [
-            { id: 3, language: 'English', countryCode: 'GB' },
+            { id: 3, language: 'Slovenian', countryCode: 'SV' },
             { id: 4, language: 'Hungarian', countryCode: 'HU' },
           ],
         },
@@ -158,6 +247,7 @@ WithMultipleLanguages.args = {
         id: 3,
         attributes: {
           ...eventCard.attributes,
+          slug: 'event-3',
           languages: [
             { id: 5, language: 'French', countryCode: 'FR' },
             { id: 6, language: 'Italian', countryCode: 'IT' },
@@ -184,10 +274,7 @@ WithOutlineButton.args = {
         id: 2,
         attributes: {
           ...eventCard.attributes,
-          eventTypes: [
-            { id: 1, eventType: EventType.CONFERENCE },
-            { id: 2, eventType: EventType.MEET_UP },
-          ],
+          slug: 'event-2',
           buttonVariant: 'outline',
         },
       },
@@ -196,6 +283,7 @@ WithOutlineButton.args = {
         id: 3,
         attributes: {
           ...eventCard.attributes,
+          slug: 'event-3',
           buttonVariant: 'outline',
         },
       },
@@ -203,53 +291,8 @@ WithOutlineButton.args = {
   },
 };
 
-export const WithTaglineAndTitle = Template.bind({});
-WithTaglineAndTitle.args = {
-  slice: {
-    tagline: 'Tagline',
-    title: 'Title',
-    events: [
-      eventCard,
-      {
-        ...eventCard,
-        id: 2,
-        attributes: {
-          ...eventCard.attributes,
-          eventTypes: [
-            { id: 1, eventType: EventType.FAIR },
-            { id: 2, eventType: EventType.FOREST_WALK },
-          ],
-          speakers: [
-            speaker,
-            { ...speaker, id: 2, caption: 'Lukas Bals' },
-            { ...speaker, id: 3 },
-          ],
-        },
-      },
-      {
-        ...eventCard,
-        id: 3,
-        attributes: {
-          ...eventCard.attributes,
-          eventTypes: [
-            { id: 1, eventType: EventType.FAIR },
-            { id: 2, eventType: EventType.CONFERENCE },
-          ],
-          speakers: [
-            speaker,
-            { ...speaker, id: 2 },
-            { ...speaker, id: 3 },
-            { ...speaker, id: 4 },
-            { ...speaker, id: 5 },
-          ],
-        },
-      },
-    ],
-  },
-};
-
-export const WithAllEventTypes = Template.bind({});
-WithAllEventTypes.args = {
+export const WithAllEventTypeOptions = Template.bind({});
+WithAllEventTypeOptions.args = {
   slice: {
     events: [
       eventCard,
@@ -258,6 +301,7 @@ WithAllEventTypes.args = {
         id: 2,
         attributes: {
           ...eventCard.attributes,
+          slug: 'event-2',
           eventTypes: [
             { id: 1, eventType: EventType.MEET_UP },
             { id: 2, eventType: EventType.FAIR },
@@ -269,40 +313,38 @@ WithAllEventTypes.args = {
         id: 3,
         attributes: {
           ...eventCard.attributes,
+          slug: 'event-3',
+
           eventTypes: [
-            { id: 1, eventType: EventType.CONFERENCE },
-            { id: 2, eventType: EventType.FOREST_WALK },
+            { id: 3, eventType: EventType.CONFERENCE },
+            { id: 4, eventType: EventType.FOREST_WALK },
           ],
         },
       },
       {
         ...eventCard,
-        id: 2,
+        id: 4,
         attributes: {
           ...eventCard.attributes,
+          slug: 'event-4',
+
           eventTypes: [
-            { id: 1, eventType: EventType.PARTNER_EVENT },
-            { id: 1, eventType: EventType.LUNCH_AND_LEARN },
+            { id: 5, eventType: EventType.PARTNER_EVENT },
+            { id: 6, eventType: EventType.LUNCH_AND_LEARN },
           ],
         },
       },
       {
         ...eventCard,
-        id: 3,
+        id: 5,
         attributes: {
           ...eventCard.attributes,
+          slug: 'event-5',
+
           eventTypes: [
-            { id: 1, eventType: EventType.FESTIVAL },
-            { id: 1, eventType: EventType.ROADSHOW },
+            { id: 7, eventType: EventType.FESTIVAL },
+            { id: 8, eventType: EventType.ROADSHOW },
           ],
-        },
-      },
-      {
-        ...eventCard,
-        id: 2,
-        attributes: {
-          ...eventCard.attributes,
-          eventTypes: [{ id: 1, eventType: EventType.WEBINAR }],
         },
       },
     ],
@@ -314,14 +356,52 @@ WithFilerSearch.args = {
   slice: {
     filterSearch: true,
     events: [
-      eventCard,
       {
         ...eventCard,
         id: 2,
+        attributes: {
+          ...eventCard.attributes,
+          eventTypes: [
+            { id: 7, eventType: EventType.FESTIVAL },
+            { id: 8, eventType: EventType.ROADSHOW },
+          ],
+          languages: [
+            { id: 3, language: 'English', countryCode: 'GB' },
+            { id: 4, language: 'Hungarian', countryCode: 'HU' },
+          ],
+        },
+      },
+      {
+        ...eventCard,
+        id: 2,
+        attributes: {
+          ...eventCard.attributes,
+          slug: 'event-2',
+          eventTypes: [
+            { id: 7, eventType: EventType.FOREST_WALK },
+            { id: 8, eventType: EventType.FAIR },
+          ],
+          languages: [
+            { id: 3, language: 'Slovenian', countryCode: 'SV' },
+            { id: 4, language: 'Hungarian', countryCode: 'HU' },
+          ],
+        },
       },
       {
         ...eventCard,
         id: 3,
+        attributes: {
+          ...eventCard.attributes,
+          slug: 'event-3',
+          eventTypes: [
+            { id: 7, eventType: EventType.CONFERENCE },
+            { id: 8, eventType: EventType.LUNCH_AND_LEARN },
+          ],
+          languages: [
+            { id: 3, language: 'German', countryCode: 'DE' },
+            { id: 4, language: 'Spanish', countryCode: 'ES' },
+          ],
+        },
       },
     ],
   },

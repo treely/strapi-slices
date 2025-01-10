@@ -10,6 +10,7 @@ import IStrapiData from '../../models/strapi/IStrapiData';
 import StrapiEvent from '../../models/strapi/StrapiEvent';
 import React from 'react';
 import EventCard from '../../components/EventCard';
+import EventsFilter from '../../components/EventsFilter';
 // import EventsFilter from '../../components/EventsFilter';
 
 export interface EventsProps {
@@ -49,10 +50,10 @@ export const Events = ({ slice, events }: EventsProps): JSX.Element => {
     <DefaultSectionContainer>
       <Wrapper>
         {slice.filterSearch ? (
-          <>
-            {/* <EventsFilter eventCards={slice.events} /> */}
+          <Box marginX="8">
+            <EventsFilter eventCards={slice.events} />
             <Spacer h="6" />
-          </>
+          </Box>
         ) : (
           <></>
         )}
@@ -79,14 +80,13 @@ export const Events = ({ slice, events }: EventsProps): JSX.Element => {
           placeItems="center"
         >
           {slice.events.map(({ attributes }) => {
-            const event: IStrapiData<StrapiEvent> | undefined = events.find(
-              (e) => e.attributes.slug === attributes.slug
-            );
+            const event: IStrapiData<StrapiEvent> | undefined =
+              slice.events.find((e) => e.attributes.slug === attributes.slug);
             if (!event) {
               return null;
             }
             return (
-              <Box key={event.id}>
+              <Box key={event.id} height="full">
                 <EventCard event={event.attributes} />
               </Box>
             );

@@ -1,10 +1,28 @@
-import { Flex, Box, BoemlyFormControl } from 'boemly';
+import { Flex, Box, Select, Text } from 'boemly';
 import React from 'react';
 import { useContext, useState } from 'react';
 import { IntlContext } from 'react-intl';
 import StrapiEvent from '../../models/strapi/StrapiEvent';
 import IStrapiData from '../../models/strapi/IStrapiData';
+import { EventType } from '@testing-library/react';
+import { atom } from 'recoil';
 
+export interface FiltersProps {
+  eventTypes: EventType[];
+  languages: {
+    id: number;
+    language: string;
+    countryCode: string;
+  }[];
+}
+
+const eventsFilterState = atom<FiltersProps>({
+  key: 'evaluationFiltersPerOrganizationState',
+  default: {
+    eventTypes: [],
+    languages: [],
+  },
+});
 interface EventsFilterProps {
   eventCards: IStrapiData<StrapiEvent>[];
 }
@@ -12,15 +30,16 @@ interface EventsFilterProps {
 export const EventsFilter = ({ eventCards }: EventsFilterProps) => {
   const [eventTypeFilter, setEventTypeFilter] = useState('');
   const [languageFilter, setLanguageFilter] = useState('');
+  const [sort, setSort] = useState('Newest first');
 
   const { formatMessage } = useContext(IntlContext);
 
-  // const sortedEventsAfterDate = eventCards.sort(
-  //   (a, b) =>
-  //     new Date(b.attributes.start).getTime() -
-  //     new Date(a.attributes.end).getTime()
-  // );
-
+  const sortedEventsAfterDate = eventCards.sort(
+    (a, b) =>
+      new Date(b.attributes.start).getTime() -
+      new Date(a.attributes.end).getTime()
+  );
+  // EventTypes should be translated
   const seenEventTypes = new Set<string>();
   const eventTypeOptions = eventCards
     .flatMap((card) => {
@@ -46,20 +65,6 @@ export const EventsFilter = ({ eventCards }: EventsFilterProps) => {
       );
     })
     .sort((a, b) => a.label.localeCompare(b.label));
-
-  // const eventTypeOptions = [
-  //   // TODO: fetch from the events
-  //   // TODO: translate in this format:projectConservation: formatMessage({ id: 'transactions.transactionList.projectConservationAccount', }),
-  //   { value: 'Webinar', label: 'Webinar' },
-  //   { value: 'Conference', label: 'Conference' },
-  //   { value: 'Meet Up', label: 'Meet Up' },
-  //   { value: 'Forest Walk', label: 'Forest Walk' },
-  //   { value: 'Partner Event', label: 'Partner Event' },
-  //   { value: 'Lunch & Learn', label: 'Lunch & Learn' },
-  //   { value: 'Fair', label: 'Fair' },
-  //   { value: 'Festival', label: 'Festival' },
-  //   { value: 'Roadshow', label: 'Roadshow' },
-  // ];
 
   const seenLanguages = new Set<string>();
   const languageOptions = eventCards
@@ -89,62 +94,61 @@ export const EventsFilter = ({ eventCards }: EventsFilterProps) => {
 
   return (
     <Flex
+      justifyContent="space-between"
       direction={['column', null, null, 'row']}
-      gap="2"
-      justifyContent="start"
-      marginBottom="8"
     >
-      <Box maxWidth={['unset', null, null, null, '44']}>
-        <BoemlyFormControl
-          id="eventTypeFilter"
-          inputType="Select"
-          size="md"
-          selectOptions={eventTypeOptions}
-          selectProps={{
-            isSearchable: true,
-            searchPlaceholder: `${formatMessage({
+      <Flex
+        direction={['column', null, null, 'row']}
+        gap="4"
+        justifyContent="start"
+        marginBottom="8"
+      >
+        <Box position="relative" width="3xs">
+          <Select
+            isMultiple={true}
+            id="eventTypeFilter"
+            size="md"
+            placeholder={formatMessage({
               id: 'sections.eventsFilter.searchPlaceholder',
-            })}`,
-            value: eventTypeFilter ? [eventTypeFilter] : undefined,
-            textColor: eventTypeFilter ? 'unset' : 'gray.500',
-            onChange: (selected) => setEventTypeFilter(selected[0]),
-            placeholder: eventTypeFilter
-              ? formatMessage({
-                  id: 'sections.eventsFilter.clearPlaceholder',
-                })
-              : formatMessage({
-                  id: 'sections.eventsFilter.eventType',
-                }),
-            options: eventTypeOptions || [],
-          }}
-        />
-      </Box>
-
-      <Box maxWidth={['unset', null, null, null, '44']}>
-        <BoemlyFormControl
-          id="toFilter"
-          inputType="Select"
-          size="md"
-          selectOptions={languageOptions}
-          selectProps={{
-            isSearchable: true,
-            searchPlaceholder: `${formatMessage({
+            })}
+            options={eventTypeOptions || []}
+            value={eventTypeFilter ? [eventTypeFilter] : undefined}
+            onChange={(selected) => setEventTypeFilter(selected[0])}
+          />
+        </Box>
+        <Box position="relative" width="3xs">
+          <Select
+            isMultiple={true}
+            id="toFilter"
+            size="md"
+            searchPlaceholder={formatMessage({
               id: 'sections.eventsFilter.searchPlaceholder',
-            })}`,
-            value: languageFilter ? [languageFilter] : undefined,
-            textColor: languageFilter ? 'unset' : 'gray.500',
-            onChange: (selected) => setLanguageFilter(selected[0]),
-            placeholder: languageFilter
-              ? formatMessage({
-                  id: 'sections.eventsFilter.clearPlaceholder',
-                })
-              : formatMessage({
-                  id: 'sections.eventsFilter.language',
-                }),
-            options: languageOptions || [],
-          }}
-        />
-      </Box>
+            })}
+            value={languageFilter ? [languageFilter] : undefined}
+            onChange={(selected) => setLanguageFilter(selected[0])}
+            placeholder={
+              languageFilter
+                ? formatMessage({
+                    id: 'sections.eventsFilter.clearPlaceholder',
+                  })
+                : formatMessage({
+                    id: 'sections.eventsFilter.language',
+                  })
+            }
+            options={languageOptions || []}
+          />
+        </Box>
+      </Flex>
+      <Text>Sort by: </Text>
+      <Select
+        maxWidth="3xs"
+        value={sort ? [sort] : undefined}
+        onChange={(selected) => setSort(selected[0])}
+        options={[
+          { label: 'Newest first', value: 'Newest first' },
+          { label: 'Oldest first', value: 'Oldest first' },
+        ]}
+      />
     </Flex>
   );
 };

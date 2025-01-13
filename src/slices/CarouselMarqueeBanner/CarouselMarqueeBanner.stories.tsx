@@ -22,43 +22,28 @@ Default.args = {
     logos: [
       {
         id: 1,
-        img: {
-          id: 1,
-          alt: 'Alt text 1',
-          img: { data: storybookStrapiAvatarMock },
-        },
+        alt: 'Alt text 1',
+        img: { data: storybookStrapiAvatarMock },
       },
       {
         id: 2,
-        img: {
-          id: 2,
-          alt: 'Alt text 1',
-          img: { data: storybookStrapiAvatarMock },
-        },
+        alt: 'Alt text 2',
+        img: { data: storybookStrapiAvatarMock },
       },
       {
         id: 3,
-        img: {
-          id: 3,
-          alt: 'Alt text 1',
-          img: { data: storybookStrapiAvatarMock },
-        },
+        alt: 'Alt text 3',
+        img: { data: storybookStrapiAvatarMock },
       },
       {
         id: 4,
-        img: {
-          id: 4,
-          alt: 'Alt text 1',
-          img: { data: storybookStrapiTreeIconMock },
-        },
+        alt: 'Alt text 4',
+        img: { data: storybookStrapiTreeIconMock },
       },
       {
         id: 5,
-        img: {
-          id: 5,
-          alt: 'Alt text 1',
-          img: { data: storybookStrapiCoverMock },
-        },
+        alt: 'Partner Logo 5',
+        img: { data: storybookStrapiAvatarMock },
       },
     ],
   },
@@ -71,43 +56,28 @@ WithTitle.args = {
     logos: [
       {
         id: 1,
-        img: {
-          id: 1,
-          alt: 'Partner Logo 1',
-          img: { data: storybookStrapiAvatarMock },
-        },
+        alt: 'Partner Logo 1',
+        img: { data: storybookStrapiAvatarMock },
       },
       {
         id: 2,
-        img: {
-          id: 2,
-          alt: 'Partner Logo 2',
-          img: { data: storybookStrapiAvatarMock },
-        },
+        alt: 'Partner Logo 2',
+        img: { data: storybookStrapiAvatarMock },
       },
       {
         id: 3,
-        img: {
-          id: 3,
-          alt: 'Partner Logo 3',
-          img: { data: storybookStrapiAvatarMock },
-        },
+        alt: 'Partner Logo 3',
+        img: { data: storybookStrapiAvatarMock },
       },
       {
         id: 4,
-        img: {
-          id: 4,
-          alt: 'Partner Logo 4',
-          img: { data: storybookStrapiTreeIconMock },
-        },
+        alt: 'Partner Logo 4',
+        img: { data: storybookStrapiTreeIconMock },
       },
       {
         id: 5,
-        img: {
-          id: 5,
-          alt: 'Partner Logo 5',
-          img: { data: storybookStrapiCoverMock },
-        },
+        alt: 'Partner Logo 5',
+        img: { data: storybookStrapiCoverMock },
       },
     ],
   },

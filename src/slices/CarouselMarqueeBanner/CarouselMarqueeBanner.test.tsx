@@ -31,39 +31,33 @@ const defaultProps: CarouselMarqueeBannerProps = {
     logos: [
       {
         id: 1,
+        alt: 'Logo 1',
         img: {
-          id: 1,
-          alt: 'Logo 1',
-          img: {
-            data: {
-              ...strapiMediaMock,
-              attributes: {
-                ...strapiMediaMock.attributes,
-                width: 1000,
-                height: 600,
-              },
+          data: {
+            ...strapiMediaMock,
+            attributes: {
+              ...strapiMediaMock.attributes,
+              width: 1000,
+              height: 600,
             },
           },
-          objectFit: 'contain',
         },
+        objectFit: 'contain',
       },
       {
         id: 2,
+        alt: 'Logo 2',
         img: {
-          id: 2,
-          alt: 'Logo 2',
-          img: {
-            data: {
-              ...strapiMediaMock,
-              attributes: {
-                ...strapiMediaMock.attributes,
-                width: 800,
-                height: 500,
-              },
+          data: {
+            ...strapiMediaMock,
+            attributes: {
+              ...strapiMediaMock.attributes,
+              width: 800,
+              height: 500,
             },
           },
-          objectFit: 'cover',
         },
+        objectFit: 'cover',
       },
     ],
   },

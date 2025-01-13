@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   DefaultSectionContainer,
   Flex,
@@ -22,38 +22,36 @@ import { CarouselInnerContainer, LogoGrid } from './styles';
 export interface CarouselMarqueeBannerProps {
   slice: {
     title?: string;
-    logos: {
-      id: number;
-      img: StrapiImage;
-    }[];
+    logos: StrapiImage[];
   };
 }
 
-export const CarouselMarqueeBanner: React.FC<CarouselMarqueeBannerProps> = ({
+// Separate component containing the actual logic
+const CarouselMarqueeBannerContent: React.FC<CarouselMarqueeBannerProps> = ({
   slice,
-}: CarouselMarqueeBannerProps) => {
+}) => {
   const [primary50] = useToken('colors', ['primary.50']);
   const { width: windowWidth } = useWindowSize();
-  const shouldDuplicateLogos = slice.logos.length < 5;
+  const hasEnoughLogosForLoop = slice.logos.length >= 5;
   const LOOP_ARRAY_LENGTH = windowWidth > 2000 ? 5 : 4;
 
   // Duplicate Logos to create a full loop
-  const logosToRender = shouldDuplicateLogos
-    ? slice.logos
-    : Array.from({ length: LOOP_ARRAY_LENGTH }, () => slice.logos).flat();
+  const logosToRender = hasEnoughLogosForLoop
+    ? Array.from({ length: LOOP_ARRAY_LENGTH }, () => slice.logos).flat()
+    : slice.logos;
 
   const [isMobile] = useMediaQuery(BREAKPOINT_MD_QUERY);
 
+  // Carousel setup
   const [emblaRef] = useEmblaCarousel(
     {
-      loop: shouldDuplicateLogos ? false : true,
+      loop: hasEnoughLogosForLoop,
       align: 'start',
       containScroll: 'trimSnaps',
       dragFree: true,
     },
-    shouldDuplicateLogos
-      ? []
-      : [
+    hasEnoughLogosForLoop
+      ? [
           AutoScroll({
             playOnInit: true,
             speed: isMobile ? 0.5 : 1,
@@ -62,10 +60,11 @@ export const CarouselMarqueeBanner: React.FC<CarouselMarqueeBannerProps> = ({
             stopOnFocusIn: false,
           }),
         ]
+      : []
   );
 
-  const renderLogos = () => {
-    if (slice.logos.length < 5) {
+  const renderLogos = (): React.ReactNode => {
+    if (!hasEnoughLogosForLoop) {
       return (
         <LogoGrid>
           {slice.logos.map((logo, index) => (
@@ -89,18 +88,18 @@ export const CarouselMarqueeBanner: React.FC<CarouselMarqueeBannerProps> = ({
                       ? 'var(--boemly-sizes-16)'
                       : 'var(--boemly-sizes-36)'
                   } / ${getClosestRatio(
-                    logo.img.img.data.attributes.width,
-                    logo.img.img.data.attributes.height
+                    logo.img.data.attributes.width,
+                    logo.img.data.attributes.height
                   )})`}
                   width={isMobile ? '16' : '36'}
                   borderRadius="xl"
                 >
                   <Image
-                    src={strapiMediaUrl(logo.img.img, 'large')}
-                    alt={logo.img.alt}
+                    src={strapiMediaUrl(logo.img, 'large')}
+                    alt={logo.alt}
                     fill
                     style={{
-                      objectFit: logo.img.objectFit || 'contain',
+                      objectFit: logo.objectFit || 'contain',
                       borderRadius: 'var(--boemly-radii-xl)',
                     }}
                   />
@@ -136,18 +135,18 @@ export const CarouselMarqueeBanner: React.FC<CarouselMarqueeBannerProps> = ({
                       ? 'var(--boemly-sizes-16)'
                       : 'var(--boemly-sizes-36)'
                   } / ${getClosestRatio(
-                    logo.img.img.data.attributes.width,
-                    logo.img.img.data.attributes.height
+                    logo.img.data.attributes.width,
+                    logo.img.data.attributes.height
                   )})`}
                   width={isMobile ? '16' : '36'}
                   borderRadius="xl"
                 >
                   <Image
-                    src={strapiMediaUrl(logo.img.img, 'large')}
-                    alt={logo.img.alt}
+                    src={strapiMediaUrl(logo.img, 'large')}
+                    alt={logo.alt}
                     fill
                     style={{
-                      objectFit: logo.img.objectFit || 'contain',
+                      objectFit: logo.objectFit || 'contain',
                       borderRadius: 'var(--boemly-radii-xl)',
                     }}
                   />
@@ -178,6 +177,23 @@ export const CarouselMarqueeBanner: React.FC<CarouselMarqueeBannerProps> = ({
       </>
     </DefaultSectionContainer>
   );
+};
+
+// Lazy-rendering the child component after client-side hydration
+export const CarouselMarqueeBanner: React.FC<CarouselMarqueeBannerProps> = ({
+  slice,
+}: CarouselMarqueeBannerProps) => {
+  const [showChild, setShowChild] = useState(false);
+
+  useEffect(() => {
+    setShowChild(true); // Hydrate the component after the client-side is ready
+  }, []);
+
+  if (!showChild) {
+    return <div />;
+  }
+
+  return <CarouselMarqueeBannerContent slice={slice} />;
 };
 
 export default CarouselMarqueeBanner;

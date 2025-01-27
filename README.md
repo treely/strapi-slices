@@ -83,6 +83,7 @@ import {
   SliceRenderer,
   StrapiBlogPost,
   StrapiCustomerStory,
+  StrapiEvent,
 } from '@treely/strapi-slices';
 import { BoemlyThemeProvider } from 'boemly';
 
@@ -92,6 +93,7 @@ const slices: any[] = [];
 const blogPosts: IStrapiData<StrapiBlogPost> = [];
 const projects: PortfolioProject[] = [];
 const customerStories: IStrapiData<StrapiCustomerStory> = [];
+const events: IStrapiData<StrapiEvent> = [];
 
 const App = (): JSX.Element => (
   <BoemlyThemeProvider>

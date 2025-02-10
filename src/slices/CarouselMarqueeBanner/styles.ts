@@ -12,7 +12,9 @@ export const CarouselInnerContainer = styled(
   display: flex;
   justify-content: ${(props) =>
     props.logoCount < 5 ? 'center' : 'flex-start'};
-  gap: var(--boemly-space-6);
+  gap: var(--boemly-space-24);
+  padding-right: var(--boemly-space-24);
+  padding-left: var(--boemly-space-24);
 
   @media screen and (max-width: ${BREAKPOINT_MD}) {
     width: calc(
@@ -28,7 +30,7 @@ export const LogoGrid = styled(motion.div)`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--boemly-space-6);
+  gap: var(--boemly-space-24);
 
   @media screen and (max-width: ${BREAKPOINT_MD}) {
     display: grid;

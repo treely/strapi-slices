@@ -42,10 +42,10 @@ npm pack
 Go to the project which uses the strapi-slices package and remove the `node_modules` and the `.next` folder before installing the package there:
 
 ```bash
+cd ../path/to/your/project
 rm -r node_modules
 rm -r .next
 npm install
-cd ../path/to/your/project
 npm install ../path/to/strapi-slices-package.tgz
 ```
 

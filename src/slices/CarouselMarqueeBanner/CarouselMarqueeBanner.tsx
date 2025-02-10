@@ -70,7 +70,6 @@ const CarouselMarqueeBannerContent: React.FC<CarouselMarqueeBannerProps> = ({
           {slice.logos.map((logo, index) => (
             <Box
               key={`${logo.id}-${index}`}
-              width={isMobile ? '16' : '36'}
               flexShrink={0}
               transform="translate3d(0, 0, 0)"
             >
@@ -82,17 +81,12 @@ const CarouselMarqueeBannerContent: React.FC<CarouselMarqueeBannerProps> = ({
               >
                 <Box
                   position="relative"
-                  maxHeight="xl"
-                  height={`calc(${
-                    isMobile
-                      ? 'var(--boemly-sizes-16)'
-                      : 'var(--boemly-sizes-36)'
-                  } / ${getClosestRatio(
-                    logo.img.data.attributes.width,
-                    logo.img.data.attributes.height
-                  )})`}
-                  width={isMobile ? '16' : '36'}
-                  borderRadius="xl"
+                  height={isMobile ? '16' : '36'}
+                  width={`calc(var(--boemly-sizes-10)
+                      * ${getClosestRatio(
+                        logo.img.data.attributes.width,
+                        logo.img.data.attributes.height
+                      )})`}
                 >
                   <Image
                     src={strapiMediaUrl(logo.img, 'large')}
@@ -100,7 +94,7 @@ const CarouselMarqueeBannerContent: React.FC<CarouselMarqueeBannerProps> = ({
                     fill
                     style={{
                       objectFit: logo.objectFit || 'contain',
-                      borderRadius: 'var(--boemly-radii-xl)',
+                      filter: 'grayscale(100%)',
                     }}
                   />
                 </Box>
@@ -117,7 +111,6 @@ const CarouselMarqueeBannerContent: React.FC<CarouselMarqueeBannerProps> = ({
           {logosToRender.map((logo, index) => (
             <Box
               key={`${logo.id}-${index}`}
-              width={isMobile ? '16' : '36'}
               flexShrink={0}
               transform="translate3d(0, 0, 0)"
             >
@@ -129,17 +122,11 @@ const CarouselMarqueeBannerContent: React.FC<CarouselMarqueeBannerProps> = ({
               >
                 <Box
                   position="relative"
-                  maxHeight="xl"
-                  height={`calc(${
-                    isMobile
-                      ? 'var(--boemly-sizes-16)'
-                      : 'var(--boemly-sizes-36)'
-                  } / ${getClosestRatio(
+                  height={isMobile ? '16' : '36'}
+                  width={`calc(var(--boemly-sizes-10) * ${getClosestRatio(
                     logo.img.data.attributes.width,
                     logo.img.data.attributes.height
                   )})`}
-                  width={isMobile ? '16' : '36'}
-                  borderRadius="xl"
                 >
                   <Image
                     src={strapiMediaUrl(logo.img, 'large')}
@@ -147,7 +134,7 @@ const CarouselMarqueeBannerContent: React.FC<CarouselMarqueeBannerProps> = ({
                     fill
                     style={{
                       objectFit: logo.objectFit || 'contain',
-                      borderRadius: 'var(--boemly-radii-xl)',
+                      filter: 'grayscale(100%)',
                     }}
                   />
                 </Box>

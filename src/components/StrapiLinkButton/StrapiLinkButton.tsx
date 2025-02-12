@@ -20,6 +20,7 @@ export interface StrapiLinkButtonProps {
   mx?: any;
   my?: any;
   background?: string;
+  width?: string;
 }
 
 export const StrapiLinkButton: React.FC<StrapiLinkButtonProps> = ({

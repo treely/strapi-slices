@@ -56,6 +56,7 @@ import mergeGlobalAndStrapiPageData from './utils/mergeGlobalAndStrapiPageData';
 import mergeGlobalAndStrapiProjectData from './utils/mergeGlobalAndStrapiProjectData';
 import strapiLinkUrl from './utils/strapiLinkUrl';
 import strapiMediaUrl from './utils/strapiMediaUrl';
+import StrapiEvent from './models/strapi/StrapiEvent';
 
 export * from './components/PreviewAlert';
 export * from './components/SEOTags';
@@ -93,6 +94,7 @@ export type {
   StrapiCustomerStory,
   StrapiCustomerStoryProps,
   StrapiDefaultHeader,
+  StrapiEvent,
   StrapiGlobal,
   StrapiGlossaryItem,
   StrapiHeroCard,

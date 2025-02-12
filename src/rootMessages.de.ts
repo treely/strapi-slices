@@ -3,6 +3,8 @@ import creditsAvailableBadgeMessagesDe from './components/CreditsAvailableBadge/
 import ctaMessagesDe from './slices/Cta/messages.de';
 import customerCardMessagesDe from './components/CustomerCard/messages.de';
 import customerQuoteCardMessagesDe from './components/CustomerQuoteCard/messages.de';
+import eventCardMessagesDe from './components/EventCard/messages.de';
+import eventsMessagesDe from './slices/Events/messages.de';
 import glossaryMessagesDe from './slices/Glossary/messages.de';
 import portfolioDocumentsDownloadListMessagesDe from './components/portfolio/DocumentsDownloadList/messages.de';
 import projectFactsMessagesDe from './slices/ProjectFacts/messages.de';
@@ -21,6 +23,7 @@ const rootMessagesDe = {
   // Components
   //
   ...creditsAvailableBadgeMessagesDe,
+  ...eventCardMessagesDe,
   ...portfolioDocumentsDownloadListMessagesDe,
   ...portfolioProjectInfoMessagesDe,
   ...portfolioSmallCheckoutMessagesDe,
@@ -33,6 +36,7 @@ const rootMessagesDe = {
   ...ctaMessagesDe,
   ...customerCardMessagesDe,
   ...customerQuoteCardMessagesDe,
+  ...eventsMessagesDe,
   ...glossaryMessagesDe,
   ...projectFactsMessagesDe,
   ...projectsMapMessagesDe,

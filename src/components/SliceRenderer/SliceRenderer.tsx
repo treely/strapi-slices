@@ -309,6 +309,17 @@ export const SliceRenderer = ({
               slice={slice}
             />
           );
+        // case 'sections.events':
+        //   return (
+        //     <Events
+        //       key={`${slice.__component}-${slice.id}`}
+        //       slice={{
+        //         ...slice,
+        //         events: slice.events.data,
+        //       }}
+        //       events={events}
+        //     />
+        //   );
         default:
           if (CustomSlice) {
             return (

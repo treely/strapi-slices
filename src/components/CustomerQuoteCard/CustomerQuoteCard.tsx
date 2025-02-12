@@ -8,6 +8,7 @@ import Link from 'next/link';
 export interface CustomerQuoteCardProps {
   customerStory: StrapiCustomerStory;
 }
+
 export const CustomerQuoteCard = ({
   customerStory,
 }: CustomerQuoteCardProps): JSX.Element => {

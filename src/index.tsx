@@ -12,6 +12,7 @@ import StrapiContactArea from './models/strapi/StrapiContactArea';
 import StrapiCustomerStory from './models/strapi/StrapiCustomerStory';
 import StrapiCustomerStoryProps from './models/strapi/StrapiCustomerStoryProps';
 import StrapiDefaultHeader from './models/strapi/StrapiDefaultHeader';
+import StrapiEvent from './models/strapi/StrapiEvent';
 import StrapiGlobal from './models/strapi/StrapiGlobal';
 import StrapiGlossaryItem from './models/strapi/StrapiGlossaryItem';
 import StrapiHeroCard from './models/strapi/StrapiHeroCard';
@@ -93,6 +94,7 @@ export type {
   StrapiCustomerStory,
   StrapiCustomerStoryProps,
   StrapiDefaultHeader,
+  StrapiEvent,
   StrapiGlobal,
   StrapiGlossaryItem,
   StrapiHeroCard,

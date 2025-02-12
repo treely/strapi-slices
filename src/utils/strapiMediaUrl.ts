@@ -22,8 +22,7 @@ const strapiMediaUrl = (
     return url;
   }
   return `${
-    (STRAPI_URI.includes('127.0.0.1') || STRAPI_URI.includes('localhost')) &&
-    !process.env.STORYBOOK
+    STRAPI_URI.includes('127.0.0.1') || STRAPI_URI.includes('localhost')
       ? STRAPI_URI
       : ''
   }${url}`;

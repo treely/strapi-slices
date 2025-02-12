@@ -41,6 +41,7 @@ import CarouselMarqueeBanner from '../../slices/CarouselMarqueeBanner';
 import Locale from '../../models/Locale';
 import { ContextProvider } from '../ContextProvider';
 import Timeline from '../../slices/Timeline';
+import Events from '../../slices/Events';
 
 export interface CustomSliceProps {
   slice: any;
@@ -309,17 +310,10 @@ export const SliceRenderer = ({
               slice={slice}
             />
           );
-        // case 'sections.events':
-        //   return (
-        //     <Events
-        //       key={`${slice.__component}-${slice.id}`}
-        //       slice={{
-        //         ...slice,
-        //         events: slice.events.data,
-        //       }}
-        //       events={events}
-        //     />
-        //   );
+        case 'sections.events':
+          return (
+            <Events key={`${slice.__component}-${slice.id}`} slice={slice} />
+          );
         default:
           if (CustomSlice) {
             return (

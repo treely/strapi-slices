@@ -68,6 +68,7 @@ const getEventIcon = (eventType: string): JSX.Element => {
       return <Info size={12} weight="fill" />;
   }
 };
+
 export const EventCard = ({ event }: EventCardProps): JSX.Element => {
   const { formatDate, formatNumber } = useContext(IntlContext);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -158,7 +159,12 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
               <Tag key={e.id}>
                 {getEventIcon(e.eventType)}&nbsp;
                 <Text size="xsLowBold" color="gray.800">
-                  {e.eventType}
+                  {formatMessage({
+                    id: `eventType.${Object.keys(EventType).find(
+                      (key) =>
+                        EventType[key as keyof typeof EventType] === e.eventType
+                    )}`,
+                  })}
                 </Text>
               </Tag>
             ))}

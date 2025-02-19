@@ -7,6 +7,8 @@ import { strapiEventMock } from '../../test/strapiMocks/strapiEventMock';
 import useEvents from '../../models/hooks/useEvents';
 import messagesEn from './messages.en';
 import { EventType } from '../../models/strapi/StrapiEvent';
+import userEvent from '@testing-library/user-event';
+import messagesEnEventCard from '../../components/EventCard/messages.en';
 
 jest.mock('../../models/hooks/useEvents');
 
@@ -18,6 +20,8 @@ const pastEventMock = {
     ...strapiEventMock.attributes,
     title: 'Past Event',
     start: '2024-12-01T10:00:00.000Z',
+    eventTypes: [{ id: 1, eventType: EventType.MEET_UP }],
+    languages: [{ id: 1, language: 'English', countryCode: 'GB' }],
   },
 };
 
@@ -38,8 +42,11 @@ const defaultProps: EventsProps = {
     upcomingDescription: 'Join us for these amazing events',
     pastTitle: 'Past Events',
     pastDescription: 'Check out our past events',
+    filterSearch: true,
   },
 };
+
+let getKeyCalls: string[] = [];
 
 const setup = (props = {}) => {
   const combinedProps = mergeDeep(defaultProps, props);
@@ -49,8 +56,12 @@ const setup = (props = {}) => {
 describe('The Events slice', () => {
   beforeEach(() => {
     jest.useFakeTimers().setSystemTime(NOW);
+    getKeyCalls = [];
 
     (useEvents as jest.Mock).mockImplementation(({ getKey }) => {
+      const key = getKey(0, null);
+      getKeyCalls.push(key.toString());
+
       if (getKey.toString().includes('filters[start][$gte]')) {
         return {
           data: [{ body: { data: [upcomingEventMock] } }],
@@ -103,8 +114,12 @@ describe('The Events slice', () => {
       expect(screen.getByText('Past Event')).toBeInTheDocument();
       expect(screen.getByText('Upcoming Event')).toBeInTheDocument();
       expect(screen.queryAllByText('Event Description')).toHaveLength(2);
-      expect(screen.getByText('Meet Up')).toBeInTheDocument();
-      expect(screen.getByText('Conference')).toBeInTheDocument();
+      expect(
+        screen.getByText(messagesEnEventCard['eventType.MEET_UP'])
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(messagesEnEventCard['eventType.CONFERENCE'])
+      ).toBeInTheDocument();
       expect(screen.getByText('English')).toBeInTheDocument();
       expect(screen.getByText('German')).toBeInTheDocument();
     });
@@ -184,6 +199,141 @@ describe('The Events slice', () => {
       expect(
         screen.getByText(messagesEn['sections.events.noPastEvents'])
       ).toBeInTheDocument();
+    });
+  });
+
+  describe('filters the events', () => {
+    it('by event type', async () => {
+      setup();
+
+      const selectButtons = await screen.findAllByRole('combobox');
+      expect(selectButtons).toHaveLength(3);
+      expect(selectButtons[0]).toHaveTextContent(
+        messagesEn['sections.events.eventsFilter.eventType']
+      );
+      const selectButton = selectButtons[0];
+
+      userEvent.click(selectButton);
+
+      await waitFor(async () => {
+        const options = await screen.getAllByRole('menuitemradio', {
+          hidden: true,
+        });
+        expect(options).toHaveLength(2);
+        expect(options[0]).toHaveTextContent(
+          messagesEnEventCard['eventType.CONFERENCE']
+        );
+        expect(options[1]).toHaveTextContent(
+          messagesEnEventCard['eventType.MEET_UP']
+        );
+
+        userEvent.click(options[0]);
+      });
+
+      await waitFor(() => {
+        expect(getKeyCalls.map(decodeURIComponent)).toEqual(
+          expect.arrayContaining([
+            expect.stringContaining('filters[start][$gte]'),
+            expect.stringContaining(
+              'filters[$and][0][eventTypes][eventType]=Conference'
+            ),
+          ])
+        );
+      });
+    });
+
+    it('by language', async () => {
+      setup();
+
+      const selectButtons = await screen.findAllByRole('combobox');
+      expect(selectButtons).toHaveLength(3);
+      expect(selectButtons[1]).toHaveTextContent(
+        messagesEn['sections.events.eventsFilter.language']
+      );
+      const selectButton = selectButtons[1];
+
+      userEvent.click(selectButton);
+
+      await waitFor(async () => {
+        const options = await screen.getAllByRole('menuitemradio', {
+          hidden: true,
+        });
+        expect(options).toHaveLength(2);
+        expect(options[0]).toHaveTextContent('German');
+        expect(options[1]).toHaveTextContent('English');
+
+        userEvent.click(options[0]);
+      });
+
+      await waitFor(() => {
+        expect(getKeyCalls.map(decodeURIComponent)).toEqual(
+          expect.arrayContaining([
+            expect.stringContaining('filters[start][$gte]'),
+            expect.stringContaining(
+              'filters[$and][0][languages][language]=German'
+            ),
+          ])
+        );
+      });
+    });
+  });
+
+  describe('sorts the events', () => {
+    it('by newest first', async () => {
+      setup();
+
+      const selectButtons = await screen.findAllByRole('combobox');
+      expect(selectButtons).toHaveLength(3);
+      // Default value of "Sort by" select is "Newest first"
+      expect(selectButtons[2]).toHaveTextContent(
+        messagesEn['sections.events.eventsFilter.sortBy.newest']
+      );
+
+      await waitFor(() => {
+        expect(getKeyCalls.map(decodeURIComponent)).toEqual(
+          expect.arrayContaining([
+            expect.stringContaining(
+              `filters[start][$gte]=${NOW.toISOString()}`
+            ),
+          ])
+        );
+      });
+    });
+    it('by oldest first', async () => {
+      setup();
+
+      const selectButtons = await screen.findAllByRole('combobox');
+      expect(selectButtons).toHaveLength(3);
+      // Default value of "Sort by" select is "Newest first"
+      expect(selectButtons[2]).toHaveTextContent(
+        messagesEn['sections.events.eventsFilter.sortBy.newest']
+      );
+      const selectButton = selectButtons[2];
+
+      userEvent.click(selectButton);
+
+      await waitFor(async () => {
+        const options = await screen.getAllByRole('menuitemradio', {
+          hidden: true,
+        });
+        expect(options).toHaveLength(2);
+        expect(options[0]).toHaveTextContent(
+          messagesEn['sections.events.eventsFilter.sortBy.newest']
+        );
+        expect(options[1]).toHaveTextContent(
+          messagesEn['sections.events.eventsFilter.sortBy.oldest']
+        );
+
+        userEvent.click(options[1]);
+      });
+
+      await waitFor(() => {
+        expect(getKeyCalls.map(decodeURIComponent)).toEqual(
+          expect.arrayContaining([
+            expect.stringContaining(`filters[start][$lt]=${NOW.toISOString()}`),
+          ])
+        );
+      });
     });
   });
 });

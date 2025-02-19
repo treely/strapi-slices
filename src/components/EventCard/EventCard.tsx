@@ -34,14 +34,14 @@ import {
 } from '@phosphor-icons/react';
 import getCountryFlag from '../../utils/getCountryFlag';
 import { BREAKPOINT_MD_QUERY } from '../../constants/breakpoints';
-import { IntlContext } from 'react-intl';
 import StrapiEvent, { EventType } from '../../models/strapi/StrapiEvent';
+import { IntlContext } from '../ContextProvider';
 
 export interface EventCardProps {
   event: StrapiEvent;
 }
 
-const MAX_LENGTH = 160;
+const MAX_LENGTH = 120;
 const LOCATION_MAX_LENGTH = 28;
 
 const getEventIcon = (eventType: string): JSX.Element => {
@@ -68,7 +68,8 @@ const getEventIcon = (eventType: string): JSX.Element => {
       return <Info size={12} weight="fill" />;
   }
 };
-export const EventCard = ({ event }: EventCardProps): JSX.Element => {
+
+const EventCard = ({ event }: EventCardProps): JSX.Element => {
   const { formatDate, formatNumber } = useContext(IntlContext);
   const [isExpanded, setIsExpanded] = useState(false);
   const { formatMessage } = useContext(IntlContext);
@@ -82,7 +83,7 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
 
   return (
     <Box
-      borderRadius="2xl"
+      borderRadius={['xl', null, null, '2xl']}
       height="full"
       width="full"
       border="1px solid var(--boemly-colors-gray-200)"
@@ -91,14 +92,14 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
       <Box
         position="relative"
         width="full"
-        height={['36', null, null, '44']}
-        borderTopRadius="3xl"
+        height={['32', null, null, '44']}
+        borderTopRadius={['xl', null, null, '2xl']}
         css={css`
           & span,
           div,
           img {
-            border-top-left-radius: var(--boemly-radii-3xl);
-            border-top-right-radius: var(--boemly-radii-3xl);
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
           }
         `}
       >
@@ -113,11 +114,11 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
 
         <Box
           position="absolute"
-          top="8"
-          right="8"
+          top={['6', null, null, '8']}
+          right={['6', null, null, '8']}
           zIndex="1"
-          width={['14', null, null, '16']}
-          height={['14', null, null, '16']}
+          width={['12', null, null, '16']}
+          height={['12', null, null, '16']}
         >
           <Image
             src={strapiMediaUrl(event.logo.img, 'medium')}
@@ -139,7 +140,7 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
       >
         <Flex flexDir="row" mb="4" gap="2" flexWrap="wrap">
           {event.recommended ? (
-            <Flex>
+            <Flex mb={['2', null, null, '0']}>
               <Tag backgroundColor="green.600">
                 <Star size={12} weight="fill" color="white" />
                 &nbsp;
@@ -158,7 +159,11 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
               <Tag key={e.id}>
                 {getEventIcon(e.eventType)}&nbsp;
                 <Text size="xsLowBold" color="gray.800">
-                  {e.eventType}
+                  {formatMessage({
+                    id: `sections.eventCard.eventType.${e.eventType
+                      .toLowerCase()
+                      .replace(/\s+/g, '')}`,
+                  })}
                 </Text>
               </Tag>
             ))}
@@ -182,7 +187,7 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
           {event.online && (
             <Flex gap="2" alignItems="center">
               <Laptop size={20} color={'var(--boemly-colors-primary-700)'} />
-              <Text size="smLowBold">Online</Text>
+              <Text size={['xsLowBold', null, null, 'smLowBold']}>Online</Text>
             </Flex>
           )}
           {event.location && (
@@ -192,7 +197,9 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
                 color={'var(--boemly-colors-primary-700)'}
                 weight="fill"
               />
-              <Text size="smLowBold">{event.location}</Text>
+              <Text size={['xsLowBold', null, null, 'smLowBold']}>
+                {event.location}
+              </Text>
             </Flex>
           )}
           <Flex alignItems="center" gap="2">
@@ -200,7 +207,7 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
               size={20}
               color={'var(--boemly-colors-primary-700)'}
             />
-            <Text size="smLowBold">
+            <Text size={['xsLowBold', null, null, 'smLowBold']}>
               {formatDate(event.start, {
                 year: 'numeric',
                 month: '2-digit',
@@ -275,8 +282,8 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
             {event.speakers.map((speaker) => (
               <Box key={speaker.id}>
                 <Box
-                  width="12"
-                  height="12"
+                  width={['10', null, null, '12']}
+                  height={['10', null, null, '12']}
                   position="relative"
                   borderRadius="2xl"
                 >
@@ -302,3 +309,5 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
     </Box>
   );
 };
+
+export default EventCard;

@@ -23,3 +23,14 @@ Minimal.args = {
     filterSearch: false,
   },
 };
+
+export const WithFilterSearch = Template.bind({});
+WithFilterSearch.args = {
+  slice: {
+    upcomingTitle: 'Tree.ly Events',
+    upcomingDescription: 'Join us for these amazing events',
+    pastTitle: 'Past Events',
+    pastDescription: 'Check out our past events',
+    filterSearch: true,
+  },
+};

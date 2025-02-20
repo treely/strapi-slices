@@ -4,6 +4,7 @@ import {
   IStrapiData,
   StrapiBlogPost,
   StrapiCustomerStory,
+  StrapiEvent,
   StrapiGlobal,
   StrapiPage,
   StrapiPageProps,
@@ -14,6 +15,7 @@ import {
   EXTENDABLE_HEADER_SECTIONS,
   SLICES_WITH_BLOG_POSTS,
   SLICES_WITH_CUSTOMER_STORIES,
+  SLICES_WITH_EVENTS,
   SLICES_WITH_PROJECTS,
 } from '../constants/slicesConfig';
 import { DEFAULT_SHARE_ALT, DEFAULT_SHARE_IMAGE } from '../constants/metadata';
@@ -24,7 +26,8 @@ const mergeGlobalAndStrapiPageData = (
   page: IStrapiData<StrapiPage>,
   blogPosts: IStrapiData<StrapiBlogPost>[],
   customerStories: IStrapiData<StrapiCustomerStory>[],
-  projects: PortfolioProject[]
+  projects: PortfolioProject[],
+  events: StrapiEvent[]
 ): StrapiPageProps => {
   const metaShareImageUrl = page.attributes.metadata?.shareImage
     ? strapiMediaUrl(
@@ -43,11 +46,16 @@ const mergeGlobalAndStrapiPageData = (
   const returnProjects = page.attributes.slices.some((slice) =>
     SLICES_WITH_PROJECTS.includes(slice.__component)
   );
+  const returnEvents = page.attributes.slices.some((slice) =>
+    SLICES_WITH_EVENTS.includes(slice.__component)
+  );
 
   return {
     ...page,
     // Portfolio Projects
     projects: returnProjects ? projects : [],
+    // Events
+    events: returnEvents ? events : [],
     // StrapiPage
     attributes: {
       ...page?.attributes,

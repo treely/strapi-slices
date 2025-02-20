@@ -17,3 +17,4 @@ export const SLICES_WITH_PROJECTS = [
   'sections.project-facts',
   'sections.text-with-card',
 ];
+export const SLICES_WITH_EVENTS = ['sections.events'];

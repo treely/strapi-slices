@@ -49,6 +49,7 @@ import getAllSlugsFromStrapi from './integrations/strapi/getAllSlugsFromStrapi';
 import getPortfolioProjects from './integrations/strapi/getPortfolioProjects';
 import getStrapiCollectionType from './integrations/strapi/getStrapiCollectionType';
 import getStrapiSingleType from './integrations/strapi/getStrapiSingleType';
+import getTreelyEvents from './integrations/strapi/getTreelyEvents';
 
 import mergeGlobalAndStrapiBlogPostData from './utils/mergeGlobalAndStrapiBlogPostData';
 import mergeGlobalAndStrapiCustomerStoryData from './utils/mergeGlobalAndStrapiCustomerStoryData';
@@ -76,6 +77,7 @@ export {
   getPortfolioProjects,
   getStrapiCollectionType,
   getStrapiSingleType,
+  getTreelyEvents,
 };
 
 export type {

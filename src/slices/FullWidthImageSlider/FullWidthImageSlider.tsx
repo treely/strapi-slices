@@ -118,7 +118,10 @@ export const FullWidthImageSlider: React.FC<FullWidthImageSliderProps> = ({
                     }}
                   />
                 </ImageContainer>
-                <Text height="6">{image.caption}</Text>
+
+                <Text noOfLines={3} height="72px" fontSize="md">
+                  {image.caption}
+                </Text>
               </Flex>
             </ItemContainer>
           ))}

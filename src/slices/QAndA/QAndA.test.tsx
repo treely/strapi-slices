@@ -18,6 +18,7 @@ const defaultProps: QAndAProps = {
       { id: 1, key: 'Key 1', value: 'Value 1' },
       { id: 2, key: 'Key 2', value: 'Value 2' },
     ],
+    defaultIndex: [],
   },
 };
 

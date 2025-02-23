@@ -23,6 +23,7 @@ Minimal.args = {
     ],
     otherQuestions: 'Other questions?',
     button: { id: 1, text: 'Button', url: 'https://tree.ly' },
+    defaultIndex: [],
   },
 };
 
@@ -49,6 +50,7 @@ WithHero.args = {
         img: { data: storybookStrapiCoverMock },
       },
     },
+    defaultIndex: [],
   },
 };
 
@@ -68,6 +70,7 @@ WithScroll.args = {
     ],
     otherQuestions: 'Other questions?',
     button: { id: 1, text: 'Button', url: 'https://tree.ly' },
+    defaultIndex: [],
   },
 };
 
@@ -84,6 +87,7 @@ Gray.args = {
     ],
     otherQuestions: 'Other questions?',
     button: { id: 1, text: 'Button', url: 'https://tree.ly' },
+    defaultIndex: [],
   },
 };
 
@@ -100,5 +104,6 @@ White.args = {
     ],
     otherQuestions: 'Other questions?',
     button: { id: 1, text: 'Button', url: 'https://tree.ly' },
+    defaultIndex: [],
   },
 };

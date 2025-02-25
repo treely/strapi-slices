@@ -7,17 +7,20 @@ import { FONT_CUSTOMIZATIONS } from '../src/constants/fontCustomizations';
 import { Global } from '@emotion/react';
 import { GLOBAL_STYLE } from '../src/constants/globalStyle';
 import { FONT_STYLE } from '../src/constants/fontStyle';
+import { ContextProvider } from '../src/components/ContextProvider/ContextProvider';
 
 const preview: Preview = {
   decorators: [
     (Story) => (
       <>
-        <Global styles={{ GLOBAL_STYLE, FONT_STYLE }} />
-        <IntlProvider messages={rootMessagesEn} locale="en">
-          <BoemlyThemeProvider fonts={FONT_CUSTOMIZATIONS}>
-            <Story />
-          </BoemlyThemeProvider>
-        </IntlProvider>
+        <ContextProvider locale="en">
+          <Global styles={{ GLOBAL_STYLE, FONT_STYLE }} />
+          <IntlProvider messages={rootMessagesEn} locale="en">
+            <BoemlyThemeProvider fonts={FONT_CUSTOMIZATIONS}>
+              <Story />
+            </BoemlyThemeProvider>
+          </IntlProvider>
+        </ContextProvider>
       </>
     ),
   ],

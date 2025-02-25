@@ -57,6 +57,7 @@ export interface QAndAProps {
     button: StrapiLink;
     hero?: StrapiHeroCard;
     variant?: keyof typeof VARIANTS;
+    defaultIndex: number[];
   };
 }
 
@@ -97,7 +98,7 @@ export const QAndA: React.FC<QAndAProps> = ({ slice }: QAndAProps) => {
               <Box>
                 <BoemlyAccordion
                   rows={slice.questionsAndAnswers}
-                  defaultIndex={0}
+                  defaultIndex={slice.defaultIndex}
                   variant={variant.accordionVariant as 'white' | 'black'}
                 />
                 <Flex

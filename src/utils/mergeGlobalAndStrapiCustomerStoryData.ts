@@ -69,6 +69,7 @@ const mergeGlobalAndStrapiCustomerStoryData = (
     blogPosts: [],
     preview: !!context.preview,
     isFallbackLocale: context.locale !== customerStory.attributes.locale,
+    events: [],
   };
 };
 

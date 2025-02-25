@@ -84,6 +84,7 @@ const mergeGlobalAndStrapiProject = (
     customerStories: [],
     preview: !!context.preview,
     isFallbackLocale: context.locale !== project.attributes.locale,
+    events: [],
   };
 };
 

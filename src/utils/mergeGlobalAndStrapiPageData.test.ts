@@ -23,6 +23,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
       pageDataWithoutMetadata,
       [],
       [],
+      [],
       []
     );
 
@@ -53,6 +54,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
       pageDataWithMetadata,
       [],
       [],
+      [],
       []
     );
 
@@ -71,6 +73,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
           slices: [{ __component: 'no.hero.section' }],
         },
       },
+      [],
       [],
       [],
       []
@@ -92,6 +95,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
       },
       [],
       [],
+      [],
       []
     );
 
@@ -109,6 +113,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
           slices: [{ __component: 'sections.hero' }],
         },
       },
+      [],
       [],
       [],
       []
@@ -130,6 +135,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
       },
       [],
       [],
+      [],
       []
     );
 
@@ -149,6 +155,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
       },
       [],
       [],
+      [],
       []
     );
 
@@ -166,6 +173,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
           slices: [{ __component: 'sections.hero' }],
         },
       },
+      [],
       [],
       [],
       []
@@ -196,6 +204,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
       strapiPageMock,
       [],
       [],
+      [],
       []
     );
 
@@ -224,6 +233,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
       strapiPageMock,
       [],
       [],
+      [],
       []
     );
 
@@ -248,6 +258,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
       strapiPageMock,
       [],
       [],
+      [],
       []
     );
 
@@ -268,6 +279,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
         },
       },
       [strapiBlogPostMock],
+      [],
       [],
       []
     );
@@ -290,6 +302,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
       },
       [],
       [strapiCustomerStoryMock],
+      [],
       []
     );
 
@@ -311,7 +324,8 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
       },
       [],
       [],
-      [portfolioProjectMock]
+      [portfolioProjectMock],
+      []
     );
 
     expect(result.projects).toStrictEqual([portfolioProjectMock]);
@@ -332,6 +346,7 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
       getStaticPropsContextMock,
       minimalGlobalData,
       pageDataInDe,
+      [],
       [],
       [],
       []

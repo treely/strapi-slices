@@ -105,54 +105,56 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
 
       <CarouselContainer ref={containerRef}>
         <Box position="relative" width="full">
-          <CarouselInnerContainer
-            numberOfItems={slice.slides.length}
-            animate={{
-              x: offsetLeft,
-            }}
-            transition={{
-              duration: 0.3,
-              ease: 'easeInOut',
-            }}
-          >
-            {displaySlides.map(({ id, title, text, icon, image, button }) => (
-              <CardContainer key={id} ref={itemRef}>
-                <TextCardWithIcon
-                  title={title}
-                  text={text}
-                  height="full"
-                  icon={
-                    <Image
-                      src={strapiMediaUrl(icon.img, 'small')}
-                      alt={icon.alt}
-                      fill
-                      style={{ objectFit: icon.objectFit || 'contain' }}
-                    />
-                  }
-                  image={
-                    image && (
+          <Wrapper>
+            <CarouselInnerContainer
+              numberOfItems={slice.slides.length}
+              animate={{
+                x: offsetLeft,
+              }}
+              transition={{
+                duration: 0.3,
+                ease: 'easeInOut',
+              }}
+            >
+              {displaySlides.map(({ id, title, text, icon, image, button }) => (
+                <CardContainer key={id} ref={itemRef}>
+                  <TextCardWithIcon
+                    title={title}
+                    text={text}
+                    height="full"
+                    icon={
                       <Image
-                        src={strapiMediaUrl(image?.img, 'medium')}
-                        alt={image?.alt}
+                        src={strapiMediaUrl(icon.img, 'small')}
+                        alt={icon.alt}
                         fill
-                        style={{
-                          objectFit: image?.objectFit || 'cover',
-                          borderRadius: 'var(--boemly-radii-xl)',
-                        }}
+                        style={{ objectFit: icon.objectFit || 'contain' }}
                       />
-                    )
-                  }
-                  button={
-                    button && {
-                      text: button.text,
-                      onClick: () => push(strapiLinkUrl(button)),
                     }
-                  }
-                  displayAs="column"
-                />
-              </CardContainer>
-            ))}
-          </CarouselInnerContainer>
+                    image={
+                      image && (
+                        <Image
+                          src={strapiMediaUrl(image?.img, 'medium')}
+                          alt={image?.alt}
+                          fill
+                          style={{
+                            objectFit: image?.objectFit || 'cover',
+                            borderRadius: 'var(--boemly-radii-xl)',
+                          }}
+                        />
+                      )
+                    }
+                    button={
+                      button && {
+                        text: button.text,
+                        onClick: () => push(strapiLinkUrl(button)),
+                      }
+                    }
+                    displayAs="column"
+                  />
+                </CardContainer>
+              ))}
+            </CarouselInnerContainer>
+          </Wrapper>
           <Box
             display={['none', null, null, !!allowScroll ? 'flex' : 'none']}
             pointerEvents="none"

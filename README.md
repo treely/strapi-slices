@@ -39,7 +39,8 @@ npm run build
 npm pack
 ```
 
-Go to the project which uses the strapi-slices package and remove the `node_modules` and the `.next` folder before installing the package there:
+Go to the project which uses the strapi-slices package and remove the
+`node_modules` and the `.next` folder before installing the package there:
 
 ```bash
 cd ../path/to/your/project

@@ -266,42 +266,46 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
           flexDir={mobile ? 'column-reverse' : 'row'}
           gap={mobile ? '4' : '0'}
         >
-          <Flex width={mobile ? 'full' : 'auto'}>
-            <StrapiLinkButton
-              key={event.button.id}
-              size="md"
-              variant={event.buttonVariant}
-              link={event.button}
-              rightIcon={<CaretRight size="10" />}
-              width="full"
-            />
-          </Flex>
-          <Flex flexDir="row" gap="2">
-            {event.speakers.map((speaker) => (
-              <Box key={speaker.id}>
-                <Box
-                  width={['10', null, null, '12']}
-                  height={['10', null, null, '12']}
-                  position="relative"
-                  borderRadius="2xl"
-                >
-                  <Tooltip label={speaker.name}>
-                    <Image
-                      src={strapiMediaUrl(speaker.image.img, 'medium')}
-                      alt={speaker.image.alt}
-                      fill
-                      style={{
-                        objectFit: speaker.image.objectFit || 'cover',
-                        borderRadius: 'var(--boemly-radii-md)',
-                        border:
-                          '1px solid, var(--whiteAlpha-700, rgba(255, 255, 255, 0.64))',
-                      }}
-                    />
-                  </Tooltip>
+          {event.button && (
+            <Flex width={mobile ? 'full' : 'auto'}>
+              <StrapiLinkButton
+                key={event.button.id}
+                size="md"
+                variant={event.buttonVariant}
+                link={event.button}
+                rightIcon={<CaretRight size="10" />}
+                width="full"
+              />
+            </Flex>
+          )}
+          {event.speakers && event.speakers.length > 0 && (
+            <Flex flexDir="row" gap="2">
+              {event.speakers.map((speaker) => (
+                <Box key={speaker.id}>
+                  <Box
+                    width={['10', null, null, '12']}
+                    height={['10', null, null, '12']}
+                    position="relative"
+                    borderRadius="2xl"
+                  >
+                    <Tooltip label={speaker.name}>
+                      <Image
+                        src={strapiMediaUrl(speaker.image.img, 'medium')}
+                        alt={speaker.image.alt}
+                        fill
+                        style={{
+                          objectFit: speaker.image.objectFit || 'cover',
+                          borderRadius: 'var(--boemly-radii-md)',
+                          border:
+                            '1px solid, var(--whiteAlpha-700, rgba(255, 255, 255, 0.64))',
+                        }}
+                      />
+                    </Tooltip>
+                  </Box>
                 </Box>
-              </Box>
-            ))}
-          </Flex>
+              ))}
+            </Flex>
+          )}
         </Flex>
       </Flex>
     </Box>

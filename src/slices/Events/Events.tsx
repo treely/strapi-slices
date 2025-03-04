@@ -57,11 +57,23 @@ const enum Sort {
   OLDEST_FIRST = 'oldest',
 }
 
+interface EventOption {
+  value: string;
+  label: string;
+}
+
 export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
   const { formatMessage, locale } = useContext(IntlContext);
   const [eventTypeFilter, setEventTypeFilter] = useState([] as string[]);
   const [languageFilter, setLanguageFilter] = useState([] as string[]);
   const [sort, setSort] = useState([Sort.NEWEST_FIRST] as string[]);
+
+  const [allEventTypeOptions, setAllEventTypeOptions] = useState<EventOption[]>(
+    []
+  );
+  const [allLanguageOptions, setAllLanguageOptions] = useState<EventOption[]>(
+    []
+  );
 
   const now = new Date().toISOString();
 
@@ -86,12 +98,19 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
       url.searchParams.append('sort', 'start:desc');
     }
 
-    if (languageFilter.length || eventTypeFilter.length) {
-      [...languageFilter, ...eventTypeFilter].forEach((filter, i) => {
-        const filterKey =
-          i < languageFilter.length ? 'languages' : 'eventTypes';
+    if (eventTypeFilter.length) {
+      eventTypeFilter.forEach((filter, i) => {
         url.searchParams.append(
-          `filters[$and][${i}][${filterKey}][${filterKey.slice(0, -1)}]`,
+          `filters[$or][${i}][eventTypes][eventType]`,
+          filter
+        );
+      });
+    }
+
+    if (languageFilter.length) {
+      languageFilter.forEach((filter, i) => {
+        url.searchParams.append(
+          `filters[$or][${eventTypeFilter.length + i}][languages][language]`,
           filter
         );
       });
@@ -131,6 +150,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
       data?.flatMap((d: any) => d?.body?.data)?.filter((t: any) => !!t) || []
     );
   };
+
   // Process upcoming events
   const upcomingEvents = useMemo(() => {
     return processEvents(upcomingData);
@@ -141,40 +161,53 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
     return processEvents(pastData);
   }, [pastData]);
 
-  const combinedEvents = useMemo(() => {
-    return upcomingEvents.concat(pastEvents);
-  }, [upcomingEvents, pastEvents]);
+  // Function to fetch all possible options
+  const fetchAllOptions = useCallback(async () => {
+    const url = new URL(`/treely-events`, STRAPI_URI);
+    url.searchParams.append('locale', locale);
+    url.searchParams.append('populate', 'deep,6');
 
-  const getOptions = (items: any[], key: string, selectedFilters: string[]) => {
-    const uniqueValues = new Set<string>();
-
-    const options = items
-      .flatMap((card) =>
-        card.attributes[key].map((item: any) => ({
-          value: item[key.slice(0, -1)],
-          label: item[key.slice(0, -1)],
-        }))
-      )
-      .filter((option) => {
-        if (uniqueValues.has(option.value)) return false;
-        uniqueValues.add(option.value);
-        return true;
-      });
-
-    return options.concat(
-      selectedFilters
-        .filter((selected) => !uniqueValues.has(selected))
-        .map((selected) => ({ value: selected, label: selected }))
+    const response = await fetch(
+      `${STRAPI_URI}/api/treely-events${url.search}`
     );
-  };
+    const data = await response.json();
 
-  const eventTypeOptions = useMemo(() => {
-    return getOptions(combinedEvents, 'eventTypes', eventTypeFilter);
-  }, [combinedEvents]);
+    const events = data?.data || [];
 
-  const languageOptions = useMemo(() => {
-    return getOptions(combinedEvents, 'languages', languageFilter);
-  }, [combinedEvents]);
+    // Extract all event types
+    const allEventTypes = new Set<string>();
+    events.forEach((event: any) => {
+      if (event?.attributes?.eventTypes) {
+        event.attributes.eventTypes.forEach((item: any) => {
+          allEventTypes.add(item.eventType);
+        });
+      }
+    });
+
+    // Extract all languages
+    const allLanguages = new Set<string>();
+    events.forEach((event: any) => {
+      if (event?.attributes?.languages) {
+        event.attributes.languages.forEach((item: any) => {
+          allLanguages.add(item.language);
+        });
+      }
+    });
+
+    // Update state with all options
+    setAllEventTypeOptions(
+      Array.from(allEventTypes).map((value) => ({ value, label: value }))
+    );
+
+    setAllLanguageOptions(
+      Array.from(allLanguages).map((value) => ({ value, label: value }))
+    );
+  }, [locale]);
+
+  // Fetch all options when component mounts
+  useEffect(() => {
+    fetchAllOptions();
+  }, [fetchAllOptions]);
 
   const removeFilter = (
     filterType: keyof FiltersProps,
@@ -241,7 +274,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
                       searchPlaceholder={formatMessage({
                         id: 'sections.events.eventsFilter.searchPlaceholder',
                       })}
-                      options={eventTypeOptions}
+                      options={allEventTypeOptions}
                       value={eventTypeFilter ?? []}
                       onChange={(selected: string[]) => {
                         setEventTypeFilter(selected);
@@ -260,7 +293,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
                       searchPlaceholder={formatMessage({
                         id: 'sections.events.eventsFilter.searchPlaceholder',
                       })}
-                      options={languageOptions}
+                      options={allLanguageOptions}
                       value={languageFilter ?? []}
                       onChange={(selected: string[]) => {
                         setLanguageFilter(selected);
@@ -272,7 +305,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
                 {/* Filter Tags */}
                 <Box display="flex" flexWrap="wrap" minHeight="6" gap="2">
                   {eventTypeFilter.map((eventType) => {
-                    const event = eventTypeOptions.find(
+                    const event = allEventTypeOptions.find(
                       (option) => option.value === eventType
                     );
                     return (
@@ -287,7 +320,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
                   })}
 
                   {languageFilter.map((singleLanguage) => {
-                    const language = languageOptions.find(
+                    const language = allLanguageOptions.find(
                       (option) => option.value === singleLanguage
                     );
                     return (

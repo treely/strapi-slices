@@ -58,6 +58,12 @@ describe('The Events slice', () => {
     jest.useFakeTimers().setSystemTime(NOW);
     getKeyCalls = [];
 
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue({
+        data: [upcomingEventMock, pastEventMock],
+      }),
+    });
+
     (useEvents as jest.Mock).mockImplementation(({ getKey }) => {
       const key = getKey(0, null);
       getKeyCalls.push(key.toString());
@@ -239,7 +245,7 @@ describe('The Events slice', () => {
           expect.arrayContaining([
             expect.stringContaining('filters[start][$gte]'),
             expect.stringContaining(
-              'filters[$and][0][eventTypes][eventType]=Conference'
+              'filters[$or][0][eventTypes][eventType]=Conference'
             ),
           ])
         );
@@ -274,7 +280,7 @@ describe('The Events slice', () => {
           expect.arrayContaining([
             expect.stringContaining('filters[start][$gte]'),
             expect.stringContaining(
-              'filters[$and][0][languages][language]=German'
+              'filters[$or][0][languages][language]=German'
             ),
           ])
         );

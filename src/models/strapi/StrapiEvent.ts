@@ -19,10 +19,10 @@ export enum EventType {
 interface StrapiEvent {
   title: string;
   description: string;
-  button: StrapiLink;
+  button?: StrapiLink;
   buttonVariant?: 'outline' | 'ghost' | 'link' | 'solid' | 'outlineWhite';
   recommended?: boolean;
-  speakers: {
+  speakers?: {
     id: number;
     name: string;
     image: StrapiImage;

@@ -36,7 +36,7 @@ describe('The EventCard component', () => {
 
     expect(screen.getByRole('link')).toHaveAttribute(
       'href',
-      defaultProps.event.button.url
+      defaultProps.event.button?.url
     );
 
     expect(screen.queryByText('Recommended')).not.toBeInTheDocument();
@@ -57,7 +57,7 @@ describe('The EventCard component', () => {
     const firstSpeakerImage = screen.getAllByRole('img')[2];
     expect(firstSpeakerImage).toHaveAttribute(
       'alt',
-      defaultProps.event.speakers[0].image.alt
+      defaultProps.event.speakers?.[0]?.image.alt
     );
 
     await waitFor(() => userEvent.hover(firstSpeakerImage));
@@ -66,7 +66,7 @@ describe('The EventCard component', () => {
     const secondSpeakerImage = screen.getAllByRole('img')[3];
     expect(secondSpeakerImage).toHaveAttribute(
       'alt',
-      defaultProps.event.speakers[1].image.alt
+      defaultProps.event.speakers?.[1]?.image.alt
     );
 
     await waitFor(() => userEvent.hover(secondSpeakerImage));

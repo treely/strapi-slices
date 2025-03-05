@@ -236,6 +236,8 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
             <DefaultSectionHeader
               title={slice.upcomingTitle}
               text={slice.upcomingDescription}
+              titleProps={{ maxW: '3xl' }}
+              textProps={{ maxW: '3xl' }}
             />
             <Spacer h="10" />
           </>
@@ -388,11 +390,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
             placeItems="center"
           >
             {upcomingEvents.map((event: IStrapiData<StrapiEvent>) => (
-              <Box
-                key={event.id}
-                width="full"
-                height={['full', null, null, 'xl']}
-              >
+              <Box key={event.id} width="full" height="full">
                 <EventCard event={event.attributes} />
               </Box>
             ))}
@@ -420,6 +418,8 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
           <DefaultSectionHeader
             title={slice.pastTitle}
             text={slice.pastDescription}
+            titleProps={{ maxW: '3xl' }}
+            textProps={{ maxW: '3xl' }}
           />
 
           <Spacer h="10" />
@@ -442,11 +442,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
               mb={['10', null, null, '20']}
             >
               {pastEvents.map((event: IStrapiData<StrapiEvent>) => (
-                <Box
-                  key={event.id}
-                  height={['full', null, null, 'xl']}
-                  width="full"
-                >
+                <Box key={event.id} height="full" width="full">
                   <EventCard event={event.attributes} />
                 </Box>
               ))}

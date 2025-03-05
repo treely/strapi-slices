@@ -16,7 +16,7 @@ const Template: StoryFn<typeof Events> = (args) => <Events {...args} />;
 export const Minimal = Template.bind({});
 Minimal.args = {
   slice: {
-    upcomingTitle: 'Tree.ly Events',
+    upcomingTitle: 'Ready to Learn more about Forest Climate Protection?',
     upcomingDescription: 'Join us for these amazing events',
     pastTitle: 'Past Events',
     pastDescription: 'Check out our past events',
@@ -27,7 +27,7 @@ Minimal.args = {
 export const WithFilterSearch = Template.bind({});
 WithFilterSearch.args = {
   slice: {
-    upcomingTitle: 'Tree.ly Events',
+    upcomingTitle: 'Ready to Learn more about Forest Climate Protection?',
     upcomingDescription: 'Join us for these amazing events',
     pastTitle: 'Past Events',
     pastDescription: 'Check out our past events',

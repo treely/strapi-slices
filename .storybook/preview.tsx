@@ -25,7 +25,7 @@ const preview: Preview = {
     ),
   ],
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
+    actions: { disable: true },
     controls: {
       matchers: {
         color: /(background|color)$/i,

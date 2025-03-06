@@ -3,19 +3,22 @@ import webpack from 'webpack';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
+    '@chromatic-com/storybook'
   ],
+
   framework: {
     name: '@storybook/nextjs',
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
+
+  docs: {},
+
   webpackFinal: async (config) => {
     config.plugins = config.plugins || [];
     config.plugins.push(
@@ -27,6 +30,10 @@ const config: StorybookConfig = {
     );
     return config;
   },
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript'
+  }
 };
 
 export default config;

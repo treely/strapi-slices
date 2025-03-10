@@ -6,6 +6,7 @@ import { STRAPI_URI } from '../../constants/strapi';
 const strapiClient = setupCache(
   axios.create({
     baseURL: `${STRAPI_URI}/api`,
+    headers: { 'Strapi-Response-Format': 'v4' },
     paramsSerializer: (p) => qs.stringify(p, { encodeValuesOnly: true }),
     timeout: 60_000,
   }),

@@ -90,7 +90,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
     url.searchParams.append('pagination[limit]', batchSize.toString());
     url.searchParams.append(startFilter, now);
     url.searchParams.append('locale', locale);
-    url.searchParams.append('populate', 'deep,6');
+    url.searchParams.append('pLevel', '6');
 
     if (sort[0] === Sort.OLDEST_FIRST) {
       url.searchParams.append('sort', 'start:asc');
@@ -165,10 +165,15 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
   const fetchAllOptions = useCallback(async () => {
     const url = new URL(`/treely-events`, STRAPI_URI);
     url.searchParams.append('locale', locale);
-    url.searchParams.append('populate', 'deep,6');
+    url.searchParams.append('pLevel', '6');
 
     const response = await fetch(
-      `${STRAPI_URI}/api/treely-events${url.search}`
+      `${STRAPI_URI}/api/treely-events${url.search}`,
+      {
+        headers: {
+          'Strapi-Response-Format': 'v4',
+        },
+      }
     );
     const data = await response.json();
 

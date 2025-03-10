@@ -6,6 +6,7 @@ import {
 import IStrapiData from '../../models/strapi/IStrapiData';
 import IStrapiResponse from '../../models/strapi/IStrapiResponse';
 import LocalizedEntity from '../../models/LocalizedEntity';
+import getAvailableLocalesFromStrapi from './getAvailableLocalesFromStrapi';
 
 interface Options {
   locale?: string;
@@ -23,40 +24,46 @@ const getStrapiCollectionType = async <
   { locale = 'en', preview = false, filters = {} }: Options
 ): Promise<IStrapiData<T>[]> => {
   const cache = preview ? false : undefined;
-  const params: Record<string, any> = {
-    populate: 'deep,6',
-    locale: 'all',
-    'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
-    filters,
-  };
+  const allLocales = await getAvailableLocalesFromStrapi();
 
-  if (preview) {
-    params.publicationState = 'preview';
+  if (!allLocales.includes(STRAPI_FALLBACK_LOCALE)) {
+    allLocales.push(STRAPI_FALLBACK_LOCALE);
   }
 
-  const { data } = await strapiClient.get<IStrapiResponse<IStrapiData<T>[]>>(
-    path,
-    { params, cache }
-  );
+  const responses: IStrapiData<T>[] = [];
 
-  const localizedResponses = data.data.filter(
-    (d) => d.attributes.locale === locale
-  );
+  for (const loc of allLocales) {
+    const params: Record<string, any> = {
+      pLevel: '6',
+      loc,
+      'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
+      filters,
+    };
 
-  const fallbackResponses = data.data.filter(
-    (d) => d.attributes.locale === STRAPI_FALLBACK_LOCALE
-  );
+    if (preview) {
+      params.publicationState = 'preview';
+    }
 
-  const responses = fallbackResponses.map((fallbackResponse) => {
-    const localizedResponse = localizedResponses.find(
-      (localized) =>
-        localized.attributes[key] === fallbackResponse.attributes[key]
+    const { data } = await strapiClient.get<IStrapiResponse<IStrapiData<T>[]>>(
+      path,
+      { params, cache }
     );
 
-    return localizedResponse || fallbackResponse;
-  });
+    responses.push(...data.data);
+  }
 
-  return responses;
+  const groupedResponses = responses.reduce<Record<string, IStrapiData<T>>>(
+    (acc, response) => {
+      const keyValue = response.attributes[key];
+      if (!acc[keyValue] || response.attributes.locale === locale) {
+        acc[keyValue] = response;
+      }
+      return acc;
+    },
+    {}
+  );
+
+  return Object.values(groupedResponses);
 };
 
 export default getStrapiCollectionType;

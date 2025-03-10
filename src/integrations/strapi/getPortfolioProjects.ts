@@ -17,7 +17,7 @@ const getPortfolioProjects = async (
 ): Promise<PortfolioProject[]> => {
   const cache = preview ? false : undefined;
   const params: Record<string, any> = {
-    populate: 'deep,6',
+    pLevel: '6',
     locale,
     'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
   };

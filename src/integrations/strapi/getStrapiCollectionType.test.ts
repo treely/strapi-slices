@@ -2,6 +2,17 @@ import MockAxios from 'jest-mock-axios';
 import getStrapiCollectionType from './getStrapiCollectionType';
 import StrapiPage from '../../models/strapi/StrapiPage';
 import { strapiPageMock } from '../../test/strapiMocks/strapiPage';
+import getAvailableLocalesFromStrapi from './getAvailableLocalesFromStrapi';
+import strapiClient from './strapiClient';
+
+jest.mock('./strapiClient', () => ({
+  get: jest.fn(),
+}));
+
+jest.mock('./getAvailableLocalesFromStrapi', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
 
 describe('The getStrapiCollectionType function', () => {
   const germanStrapiPageMock = {
@@ -15,18 +26,26 @@ describe('The getStrapiCollectionType function', () => {
 
   afterEach(() => {
     MockAxios.reset();
+    jest.clearAllMocks();
   });
 
   it('returns the localized versions if available', async () => {
+    (getAvailableLocalesFromStrapi as jest.Mock).mockResolvedValue([
+      'en',
+      'de',
+      'hu',
+    ]);
+
+    (strapiClient.get as jest.Mock).mockResolvedValue({
+      data: {
+        data: [strapiPageMock, germanStrapiPageMock],
+      },
+    });
+
     const pages = getStrapiCollectionType<StrapiPage, 'slug'>(
       '/api/pages',
       'slug',
       { locale: 'de' }
-    );
-
-    MockAxios.mockResponseFor(
-      { url: '/api/pages' },
-      { data: { data: [strapiPageMock, germanStrapiPageMock] } }
     );
 
     const page = await pages;
@@ -41,15 +60,22 @@ describe('The getStrapiCollectionType function', () => {
   });
 
   it('returns the english versions if no localized version is available', async () => {
+    (getAvailableLocalesFromStrapi as jest.Mock).mockResolvedValue([
+      'en',
+      'de',
+      'hu',
+    ]);
+
+    (strapiClient.get as jest.Mock).mockResolvedValue({
+      data: {
+        data: [strapiPageMock],
+      },
+    });
+
     const pages = getStrapiCollectionType<StrapiPage, 'slug'>(
       '/api/pages',
       'slug',
       { locale: 'de' }
-    );
-
-    MockAxios.mockResponseFor(
-      { url: '/api/pages' },
-      { data: { data: [strapiPageMock] } }
     );
 
     const page = await pages;

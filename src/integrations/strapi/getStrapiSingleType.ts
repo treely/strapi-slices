@@ -19,7 +19,7 @@ const getStrapiSingleType = async <T>(
 ): Promise<IStrapiData<T>> => {
   const cache = preview ? false : undefined;
   const params: Record<string, any> = {
-    populate: 'deep,6',
+    pLevel: '6',
     locale,
     'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
     filters,

@@ -6,6 +6,7 @@ import {
 import IStrapiResponse from '../../models/strapi/IStrapiResponse';
 import IStrapiData from '../../models/strapi/IStrapiData';
 import LocalizedEntity from '../../models/LocalizedEntity';
+import getAvailableLocalesFromStrapi from './getAvailableLocalesFromStrapi';
 
 interface Options {
   filters?: Record<string, any>;
@@ -18,33 +19,45 @@ const getAllSlugsFromStrapi = async <T extends LocalizedEntity<'slug'>>(
   locales: string[],
   { filters = {} }: Options = { filters: {} }
 ): Promise<Slug[]> => {
-  const params: Record<string, any> = {
-    locale: 'all',
-    'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
-    filters,
-  };
+  const allLocales = await getAvailableLocalesFromStrapi();
 
-  const { data } = await strapiClient.get<IStrapiResponse<IStrapiData<T>[]>>(
-    path,
-    { params }
-  );
+  const slugPromises = allLocales.map((locale) => {
+    const params: Record<string, any> = {
+      locale,
+      'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
+      filters,
+    };
 
-  const slugs: Slug[] = data.data.map((page) => ({
-    slug: page.attributes.slug,
-    locale: page.attributes.locale,
-  }));
+    return strapiClient.get<IStrapiResponse<IStrapiData<T>[]>>(path, {
+      params,
+    });
+  });
 
-  const fallBackSlugs: Slug[] = locales.flatMap((locale) =>
-    slugs
+  const slugResults = await Promise.all(slugPromises);
+
+  let allSlugs = slugResults
+    .map((result) =>
+      result.data.data.map((page) => ({
+        slug: page.attributes.slug,
+        locale: page.attributes.locale,
+      }))
+    )
+    .flat();
+
+  // Identify missing locales for each slug
+  const missingLocales = locales.flatMap((locale) => {
+    return allSlugs
       .filter((slug) => slug.locale === STRAPI_FALLBACK_LOCALE)
-      .map((slug) => ({ ...slug, locale }))
-  );
+      .filter(
+        (fallbackSlug) =>
+          !allSlugs.some(
+            (slug) => slug.slug === fallbackSlug.slug && slug.locale === locale
+          )
+      )
+      .map((fallbackSlug) => ({ ...fallbackSlug, locale })); // Clone only for missing locales
+  });
 
-  const nonFallbackSlugs = slugs.filter(
-    (p) => p.locale !== STRAPI_FALLBACK_LOCALE
-  );
-
-  return [...fallBackSlugs, ...nonFallbackSlugs];
+  return [...allSlugs, ...missingLocales]; // Merge original and missing slugs
 };
 
 export default getAllSlugsFromStrapi;

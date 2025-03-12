@@ -30,12 +30,10 @@ const getStrapiCollectionType = async <
     allLocales.push(STRAPI_FALLBACK_LOCALE);
   }
 
-  const responses: IStrapiData<T>[] = [];
-
-  for (const loc of allLocales) {
+  const promises = allLocales.map((loc) => {
     const params: Record<string, any> = {
       pLevel: '6',
-      loc,
+      locale: loc,
       'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
       filters,
     };
@@ -44,26 +42,34 @@ const getStrapiCollectionType = async <
       params.publicationState = 'preview';
     }
 
-    const { data } = await strapiClient.get<IStrapiResponse<IStrapiData<T>[]>>(
-      path,
-      { params, cache }
-    );
+    return strapiClient.get<IStrapiResponse<IStrapiData<T>[]>>(path, {
+      params,
+      cache,
+    });
+  });
 
-    responses.push(...data.data);
-  }
+  const responses = await Promise.all(promises);
 
-  const groupedResponses = responses.reduce<Record<string, IStrapiData<T>>>(
-    (acc, response) => {
-      const keyValue = response.attributes[key];
-      if (!acc[keyValue] || response.attributes.locale === locale) {
-        acc[keyValue] = response;
-      }
-      return acc;
-    },
-    {}
+  const results = responses.flatMap((response) => response.data.data);
+
+  const localizedResponses = results.filter(
+    (d) => d.attributes.locale === locale
   );
 
-  return Object.values(groupedResponses);
+  const fallbackResponses = results.filter(
+    (d) => d.attributes.locale === STRAPI_FALLBACK_LOCALE
+  );
+
+  const result = fallbackResponses.map((fallbackResponse) => {
+    const localizedResponse = localizedResponses.find(
+      (localized) =>
+        localized.attributes[key] === fallbackResponse.attributes[key]
+    );
+
+    return localizedResponse || fallbackResponse;
+  });
+
+  return result;
 };
 
 export default getStrapiCollectionType;

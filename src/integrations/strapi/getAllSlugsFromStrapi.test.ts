@@ -44,19 +44,7 @@ describe('The getAllSlugsFromStrapi function', () => {
           ],
         },
       })
-      .mockResolvedValueOnce({
-        data: {
-          data: [
-            {
-              ...strapiPageMock,
-              attributes: {
-                ...strapiPageMock.attributes,
-                locale: 'hu',
-              },
-            },
-          ],
-        },
-      });
+      .mockResolvedValueOnce({ data: { data: [] } });
 
     const slugs = await slugsPromise;
 

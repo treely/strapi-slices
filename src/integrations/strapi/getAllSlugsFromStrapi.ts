@@ -6,7 +6,6 @@ import {
 import IStrapiResponse from '../../models/strapi/IStrapiResponse';
 import IStrapiData from '../../models/strapi/IStrapiData';
 import LocalizedEntity from '../../models/LocalizedEntity';
-import getAvailableLocalesFromStrapi from './getAvailableLocalesFromStrapi';
 
 interface Options {
   filters?: Record<string, any>;
@@ -19,13 +18,11 @@ const getAllSlugsFromStrapi = async <T extends LocalizedEntity<'slug'>>(
   locales: string[],
   { filters = {} }: Options = { filters: {} }
 ): Promise<Slug[]> => {
-  const allLocales = await getAvailableLocalesFromStrapi();
-
-  const slugPromises = allLocales.map((locale) =>
+  const slugPromises = locales.map((locale) =>
     strapiClient
       .get<IStrapiResponse<IStrapiData<T>[]>>(path, {
         params: {
-          locale,
+          locale: locale,
           'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
           filters,
         },

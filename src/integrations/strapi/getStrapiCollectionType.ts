@@ -6,7 +6,6 @@ import {
 import IStrapiData from '../../models/strapi/IStrapiData';
 import IStrapiResponse from '../../models/strapi/IStrapiResponse';
 import LocalizedEntity from '../../models/LocalizedEntity';
-import getAvailableLocalesFromStrapi from './getAvailableLocalesFromStrapi';
 
 interface Options {
   locale?: string;
@@ -24,56 +23,58 @@ const getStrapiCollectionType = async <
   { locale = 'en', preview = false, filters = {} }: Options
 ): Promise<IStrapiData<T>[]> => {
   const cache = preview ? false : undefined;
-  const allLocales = await getAvailableLocalesFromStrapi();
 
-  if (!allLocales.includes(STRAPI_FALLBACK_LOCALE)) {
-    allLocales.push(STRAPI_FALLBACK_LOCALE);
-  }
+  const sharedParams = {
+    pLevel: '6',
+    'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
+    filters,
+    ...(preview ? { publicationState: 'preview' } : {}),
+  };
 
-  const promises = allLocales.map((loc) =>
-    strapiClient
-      .get<IStrapiResponse<IStrapiData<T>[]>>(path, {
-        params: {
-          pLevel: '6',
-          locale: loc,
-          'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
-          filters,
-          ...(preview ? { publicationState: 'preview' } : {}),
-        },
-        cache,
-      })
-      .then((response) => response.data.data)
-      // when a collection type for a requested locale does not exist, Strapi returns a 404. In this case, we return an empty array instead of throwing an error
-      .catch((error) => {
-        if (error.response?.status === 404) {
-          return [];
-        }
-        throw error;
-      })
-  );
+  const requestedLocaleData = await strapiClient
+    .get<IStrapiResponse<IStrapiData<T>[]>>(path, {
+      params: {
+        ...sharedParams,
+        locale,
+      },
+      cache,
+    })
+    .then((response) => response.data.data)
+    // when a collection type for a requested locale does not exist, Strapi returns a 404. In this case, we return an empty array instead of throwing an error
+    .catch((error) => {
+      if (error.response?.status === 404) {
+        return [];
+      }
+      throw error;
+    });
 
-  const responses = await Promise.all(promises);
+  const fallbackLocaleData = await strapiClient
+    .get<IStrapiResponse<IStrapiData<T>[]>>(path, {
+      params: {
+        ...sharedParams,
+        locale: STRAPI_FALLBACK_LOCALE,
+      },
+      cache,
+    })
+    .then((response) => response.data.data)
+    // when a collection type for a requested locale does not exist, Strapi returns a 404. In this case, we return an empty array instead of throwing an error
+    .catch((error) => {
+      if (error.response?.status === 404) {
+        return [];
+      }
+      throw error;
+    });
 
-  const results = responses.flat();
-
-  const localizedResponses = results.filter(
-    (d) => d.attributes.locale === locale
-  );
-
-  const fallbackResponses = results.filter(
-    (d) => d.attributes.locale === STRAPI_FALLBACK_LOCALE
-  );
-
-  const result = fallbackResponses.map((fallbackResponse) => {
-    const localizedResponse = localizedResponses.find(
+  const results = fallbackLocaleData.map((fallbackLocaleDataEntry) => {
+    const requestedLocale = requestedLocaleData.find(
       (localized) =>
-        localized.attributes[key] === fallbackResponse.attributes[key]
+        localized.attributes[key] === fallbackLocaleDataEntry.attributes[key]
     );
 
-    return localizedResponse || fallbackResponse;
+    return requestedLocale || fallbackLocaleDataEntry;
   });
 
-  return result;
+  return results;
 };
 
 export default getStrapiCollectionType;

@@ -36,6 +36,7 @@ const getStrapiCollectionType = async <
         params: {
           pLevel: '6',
           locale: loc,
+          status: 'published',
           'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
           filters,
           ...(preview ? { publicationState: 'preview' } : {}),

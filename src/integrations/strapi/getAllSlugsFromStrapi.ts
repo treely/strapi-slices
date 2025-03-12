@@ -26,6 +26,7 @@ const getAllSlugsFromStrapi = async <T extends LocalizedEntity<'slug'>>(
       .get<IStrapiResponse<IStrapiData<T>[]>>(path, {
         params: {
           locale,
+          status: 'published',
           'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
           filters,
         },

@@ -44,7 +44,7 @@ describe('The getAllSlugsFromStrapi function', () => {
           ],
         },
       })
-      .mockResolvedValueOnce({ data: { data: [] } });
+      .mockRejectedValueOnce({ response: { status: 404 } }); // Hungarian version is missing (404)
 
     const slugs = await slugsPromise;
 

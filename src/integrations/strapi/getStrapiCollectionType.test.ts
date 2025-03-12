@@ -74,8 +74,8 @@ describe('The getStrapiCollectionType function', () => {
 
     MockAxios.get
       .mockResolvedValueOnce({ data: { data: [strapiPageMock] } }) // english
-      .mockResolvedValueOnce({ data: { data: [] } })
-      .mockResolvedValueOnce({ data: { data: [] } });
+      .mockRejectedValueOnce({ response: { status: 404 } }) // Hungarian version is missing (404)
+      .mockRejectedValueOnce({ response: { status: 404 } }); // German version is missing (404)
 
     const pages = getStrapiCollectionType<StrapiPage, 'slug'>(
       '/api/pages',

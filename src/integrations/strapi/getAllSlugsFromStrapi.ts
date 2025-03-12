@@ -21,28 +21,33 @@ const getAllSlugsFromStrapi = async <T extends LocalizedEntity<'slug'>>(
 ): Promise<Slug[]> => {
   const allLocales = await getAvailableLocalesFromStrapi();
 
-  const slugPromises = allLocales.map((locale) => {
-    const params: Record<string, any> = {
-      locale,
-      'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
-      filters,
-    };
-
-    return strapiClient.get<IStrapiResponse<IStrapiData<T>[]>>(path, {
-      params,
-    });
-  });
+  const slugPromises = allLocales.map((locale) =>
+    strapiClient
+      .get<IStrapiResponse<IStrapiData<T>[]>>(path, {
+        params: {
+          locale,
+          'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
+          filters,
+        },
+      })
+      .then((response) =>
+        response.data.data.map((page) => ({
+          slug: page.attributes.slug,
+          locale: page.attributes.locale,
+        }))
+      )
+      // when a collection type for a requested locale does not exist, Strapi returns a 404. In this case, we return an empty array instead of throwing an error
+      .catch((error) => {
+        if (error.response?.status === 404) {
+          return [];
+        }
+        throw error;
+      })
+  );
 
   const slugResults = await Promise.all(slugPromises);
 
-  let allSlugs = slugResults
-    .map((result) =>
-      result.data.data.map((page) => ({
-        slug: page.attributes.slug,
-        locale: page.attributes.locale,
-      }))
-    )
-    .flat();
+  let allSlugs = slugResults.flat();
 
   // Identify missing locales for each slug
   const missingLocales = locales.flatMap((locale) => {

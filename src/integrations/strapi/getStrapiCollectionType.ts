@@ -30,27 +30,31 @@ const getStrapiCollectionType = async <
     allLocales.push(STRAPI_FALLBACK_LOCALE);
   }
 
-  const promises = allLocales.map((loc) => {
-    const params: Record<string, any> = {
-      pLevel: '6',
-      locale: loc,
-      'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
-      filters,
-    };
-
-    if (preview) {
-      params.publicationState = 'preview';
-    }
-
-    return strapiClient.get<IStrapiResponse<IStrapiData<T>[]>>(path, {
-      params,
-      cache,
-    });
-  });
+  const promises = allLocales.map((loc) =>
+    strapiClient
+      .get<IStrapiResponse<IStrapiData<T>[]>>(path, {
+        params: {
+          pLevel: '6',
+          locale: loc,
+          'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
+          filters,
+          ...(preview ? { publicationState: 'preview' } : {}),
+        },
+        cache,
+      })
+      .then((response) => response.data.data)
+      // when a collection type for a requested locale does not exist, Strapi returns a 404. In this case, we return an empty array instead of throwing an error
+      .catch((error) => {
+        if (error.response?.status === 404) {
+          return [];
+        }
+        throw error;
+      })
+  );
 
   const responses = await Promise.all(promises);
 
-  const results = responses.flatMap((response) => response.data.data);
+  const results = responses.flat();
 
   const localizedResponses = results.filter(
     (d) => d.attributes.locale === locale

@@ -2,12 +2,6 @@ import MockAxios from 'jest-mock-axios';
 import getStrapiCollectionType from './getStrapiCollectionType';
 import StrapiPage from '../../models/strapi/StrapiPage';
 import { strapiPageMock } from '../../test/strapiMocks/strapiPage';
-import getAvailableLocalesFromStrapi from './getAvailableLocalesFromStrapi';
-
-jest.mock('./getAvailableLocalesFromStrapi', () => ({
-  __esModule: true,
-  default: jest.fn(),
-}));
 
 describe('The getStrapiCollectionType function', () => {
   const germanStrapiPageMock = {
@@ -25,14 +19,7 @@ describe('The getStrapiCollectionType function', () => {
   });
 
   it('returns the localized versions if available', async () => {
-    (getAvailableLocalesFromStrapi as jest.Mock).mockResolvedValue([
-      'en',
-      'de',
-      'hu',
-    ]);
-
     MockAxios.get
-      .mockResolvedValueOnce({ data: { data: [strapiPageMock] } }) // english
       .mockResolvedValueOnce({
         data: {
           data: [
@@ -46,6 +33,7 @@ describe('The getStrapiCollectionType function', () => {
           ],
         },
       })
+      .mockResolvedValueOnce({ data: { data: [strapiPageMock] } }) // english
       .mockResolvedValueOnce({ data: { data: [] } });
 
     const pages = getStrapiCollectionType<StrapiPage, 'slug'>(
@@ -66,12 +54,6 @@ describe('The getStrapiCollectionType function', () => {
   });
 
   it('returns the english versions if no localized version is available', async () => {
-    (getAvailableLocalesFromStrapi as jest.Mock).mockResolvedValue([
-      'en',
-      'de',
-      'hu',
-    ]);
-
     MockAxios.get
       .mockResolvedValueOnce({ data: { data: [strapiPageMock] } }) // english
       .mockRejectedValueOnce({ response: { status: 404 } }) // Hungarian version is missing (404)

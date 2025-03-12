@@ -5,7 +5,7 @@ jest.mock('./strapiClient', () => ({
   get: jest.fn(),
 }));
 
-describe('getAvailableLocales function', () => {
+describe('The getAvailableLocales function', () => {
   it('should fetch available locales and return them correctly', async () => {
     const mockResponse = {
       data: [{ code: 'en' }, { code: 'de' }, { code: 'hu' }],

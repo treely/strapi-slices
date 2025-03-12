@@ -3,11 +3,6 @@ import getStrapiCollectionType from './getStrapiCollectionType';
 import StrapiPage from '../../models/strapi/StrapiPage';
 import { strapiPageMock } from '../../test/strapiMocks/strapiPage';
 import getAvailableLocalesFromStrapi from './getAvailableLocalesFromStrapi';
-import strapiClient from './strapiClient';
-
-jest.mock('./strapiClient', () => ({
-  get: jest.fn(),
-}));
 
 jest.mock('./getAvailableLocalesFromStrapi', () => ({
   __esModule: true,
@@ -36,11 +31,22 @@ describe('The getStrapiCollectionType function', () => {
       'hu',
     ]);
 
-    (strapiClient.get as jest.Mock).mockResolvedValue({
-      data: {
-        data: [strapiPageMock, germanStrapiPageMock],
-      },
-    });
+    MockAxios.get
+      .mockResolvedValueOnce({ data: { data: [strapiPageMock] } }) // english
+      .mockResolvedValueOnce({
+        data: {
+          data: [
+            {
+              ...germanStrapiPageMock,
+              attributes: {
+                ...germanStrapiPageMock.attributes,
+                locale: 'de',
+              },
+            },
+          ],
+        },
+      })
+      .mockResolvedValueOnce({ data: { data: [] } });
 
     const pages = getStrapiCollectionType<StrapiPage, 'slug'>(
       '/api/pages',
@@ -66,11 +72,10 @@ describe('The getStrapiCollectionType function', () => {
       'hu',
     ]);
 
-    (strapiClient.get as jest.Mock).mockResolvedValue({
-      data: {
-        data: [strapiPageMock],
-      },
-    });
+    MockAxios.get
+      .mockResolvedValueOnce({ data: { data: [strapiPageMock] } }) // english
+      .mockResolvedValueOnce({ data: { data: [] } })
+      .mockResolvedValueOnce({ data: { data: [] } });
 
     const pages = getStrapiCollectionType<StrapiPage, 'slug'>(
       '/api/pages',

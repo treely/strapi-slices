@@ -19,13 +19,14 @@ const getAllSlugsFromStrapi = async <T extends LocalizedEntity<'slug'>>(
   locales: string[],
   { filters = {} }: Options = { filters: {} }
 ): Promise<Slug[]> => {
-  const allLocales = await getAvailableLocalesFromStrapi();
+  const allLocales = locales || (await getAvailableLocalesFromStrapi());
 
   const slugPromises = allLocales.map((locale) =>
     strapiClient
       .get<IStrapiResponse<IStrapiData<T>[]>>(path, {
         params: {
           locale,
+          status: 'published',
           'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
           filters,
         },

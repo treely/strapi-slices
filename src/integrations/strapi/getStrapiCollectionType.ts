@@ -57,24 +57,31 @@ const getStrapiCollectionType = async <
 
   const results = responses.flat();
 
-  const localizedResponses = results.filter(
-    (d) => d.attributes.locale === locale
-  );
+  const entriesMap = new Map<string, IStrapiData<T>>();
 
-  const fallbackResponses = results.filter(
-    (d) => d.attributes.locale === STRAPI_FALLBACK_LOCALE
-  );
+  // TODO: add description to PR
+  // This change adds a unique key to each entry and ensures that all entries which don't exist in th requested locale are replaces with the fallback locale
 
-  const result = fallbackResponses.map((fallbackResponse) => {
-    const localizedResponse = localizedResponses.find(
-      (localized) =>
-        localized.attributes[key] === fallbackResponse.attributes[key]
-    );
-
-    return localizedResponse || fallbackResponse;
+  // Process localized responses first
+  results.forEach((entry) => {
+    const entryId = entry.id.toString(); // Ensure it's a string
+    if (entry.attributes.locale === locale) {
+      entriesMap.set(entryId, entry);
+    }
   });
 
-  return result;
+  // Process fallback responses only if they are not already present
+  results.forEach((entry) => {
+    const entryId = entry.id.toString();
+    if (
+      !entriesMap.has(entryId) &&
+      entry.attributes.locale === STRAPI_FALLBACK_LOCALE
+    ) {
+      entriesMap.set(entryId, entry);
+    }
+  });
+
+  return Array.from(entriesMap.values());
 };
 
 export default getStrapiCollectionType;

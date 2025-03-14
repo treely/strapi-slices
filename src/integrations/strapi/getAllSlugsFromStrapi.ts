@@ -19,7 +19,7 @@ const getAllSlugsFromStrapi = async <T extends LocalizedEntity<'slug'>>(
   locales: string[],
   { filters = {} }: Options = { filters: {} }
 ): Promise<Slug[]> => {
-  const allLocales = await getAvailableLocalesFromStrapi();
+  const allLocales = locales || (await getAvailableLocalesFromStrapi());
 
   const slugPromises = allLocales.map((locale) =>
     strapiClient

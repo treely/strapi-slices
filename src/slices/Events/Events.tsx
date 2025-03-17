@@ -87,7 +87,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
   ) => {
     const url = new URL(`/treely-events`, STRAPI_URI);
     url.searchParams.append(
-      'pagination[start]',
+      'pagination[startDate]',
       (index * batchSize).toString()
     );
     url.searchParams.append('pagination[limit]', batchSize.toString());
@@ -96,9 +96,9 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
     url.searchParams.append('pLevel', STRAPI_DEFAULT_POPULATE_DEPTH);
 
     if (sort[0] === Sort.OLDEST_FIRST) {
-      url.searchParams.append('sort', 'start:asc');
+      url.searchParams.append('sort', 'startDate:asc');
     } else {
-      url.searchParams.append('sort', 'start:desc');
+      url.searchParams.append('sort', 'startDate:desc');
     }
 
     if (eventTypeFilter.length) {
@@ -123,12 +123,13 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
 
   const getUpcomingKey: SWRInfiniteKeyLoader = useCallback(
     (index) =>
-      buildEventsUrl(index, UPCOMING_BATCH_SIZE, 'filters[start][$gte]'),
+      buildEventsUrl(index, UPCOMING_BATCH_SIZE, 'filters[startDate][$gte]'),
     [eventTypeFilter, languageFilter, sort]
   );
 
   const getPastKey: SWRInfiniteKeyLoader = useCallback(
-    (index) => buildEventsUrl(index, PAST_BATCH_SIZE, 'filters[start][$lt]'),
+    (index) =>
+      buildEventsUrl(index, PAST_BATCH_SIZE, 'filters[startDate][$lt]'),
     [eventTypeFilter, languageFilter, sort]
   );
 

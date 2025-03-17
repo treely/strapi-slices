@@ -19,7 +19,7 @@ const pastEventMock = {
   attributes: {
     ...strapiEventMock.attributes,
     title: 'Past Event',
-    start: '2024-12-01T10:00:00.000Z',
+    startDate: '2024-12-01',
     eventTypes: [{ id: 1, eventType: EventType.MEET_UP }],
     languages: [{ id: 1, language: 'English', countryCode: 'GB' }],
   },
@@ -30,7 +30,7 @@ const upcomingEventMock = {
   attributes: {
     ...strapiEventMock.attributes,
     title: 'Upcoming Event',
-    start: '2025-02-01T10:00:00.000Z',
+    startDate: '2025-02-01',
     eventTypes: [{ id: 1, eventType: EventType.CONFERENCE }],
     languages: [{ id: 1, language: 'German', countryCode: 'DE' }],
   },
@@ -68,7 +68,7 @@ describe('The Events slice', () => {
       const key = getKey(0, null);
       getKeyCalls.push(key.toString());
 
-      if (getKey.toString().includes('filters[start][$gte]')) {
+      if (getKey.toString().includes('filters[startDate][$gte]')) {
         return {
           data: [{ body: { data: [upcomingEventMock] } }],
           isLoading: false,
@@ -77,7 +77,7 @@ describe('The Events slice', () => {
           loadMore: jest.fn(),
         };
       }
-      if (getKey.toString().includes('filters[start][$lt]')) {
+      if (getKey.toString().includes('filters[startDate][$lt]')) {
         return {
           data: [{ body: { data: [pastEventMock] } }],
           isLoading: false,
@@ -149,7 +149,7 @@ describe('The Events slice', () => {
     // Use past events for the testing, because the batch for past events is defined as 2 and
     // the "Load button" will be shown when there are more then 2 past events
     (useEvents as jest.Mock).mockImplementation(({ getKey }) => {
-      if (getKey.toString().includes('filters[start][$lt]')) {
+      if (getKey.toString().includes('filters[startDate][$lt]')) {
         return {
           data: [
             {
@@ -243,7 +243,7 @@ describe('The Events slice', () => {
       await waitFor(() => {
         expect(getKeyCalls.map(decodeURIComponent)).toEqual(
           expect.arrayContaining([
-            expect.stringContaining('filters[start][$gte]'),
+            expect.stringContaining('filters[startDate][$gte]'),
             expect.stringContaining(
               'filters[$or][0][eventTypes][eventType]=Conference'
             ),
@@ -278,7 +278,7 @@ describe('The Events slice', () => {
       await waitFor(() => {
         expect(getKeyCalls.map(decodeURIComponent)).toEqual(
           expect.arrayContaining([
-            expect.stringContaining('filters[start][$gte]'),
+            expect.stringContaining('filters[startDate][$gte]'),
             expect.stringContaining(
               'filters[$or][0][languages][language]=German'
             ),
@@ -303,7 +303,7 @@ describe('The Events slice', () => {
         expect(getKeyCalls.map(decodeURIComponent)).toEqual(
           expect.arrayContaining([
             expect.stringContaining(
-              `filters[start][$gte]=${NOW.toISOString()}`
+              `filters[startDate][$gte]=${NOW.toISOString()}`
             ),
           ])
         );
@@ -341,7 +341,9 @@ describe('The Events slice', () => {
       await waitFor(() => {
         expect(getKeyCalls.map(decodeURIComponent)).toEqual(
           expect.arrayContaining([
-            expect.stringContaining(`filters[start][$lt]=${NOW.toISOString()}`),
+            expect.stringContaining(
+              `filters[startDate][$lt]=${NOW.toISOString()}`
+            ),
           ])
         );
       });

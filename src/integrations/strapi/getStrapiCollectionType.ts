@@ -1,6 +1,7 @@
 import strapiClient from './strapiClient';
 import {
   STRAPI_DEFAULT_PAGE_SIZE,
+  STRAPI_DEFAULT_POPULATE_DEPTH,
   STRAPI_FALLBACK_LOCALE,
 } from '../../constants/strapi';
 import IStrapiData from '../../models/strapi/IStrapiData';
@@ -25,7 +26,7 @@ const getStrapiCollectionType = async <
   const cache = preview ? false : undefined;
 
   const sharedParams = {
-    pLevel: '6',
+    pLevel: STRAPI_DEFAULT_POPULATE_DEPTH,
     'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
     filters,
     status: preview ? 'draft' : 'published',

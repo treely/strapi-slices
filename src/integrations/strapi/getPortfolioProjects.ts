@@ -4,7 +4,10 @@ import {
   PortfolioProject,
   StrapiProject,
 } from '../..';
-import { STRAPI_DEFAULT_PAGE_SIZE } from '../../constants/strapi';
+import {
+  STRAPI_DEFAULT_PAGE_SIZE,
+  STRAPI_DEFAULT_POPULATE_DEPTH,
+} from '../../constants/strapi';
 import FPMProject from '../../models/fpm/FPMProject';
 import fpmClient from '../fpmClient';
 import strapiClient from './strapiClient';
@@ -17,7 +20,7 @@ const getPortfolioProjects = async (
 ): Promise<PortfolioProject[]> => {
   const cache = preview ? false : undefined;
   const params: Record<string, any> = {
-    pLevel: '6',
+    pLevel: STRAPI_DEFAULT_POPULATE_DEPTH,
     locale,
     'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
     status: preview ? 'draft' : 'published',

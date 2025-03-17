@@ -28,7 +28,7 @@ const getStrapiCollectionType = async <
     pLevel: '6',
     'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
     filters,
-    ...(preview ? { publicationState: 'preview' } : {}),
+    status: preview ? 'draft' : 'published',
   };
 
   const requestedLocaleData = await strapiClient

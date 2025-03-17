@@ -20,11 +20,8 @@ const getPortfolioProjects = async (
     pLevel: '6',
     locale,
     'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
+    status: preview ? 'draft' : 'published',
   };
-
-  if (preview) {
-    params.publicationState = 'preview';
-  }
 
   const [
     { data: fpmProjects },

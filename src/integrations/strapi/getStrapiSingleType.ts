@@ -23,11 +23,8 @@ const getStrapiSingleType = async <T>(
     locale,
     'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
     filters,
+    status: preview ? 'draft' : 'published',
   };
-
-  if (preview) {
-    params.publicationState = 'preview';
-  }
 
   let response: AxiosResponse<IStrapiResponse<IStrapiData<T>>>;
 

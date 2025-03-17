@@ -36,6 +36,7 @@ import { BREAKPOINT_MD_QUERY } from '../../constants/breakpoints';
 import StrapiEvent, { EventType } from '../../models/strapi/StrapiEvent';
 import { IntlContext } from '../ContextProvider';
 import strapiMediaUrl from '../../utils/strapiMediaUrl';
+import convertStrapiTime from '../../utils/convertStrapiTime';
 
 export interface EventCardProps {
   event: StrapiEvent;
@@ -208,27 +209,22 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
               color={'var(--boemly-colors-primary-700)'}
             />
             <Text size={['xsLowBold', null, null, 'smLowBold']}>
-              {formatDate(event.start, {
+              {formatDate(event.startDate, {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
-              })}{' '}
-              |{' '}
-              {formatNumber(new Date(event.start).getUTCHours(), {
-                minimumIntegerDigits: 2,
               })}
-              :
-              {formatNumber(new Date(event.start).getUTCMinutes(), {
-                minimumIntegerDigits: 2,
-              })}{' '}
-              -{' '}
-              {formatNumber(new Date(event.end).getUTCHours(), {
-                minimumIntegerDigits: 2,
-              })}
-              :
-              {formatNumber(new Date(event.end).getUTCMinutes(), {
-                minimumIntegerDigits: 2,
-              })}
+              {event.startTime &&
+                ` | ${convertStrapiTime(event.startTime, formatNumber)} `}
+              {(event.endDate || event.endTime) && ' - '}
+              {event.endDate &&
+                formatDate(event.endDate, {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                })}
+              {event.endTime && event.endDate && ' | '}
+              {event.endTime && convertStrapiTime(event.endTime, formatNumber)}
             </Text>
           </Flex>
         </Flex>

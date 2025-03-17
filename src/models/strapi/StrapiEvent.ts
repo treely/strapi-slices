@@ -41,8 +41,10 @@ interface StrapiEvent {
   location?: string;
   locale: Locale;
   online?: boolean;
-  start: Date;
-  end: Date;
+  startDate: Date;
+  startTime?: string;
+  endDate?: Date;
+  endTime?: string;
   slices: any[];
   localizations: StrapiLocalization[];
   topBanner?: StrapiTopBanner;

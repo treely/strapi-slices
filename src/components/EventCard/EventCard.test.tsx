@@ -46,9 +46,13 @@ describe('The EventCard component', () => {
   it('displays start and end date and time correctly', () => {
     setup();
 
-    expect(
-      screen.getByText(/3\/12\/2024\s*\|\s*08:30\s*-\s*09:30/i)
-    ).toBeInTheDocument();
+    const textContent = screen.getByText(
+      /02\/12\/2024\s*\|\s*08:30\s*-\s*03\/12\/2024\s*\|\s*09:30/i
+    ).textContent;
+
+    const normalizedText = textContent?.replace(/\s+/g, ' ').trim();
+
+    expect(normalizedText).toBe('02/12/2024 | 08:30 - 03/12/2024 | 09:30');
   });
 
   it('displays the speakers', async () => {

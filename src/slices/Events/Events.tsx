@@ -23,7 +23,10 @@ import React, {
 import EventCard from '../../components/EventCard';
 import { SWRInfiniteKeyLoader } from 'swr/infinite';
 import useEvents from '../../models/hooks/useEvents';
-import { STRAPI_URI } from '../../constants/strapi';
+import {
+  STRAPI_DEFAULT_POPULATE_DEPTH,
+  STRAPI_URI,
+} from '../../constants/strapi';
 import { IntlContext } from '../../components/ContextProvider';
 import { mutate } from 'swr/_internal';
 import { EventType } from '@testing-library/react';
@@ -90,7 +93,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
     url.searchParams.append('pagination[limit]', batchSize.toString());
     url.searchParams.append(startFilter, now);
     url.searchParams.append('locale', locale);
-    url.searchParams.append('pLevel', '6');
+    url.searchParams.append('pLevel', STRAPI_DEFAULT_POPULATE_DEPTH);
 
     if (sort[0] === Sort.OLDEST_FIRST) {
       url.searchParams.append('sort', 'start:asc');
@@ -165,7 +168,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
   const fetchAllOptions = useCallback(async () => {
     const url = new URL(`/treely-events`, STRAPI_URI);
     url.searchParams.append('locale', locale);
-    url.searchParams.append('pLevel', '6');
+    url.searchParams.append('pLevel', STRAPI_DEFAULT_POPULATE_DEPTH);
 
     const response = await fetch(
       `${STRAPI_URI}/api/treely-events${url.search}`,

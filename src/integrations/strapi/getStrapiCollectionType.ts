@@ -66,14 +66,18 @@ const getStrapiCollectionType = async <
       throw error;
     });
 
-  const results = fallbackLocaleData.map((fallbackLocaleDataEntry) => {
-    const requestedLocale = requestedLocaleData.find(
-      (localized) =>
-        localized.attributes[key] === fallbackLocaleDataEntry.attributes[key]
-    );
+  const results =
+    fallbackLocaleData.length === 0
+      ? requestedLocaleData
+      : fallbackLocaleData.map((fallbackLocaleDataEntry) => {
+          const requestedLocale = requestedLocaleData.find(
+            (localized) =>
+              localized.attributes[key] ===
+              fallbackLocaleDataEntry.attributes[key]
+          );
 
-    return requestedLocale || fallbackLocaleDataEntry;
-  });
+          return requestedLocale || fallbackLocaleDataEntry;
+        });
 
   return results;
 };

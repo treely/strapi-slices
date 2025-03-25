@@ -87,7 +87,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
   ) => {
     const url = new URL(`/treely-events`, STRAPI_URI);
     url.searchParams.append(
-      'pagination[startDate]',
+      'pagination[start]',
       (index * batchSize).toString()
     );
     url.searchParams.append('pagination[limit]', batchSize.toString());

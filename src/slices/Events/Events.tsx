@@ -96,9 +96,9 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
     url.searchParams.append('pLevel', STRAPI_DEFAULT_POPULATE_DEPTH);
 
     if (sort[0] === Sort.OLDEST_FIRST) {
-      url.searchParams.append('sort', 'startDate:asc');
+      url.searchParams.append('sort', 'start:asc');
     } else {
-      url.searchParams.append('sort', 'startDate:desc');
+      url.searchParams.append('sort', 'start:desc');
     }
 
     if (eventTypeFilter.length) {
@@ -123,13 +123,12 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
 
   const getUpcomingKey: SWRInfiniteKeyLoader = useCallback(
     (index) =>
-      buildEventsUrl(index, UPCOMING_BATCH_SIZE, 'filters[startDate][$gte]'),
+      buildEventsUrl(index, UPCOMING_BATCH_SIZE, 'filters[start][$gte]'),
     [eventTypeFilter, languageFilter, sort]
   );
 
   const getPastKey: SWRInfiniteKeyLoader = useCallback(
-    (index) =>
-      buildEventsUrl(index, PAST_BATCH_SIZE, 'filters[startDate][$lt]'),
+    (index) => buildEventsUrl(index, PAST_BATCH_SIZE, 'filters[start][$lt]'),
     [eventTypeFilter, languageFilter, sort]
   );
 

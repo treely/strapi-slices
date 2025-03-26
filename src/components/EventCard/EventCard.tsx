@@ -36,7 +36,7 @@ import { BREAKPOINT_MD_QUERY } from '../../constants/breakpoints';
 import StrapiEvent, { EventType } from '../../models/strapi/StrapiEvent';
 import { IntlContext } from '../ContextProvider';
 import strapiMediaUrl from '../../utils/strapiMediaUrl';
-import convertStrapiTime from '../../utils/convertStrapiTime';
+import isSameDate from '../../utils/isSameDate';
 
 export interface EventCardProps {
   event: StrapiEvent;
@@ -209,22 +209,46 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
               color={'var(--boemly-colors-primary-700)'}
             />
             <Text size={['xsLowBold', null, null, 'smLowBold']}>
-              {formatDate(event.startDate, {
+              {formatDate(event.start, {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
               })}
-              {event.startTime &&
-                ` | ${convertStrapiTime(event.startTime, formatNumber)} `}
-              {(event.endDate || event.endTime) && ' - '}
-              {event.endDate &&
-                formatDate(event.endDate, {
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: '2-digit',
-                })}
-              {event.endTime && event.endDate && ' | '}
-              {event.endTime && convertStrapiTime(event.endTime, formatNumber)}
+
+              {!event.allDay &&
+                ` | ${formatNumber(new Date(event.start).getUTCHours(), {
+                  minimumIntegerDigits: 2,
+                })}:${formatNumber(new Date(event.start).getUTCMinutes(), {
+                  minimumIntegerDigits: 2,
+                })}`}
+
+              {event.end &&
+                !isSameDate(new Date(event.start), new Date(event.end)) && (
+                  <>
+                    {' - '}
+                    {formatDate(event.end, {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                    })}
+
+                    {!event.allDay &&
+                      ` | ${formatNumber(new Date(event.end).getUTCHours(), {
+                        minimumIntegerDigits: 2,
+                      })}:${formatNumber(new Date(event.end).getUTCMinutes(), {
+                        minimumIntegerDigits: 2,
+                      })}`}
+                  </>
+                )}
+
+              {event.end &&
+                !event.allDay &&
+                isSameDate(new Date(event.start), new Date(event.end)) &&
+                ` - ${formatNumber(new Date(event.end).getUTCHours(), {
+                  minimumIntegerDigits: 2,
+                })}:${formatNumber(new Date(event.end).getUTCMinutes(), {
+                  minimumIntegerDigits: 2,
+                })}`}
             </Text>
           </Flex>
         </Flex>

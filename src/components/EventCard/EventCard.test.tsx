@@ -55,6 +55,23 @@ describe('The EventCard component', () => {
     expect(normalizedText).toBe('02/12/2024 | 08:30 - 03/12/2024 | 09:30');
   });
 
+  it('does not display start and end time if allDay property set "true"', () => {
+    setup({
+      event: {
+        ...defaultProps.event,
+        allDay: true,
+      },
+    });
+
+    const textContent = screen.getByText(
+      /02\/12\/2024\s*-\s*03\/12\/2024/i
+    ).textContent;
+
+    const normalizedText = textContent?.replace(/\s+/g, ' ').trim();
+
+    expect(normalizedText).toBe('02/12/2024 - 03/12/2024');
+  });
+
   it('displays the speakers', async () => {
     setup();
 

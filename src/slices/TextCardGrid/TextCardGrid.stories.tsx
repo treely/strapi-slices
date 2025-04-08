@@ -141,16 +141,24 @@ WithButtons.args = {
     cards: [
       {
         ...cards[0],
-      },
-      {
-        ...cards[1],
         buttons: [
           { id: 1, url: 'url', text: 'Learn more' },
           { id: 2, url: 'url', text: 'Contact us', intercomLauncher: true },
         ],
       },
       {
+        ...cards[1],
+        buttons: [
+          { id: 3, url: 'url', text: 'Learn more' },
+          { id: 4, url: 'url', text: 'Contact us', intercomLauncher: true },
+        ],
+      },
+      {
         ...cards[2],
+        buttons: [
+          { id: 5, url: 'url', text: 'Learn more' },
+          { id: 6, url: 'url', text: 'Contact us', intercomLauncher: true },
+        ],
       },
     ],
   },

@@ -158,7 +158,7 @@ export const Comparison: React.FC<ComparisonProps> = ({
                 )}
                 <Flex gap="2" alignItems="center" flexWrap="wrap">
                   <Heading
-                    size="2xl"
+                    size="xl"
                     color={VARIANTS[comparisonCard.variant].textColor}
                     whiteSpace="pre-line"
                   >

@@ -140,6 +140,7 @@ export const ImageTextSequence: React.FC<ImageTextSequenceProps> = ({
                         size="sm"
                         variant="outline"
                         rightIcon={<CaretRight size="10" color={gray700} />}
+                        component="ImageTextSequence"
                       />
                     )}
                   </Box>

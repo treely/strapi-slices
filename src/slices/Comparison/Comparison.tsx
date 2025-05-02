@@ -212,6 +212,7 @@ export const Comparison: React.FC<ComparisonProps> = ({
                         size="md"
                         variant="outline"
                         rightIcon={<CaretRight size={16} weight="bold" />}
+                        component="Comparison"
                       />
                     )}
                   </Flex>

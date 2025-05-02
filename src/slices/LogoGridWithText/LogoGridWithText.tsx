@@ -53,6 +53,7 @@ export const LogoGridWithText: React.FC<LogoGridWithTextProps> = ({
                 variant="outline"
                 mt="6"
                 rightIcon={<ArrowRight />}
+                component="LogoGridWithText"
               />
             )}
           </Box>

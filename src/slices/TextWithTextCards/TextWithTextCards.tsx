@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Box,
   ContactArea,
@@ -20,6 +20,7 @@ import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
 import StrapiContactArea from '../../models/strapi/StrapiContactArea';
 import StrapiTextCardWithIcon from '../../models/strapi/StrapiTextCardWithIcons';
 import StrapiImage from '../../models/strapi/StrapiImage';
+import { AnalyticsContext } from '../../components/ContextProvider/ContextProvider';
 
 interface TextWithTextCardsSlice extends StrapiDefaultHeader {
   cards: StrapiTextCardWithIcon[];
@@ -34,8 +35,25 @@ export const TextWithTextCards: React.FC<TextWithTextCardsProps> = ({
   slice,
 }: TextWithTextCardsProps) => {
   const { push } = useRouter();
+  const analyticsFunction = useContext(AnalyticsContext);
   const [white] = useToken('colors', ['white']);
   const [belowBreakpoint] = useMediaQuery(BREAKPOINT_LG_QUERY);
+
+  const handleContactButtonClick = () => {
+    if (slice.contact?.button) {
+      analyticsFunction?.({
+        type: 'track',
+        props: {
+          action: 'click',
+          component: 'TextWithTextCards',
+          buttonText: slice.contact.button.text,
+          buttonUrl: strapiLinkUrl(slice.contact.button),
+          section: 'contact',
+        },
+      });
+      push(strapiLinkUrl(slice.contact.button));
+    }
+  };
 
   return (
     <DefaultSectionContainer backgroundColor={white} title={slice.title}>
@@ -116,7 +134,7 @@ export const TextWithTextCards: React.FC<TextWithTextCardsProps> = ({
                   }}
                   link={{
                     text: slice.contact.button.text,
-                    onClick: () => push(strapiLinkUrl(slice.contact?.button)),
+                    onClick: handleContactButtonClick,
                   }}
                 />
               )}
@@ -167,7 +185,7 @@ export const TextWithTextCards: React.FC<TextWithTextCardsProps> = ({
               }}
               link={{
                 text: slice.contact.button.text,
-                onClick: () => push(strapiLinkUrl(slice.contact?.button)),
+                onClick: handleContactButtonClick,
               }}
             />
           )}

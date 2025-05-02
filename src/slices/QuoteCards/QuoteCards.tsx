@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Image from 'next/image';
 import {
   Box,
@@ -17,6 +17,7 @@ import strapiLinkUrl from '../../utils/strapiLinkUrl';
 import StrapiImage from '../../models/strapi/StrapiImage';
 import convertToKebabCase from '../../utils/convertToKebabCase';
 import { useRouter } from 'next/router';
+import { AnalyticsContext } from '../../components/ContextProvider/ContextProvider';
 
 interface QuoteCardsSlice extends StrapiDefaultHeader {
   cards: StrapiQuoteCard[];
@@ -31,6 +32,23 @@ export const QuoteCards: React.FC<QuoteCardsProps> = ({
   slice,
 }: QuoteCardsProps) => {
   const { push } = useRouter();
+  const analyticsFunction = useContext(AnalyticsContext);
+
+  const handleHeroCardButtonClick = () => {
+    if (slice.hero?.button) {
+      analyticsFunction?.({
+        type: 'track',
+        props: {
+          action: 'click',
+          component: 'QuoteCards',
+          buttonText: slice.hero.button.text,
+          buttonUrl: strapiLinkUrl(slice.hero.button),
+          section: 'hero',
+        },
+      });
+      push(strapiLinkUrl(slice.hero.button));
+    }
+  };
 
   return (
     <>
@@ -120,7 +138,7 @@ export const QuoteCards: React.FC<QuoteCardsProps> = ({
               link={
                 slice.hero.button && {
                   text: slice.hero.button.text,
-                  onClick: () => push(strapiLinkUrl(slice.hero?.button)),
+                  onClick: handleHeroCardButtonClick,
                 }
               }
               image={

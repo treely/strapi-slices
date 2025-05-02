@@ -380,6 +380,7 @@ export const Cta: React.FC<CtaProps> = ({ slice }: CtaProps) => {
                                 link={button.button}
                                 size="md"
                                 variant={button.variant}
+                                component="Cta"
                               />
                             ))}
                         </Flex>

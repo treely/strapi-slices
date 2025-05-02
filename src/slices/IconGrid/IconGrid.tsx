@@ -109,6 +109,7 @@ export const IconGrid = ({ slice }: IconGridProps): JSX.Element => {
                     size="md"
                     variant="outline"
                     link={iconWithTextAndButton.button}
+                    component="IconGrid"
                   />
                 </Box>
               )}

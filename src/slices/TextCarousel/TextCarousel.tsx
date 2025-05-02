@@ -27,6 +27,7 @@ import { IntlContext } from '../../components/ContextProvider';
 import strapiLinkUrl from '../../utils/strapiLinkUrl';
 import { useRouter } from 'next/router';
 import shuffleElements from '../../utils/shuffleElements';
+import { AnalyticsContext } from '../../components/ContextProvider/ContextProvider';
 
 interface TextCarouselSlice extends StrapiDefaultHeader {
   slides: StrapiTextCardWithIcon[];
@@ -47,6 +48,7 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
   const [primary50] = useToken('colors', ['primary.50']);
   const [itemRef, { width: itemWidth }] = useMeasure<HTMLDivElement>();
   const { formatMessage } = useContext(IntlContext);
+  const analyticsFunction = useContext(AnalyticsContext);
   const { width: windowWidth } = useWindowSize();
   const { push } = useRouter();
 
@@ -81,6 +83,22 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
   }, [itemWidth, sliderIndex, sliderItemsWidth, windowWidth]);
 
   const canMoveLeft = useMemo(() => sliderIndex !== 0, [sliderIndex]);
+
+  const handleSlidesButtonClick = (button?: StrapiLink) => {
+    if (button) {
+      analyticsFunction?.({
+        type: 'track',
+        props: {
+          action: 'click',
+          component: 'TextCarousel',
+          buttonText: button.text,
+          buttonUrl: strapiLinkUrl(button),
+          section: 'slides',
+        },
+      });
+      push(strapiLinkUrl(button));
+    }
+  };
 
   const { slides, isShuffled = false } = slice;
 
@@ -146,7 +164,7 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
                     button={
                       button && {
                         text: button.text,
-                        onClick: () => push(strapiLinkUrl(button)),
+                        onClick: () => handleSlidesButtonClick(button),
                       }
                     }
                     displayAs="column"
@@ -222,6 +240,7 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
                 link={slice.button}
                 size="xl"
                 mt={['8', null, '14']}
+                component="TextCarousel"
               />
             </Center>
           </Wrapper>

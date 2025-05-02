@@ -304,6 +304,7 @@ const SmallCheckout = ({
               ...button,
             }}
             variant="outline"
+            component="SmallCheckout"
           />
         )}
       </Flex>

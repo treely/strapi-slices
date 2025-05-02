@@ -295,6 +295,7 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
                 link={event.button}
                 rightIcon={<CaretRight size="10" />}
                 width="full"
+                component="EventCard"
               />
             </Flex>
           )}

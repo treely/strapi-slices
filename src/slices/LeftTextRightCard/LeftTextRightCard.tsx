@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   DefaultSectionContainer,
   DefaultSectionHeader,
@@ -18,6 +18,7 @@ import StrapiPortfolioCard from '../../models/strapi/StrapiPortfolioCard';
 import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
 import StrapiLink from '../../models/strapi/StrapiLink';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
+import { AnalyticsContext } from '../../components/ContextProvider/ContextProvider';
 
 interface LeftTextRightCardSlice extends StrapiDefaultHeader {
   checkMarkLabels?: {
@@ -35,6 +36,26 @@ export const LeftTextRightCard: React.FC<LeftTextRightCardProps> = ({
   slice,
 }: LeftTextRightCardProps) => {
   const { push } = useRouter();
+  const analyticsFunction = useContext(AnalyticsContext);
+
+  const handleCardButtonClick = () => {
+    if (slice.card?.button) {
+      if (analyticsFunction) {
+        analyticsFunction({
+          type: 'track',
+          props: {
+            action: 'click',
+            component: 'LeftTextRightCard',
+            buttonText: slice.card?.button?.text,
+            buttonUrl: strapiLinkUrl(slice.card?.button),
+            cardTitle: slice.card?.title,
+          },
+        });
+      }
+
+      push(strapiLinkUrl(slice.card?.button));
+    }
+  };
 
   return (
     <DefaultSectionContainer title={slice.title}>
@@ -72,6 +93,7 @@ export const LeftTextRightCard: React.FC<LeftTextRightCardProps> = ({
                 colorScheme="white"
                 variant="outline"
                 rightIcon={<ArrowRight />}
+                component="LeftTextRightCard"
               />
             )}
           </GridItem>
@@ -86,7 +108,7 @@ export const LeftTextRightCard: React.FC<LeftTextRightCardProps> = ({
                 button={
                   slice.card.button && {
                     text: slice.card.button.text,
-                    onClick: () => push(strapiLinkUrl(slice.card?.button)),
+                    onClick: handleCardButtonClick,
                   }
                 }
                 facts={slice.card.facts}

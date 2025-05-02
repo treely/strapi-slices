@@ -54,12 +54,17 @@ export const MapHero: React.FC<MapHeroProps> = ({ slice }: MapHeroProps) => {
             />
             {slice.buttons && slice.buttons.length > 0 && (
               <Flex mt="10" flexDir="row" gap="5">
-                <StrapiLinkButton link={slice.buttons[0]} size="xl" />
+                <StrapiLinkButton
+                  link={slice.buttons[0]}
+                  size="xl"
+                  component="MapHero"
+                />
                 {slice.buttons.length === 2 && (
                   <StrapiLinkButton
                     link={slice.buttons[1]}
                     variant="outline"
                     size="xl"
+                    component="MapHero"
                   />
                 )}
               </Flex>

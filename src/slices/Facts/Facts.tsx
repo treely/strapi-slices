@@ -133,6 +133,7 @@ export const Facts: React.FC<FactsProps> = ({ slice }: FactsProps) => (
             link={slice.button}
             size="md"
             variant={slice.variant === 'green' ? 'outline' : 'solid'}
+            component="Facts"
           />
         </>
       )}

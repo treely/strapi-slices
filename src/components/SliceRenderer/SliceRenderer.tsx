@@ -42,6 +42,7 @@ import Locale from '../../models/Locale';
 import { ContextProvider } from '../ContextProvider';
 import Timeline from '../../slices/Timeline';
 import Events from '../../slices/Events';
+import { AnalyticsFunction } from '../ContextProvider/ContextProvider';
 
 export interface CustomSliceProps {
   slice: any;
@@ -55,6 +56,7 @@ export interface SliceRendererProps {
   customerStories: IStrapiData<StrapiCustomerStory>[];
   locale?: Locale;
   CustomSlice?: ({ slice, id }: CustomSliceProps) => JSX.Element;
+  analyticsFunction?: AnalyticsFunction;
 }
 
 export const SliceRenderer = ({
@@ -64,8 +66,9 @@ export const SliceRenderer = ({
   customerStories,
   locale = 'en',
   CustomSlice,
+  analyticsFunction,
 }: SliceRendererProps): JSX.Element => (
-  <ContextProvider locale={locale}>
+  <ContextProvider locale={locale} analyticsFunction={analyticsFunction}>
     {slices.map((slice: any) => {
       switch (slice.__component) {
         case 'sections.hero':

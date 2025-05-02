@@ -12,7 +12,7 @@ export interface CtaOnlyProps {
 export const CtaOnly: React.FC<CtaOnlyProps> = ({ slice }: CtaOnlyProps) => (
   <Wrapper>
     <Box position="absolute" top="-28" transform="translateY(50%)">
-      <StrapiLinkButton size="md" link={slice.button} />
+      <StrapiLinkButton size="md" link={slice.button} component="CtaOnly" />
     </Box>
   </Wrapper>
 );

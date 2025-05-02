@@ -272,6 +272,7 @@ export const TextCardGrid: React.FC<TextCardGridProps> = ({
                             ) : undefined
                           }
                           variant={buttonIndex === 0 ? 'outline' : 'ghost'}
+                          component="TextCardGrid"
                         />
                       ))}
                     </Flex>

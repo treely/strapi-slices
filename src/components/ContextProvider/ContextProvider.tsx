@@ -6,6 +6,18 @@ import getMessages from '../../utils/getMessages';
 import strapiClient from '../../integrations/strapi/strapiClient';
 import { SWRConfig } from 'swr/_internal';
 
+export type AnalyticsFunction = ({
+  type,
+  props,
+}: {
+  type: 'track' | 'page';
+  props?: Record<string, any>;
+}) => void;
+
+export const AnalyticsContext = createContext<AnalyticsFunction | undefined>(
+  undefined
+);
+
 const cache = createIntlCache();
 
 const intlFactory = (locale: string) =>
@@ -22,11 +34,13 @@ export const IntlContext = createContext(intlFactory('en'));
 export interface ContextProviderProps {
   children: React.ReactNode;
   locale: string;
+  analyticsFunction?: AnalyticsFunction;
 }
 
 export const ContextProvider: React.FC<ContextProviderProps> = ({
   children,
   locale,
+  analyticsFunction,
 }: ContextProviderProps): JSX.Element => {
   const fetcher = async (resource: any, init: any) => {
     const response = await strapiClient.get(`${resource}`, {
@@ -57,7 +71,9 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
       >
         <Global styles={{ GLOBAL_STYLE }} />
         <IntlContext.Provider value={intlFactory(locale)}>
-          {children}
+          <AnalyticsContext.Provider value={analyticsFunction}>
+            {children}
+          </AnalyticsContext.Provider>
         </IntlContext.Provider>
       </SWRConfig>
     </>

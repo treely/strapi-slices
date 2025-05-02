@@ -100,6 +100,7 @@ export const Hero = ({ slice }: HeroProps): JSX.Element => (
                 mt="10"
                 size="xl"
                 link={slice.button}
+                component="Hero"
               />
             )}
             {slice.additionalButtons.map((button) => (
@@ -109,6 +110,7 @@ export const Hero = ({ slice }: HeroProps): JSX.Element => (
                 size="xl"
                 variant={button.variant}
                 link={button.button}
+                component="Hero"
               />
             ))}
           </Flex>

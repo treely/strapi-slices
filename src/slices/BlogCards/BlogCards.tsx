@@ -111,6 +111,7 @@ export const BlogCards: React.FC<BlogCardsProps> = ({
                 size="lg"
                 variant="outline"
                 rightIcon={<CaretRight color={gray700} />}
+                component="BlogCards"
               />
             </Box>
           </Flex>
@@ -196,6 +197,7 @@ export const BlogCards: React.FC<BlogCardsProps> = ({
                   size="lg"
                   variant="outline"
                   rightIcon={<CaretRight color={gray700} />}
+                  component="BlogCards"
                 />
               </Box>
             </>

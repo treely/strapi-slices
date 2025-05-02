@@ -1,4 +1,10 @@
-import React, { createRef, useEffect, useRef, useState } from 'react';
+import React, {
+  createRef,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   Box,
   Center,
@@ -21,6 +27,7 @@ import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
 import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import strapiLinkUrl from '../../utils/strapiLinkUrl';
 import StrapiImage from '../../models/strapi/StrapiImage';
+import { AnalyticsContext } from '../../components/ContextProvider/ContextProvider';
 
 interface StepsSlice extends StrapiDefaultHeader {
   steps: {
@@ -38,6 +45,8 @@ export interface StepsProps {
 
 export const Steps: React.FC<StepsProps> = ({ slice }: StepsProps) => {
   const { push } = useRouter();
+  const analyticsFunction = useContext(AnalyticsContext);
+
   const [gray900] = useToken('colors', ['gray.900']);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -50,6 +59,21 @@ export const Steps: React.FC<StepsProps> = ({ slice }: StepsProps) => {
   const { y: offsetY } = useWindowScroll();
   const { height: windowHeight } = useWindowSize();
 
+  const handleShapesCardButtonClick = () => {
+    if (slice.card?.button) {
+      analyticsFunction?.({
+        type: 'track',
+        props: {
+          action: 'click',
+          component: 'Steps',
+          buttonText: slice.card.button.text,
+          buttonUrl: strapiLinkUrl(slice.card.button),
+          section: 'card',
+        },
+      });
+      push(strapiLinkUrl(slice.card.button));
+    }
+  };
   useEffect(() => {
     setStepRefs(slice.steps.map(() => createRef()));
   }, []);
@@ -186,7 +210,7 @@ export const Steps: React.FC<StepsProps> = ({ slice }: StepsProps) => {
                 button={
                   slice.card.button && {
                     text: slice.card.button.text,
-                    onClick: () => push(strapiLinkUrl(slice.card?.button)),
+                    onClick: handleShapesCardButtonClick,
                   }
                 }
               />

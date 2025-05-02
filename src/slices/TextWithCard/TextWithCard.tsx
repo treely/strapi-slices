@@ -117,6 +117,7 @@ export const TextWithCard: React.FC<TextWithCardProps> = ({
                 colorScheme="white"
                 variant="outline"
                 rightIcon={<ArrowRight />}
+                component="TextWithCard"
               />
             )}
           </GridItem>

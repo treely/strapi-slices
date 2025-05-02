@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Box,
   Heading,
@@ -19,6 +19,7 @@ import StrapiHeroCard from '../../models/strapi/StrapiHeroCard';
 import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
 import convertToKebabCase from '../../utils/convertToKebabCase';
+import { AnalyticsContext } from '../../components/ContextProvider/ContextProvider';
 
 const VARIANTS = {
   gray: {
@@ -63,6 +64,23 @@ export interface QAndAProps {
 
 export const QAndA: React.FC<QAndAProps> = ({ slice }: QAndAProps) => {
   const { push } = useRouter();
+  const analyticsFunction = useContext(AnalyticsContext);
+
+  const handleHeroButtonClick = () => {
+    if (slice.hero?.button) {
+      analyticsFunction?.({
+        type: 'track',
+        props: {
+          action: 'click',
+          component: 'QAndA',
+          buttonText: slice.hero.button.text,
+          buttonUrl: strapiLinkUrl(slice.hero.button),
+          section: 'hero',
+        },
+      });
+      push(strapiLinkUrl(slice.hero.button));
+    }
+  };
 
   const variant = VARIANTS[slice.variant ?? 'green'];
 
@@ -120,6 +138,7 @@ export const QAndA: React.FC<QAndAProps> = ({ slice }: QAndAProps) => {
                     background="white"
                     rightIcon={<ArrowRight />}
                     link={slice.button}
+                    component="QAndA"
                   />
                 </Flex>
               </Box>
@@ -137,7 +156,7 @@ export const QAndA: React.FC<QAndAProps> = ({ slice }: QAndAProps) => {
               link={
                 slice.hero.button && {
                   text: slice.hero.button.text,
-                  onClick: () => push(strapiLinkUrl(slice.hero?.button)),
+                  onClick: handleHeroButtonClick,
                 }
               }
               image={

@@ -250,6 +250,7 @@ export const Timeline: React.FC<TimelineProps> = ({ slice }: TimelineProps) => {
                             link={item.button}
                             size="sm"
                             variant="outline"
+                            component="Timeline"
                           />
                         </Box>
                       )}

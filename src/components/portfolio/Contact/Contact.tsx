@@ -65,7 +65,13 @@ export const Contact: React.FC<ContactProps> = ({
         <></>
       )}
       {button ? (
-        <StrapiLinkButton mt="6" link={button} size="md" variant="outline" />
+        <StrapiLinkButton
+          mt="6"
+          link={button}
+          size="md"
+          variant="outline"
+          component="Contact"
+        />
       ) : (
         <></>
       )}

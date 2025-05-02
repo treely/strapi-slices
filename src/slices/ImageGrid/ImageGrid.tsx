@@ -79,6 +79,7 @@ export const ImageGrid: React.FC<ImageGridProps> = ({
                       link={link}
                       size="sm"
                       variant="outline"
+                      component="ImageGrid"
                     />
                   ))}
                 </Flex>

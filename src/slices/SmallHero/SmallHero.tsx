@@ -114,7 +114,12 @@ export const SmallHero: React.FC<SmallHeroProps> = ({
             }}
           />
           {slice.button && (
-            <StrapiLinkButton link={slice.button} mt="6" size="lg" />
+            <StrapiLinkButton
+              link={slice.button}
+              mt="6"
+              size="lg"
+              component="SmallHero"
+            />
           )}
         </>
       </Wrapper>

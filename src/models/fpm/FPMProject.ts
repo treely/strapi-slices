@@ -10,6 +10,7 @@ export enum CreditAvailability {
 interface FPMProject {
   id: string;
   title: string;
+  friendlyName?: string;
 
   isPublic?: boolean;
   geom?: {

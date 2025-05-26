@@ -33,7 +33,7 @@ export const ProjectGridCard = ({
           </Box>
         )}
         <Heading my="4" size="lg">
-          {project.title}
+          {project.friendlyName || project.title}
         </Heading>
         <Flex flexDir="row" gap="2" flexWrap="wrap">
           <Tag>

@@ -95,7 +95,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
         createRoot(ref.current).render(
           <MinimalProviders locale={locale}>
             <MapMarker
-              title={project.title}
+              title={project.friendlyName || project.title}
               isPublic={project.isPublic}
               portfolioHost={project.portfolioHost}
               slug={project.slug}

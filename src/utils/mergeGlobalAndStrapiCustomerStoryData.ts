@@ -23,6 +23,11 @@ const mergeGlobalAndStrapiCustomerStoryData = (
       )
     : DEFAULT_SHARE_IMAGE;
 
+  const schemaMarkupTypes =
+    customerStory.attributes.metadata?.schemaMarkupTypes ??
+    global.attributes.metadata?.schemaMarkupTypes ??
+    [];
+
   const returnCustomerStories = customerStory.attributes.slices.some((slice) =>
     SLICES_WITH_CUSTOMER_STORIES.includes(slice.__component)
   );
@@ -60,6 +65,7 @@ const mergeGlobalAndStrapiCustomerStoryData = (
       },
       metaTitleSuffix: global.attributes.metaTitleSuffix,
       favicon: strapiMediaUrl(global.attributes.favicon, 'thumbnail'),
+      schemaMarkupTypes,
     },
     slices: customerStory?.attributes.slices,
     customerStories: returnCustomerStories ? customerStories : [],

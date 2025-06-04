@@ -6,6 +6,7 @@ interface PageMetadata {
   shareImage?: Image;
   metaTitleSuffix?: string;
   favicon?: string;
+  schemaMarkupTypes?: string[];
 }
 
 export default PageMetadata;

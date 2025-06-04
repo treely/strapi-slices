@@ -187,4 +187,82 @@ describe('The mergeGlobalAndStrapiCustomerStoryData util', () => {
 
     expect(result.isFallbackLocale).toBeTruthy();
   });
+
+  it('handles schema markup types correctly', () => {
+    const globalDataWithSchemaMarkup = {
+      ...minimalGlobalData,
+      attributes: {
+        ...minimalGlobalData.attributes,
+        metadata: {
+          ...minimalGlobalData.attributes.metadata,
+          schemaMarkupTypes: ['Organization'],
+        },
+      },
+    };
+
+    const customerStoryDataWithSchemaMarkup = {
+      ...strapiCustomerStoryMock,
+      attributes: {
+        ...strapiCustomerStoryMock.attributes,
+        metadata: {
+          ...strapiMetadataMock,
+          schemaMarkupTypes: ['Article', 'BlogPosting'],
+        },
+      },
+    };
+
+    // Test customer story-level schema markup
+    const resultWithCustomerStorySchema = mergeGlobalAndStrapiCustomerStoryData(
+      getStaticPropsContextMock,
+      globalDataWithSchemaMarkup,
+      customerStoryDataWithSchemaMarkup,
+      []
+    );
+    expect(resultWithCustomerStorySchema.metadata.schemaMarkupTypes).toEqual([
+      'Article',
+      'BlogPosting',
+    ]);
+
+    // Test global fallback
+    const customerStoryDataWithoutSchema = {
+      ...strapiCustomerStoryMock,
+      attributes: {
+        ...strapiCustomerStoryMock.attributes,
+        metadata: {
+          ...strapiMetadataMock,
+          schemaMarkupTypes: undefined,
+        },
+      },
+    };
+
+    const resultWithGlobalSchema = mergeGlobalAndStrapiCustomerStoryData(
+      getStaticPropsContextMock,
+      globalDataWithSchemaMarkup,
+      customerStoryDataWithoutSchema,
+      []
+    );
+    expect(resultWithGlobalSchema.metadata.schemaMarkupTypes).toEqual([
+      'Organization',
+    ]);
+
+    // Test empty array fallback
+    const globalDataWithoutSchema = {
+      ...minimalGlobalData,
+      attributes: {
+        ...minimalGlobalData.attributes,
+        metadata: {
+          ...minimalGlobalData.attributes.metadata,
+          schemaMarkupTypes: undefined,
+        },
+      },
+    };
+
+    const resultWithNoSchema = mergeGlobalAndStrapiCustomerStoryData(
+      getStaticPropsContextMock,
+      globalDataWithoutSchema,
+      customerStoryDataWithoutSchema,
+      []
+    );
+    expect(resultWithNoSchema.metadata.schemaMarkupTypes).toEqual([]);
+  });
 });

@@ -219,4 +219,85 @@ describe('The mergeGlobalAndStrapiBlogPostData util', () => {
 
     expect(result.isFallbackLocale).toBeTruthy();
   });
+
+  it('handles schema markup types correctly', () => {
+    const globalDataWithSchemaMarkup = {
+      ...minimalGlobalData,
+      attributes: {
+        ...minimalGlobalData.attributes,
+        metadata: {
+          ...minimalGlobalData.attributes.metadata,
+          schemaMarkupTypes: ['Organization'],
+        },
+      },
+    };
+
+    const blogPostDataWithSchemaMarkup = {
+      ...strapiBlogPostMock,
+      attributes: {
+        ...strapiBlogPostMock.attributes,
+        metadata: {
+          ...strapiMetadataMock,
+          schemaMarkupTypes: ['Article', 'BlogPosting'],
+        },
+      },
+    };
+
+    // Test blog post-level schema markup
+    const resultWithBlogPostSchema = mergeGlobalAndStrapiBlogPostData(
+      getStaticPropsContextMock,
+      globalDataWithSchemaMarkup,
+      blogPostDataWithSchemaMarkup,
+      [],
+      []
+    );
+    expect(resultWithBlogPostSchema.metadata.schemaMarkupTypes).toEqual([
+      'Article',
+      'BlogPosting',
+    ]);
+
+    // Test global fallback
+    const blogPostDataWithoutSchema = {
+      ...strapiBlogPostMock,
+      attributes: {
+        ...strapiBlogPostMock.attributes,
+        metadata: {
+          ...strapiMetadataMock,
+          schemaMarkupTypes: undefined,
+        },
+      },
+    };
+
+    const resultWithGlobalSchema = mergeGlobalAndStrapiBlogPostData(
+      getStaticPropsContextMock,
+      globalDataWithSchemaMarkup,
+      blogPostDataWithoutSchema,
+      [],
+      []
+    );
+    expect(resultWithGlobalSchema.metadata.schemaMarkupTypes).toEqual([
+      'Organization',
+    ]);
+
+    // Test empty array fallback
+    const globalDataWithoutSchema = {
+      ...minimalGlobalData,
+      attributes: {
+        ...minimalGlobalData.attributes,
+        metadata: {
+          ...minimalGlobalData.attributes.metadata,
+          schemaMarkupTypes: undefined,
+        },
+      },
+    };
+
+    const resultWithNoSchema = mergeGlobalAndStrapiBlogPostData(
+      getStaticPropsContextMock,
+      globalDataWithoutSchema,
+      blogPostDataWithoutSchema,
+      [],
+      []
+    );
+    expect(resultWithNoSchema.metadata.schemaMarkupTypes).toEqual([]);
+  });
 });

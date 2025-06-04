@@ -301,4 +301,85 @@ describe('The mergeGlobalAndStrapiProjectData util', () => {
 
     expect(result.isFallbackLocale).toBeTruthy();
   });
+
+  it('handles schema markup types correctly', () => {
+    const globalDataWithSchemaMarkup = {
+      ...minimalGlobalData,
+      attributes: {
+        ...minimalGlobalData.attributes,
+        metadata: {
+          ...minimalGlobalData.attributes.metadata,
+          schemaMarkupTypes: ['Organization'],
+        },
+      },
+    };
+
+    const projectDataWithSchemaMarkup = {
+      ...strapiProjectMock,
+      attributes: {
+        ...strapiProjectMock.attributes,
+        metadata: {
+          ...strapiMetadataMock,
+          schemaMarkupTypes: ['Article', 'BlogPosting'],
+        },
+      },
+    };
+
+    // Test project-level schema markup
+    const resultWithProjectSchema = mergeGlobalAndStrapiProjectData(
+      getStaticPropsContextMock,
+      globalDataWithSchemaMarkup,
+      projectDataWithSchemaMarkup,
+      [],
+      []
+    );
+    expect(resultWithProjectSchema.metadata.schemaMarkupTypes).toEqual([
+      'Article',
+      'BlogPosting',
+    ]);
+
+    // Test global fallback
+    const projectDataWithoutSchema = {
+      ...strapiProjectMock,
+      attributes: {
+        ...strapiProjectMock.attributes,
+        metadata: {
+          ...strapiMetadataMock,
+          schemaMarkupTypes: undefined,
+        },
+      },
+    };
+
+    const resultWithGlobalSchema = mergeGlobalAndStrapiProjectData(
+      getStaticPropsContextMock,
+      globalDataWithSchemaMarkup,
+      projectDataWithoutSchema,
+      [],
+      []
+    );
+    expect(resultWithGlobalSchema.metadata.schemaMarkupTypes).toEqual([
+      'Organization',
+    ]);
+
+    // Test empty array fallback
+    const globalDataWithoutSchema = {
+      ...minimalGlobalData,
+      attributes: {
+        ...minimalGlobalData.attributes,
+        metadata: {
+          ...minimalGlobalData.attributes.metadata,
+          schemaMarkupTypes: undefined,
+        },
+      },
+    };
+
+    const resultWithNoSchema = mergeGlobalAndStrapiProjectData(
+      getStaticPropsContextMock,
+      globalDataWithoutSchema,
+      projectDataWithoutSchema,
+      [],
+      []
+    );
+    expect(resultWithNoSchema.metadata.schemaMarkupTypes).toEqual([]);
+  });
 });

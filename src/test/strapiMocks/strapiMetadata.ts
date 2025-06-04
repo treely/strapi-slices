@@ -9,4 +9,5 @@ export const strapiMetadataMock: StrapiMetadata = {
     alt: 'Share image',
     media: { data: strapiMediaMock },
   },
+  schemaMarkupTypes: ['Article', 'BlogPosting'],
 };

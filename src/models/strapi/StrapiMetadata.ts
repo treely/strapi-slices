@@ -5,6 +5,7 @@ import StrapiMedia from './StrapiMedia';
 interface StrapiMetadata {
   title: string;
   description: string;
+  schemaMarkupTypes?: string[];
   shareImage?: {
     id: number;
     alt: string;

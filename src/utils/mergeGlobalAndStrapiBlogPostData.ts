@@ -28,6 +28,11 @@ const mergeGlobalAndStrapiBlogPostData = (
       )
     : DEFAULT_SHARE_IMAGE;
 
+  const schemaMarkupTypes =
+    post.attributes.metadata?.schemaMarkupTypes ??
+    global.attributes.metadata?.schemaMarkupTypes ??
+    [];
+
   const returnBlog = post.attributes.slices.some((slice) =>
     SLICES_WITH_BLOG_POSTS.includes(slice.__component)
   );
@@ -67,6 +72,7 @@ const mergeGlobalAndStrapiBlogPostData = (
       },
       metaTitleSuffix: global.attributes.metaTitleSuffix,
       favicon: strapiMediaUrl(global.attributes.favicon, 'thumbnail'),
+      schemaMarkupTypes,
     },
     slices: post?.attributes.slices,
     blogPosts: returnBlog ? blog : [],

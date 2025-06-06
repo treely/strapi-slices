@@ -1,7 +1,5 @@
 import React from 'react';
 import { StoryFn, Meta } from '@storybook/react';
-
-import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
 import ProjectsMap from '.';
 
 export default {
@@ -16,17 +14,6 @@ const Template: StoryFn<typeof ProjectsMap> = (args) => (
 export const Minimal = Template.bind({});
 Minimal.args = {
   slice: {},
-  projects: [
-    fpmProjectMock,
-    {
-      isPublic: true,
-      ...fpmProjectMock,
-      geom: {
-        type: 'Point',
-        coordinates: [10.33654214510088, 47.82636837845707],
-      },
-    },
-  ],
 };
 
 export const WithHero = Template.bind({});
@@ -36,18 +23,6 @@ WithHero.args = {
     text: 'Projects Map Text',
     title: 'Projects Map Title',
   },
-
-  projects: [
-    fpmProjectMock,
-    {
-      isPublic: true,
-      ...fpmProjectMock,
-      geom: {
-        type: 'Point',
-        coordinates: [10.33654214510088, 47.82636837845707],
-      },
-    },
-  ],
 };
 
 export const InitialPosition = Template.bind({});
@@ -59,17 +34,6 @@ InitialPosition.args = {
     },
     defaultZoomLevel: 10,
   },
-  projects: [
-    fpmProjectMock,
-    {
-      ...fpmProjectMock,
-      isPublic: true,
-      geom: {
-        type: 'Point',
-        coordinates: [10.33654214510088, 47.82636837845707],
-      },
-    },
-  ],
 };
 
 export const FullProps = Template.bind({});
@@ -85,16 +49,4 @@ FullProps.args = {
     },
     defaultZoomLevel: 10,
   },
-  projects: [
-    fpmProjectMock,
-    {
-      ...fpmProjectMock,
-      slug: 'project-slug',
-      isPublic: true,
-      geom: {
-        type: 'Point',
-        coordinates: [10.33654214510088, 47.82636837845707],
-      },
-    },
-  ],
 };

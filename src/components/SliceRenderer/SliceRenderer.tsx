@@ -210,7 +210,6 @@ export const SliceRenderer = ({
             <ProjectsMap
               key={`${slice.__component}-${slice.id}`}
               slice={slice}
-              projects={projects}
             />
           );
         case 'sections.video':

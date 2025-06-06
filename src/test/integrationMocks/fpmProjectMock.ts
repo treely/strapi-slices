@@ -9,6 +9,7 @@ const fpmProjectMock: FPMProject = {
   },
   area: 1400000,
   location: 'Austria',
+  countryCode: 'AT',
   start: new Date('2020-01-01'),
   end: new Date('2050-12-31'),
   projectType: {

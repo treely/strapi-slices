@@ -10,6 +10,7 @@ export enum CreditAvailability {
 interface FPMProject {
   id: string;
   title: string;
+  description?: string;
   friendlyName?: string;
 
   isPublic?: boolean;
@@ -19,6 +20,7 @@ interface FPMProject {
   };
   area?: number;
   location?: string;
+  countryCode: string;
   start?: Date;
   end?: Date;
   projectType?: {
@@ -29,6 +31,7 @@ interface FPMProject {
   };
   projectDeveloper?: {
     name: string;
+    friendlyName?: string;
     id: string;
     createdAt: Date;
     updatedAt: Date;

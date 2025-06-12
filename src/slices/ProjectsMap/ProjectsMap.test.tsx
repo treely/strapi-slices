@@ -11,10 +11,10 @@ import {
   mapGetSourceSpy,
   mapQuerySourceFeaturesSpy,
 } from '../../../__mocks__/mapbox-gl';
-import getPortfolioProjectsByBbox from '../../integrations/strapi/getPortfolioProjectsByBbox';
+import getFpmProjectsByBbox from '../../integrations/strapi/getFpmProjectsByBbox';
 
-// Mock getPortfolioProjectsByBbox
-jest.mock('../../integrations/strapi/getPortfolioProjectsByBbox', () => ({
+// Mock getFpmProjectsByBbox
+jest.mock('../../integrations/strapi/getFpmProjectsByBbox', () => ({
   __esModule: true,
   default: jest.fn().mockResolvedValue({
     type: 'FeatureCollection',
@@ -93,7 +93,7 @@ describe('The ProjectsMap component', () => {
 
     // Verify the API was called with the correct bbox
     await waitFor(() => {
-      expect(getPortfolioProjectsByBbox).toHaveBeenCalledWith(
+      expect(getFpmProjectsByBbox).toHaveBeenCalledWith(
         '-1.9950830850086163,44.4464186384987,21.995083085002875,54.12644342419196'
       );
     });
@@ -124,7 +124,7 @@ describe('The ProjectsMap component', () => {
       ],
     };
 
-    (getPortfolioProjectsByBbox as jest.Mock).mockResolvedValueOnce(
+    (getFpmProjectsByBbox as jest.Mock).mockResolvedValueOnce(
       mockFeatureCollection
     );
     mapGetSourceSpy.mockReturnValue(null);

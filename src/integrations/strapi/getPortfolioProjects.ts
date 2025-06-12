@@ -1,60 +1,19 @@
-import {
-  IStrapiData,
-  IStrapiResponse,
-  PortfolioProject,
-  StrapiProject,
-} from '../..';
-import {
-  STRAPI_DEFAULT_PAGE_SIZE,
-  STRAPI_DEFAULT_POPULATE_DEPTH,
-} from '../../constants/strapi';
+import { PortfolioProject } from '../..';
+import { STRAPI_DEFAULT_POPULATE_DEPTH } from '../../constants/strapi';
 import FPMProject from '../../models/fpm/FPMProject';
 import fpmClient from '../fpmClient';
-import strapiClient from './strapiClient';
-
-const FALLBACK_LOCALE = 'en';
+import getStrapiProjects from './getStrapiProjects';
 
 const getPortfolioProjects = async (
   locale: string = 'en',
   preview: boolean = false
 ): Promise<PortfolioProject[]> => {
   const cache = preview ? false : undefined;
-  const params: Record<string, any> = {
-    pLevel: STRAPI_DEFAULT_POPULATE_DEPTH,
-    locale,
-    'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
-    status: preview ? 'draft' : 'published',
-  };
 
-  const [
-    { data: fpmProjects },
-    { data: strapiProjectsLocalized },
-    { data: strapiProjectsEnglish },
-  ] = await Promise.all([
+  const [{ data: fpmProjects }, strapiProjects] = await Promise.all([
     fpmClient.get<FPMProject[]>('/public/projects', { cache }),
-    strapiClient.get<IStrapiResponse<IStrapiData<StrapiProject>[]>>(
-      '/projects',
-      { params, cache }
-    ),
-    strapiClient.get<IStrapiResponse<IStrapiData<StrapiProject>[]>>(
-      '/projects',
-      {
-        params: { ...params, locale: FALLBACK_LOCALE },
-        cache,
-      }
-    ),
+    getStrapiProjects(locale, STRAPI_DEFAULT_POPULATE_DEPTH, preview),
   ]);
-
-  const strapiProjects = new Map<string, IStrapiData<StrapiProject>>();
-
-  for (const project of [
-    ...strapiProjectsEnglish.data,
-    ...strapiProjectsLocalized.data,
-  ]) {
-    if (project.attributes.fpmProjectId) {
-      strapiProjects.set(project.attributes.fpmProjectId, project);
-    }
-  }
 
   return fpmProjects.map((fpmProject: FPMProject) => {
     const strapiProject = strapiProjects.get(fpmProject.id);

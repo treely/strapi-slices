@@ -17,8 +17,11 @@ import { IntlContext } from '../../components/ContextProvider';
 import mapboxStyle from './mapboxStyle';
 import { FeatureCollection } from 'geojson';
 import debounce from 'lodash/debounce';
-import getPortfolioProjectsByBbox from '../../integrations/strapi/getPortfolioProjectsByBbox';
+import getFpmProjectsByBbox from '../../integrations/strapi/getFpmProjectsByBbox';
+import getStrapiProjects from '../../integrations/strapi/getStrapiProjects';
+import mergeProjectData from '../../utils/mergeProjectData';
 import { CreditAvailability } from '../../models/fpm/FPMProject';
+import { IStrapiData, StrapiProject } from '../..';
 
 const projectPinImage =
   'https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.0.2/assets/fill/map-pin-fill.svg';
@@ -50,10 +53,10 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const initialBboxRef = useRef<string | null>(null);
   const [isMapReady, setIsMapReady] = useState(false);
-  const [userLocation, setUserLocation] = useState<{
-    lat: number;
-    lon: number;
-  } | null>(null);
+  const [strapiProjects, setStrapiProjects] = useState<Map<
+    string,
+    IStrapiData<StrapiProject>
+  > | null>(null);
 
   const isBboxContained = useCallback(
     (innerBbox: string, outerBbox: string): boolean => {
@@ -73,17 +76,37 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
     []
   );
 
-  const fetchProjectsData = useCallback(async (bbox: string) => {
-    setIsLoading(true);
+  const fetchStrapiData = useCallback(async () => {
+    if (strapiProjects) return; // If we already have Strapi data, don't fetch it again
+
     try {
-      const data = await getPortfolioProjectsByBbox(bbox);
-      setFeatureCollection(data);
+      const data = await getStrapiProjects(locale, '2'); // pLevel = Population depth which is a param in the API request. 2 is enough to get the slug and the portfolioHost
+      setStrapiProjects(data);
     } catch (error) {
-      console.error('Error fetching projects:', error);
-    } finally {
-      setIsLoading(false);
+      console.error('❌ Error fetching Strapi projects:', error);
     }
-  }, []);
+  }, [locale, strapiProjects]);
+
+  const fetchProjectsData = useCallback(
+    async (bbox: string) => {
+      setIsLoading(true);
+      try {
+        const fpmData = await getFpmProjectsByBbox(bbox);
+
+        // If we have Strapi data, merge it, otherwise show FPM data immediately
+        const mergedData = strapiProjects
+          ? mergeProjectData(fpmData, strapiProjects)
+          : fpmData;
+
+        setFeatureCollection(mergedData);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [strapiProjects]
+  );
 
   const debouncedUpdateBbox = useCallback(
     debounce(() => {
@@ -280,10 +303,6 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
         const projectUrl =
           slug && portfolioHost ? `${portfolioHost}/portfolio/${slug}` : null;
 
-        console.log('projectUrl', projectUrl);
-        console.log('slug', slug);
-        console.log('portfolioHost', portfolioHost);
-
         const getBadgeMessage = (status: string) => {
           switch (status) {
             case CreditAvailability.CREDITS_AVAILABLE:
@@ -401,10 +420,8 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
         slice.defaultCenterCoordinates.latitude,
       ];
       initialZoom = slice.defaultZoomLevel;
-    } else if (userLocation) {
-      initialCenter = [userLocation.lon, userLocation.lat];
-      initialZoom = 10;
     } else {
+      // Always start with fallback view - don't wait for user location
       const bbox = initialBboxRef.current || FALLBACK_BBOX;
       const [west, south, east, north] = bbox.split(',').map(Number);
       const bounds = new mapboxgl.LngLatBounds([west, south], [east, north]);
@@ -425,10 +442,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
 
     map.current.on('load', () => {
       setIsMapReady(true);
-      if (
-        !(slice.defaultCenterCoordinates && slice.defaultZoomLevel) &&
-        !userLocation
-      ) {
+      if (!(slice.defaultCenterCoordinates && slice.defaultZoomLevel)) {
         const bbox = initialBboxRef.current || FALLBACK_BBOX;
         const [west, south, east, north] = bbox.split(',').map(Number);
         const bounds = new mapboxgl.LngLatBounds([west, south], [east, north]);
@@ -453,12 +467,26 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
   }, [
     slice.defaultCenterCoordinates,
     slice.defaultZoomLevel,
-    userLocation,
     debouncedUpdateBbox,
   ]);
 
+  // Fetch Strapi data once on component mount
+  useEffect(() => {
+    fetchStrapiData();
+  }, [fetchStrapiData]);
+
+  // Handle re-merging data when Strapi data becomes available
+  useEffect(() => {
+    if (strapiProjects && featureCollection) {
+      const mergedData = mergeProjectData(featureCollection, strapiProjects);
+      setFeatureCollection(mergedData);
+    }
+  }, [strapiProjects]);
+
+  // Request user location (non-blocking)
   useEffect(() => {
     if (slice.defaultCenterCoordinates && slice.defaultZoomLevel) {
+      // Use provided default coordinates
       const { latitude, longitude } = slice.defaultCenterCoordinates;
       const buffer = 10;
       const bbox = `${longitude - buffer},${latitude - buffer},${
@@ -467,28 +495,40 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
       initialBboxRef.current = bbox;
       fetchProjectsData(bbox);
     } else if (navigator.geolocation) {
+      // Set fallback immediately (non-blocking)
+      initialBboxRef.current = FALLBACK_BBOX;
+      fetchProjectsData(FALLBACK_BBOX);
+
+      // Request user location asynchronously
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const userLoc = {
             lat: position.coords.latitude,
             lon: position.coords.longitude,
           };
-          setUserLocation(userLoc);
-          const buffer = 1;
-          const bbox = `${userLoc.lon - buffer},${userLoc.lat - buffer},${
-            userLoc.lon + buffer
-          },${userLoc.lat + buffer}`;
-          initialBboxRef.current = bbox;
-          fetchProjectsData(bbox);
+          if (map.current) {
+            map.current.easeTo({
+              center: [userLoc.lon, userLoc.lat],
+              zoom: 10,
+              duration: 1500,
+            });
+
+            // Update bbox for this location
+            const buffer = 1;
+            const bbox = `${userLoc.lon - buffer},${userLoc.lat - buffer},${
+              userLoc.lon + buffer
+            },${userLoc.lat + buffer}`;
+            initialBboxRef.current = bbox;
+            fetchProjectsData(bbox);
+          }
         },
         () => {
-          setUserLocation(null);
-          initialBboxRef.current = FALLBACK_BBOX;
-          fetchProjectsData(FALLBACK_BBOX);
+          // Permission denied or error - already have fallback data loaded
+          // No need to re-fetch since we already loaded FALLBACK_BBOX data
         }
       );
     } else {
-      setUserLocation(null);
+      // Geolocation not supported - use fallback
       initialBboxRef.current = FALLBACK_BBOX;
       fetchProjectsData(FALLBACK_BBOX);
     }

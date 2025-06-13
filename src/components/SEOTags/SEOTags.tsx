@@ -17,7 +17,9 @@ import {
   Organization,
   Person,
   Product,
+  QAPage,
   Service,
+  SoftwareApplication,
   WebPage,
   WithContext,
 } from 'schema-dts';
@@ -35,7 +37,10 @@ type SupportedSchemaType =
   | Organization
   | Person
   | Product
+  | QAPage
+  | Product
   | Service
+  | SoftwareApplication
   | WebPage;
 
 // Helper function to convert SchemaValue to string
@@ -90,6 +95,10 @@ const getSchemaIdentifier = (schema: SupportedSchemaType): string => {
       return `offer-${offer.price ?? 'unknown-price'}`;
     case 'WebPage':
       return getSchemaProperty(schema, 'name') || 'untitled-page';
+    case 'QAPage':
+      return getSchemaProperty(schema, 'name') || 'untitled-qa';
+    case 'SoftwareApplication':
+      return getSchemaProperty(schema, 'name') || 'untitled-software';
     default:
       return 'unknown-schema';
   }
@@ -110,7 +119,6 @@ interface SEOTagsProps {
    * This can be a single schema object or an array of schema objects.
    * Each object must include an `@context` property set to "https://schema.org"
    * and an `@type` property indicating the type of schema (e.g., Article, Product).
-   * The schema falls back to the default schema if it is invalid.
    */
   schemaMarkup?:
     | WithContext<SupportedSchemaType>
@@ -128,34 +136,6 @@ const validateSchema = (
   return schema['@context'] === 'https://schema.org' && '@type' in schema;
 };
 
-const DEFAULT_SCHEMA: WithContext<Organization> = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Tree.ly',
-  url: 'https://tree.ly',
-  logo: 'https://cdn.tree.ly/logo.png',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Littengasse 2b/c',
-    addressLocality: 'Dornbirn',
-    postalCode: '6850',
-    addressRegion: 'Vorarlberg',
-    addressCountry: 'AT',
-  },
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: '+43-5572-432015',
-    contactType: 'Customer Service',
-    areaServed: 'AT',
-    availableLanguage: ['English', 'German'],
-  },
-  sameAs: [
-    'https://www.linkedin.com/company/tree-ly',
-    'https://www.facebook.com/treely',
-    'https://www.instagram.com/treely',
-  ],
-};
-
 export const SEOTags: React.FC<SEOTagsProps> = ({
   title,
   description,
@@ -168,19 +148,23 @@ export const SEOTags: React.FC<SEOTagsProps> = ({
   const shareImageUrl = shareImage?.url ?? DEFAULT_SHARE_IMAGE;
   const shareImageAlt = shareImage?.alt ?? DEFAULT_SHARE_ALT;
 
-  let schemas = schemaMarkup || DEFAULT_SCHEMA;
-  let isValidSchema = validateSchema(schemas);
+  let schemas = schemaMarkup;
+  let isValidSchema = schemaMarkup ? validateSchema(schemaMarkup) : false;
 
   if (schemaMarkup && !isValidSchema) {
     console.warn(
-      'Invalid schema markup provided to SEOTags component. Falling back to default schema.',
+      'Invalid schema markup provided to SEOTags component. Schema markup will not be rendered.',
       schemaMarkup
     );
-    schemas = DEFAULT_SCHEMA;
-    isValidSchema = true;
+    schemas = undefined;
+    isValidSchema = false;
   }
 
-  const schemaArray = Array.isArray(schemas) ? schemas : [schemas];
+  const schemaArray = schemas
+    ? Array.isArray(schemas)
+      ? schemas
+      : [schemas]
+    : [];
 
   const getSchemaKey = (
     schema: WithContext<SupportedSchemaType>,
@@ -188,7 +172,6 @@ export const SEOTags: React.FC<SEOTagsProps> = ({
   ): string => {
     const type = (schema as { '@type': string })['@type'];
     const identifier = getSchemaIdentifier(schema as SupportedSchemaType);
-    // Add index to ensure uniqueness, especially for fallback identifiers
     return `${type}-${identifier}-${index}`;
   };
 

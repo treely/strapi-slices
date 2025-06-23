@@ -15,7 +15,7 @@ const messagesEn = {
   'features.projectInfo.properties.forecastedAmountYear.label':
     'Project Volume',
   'features.projectInfo.properties.forecastedAmountYear.toolTip':
-    "This is the yearly project sink volume according to the TÜV-verified PDD, this value doesn't represent current availabilities.",
+    "This is the average amount of credits that are issued per year. This value doesn't represent availabilities.",
   'features.projectInfo.properties.riskBuffer': 'Risk Buffer Share',
 
   'features.projectInfo.properties.year':

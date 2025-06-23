@@ -32,7 +32,7 @@ export interface ProjectInfoProps {
     projectTypeSubtitle?: string;
     projectDeveloperSubtitle?: string;
     verificationStandardSubtitle?: string;
-    forecastedAmountSubtitle?: string;
+    averageSellableAmountPerYearSubtitle?: string;
     riskBufferSubtitle?: string;
     buyCreditsSubtitle?: string;
   };
@@ -196,57 +196,61 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({
         <></>
       )}
 
-      {project.forecastedAmountYearly && project.riskBuffer ? (
+      {project.averageSellableAmountPerYear !== 0 || project.riskBuffer ? (
         <>
           <Spacer height="8" />
           <Divider />
           <Spacer height="8" />
-          <SimpleGrid columns={[1, null, null, 2]} spacingX="10" spacingY="8">
-            <Tooltip
-              label={formatMessage({
-                id: 'features.projectInfo.properties.forecastedAmountYear.toolTip',
-              })}
-            >
-              <Box>
-                <LabelTextPair
-                  label={formatMessage({
-                    id: 'features.projectInfo.properties.forecastedAmountYear.label',
-                  })}
-                  text={formatMessage(
-                    {
-                      id: 'unit.formatter.tonsCo2PerYear',
-                    },
-                    {
-                      number: formatNumber(
-                        convertCo2AmountKgToTons(
-                          project.forecastedAmountYearly.toString()
-                        ),
-                        { maximumFractionDigits: 0 }
-                      ),
-                    }
-                  )}
-                  caption={subtitles.forecastedAmountSubtitle}
-                />
-              </Box>
-            </Tooltip>
-
-            <Box>
-              <LabelTextPair
-                label={formatMessage({
-                  id: 'features.projectInfo.properties.riskBuffer',
-                })}
-                text={formatNumber(
-                  project.riskBuffer / 100,
-                  FORMAT_AS_PERCENT_CONFIG
-                )}
-                caption={subtitles.riskBufferSubtitle}
-              />
-            </Box>
-          </SimpleGrid>
         </>
       ) : (
         <></>
       )}
+      <SimpleGrid columns={[1, null, null, 2]} spacingX="10" spacingY="8">
+        {project.averageSellableAmountPerYear !== 0 && (
+          <Tooltip
+            label={formatMessage({
+              id: 'features.projectInfo.properties.forecastedAmountYear.toolTip',
+            })}
+          >
+            <Box>
+              <LabelTextPair
+                label={formatMessage({
+                  id: 'features.projectInfo.properties.forecastedAmountYear.label',
+                })}
+                text={formatMessage(
+                  {
+                    id: 'unit.formatter.tonsCo2PerYear',
+                  },
+                  {
+                    number: formatNumber(
+                      convertCo2AmountKgToTons(
+                        project.averageSellableAmountPerYear.toString()
+                      ),
+                      { maximumFractionDigits: 0 }
+                    ),
+                  }
+                )}
+                caption={subtitles.averageSellableAmountPerYearSubtitle}
+              />
+            </Box>
+          </Tooltip>
+        )}
+
+        {project.riskBuffer && (
+          <Box>
+            <LabelTextPair
+              label={formatMessage({
+                id: 'features.projectInfo.properties.riskBuffer',
+              })}
+              text={formatNumber(
+                project.riskBuffer / 100,
+                FORMAT_AS_PERCENT_CONFIG
+              )}
+              caption={subtitles.riskBufferSubtitle}
+            />
+          </Box>
+        )}
+      </SimpleGrid>
 
       <Box mt="2">
         <CreditsAvailableBadge status={project.creditAvailability} />

@@ -42,6 +42,7 @@ interface FPMProject {
     updatedAt: Date;
   };
   forecastedAmountYearly?: number;
+  averageSellableAmountPerYear: number;
   riskBuffer?: number;
   defaultIssuer?: Issuer;
   creditAvailability: CreditAvailability;

@@ -68,6 +68,7 @@ const portfolioProject: PortfolioProject = {
     updatedAt: new Date('2020-01-01'),
   },
   forecastedAmountYearly: 100,
+  averageSellableAmountPerYear: 80,
   riskBuffer: 10,
   createdAt: new Date('2020-01-01'),
   updatedAt: new Date('2020-01-01'),

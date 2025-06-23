@@ -20,7 +20,8 @@ const defaultProps: ProjectInfoProps = {
     projectTypeSubtitle: 'Project type subtitle',
     projectDeveloperSubtitle: 'Project developer subtitle',
     verificationStandardSubtitle: 'Verification standard subtitle',
-    forecastedAmountSubtitle: 'Forecasted amount subtitle',
+    averageSellableAmountPerYearSubtitle:
+      'Average sellable amount per year subtitle',
     riskBufferSubtitle: 'Risk buffer subtitle',
     buyCreditsSubtitle: 'Buy credits subtitle',
   },
@@ -54,7 +55,9 @@ describe('The ProjectInfo component', () => {
     expect(
       screen.getByText('Verification standard subtitle')
     ).toBeInTheDocument();
-    expect(screen.getByText('Forecasted amount subtitle')).toBeInTheDocument();
+    expect(
+      screen.getByText('Average sellable amount per year subtitle')
+    ).toBeInTheDocument();
     expect(screen.getByText('Risk buffer subtitle')).toBeInTheDocument();
   });
 
@@ -72,12 +75,14 @@ describe('The ProjectInfo component', () => {
     expect(screen.getByText('1 year')).toBeInTheDocument();
   });
 
-  it('sets the tooltip when hovered over the forecasted amount subtitle', async () => {
+  it('sets the tooltip when hovered over the average sellable amount per year subtitle', async () => {
     setup({
       ...defaultProps,
     });
 
-    const trigger = screen.getByText('Forecasted amount subtitle');
+    const trigger = screen.getByText(
+      'Average sellable amount per year subtitle'
+    );
     await userEvent.hover(trigger);
 
     const tooltip = await screen.findByRole('tooltip');

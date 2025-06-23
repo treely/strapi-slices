@@ -32,7 +32,7 @@ export interface ProjectFactsProps {
     projectTypeSubtitle?: string;
     projectDeveloperSubtitle?: string;
     verificationStandardSubtitle?: string;
-    forecastedAmountSubtitle?: string;
+    averageSellableAmountPerYearSubtitle?: string;
     riskBufferSubtitle?: string;
     buyCreditsSubtitle?: string;
 

@@ -77,7 +77,8 @@ FullProps.args = {
     projectTypeSubtitle: 'Project Type Subtitle',
     projectDeveloperSubtitle: 'Project Developer Subtitle',
     verificationStandardSubtitle: 'Verification Standard Subtitle',
-    forecastedAmountSubtitle: 'Forecasted Amount Subtitle',
+    averageSellableAmountPerYearSubtitle:
+      'Average Sellable Amount Per Year Subtitle',
     riskBufferSubtitle: 'Risk Buffer Subtitle',
 
     customTitle: 'Looking to buy more than 10.000 tCO₂?',

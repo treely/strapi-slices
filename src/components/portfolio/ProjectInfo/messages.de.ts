@@ -13,7 +13,7 @@ const messagesDe = {
   'features.projectInfo.properties.verificationStandard.value.MfKWCH':
     'Methodik für Klimaschutzprojekte im Wald für die Schweiz',
   'features.projectInfo.properties.forecastedAmountYear.toolTip':
-    'Dies ist das jährliche Projekt-Senkenvolumen gemäß dem TÜV-geprüften PDD, dieser Wert stellt nicht die aktuellen Verfügbarkeiten dar.',
+    'Dies ist der jährlich verkaufbare Betrag an Credits pro Jahr im Durchschnitt. Dieser Wert repräsentiert nicht die Verfügbarkeiten.',
   'features.projectInfo.properties.forecastedAmountYear.label':
     'Projektvolumen',
   'features.projectInfo.properties.riskBuffer': 'Anteil Risikopuffer',

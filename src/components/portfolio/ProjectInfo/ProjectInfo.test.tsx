@@ -87,7 +87,7 @@ describe('The ProjectInfo component', () => {
 
     const tooltip = await screen.findByRole('tooltip');
     expect(tooltip).toHaveTextContent(
-      messagesEn['features.projectInfo.properties.forecastedAmountYear.toolTip']
+      messagesEn['features.projectInfo.properties.projectVolume.toolTip']
     );
 
     await userEvent.unhover(trigger);

@@ -15,45 +15,24 @@ const getPortfolioProjects = async (
     getStrapiProjects(locale, STRAPI_DEFAULT_POPULATE_DEPTH, preview),
   ]);
 
-  return Promise.all(
-    fpmProjects.map(async (fpmProject: FPMProject) => {
-      // fetch the averageSellableAmountPerYear for each project
-      try {
-        const fpmProjectWithAverageSellableAmountPerYear =
-          await fpmClient.get<FPMProject>(`/public/projects/${fpmProject.id}`, {
-            cache,
-          });
+  return fpmProjects.map((fpmProject: FPMProject) => {
+    const strapiProject = strapiProjects.get(fpmProject.id);
 
-        fpmProject.averageSellableAmountPerYear =
-          fpmProjectWithAverageSellableAmountPerYear.data.averageSellableAmountPerYear;
-        // Handle 404 errors for private projects
-      } catch (error: any) {
-        if (error.response?.status === 404) {
-          fpmProject.averageSellableAmountPerYear = 0;
-        } else {
-          // Re-throw other errors
-          throw error;
-        }
-      }
+    const toReturn: PortfolioProject = fpmProject;
 
-      const strapiProject = strapiProjects.get(fpmProject.id);
+    if (strapiProject?.attributes.slug) {
+      toReturn.slug = strapiProject.attributes.slug;
+    }
+    if (strapiProject?.attributes.thumbnail) {
+      toReturn.thumbnail = strapiProject?.attributes.thumbnail;
+    }
+    if (strapiProject?.attributes.portfolio.data?.attributes.host) {
+      toReturn.portfolioHost =
+        strapiProject.attributes.portfolio.data.attributes.host;
+    }
 
-      const toReturn: PortfolioProject = fpmProject;
-
-      if (strapiProject?.attributes.slug) {
-        toReturn.slug = strapiProject.attributes.slug;
-      }
-      if (strapiProject?.attributes.thumbnail) {
-        toReturn.thumbnail = strapiProject?.attributes.thumbnail;
-      }
-      if (strapiProject?.attributes.portfolio.data?.attributes.host) {
-        toReturn.portfolioHost =
-          strapiProject.attributes.portfolio.data.attributes.host;
-      }
-
-      return toReturn;
-    })
-  );
+    return toReturn;
+  });
 };
 
 export default getPortfolioProjects;

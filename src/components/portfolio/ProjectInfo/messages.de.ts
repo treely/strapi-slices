@@ -12,10 +12,9 @@ const messagesDe = {
     'SILVACONSULT® Forest Carbon Standard, ISO 14064-2',
   'features.projectInfo.properties.verificationStandard.value.MfKWCH':
     'Methodik für Klimaschutzprojekte im Wald für die Schweiz',
-  'features.projectInfo.properties.forecastedAmountYear.toolTip':
-    'Dies ist der jährlich verkaufbare Betrag an Credits pro Jahr im Durchschnitt. Dieser Wert repräsentiert nicht die Verfügbarkeiten.',
-  'features.projectInfo.properties.forecastedAmountYear.label':
-    'Projektvolumen',
+  'features.projectInfo.properties.projectVolume.toolTip':
+    'Dies ist die durchschnittliche Anzahl der Credits, die pro Jahr ausgestellt werden. Dieser Wert entspricht nicht den Verfügbarkeiten.',
+  'features.projectInfo.properties.projectVolume.label': 'Projektvolumen',
   'features.projectInfo.properties.riskBuffer': 'Anteil Risikopuffer',
 
   'features.projectInfo.properties.year':

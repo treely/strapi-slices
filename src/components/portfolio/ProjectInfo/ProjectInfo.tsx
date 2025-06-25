@@ -196,7 +196,9 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({
         <></>
       )}
 
-      {project.averageSellableAmountPerYear !== 0 || project.riskBuffer ? (
+      {(project.averageSellableAmountPerYear &&
+        project.averageSellableAmountPerYear > 0) ||
+      project.riskBuffer ? (
         <>
           <Spacer height="8" />
           <Divider />
@@ -206,35 +208,36 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({
         <></>
       )}
       <SimpleGrid columns={[1, null, null, 2]} spacingX="10" spacingY="8">
-        {project.averageSellableAmountPerYear !== 0 && (
-          <Tooltip
-            label={formatMessage({
-              id: 'features.projectInfo.properties.forecastedAmountYear.toolTip',
-            })}
-          >
-            <Box>
-              <LabelTextPair
-                label={formatMessage({
-                  id: 'features.projectInfo.properties.forecastedAmountYear.label',
-                })}
-                text={formatMessage(
-                  {
-                    id: 'unit.formatter.tonsCo2PerYear',
-                  },
-                  {
-                    number: formatNumber(
-                      convertCo2AmountKgToTons(
-                        project.averageSellableAmountPerYear.toString()
+        {project.averageSellableAmountPerYear &&
+          project.averageSellableAmountPerYear > 0 && (
+            <Tooltip
+              label={formatMessage({
+                id: 'features.projectInfo.properties.projectVolume.toolTip',
+              })}
+            >
+              <Box>
+                <LabelTextPair
+                  label={formatMessage({
+                    id: 'features.projectInfo.properties.projectVolume.label',
+                  })}
+                  text={formatMessage(
+                    {
+                      id: 'unit.formatter.tonsCo2PerYear',
+                    },
+                    {
+                      number: formatNumber(
+                        convertCo2AmountKgToTons(
+                          project.averageSellableAmountPerYear.toString()
+                        ),
+                        { maximumFractionDigits: 0 }
                       ),
-                      { maximumFractionDigits: 0 }
-                    ),
-                  }
-                )}
-                caption={subtitles.averageSellableAmountPerYearSubtitle}
-              />
-            </Box>
-          </Tooltip>
-        )}
+                    }
+                  )}
+                  caption={subtitles.averageSellableAmountPerYearSubtitle}
+                />
+              </Box>
+            </Tooltip>
+          )}
 
         {project.riskBuffer && (
           <Box>

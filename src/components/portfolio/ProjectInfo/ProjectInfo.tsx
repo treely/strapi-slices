@@ -208,7 +208,7 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({
         <></>
       )}
       <SimpleGrid columns={[1, null, null, 2]} spacingX="10" spacingY="8">
-        {project.averageSellableAmountPerYear > 0 && (
+        {project.averageSellableAmountPerYear > 0 ? (
           <Tooltip
             label={formatMessage({
               id: 'features.projectInfo.properties.projectVolume.toolTip',
@@ -236,6 +236,10 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({
               />
             </Box>
           </Tooltip>
+        ) : (
+          <Box>
+            <CreditsAvailableBadge status={project.creditAvailability} />
+          </Box>
         )}
 
         {project.riskBuffer && (
@@ -254,9 +258,13 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({
         )}
       </SimpleGrid>
 
-      <Box mt="2">
-        <CreditsAvailableBadge status={project.creditAvailability} />
-      </Box>
+      {project.averageSellableAmountPerYear > 0 ? (
+        <Box mt="2">
+          <CreditsAvailableBadge status={project.creditAvailability} />
+        </Box>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 };

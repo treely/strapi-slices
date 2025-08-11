@@ -43,7 +43,6 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({
   subtitles,
 }: ProjectInfoProps) => {
   const { formatMessage, formatNumber, formatDate } = useContext(IntlContext);
-
   return (
     <Container p="2" width="full">
       <Heading size="xl" textAlign="left">

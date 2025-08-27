@@ -8,6 +8,8 @@ Find the documentation of the slices [here](https://storybook.tree.ly).
 
 ## Development
 
+Node.js version: `22`
+
 Install dependencies:
 
 ```bash

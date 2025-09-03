@@ -1,10 +1,9 @@
 import React from 'react';
 import { render } from '../../test/testUtils';
 import { mergeDeep } from '../../utils/mergeDeep';
-import { redirectSpy } from '../../../__mocks__/next/navigation';
+import { replaceSpy, useRouter } from '../../../__mocks__/next/router';
 import Redirect from '.';
 import { RedirectProps } from './Redirect';
-import { RedirectType } from 'next/navigation';
 
 const defaultProps: RedirectProps = {
   slice: {
@@ -19,15 +18,13 @@ const setup = (props = {}) => {
 
 describe('The Redirect component', () => {
   afterEach(() => {
-    redirectSpy.mockRestore();
+    replaceSpy.mockRestore();
+    useRouter.mockRestore();
   });
 
   it('calls the redirect URL when rendering', () => {
     setup();
 
-    expect(redirectSpy).toHaveBeenCalledWith(
-      'https://redirect.com',
-      RedirectType.replace
-    );
+    expect(replaceSpy).toHaveBeenCalledWith('https://redirect.com');
   });
 });

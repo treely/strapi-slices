@@ -1,5 +1,5 @@
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import { RedirectType, redirect } from 'next/navigation';
 
 export interface RedirectProps {
   slice: {
@@ -8,9 +8,10 @@ export interface RedirectProps {
 }
 
 export const Redirect = ({ slice }: RedirectProps): JSX.Element => {
+  const router = useRouter();
   useEffect(() => {
     // When using `replace`, the current browser history entry will be replaced
-    redirect(slice.url, RedirectType.replace);
+    router.replace(slice.url);
   }, [slice.url]);
 
   return <></>;

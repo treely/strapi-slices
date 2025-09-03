@@ -42,6 +42,7 @@ import Locale from '../../models/Locale';
 import { ContextProvider } from '../ContextProvider';
 import Timeline from '../../slices/Timeline';
 import Events from '../../slices/Events';
+import Redirect from '../../slices/Redirect';
 import { AnalyticsFunction } from '../ContextProvider/ContextProvider';
 
 export interface CustomSliceProps {
@@ -315,6 +316,10 @@ export const SliceRenderer = ({
         case 'sections.events':
           return (
             <Events key={`${slice.__component}-${slice.id}`} slice={slice} />
+          );
+        case 'sections.redirect':
+          return (
+            <Redirect key={`${slice.__component}-${slice.id}`} slice={slice} />
           );
         default:
           if (CustomSlice) {

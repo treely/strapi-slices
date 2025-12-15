@@ -121,6 +121,7 @@ describe('The BlogCards component', () => {
       blogPosts: [
         {
           ...strapiBlogPostMock,
+          id: 1,
           attributes: {
             ...strapiBlogPostMock.attributes,
             slug: strapiBlogPostMock.attributes.slug,
@@ -129,6 +130,7 @@ describe('The BlogCards component', () => {
         },
         {
           ...strapiBlogPostMock,
+          id: 2,
           attributes: {
             ...strapiBlogPostMock.attributes,
             slug: 'my-slug',
@@ -137,6 +139,7 @@ describe('The BlogCards component', () => {
         },
         {
           ...strapiBlogPostMock,
+          id: 3,
           attributes: {
             ...strapiBlogPostMock.attributes,
             slug: 'slug-1',
@@ -145,6 +148,7 @@ describe('The BlogCards component', () => {
         },
         {
           ...strapiBlogPostMock,
+          id: 4,
           attributes: {
             ...strapiBlogPostMock.attributes,
             slug: 'slug-2',
@@ -153,6 +157,7 @@ describe('The BlogCards component', () => {
         },
         {
           ...strapiBlogPostMock,
+          id: 5,
           attributes: {
             ...strapiBlogPostMock.attributes,
             slug: 'slug-3',
@@ -181,6 +186,7 @@ describe('The BlogCards component', () => {
       blogPosts: [
         {
           ...strapiBlogPostMock,
+          id: 1,
           attributes: {
             ...strapiBlogPostMock.attributes,
             slug: strapiBlogPostMock.attributes.slug,
@@ -196,6 +202,7 @@ describe('The BlogCards component', () => {
         },
         {
           ...strapiBlogPostMock,
+          id: 2,
           attributes: {
             ...strapiBlogPostMock.attributes,
             slug: 'my-slug',
@@ -211,6 +218,7 @@ describe('The BlogCards component', () => {
         },
         {
           ...strapiBlogPostMock,
+          id: 3,
           attributes: {
             ...strapiBlogPostMock.attributes,
             slug: 'slug-1',
@@ -226,6 +234,7 @@ describe('The BlogCards component', () => {
         },
         {
           ...strapiBlogPostMock,
+          id: 4,
           attributes: {
             ...strapiBlogPostMock.attributes,
             slug: 'slug-2',
@@ -241,6 +250,7 @@ describe('The BlogCards component', () => {
         },
         {
           ...strapiBlogPostMock,
+          id: 5,
           attributes: {
             ...strapiBlogPostMock.attributes,
             slug: 'slug-3',
@@ -256,6 +266,7 @@ describe('The BlogCards component', () => {
         },
         {
           ...strapiBlogPostMock,
+          id: 6,
           attributes: {
             ...strapiBlogPostMock.attributes,
             slug: 'slug-4',

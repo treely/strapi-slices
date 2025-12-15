@@ -111,16 +111,9 @@ export const QuoteCards: React.FC<QuoteCardsProps> = ({
                   avatar={{
                     name: card.avatar.name,
                     description: card.avatar.description,
-                    image: (
-                      <Image
-                        src={strapiMediaUrl(card.avatar.image.img, 'small')}
-                        alt={card.avatar.image.alt}
-                        fill
-                        style={{
-                          objectFit: card.avatar.image.objectFit || 'cover',
-                        }}
-                      />
-                    ),
+                    imageSrc: strapiMediaUrl(card.avatar.image.img, 'small'),
+                    imageAlt: card.avatar.image.alt,
+                    imageObjectFit: card.avatar.image.objectFit || 'cover',
                   }}
                   text={card.text}
                 />

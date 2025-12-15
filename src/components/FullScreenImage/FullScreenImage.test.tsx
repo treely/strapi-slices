@@ -25,6 +25,11 @@ const setup = (props?: Partial<FullScreenImageProps>) => {
 };
 
 describe('The FullScreenImage component', () => {
+  beforeEach(() => {
+    // Mock scrollTo
+    Element.prototype.scrollTo = jest.fn();
+  });
+
   afterEach(() => {
     onCloseSpy.mockClear();
     changeImageSpy.mockClear();

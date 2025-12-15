@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import {
   DefaultSectionContainer,
-  Divider,
+  Separator,
   Flex,
   GridItem,
   Heading,
@@ -9,9 +9,10 @@ import {
   SimpleGrid,
   Text,
   Wrapper,
+  Box,
 } from 'boemly';
-import { Check, Link as LinkIcon } from '@phosphor-icons/react';
-import { useCopyToClipboard } from 'react-use';
+import { CheckIcon, LinkIcon } from '@phosphor-icons/react';
+import { useCopyToClipboard } from '@reactuses/core';
 import IStrapiData from '../../models/strapi/IStrapiData';
 import StrapiGlossaryItem from '../../models/strapi/StrapiGlossaryItem';
 import { IntlContext } from '../../components/ContextProvider';
@@ -23,10 +24,10 @@ export interface GlossaryProps {
 }
 
 export const Glossary: React.FC<GlossaryProps> = ({ slice }: GlossaryProps) => {
-  const [, copyToClipboard] = useCopyToClipboard();
   const { formatMessage } = useContext(IntlContext);
   const grouped: Record<string, StrapiGlossaryItem[]> = {};
   const [copiedItem, setCopiedItem] = useState<string>();
+  const [, copyToClipboard] = useCopyToClipboard();
 
   slice.glossary_items
     .sort((a, b) => a.attributes.title.localeCompare(b.attributes.title))
@@ -39,7 +40,7 @@ export const Glossary: React.FC<GlossaryProps> = ({ slice }: GlossaryProps) => {
     }, {});
 
   const handleAnchorClick = async (slug: string) => {
-    if (window?.location) {
+    if (typeof window !== 'undefined' && window.location) {
       const currentUrl = window.location.href.split('#')[0];
       copyToClipboard(`${currentUrl}#${slug}`);
       setCopiedItem(slug);
@@ -60,7 +61,7 @@ export const Glossary: React.FC<GlossaryProps> = ({ slice }: GlossaryProps) => {
                 {letter}
               </Heading>
 
-              <SimpleGrid spacing="6">
+              <SimpleGrid gap="6">
                 {items.map((item) => (
                   <GridItem key={item.slug}>
                     <Flex mb="2" gap="1.5" alignItems="center">
@@ -75,13 +76,6 @@ export const Glossary: React.FC<GlossaryProps> = ({ slice }: GlossaryProps) => {
                       <IconButton
                         variant="ghost"
                         size="xs"
-                        icon={
-                          copiedItem === item.slug ? (
-                            <Check size="16" data-testid="check-icon" />
-                          ) : (
-                            <LinkIcon size="16" />
-                          )
-                        }
                         title={formatMessage({
                           id: 'sections.glossary.copyButtonLabel',
                         })}
@@ -89,7 +83,13 @@ export const Glossary: React.FC<GlossaryProps> = ({ slice }: GlossaryProps) => {
                           id: 'sections.glossary.copyButtonLabel',
                         })}
                         onClick={async () => handleAnchorClick(item.slug)}
-                      />
+                      >
+                        {copiedItem === item.slug ? (
+                          <CheckIcon size="16" data-testid="check-icon" />
+                        ) : (
+                          <LinkIcon size="16" />
+                        )}
+                      </IconButton>
                     </Flex>
                     <Text color="black" wordBreak="break-word">
                       {item.text}
@@ -99,7 +99,11 @@ export const Glossary: React.FC<GlossaryProps> = ({ slice }: GlossaryProps) => {
               </SimpleGrid>
 
               {index !== Object.keys(grouped).length - 1 && (
-                <Divider maxW="xl" placeSelf="center" mb="10" mt="10" />
+                <Flex justifyContent="center" mt="10" mb="10">
+                  <Box maxW="xl" width="full">
+                    <Separator />
+                  </Box>
+                </Flex>
               )}
             </GridItem>
           ))}

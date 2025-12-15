@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import {
   Box,
   Container,
-  Divider,
+  Separator,
   Flex,
   Heading,
   LabelTextPair,
@@ -54,8 +54,8 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({
       <SimpleGrid
         columns={[1, null, null, 2]}
         gap="8"
-        spacingX="10"
-        spacingY="8"
+        columnGap="10"
+        rowGap="8"
       >
         {project.area && (
           <Box>
@@ -127,13 +127,13 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({
       project.verificationStandard ? (
         <>
           <Spacer height="6" />
-          <Divider />
+          <Separator />
           <Spacer height="6" />
         </>
       ) : (
         <></>
       )}
-      <SimpleGrid columns={[1, null, null, 2]} spacingX="10" spacingY="8">
+      <SimpleGrid columns={[1, null, null, 2]} columnGap="10" rowGap="8">
         {project.projectType && (
           <Box>
             <LabelTextPair
@@ -200,16 +200,16 @@ export const ProjectInfo: React.FC<ProjectInfoProps> = ({
       project.riskBuffer ? (
         <>
           <Spacer height="8" />
-          <Divider />
+          <Separator />
           <Spacer height="8" />
         </>
       ) : (
         <></>
       )}
-      <SimpleGrid columns={[1, null, null, 2]} spacingX="10" spacingY="8">
+      <SimpleGrid columns={[1, null, null, 2]} columnGap="10" rowGap="8">
         {project.averageSellableAmountPerYear > 0 ? (
           <Tooltip
-            label={formatMessage({
+            content={formatMessage({
               id: 'features.projectInfo.properties.projectVolume.toolTip',
             })}
           >

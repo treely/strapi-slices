@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useContext,
 } from 'react';
+import { Global } from '@emotion/react';
 import mapboxgl from 'mapbox-gl';
 import {
   Box,
@@ -21,7 +22,8 @@ import getFpmProjectsByBbox from '../../integrations/strapi/getFpmProjectsByBbox
 import getStrapiProjects from '../../integrations/strapi/getStrapiProjects';
 import mergeProjectData from '../../utils/mergeProjectData';
 import { CreditAvailability } from '../../models/fpm/FPMProject';
-import { IStrapiData, StrapiProject } from '../..';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import StrapiProject from '../../models/strapi/StrapiProject';
 
 const projectPinImage =
   'https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.0.2/assets/fill/map-pin-fill.svg';
@@ -546,41 +548,40 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
 
   return (
     <DefaultSectionContainer>
-      <Box css={mapboxStyle}>
-        <Wrapper>
-          {slice.title ? (
-            <>
-              <DefaultSectionHeader
-                tagline={slice.tagline}
-                title={slice.title}
-                text={slice.text}
-                taglineProps={{ textAlign: 'center' }}
-                titleProps={{
-                  textAlign: 'center',
-                  maxW: '6xl',
-                  marginX: 'auto',
-                }}
-                textProps={{
-                  textAlign: 'center',
-                  maxW: '3xl',
-                  marginX: 'auto',
-                }}
-              />
-              <Box height="16" />
-            </>
-          ) : (
-            <></>
-          )}
-          <Box
-            height="xl"
-            ref={mapContainer}
-            borderRadius="xl"
-            overflow="hidden"
-            boxShadow={['md', null, null, 'none']}
-          />
-          <>{isLoading && <Box>Loading projects...</Box>}</>
-        </Wrapper>
-      </Box>
+      <Global styles={mapboxStyle} />
+      <Wrapper>
+        {slice.title ? (
+          <>
+            <DefaultSectionHeader
+              tagline={slice.tagline}
+              title={slice.title}
+              text={slice.text}
+              taglineProps={{ textAlign: 'center' }}
+              titleProps={{
+                textAlign: 'center',
+                maxW: '6xl',
+                marginX: 'auto',
+              }}
+              textProps={{
+                textAlign: 'center',
+                maxW: '3xl',
+                marginX: 'auto',
+              }}
+            />
+            <Box height="16" />
+          </>
+        ) : (
+          <></>
+        )}
+        <Box
+          height="xl"
+          ref={mapContainer}
+          borderRadius="xl"
+          overflow="hidden"
+          boxShadow={['md', null, null, 'none']}
+        />
+        <>{isLoading && <Box>Loading projects...</Box>}</>
+      </Wrapper>
     </DefaultSectionContainer>
   );
 };

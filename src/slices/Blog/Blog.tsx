@@ -35,7 +35,7 @@ export const Blog: React.FC<BlogProps> = ({ slice, blogPosts }: BlogProps) => {
   return (
     <DefaultSectionContainer>
       <Wrapper>
-        <SimpleGrid columns={[1, null, null, 2]} spacingX={56} spacingY={24}>
+        <SimpleGrid columns={[1, null, null, 2]} gapX={56} gapY={24}>
           {sortedBlogPosts.map(({ attributes }) => {
             const blogPost: IStrapiData<StrapiBlogPost> | undefined =
               blogPosts.find((bp) => bp.attributes.slug === attributes.slug);

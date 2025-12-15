@@ -10,7 +10,7 @@ import {
 } from 'boemly';
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
-import { useWindowSize } from 'react-use';
+import { useWindowSize } from '@reactuses/core';
 
 import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import StrapiImage from '../../models/strapi/StrapiImage';
@@ -40,7 +40,7 @@ const CarouselMarqueeBannerContent: React.FC<CarouselMarqueeBannerProps> = ({
     ? Array.from({ length: LOOP_ARRAY_LENGTH }, () => slice.logos).flat()
     : slice.logos;
 
-  const [isMobile] = useMediaQuery(BREAKPOINT_MD_QUERY);
+  const [isMobile] = useMediaQuery([BREAKPOINT_MD_QUERY]);
 
   // Carousel setup
   const [emblaRef] = useEmblaCarousel(

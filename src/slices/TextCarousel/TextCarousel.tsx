@@ -20,9 +20,9 @@ import {
   CarouselContainer,
   CarouselInnerContainer,
 } from './styles';
-import { useMeasure, useWindowSize } from 'react-use';
+import { useMeasure, useWindowSize } from '@reactuses/core';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
+import { ArrowLeftIcon, ArrowRightIcon } from '@phosphor-icons/react';
 import { IntlContext } from '../../components/ContextProvider';
 import strapiLinkUrl from '../../utils/strapiLinkUrl';
 import { useRouter } from 'next/router';
@@ -46,7 +46,9 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
 }: TextCarouselProps) => {
   const containerRef = useRef(null);
   const [primary50] = useToken('colors', ['primary.50']);
-  const [itemRef, { width: itemWidth }] = useMeasure<HTMLDivElement>();
+  const itemRef = useRef<HTMLDivElement>(null);
+  const [rect] = useMeasure(itemRef);
+  const itemWidth = rect.width;
   const { formatMessage } = useContext(IntlContext);
   const analyticsFunction = useContext(AnalyticsContext);
   const { width: windowWidth } = useWindowSize();
@@ -187,44 +189,50 @@ export const TextCarousel: React.FC<TextCarouselProps> = ({
             <Box>
               <AnimatePresence>
                 {canMoveLeft && (
-                  <IconButton
+                  <motion.div
                     key="leftButton"
-                    as={motion.button}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    size="lg"
-                    variant="outline"
-                    onClick={() => setSliderIndex(sliderIndex - 1)}
-                    aria-label={formatMessage({
-                      id: 'sections.textCarousel.moveLeft',
-                    })}
-                    icon={<ArrowLeft size={16} />}
-                    pointerEvents="auto"
-                    boxShadow="md"
-                  />
+                  >
+                    <IconButton
+                      size="lg"
+                      variant="outline"
+                      onClick={() => setSliderIndex(sliderIndex - 1)}
+                      aria-label={formatMessage({
+                        id: 'sections.textCarousel.moveLeft',
+                      })}
+                      pointerEvents="auto"
+                      boxShadow="md"
+                    >
+                      <ArrowLeftIcon size={16} />
+                    </IconButton>
+                  </motion.div>
                 )}
               </AnimatePresence>
             </Box>
             <Box>
               <AnimatePresence>
                 {canMoveRight && (
-                  <IconButton
+                  <motion.div
                     key="rightButton"
-                    as={motion.button}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    size="lg"
-                    variant="outline"
-                    onClick={() => setSliderIndex(sliderIndex + 1)}
-                    aria-label={formatMessage({
-                      id: 'sections.textCarousel.moveRight',
-                    })}
-                    icon={<ArrowRight size={16} />}
-                    pointerEvents="auto"
-                    boxShadow="md"
-                  />
+                  >
+                    <IconButton
+                      size="lg"
+                      variant="outline"
+                      onClick={() => setSliderIndex(sliderIndex + 1)}
+                      aria-label={formatMessage({
+                        id: 'sections.textCarousel.moveRight',
+                      })}
+                      pointerEvents="auto"
+                      boxShadow="md"
+                    >
+                      <ArrowRightIcon size={16} />
+                    </IconButton>
+                  </motion.div>
                 )}
               </AnimatePresence>
             </Box>

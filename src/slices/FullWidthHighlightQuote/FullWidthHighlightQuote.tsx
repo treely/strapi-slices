@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import {
   DefaultSectionContainer,
   Wrapper,
@@ -41,16 +40,9 @@ export const FullWidthHighlightQuote: React.FC<
       <AvatarWithName
         name={slice.avatarWithName.name}
         description={slice.avatarWithName.description}
-        image={
-          <Image
-            src={strapiMediaUrl(slice.avatarWithName.image.img, 'small')}
-            alt={slice.avatarWithName.image.alt}
-            fill
-            style={{
-              objectFit: slice.avatarWithName.image.objectFit || 'cover',
-            }}
-          />
-        }
+        imageSrc={strapiMediaUrl(slice.avatarWithName.image.img, 'small')}
+        imageAlt={slice.avatarWithName.image.alt}
+        imageObjectFit={slice.avatarWithName.image.objectFit || 'cover'}
         orientation="vertical"
       />
     </Wrapper>

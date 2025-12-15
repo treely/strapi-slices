@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '../../test/testUtils';
+import { render, screen, waitFor, fireEvent } from '../../test/testUtils';
 import { strapiAvatarWithNameMock } from '../../test/strapiMocks/strapiAvatarWithName';
 import FullWidthHighlightQuote from '.';
 import { FullWidthHighlightQuoteProps } from './FullWidthHighlightQuote';
@@ -29,12 +29,19 @@ describe('The FullWidthHighlightQuote component', () => {
     expect(screen.getByText(defaultProps.slice.quote)).toBeInTheDocument();
   });
 
-  it('displays the avatar with name', () => {
+  it('displays the avatar with name', async () => {
     setup();
 
-    expect(screen.getByRole('img')).toHaveAttribute(
-      'alt',
-      strapiAvatarWithNameMock.image.alt
-    );
+    // Get the hidden image and simulate the browser loading the image
+    const img = screen.getByRole('img', { hidden: true });
+    fireEvent.load(img);
+
+    // Wait for the image to become visible
+    await waitFor(() => {
+      expect(screen.getByRole('img')).toHaveAttribute(
+        'alt',
+        strapiAvatarWithNameMock.image.alt
+      );
+    });
   });
 });

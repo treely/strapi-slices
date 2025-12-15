@@ -12,13 +12,13 @@ import {
   Flex,
   Box,
   Spacer,
-  Divider,
+  Separator,
   Heading,
   Badge,
   SimpleGrid,
 } from 'boemly';
 import Image from 'next/image';
-import { CaretRight } from '@phosphor-icons/react';
+import { CaretRightIcon } from '@phosphor-icons/react';
 import { Icon } from './Icon';
 import { CDN_URI } from '../../constants/api';
 import { IntlContext } from '../../components/ContextProvider';
@@ -104,7 +104,7 @@ export const Comparison: React.FC<ComparisonProps> = ({
         )}
         <SimpleGrid
           columns={[1, null, null, null, slice.comparisonCards.length]}
-          spacing="4"
+          gap="4"
         >
           {slice.comparisonCards.map((comparisonCard) => (
             <Container
@@ -211,7 +211,7 @@ export const Comparison: React.FC<ComparisonProps> = ({
                         link={comparisonCard.button}
                         size="md"
                         variant="outline"
-                        rightIcon={<CaretRight size={16} weight="bold" />}
+                        rightIcon={<CaretRightIcon size={16} weight="bold" />}
                         component="Comparison"
                       />
                     )}
@@ -223,7 +223,7 @@ export const Comparison: React.FC<ComparisonProps> = ({
               <>
                 {comparisonCard.lists.map((list) => (
                   <Box key={list.id}>
-                    <Divider
+                    <Separator
                       my="8"
                       color={VARIANTS[comparisonCard.variant].dividerColor}
                     />

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Flex, Tag, Text } from 'boemly';
+import { BoemlyTag, Flex, Text } from 'boemly';
 import NextLink from 'next/link';
 import { IntlContext } from '../ContextProvider';
 import { CreditAvailability } from '../../models/fpm/FPMProject';
@@ -23,7 +23,7 @@ const CreditsAvailableBadge = ({
       message: formatMessage({
         id: 'components.creditsAvailableBadge.text.yes',
       }),
-      color: 'green.600',
+      color: 'primary.800',
     },
     [CreditAvailability.NO_CREDITS_AVAILABLE]: {
       message: formatMessage({
@@ -47,17 +47,17 @@ const CreditsAvailableBadge = ({
 
   const variant = variants[status];
 
+  const badge = (
+    <BoemlyTag backgroundColor={variant.color}>
+      <Text color="white" size="xsLowBold">
+        {variant.message}
+      </Text>
+    </BoemlyTag>
+  );
+
   return (
-    <Flex
-      justifyContent="flex-start"
-      as={href ? NextLink : undefined}
-      href={href}
-    >
-      <Tag backgroundColor={variant.color}>
-        <Text color="white" size="xsLowBold">
-          {variant.message}
-        </Text>
-      </Tag>
+    <Flex justifyContent="flex-start">
+      {href ? <NextLink href={href}>{badge}</NextLink> : badge}
     </Flex>
   );
 };

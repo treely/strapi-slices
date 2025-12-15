@@ -11,9 +11,9 @@ export interface StrapiLinkButtonProps {
   link: StrapiLink;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   variant?: 'solid' | 'outline' | 'outlineWhite' | 'link' | 'ghost';
-  colorScheme?: 'primary' | 'gray' | 'orange' | 'green' | 'white';
-  rightIcon?: JSX.Element;
-  leftIcon?: JSX.Element;
+  colorPalette?: 'primary' | 'gray' | 'orange' | 'green' | 'white';
+  rightIcon?: React.JSX.Element;
+  leftIcon?: React.JSX.Element;
   mt?: any;
   mr?: any;
   mb?: any;
@@ -28,6 +28,8 @@ export interface StrapiLinkButtonProps {
 export const StrapiLinkButton: React.FC<StrapiLinkButtonProps> = ({
   link,
   component = 'StrapiLinkButton',
+  rightIcon,
+  leftIcon,
   ...buttonProps
 }: StrapiLinkButtonProps) => {
   const adBlockDetected = useDetectAdBlock();
@@ -50,16 +52,19 @@ export const StrapiLinkButton: React.FC<StrapiLinkButtonProps> = ({
     });
   };
 
+  const buttonContent = (
+    <>
+      {leftIcon}
+      {link.text}
+      {rightIcon}
+    </>
+  );
+
   if (link.intercomLauncher) {
     if (adBlockDetected) {
       return (
-        <Button
-          {...buttonProps}
-          as={Link}
-          href="mailto:hello@tree.ly"
-          onClick={handleClick}
-        >
-          {link.text}
+        <Button {...buttonProps} asChild onClick={handleClick}>
+          <Link href="mailto:hello@tree.ly">{buttonContent}</Link>
         </Button>
       );
     }
@@ -72,19 +77,14 @@ export const StrapiLinkButton: React.FC<StrapiLinkButtonProps> = ({
           openHubSpotChat();
         }}
       >
-        {link.text}
+        {buttonContent}
       </Button>
     );
   }
 
   return (
-    <Button
-      {...buttonProps}
-      as={Link}
-      href={strapiLinkUrl(link)}
-      onClick={handleClick}
-    >
-      {link.text}
+    <Button {...buttonProps} asChild onClick={handleClick}>
+      <Link href={strapiLinkUrl(link)}>{buttonContent}</Link>
     </Button>
   );
 };

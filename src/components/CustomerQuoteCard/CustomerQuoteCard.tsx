@@ -1,6 +1,7 @@
 import { Container, Heading, Button, Box, Text } from 'boemly';
 import React, { useContext } from 'react';
-import { StrapiCustomerStory, strapiMediaUrl } from '../..';
+import StrapiCustomerStory from '../../models/strapi/StrapiCustomerStory';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import Image from 'next/image';
 import { IntlContext } from '../../components/ContextProvider';
 import Link from 'next/link';
@@ -11,7 +12,7 @@ export interface CustomerQuoteCardProps {
 
 export const CustomerQuoteCard = ({
   customerStory,
-}: CustomerQuoteCardProps): JSX.Element => {
+}: CustomerQuoteCardProps): React.JSX.Element => {
   const { formatMessage } = useContext(IntlContext);
 
   return (
@@ -41,20 +42,16 @@ export const CustomerQuoteCard = ({
           <Heading size="md" fontWeight="500">
             {customerStory.customerName}
           </Heading>
-          <Text size="xs">{customerStory.quoteCardCustomerTitle}</Text>
+          <Text fontSize="md">{customerStory.quoteCardCustomerTitle}</Text>
         </Box>
-        <Text size="xs" color="black">
+        <Text fontSize="md" color="black">
           {customerStory.quoteCardQuote}
         </Text>
-        <Button
-          href={`/customer-stories/${customerStory.slug}`}
-          as={Link}
-          variant="outline"
-          size="sm"
-          mt="8"
-        >
-          {formatMessage({ id: 'sections.customerQuoteCard.more' })}
-        </Button>
+        <Link href={`/customer-stories/${customerStory.slug}`}>
+          <Button variant="outline" size="sm" mt="8">
+            {formatMessage({ id: 'sections.customerQuoteCard.more' })}
+          </Button>
+        </Link>
       </Box>
     </Container>
   );

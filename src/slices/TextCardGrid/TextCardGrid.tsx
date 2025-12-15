@@ -1,5 +1,4 @@
 import React from 'react';
-import { css } from '@emotion/react';
 import {
   Box,
   DefaultSectionContainer,
@@ -13,7 +12,7 @@ import {
   Wrapper,
 } from 'boemly';
 import Image from 'next/image';
-import { CaretRight } from '@phosphor-icons/react';
+import { CaretRightIcon } from '@phosphor-icons/react';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
 import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
 import StrapiImage from '../../models/strapi/StrapiImage';
@@ -204,29 +203,27 @@ export const TextCardGrid: React.FC<TextCardGridProps> = ({
                       ? 'full'
                       : 'unset'
                   }
-                  css={
-                    variants[slice.variant]
-                      .positionIcon(index)
-                      .includes('unset')
-                      ? css`
-                          & span,
-                          div,
-                          img {
-                            border-radius: var(--boemly-radii-xl);
-                          }
-                        `
-                      : css`
-                    & span,
-                    div,
-                    img {
-                      border-${
-                        oppositesOfCorners[
-                          variants[slice.variant].positionIcon(index)
-                        ]
-                      }-radius: var(--boemly-radii-full);
-                    }
-                  `
-                  }
+                  css={{
+                    '& span, div, img': {
+                      borderRadius: variants[slice.variant]
+                        .positionIcon(index)
+                        .includes('unset')
+                        ? 'var(--boemly-radii-xl)'
+                        : undefined,
+                      [`border${oppositesOfCorners[
+                        variants[slice.variant].positionIcon(index)
+                      ]
+                        .split('-')
+                        .map(
+                          (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                        )
+                        .join('')}Radius`]: !variants[slice.variant]
+                        .positionIcon(index)
+                        .includes('unset')
+                        ? 'var(--boemly-radii-full)'
+                        : undefined,
+                    },
+                  }}
                 >
                   <Image
                     src={strapiMediaUrl(image.img, 'small')}
@@ -252,7 +249,7 @@ export const TextCardGrid: React.FC<TextCardGridProps> = ({
                     }}
                     textProps={{
                       color: 'gray.500',
-                      size: 'smRegularNormal',
+                      fontSize: 'smRegularNormal',
                     }}
                   />
                   {buttons && !!buttons.length && (
@@ -268,7 +265,7 @@ export const TextCardGrid: React.FC<TextCardGridProps> = ({
                           size="sm"
                           rightIcon={
                             buttonIndex === 0 ? (
-                              <CaretRight size="10" weight="bold" />
+                              <CaretRightIcon size="10" weight="bold" />
                             ) : undefined
                           }
                           variant={buttonIndex === 0 ? 'outline' : 'ghost'}

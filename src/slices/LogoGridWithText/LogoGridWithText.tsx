@@ -10,7 +10,7 @@ import {
   Wrapper,
 } from 'boemly';
 import Image from 'next/image';
-import { ArrowRight } from '@phosphor-icons/react';
+import { ArrowRightIcon } from '@phosphor-icons/react';
 import strapiLinkUrl from '../../utils/strapiLinkUrl';
 import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
@@ -49,10 +49,10 @@ export const LogoGridWithText: React.FC<LogoGridWithTextProps> = ({
               <StrapiLinkButton
                 link={slice.button}
                 size="md"
-                colorScheme="white"
+                colorPalette="white"
                 variant="outline"
                 mt="6"
-                rightIcon={<ArrowRight />}
+                rightIcon={<ArrowRightIcon />}
                 component="LogoGridWithText"
               />
             )}

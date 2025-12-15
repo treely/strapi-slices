@@ -1,8 +1,8 @@
-import { Box, Container, Flex, Heading, Tag, Text } from 'boemly';
+import { BoemlyTag, Box, Container, Flex, Heading, Text } from 'boemly';
 import React, { useContext } from 'react';
 import Image from 'next/image';
 import PortfolioProject from '../../models/PortfolioProject';
-import { strapiMediaUrl } from '../..';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import { FORMAT_AS_HECTARE_CONFIG } from '../../constants/formatter';
 import CreditsAvailableBadge from '../../components/CreditsAvailableBadge';
 import { IntlContext } from '../ContextProvider';
@@ -13,7 +13,7 @@ export interface ProjectGridCardProps {
 
 export const ProjectGridCard = ({
   project,
-}: ProjectGridCardProps): JSX.Element => {
+}: ProjectGridCardProps): React.JSX.Element => {
   const { formatNumber, formatMessage } = useContext(IntlContext);
 
   return (
@@ -36,36 +36,36 @@ export const ProjectGridCard = ({
           {project.friendlyName || project.title}
         </Heading>
         <Flex flexDir="row" gap="2" flexWrap="wrap">
-          <Tag>
+          <BoemlyTag backgroundColor="gray.100">
             <Text size="xsLowBold" color="gray.800">
               {formatNumber(
                 (project.area || 0) / 10000,
                 FORMAT_AS_HECTARE_CONFIG
               )}
             </Text>
-          </Tag>
-          <Tag>
+          </BoemlyTag>
+          <BoemlyTag backgroundColor="gray.100">
             <Text size="xsLowBold" color="gray.800">
               {project.location}
             </Text>
-          </Tag>
+          </BoemlyTag>
           {project.certificationDate ? (
-            <Tag>
+            <BoemlyTag backgroundColor="gray.100">
               <Text size="xsLowBold" color="gray.800">
                 {formatMessage(
                   { id: 'components.projectGridCard.certified' },
                   { year: new Date(project.certificationDate).getFullYear() }
                 )}
               </Text>
-            </Tag>
+            </BoemlyTag>
           ) : (
-            <Tag>
+            <BoemlyTag backgroundColor="gray.100">
               <Text size="xsLowBold" color="gray.800">
                 {formatMessage({
                   id: 'components.projectGridCard.certificationInProgress',
                 })}
               </Text>
-            </Tag>
+            </BoemlyTag>
           )}
           <CreditsAvailableBadge status={project.creditAvailability} />
         </Flex>

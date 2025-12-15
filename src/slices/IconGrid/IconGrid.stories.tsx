@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/nextjs';
 
 import { storybookStrapiTreeIconMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import IconGrid from '.';

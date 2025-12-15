@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/nextjs';
 import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import Cta from '.';
 import { CtaCard } from './Cta';

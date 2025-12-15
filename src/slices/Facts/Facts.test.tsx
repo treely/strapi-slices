@@ -29,15 +29,15 @@ describe('The Facts component', () => {
     expect(screen.getByText('Link')).toBeInTheDocument();
   });
 
-  it('displays the chakra-button with css-e5zvm4 class if the slice.variant is gray', () => {
+  it('displays the chakra-button with css-uurmsh class if the slice.variant is gray', () => {
     setup({
       slice: { ...defaultProps.slice, button: { url: 'url', text: 'Link' } },
     });
 
-    expect(screen.getByRole('link')).toHaveClass('chakra-button css-e5zvm4');
+    expect(screen.getByRole('link')).toHaveClass('chakra-button css-uurmsh');
   });
 
-  it('displays the chakra-button with css-y35h5g class if the slice.variant is green', () => {
+  it('displays the chakra-button with css-em81ir class if the slice.variant is green', () => {
     setup({
       slice: {
         ...defaultProps.slice,
@@ -46,7 +46,7 @@ describe('The Facts component', () => {
       },
     });
 
-    expect(screen.getByRole('link')).toHaveClass('chakra-button css-y35h5g');
+    expect(screen.getByRole('link')).toHaveClass('chakra-button css-em81ir');
   });
 
   it('displays the title header when slice.title is defined', () => {

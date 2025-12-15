@@ -8,7 +8,7 @@ export interface RedirectProps {
   };
 }
 
-export const Redirect = ({ slice }: RedirectProps): JSX.Element => {
+export const Redirect = ({ slice }: RedirectProps): React.JSX.Element => {
   const router = useRouter();
 
   useEffect(() => {

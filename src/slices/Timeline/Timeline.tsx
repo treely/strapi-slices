@@ -10,10 +10,10 @@ import {
   RichText,
   SimpleGrid,
   Spacer,
-  Tag,
   Text,
   Wrapper,
   useMediaQuery,
+  BoemlyTag,
 } from 'boemly';
 import Image from 'next/image';
 import StrapiImage from '../../models/strapi/StrapiImage';
@@ -52,7 +52,7 @@ export interface TimelineItem {
 export const Timeline: React.FC<TimelineProps> = ({ slice }: TimelineProps) => {
   const { formatMessage } = useContext(IntlContext);
   const [visibleItems, setVisibleItems] = useState(3);
-  const [mobile] = useMediaQuery(BREAKPOINT_MD_QUERY);
+  const [mobile] = useMediaQuery([BREAKPOINT_MD_QUERY]);
   const [isOpen, setIsOpen] = useState(false);
 
   const showMoreItems = () => {
@@ -62,13 +62,13 @@ export const Timeline: React.FC<TimelineProps> = ({ slice }: TimelineProps) => {
   return (
     <DefaultSectionContainer>
       <Wrapper>
-        <Flex flexDir={['column', null, null, 'row']}>
+        <Flex flexDir={['column', null, 'row']}>
           <Box
-            width={['full', null, null, '50%']}
-            position={[null, null, null, 'sticky']}
-            top={['16', null, null, '32']}
+            width={['full', null, '50%']}
+            position={[null, null, 'sticky']}
+            top={['16', null, '32']}
             height="full"
-            paddingRight={[null, null, null, '28']}
+            paddingRight={[null, null, '28']}
           >
             <DefaultSectionHeader
               tagline={slice.tagline}
@@ -77,7 +77,7 @@ export const Timeline: React.FC<TimelineProps> = ({ slice }: TimelineProps) => {
             />
             {mobile && (
               <>
-                <Spacer h="10" />
+                <Spacer height="10" />
                 <Flex justifyContent="center">
                   <Box
                     borderRadius="full"
@@ -99,9 +99,8 @@ export const Timeline: React.FC<TimelineProps> = ({ slice }: TimelineProps) => {
           </Box>
           <Box
             overflow="visible"
-            maxWidth={['full', null, null, '50%']}
+            maxWidth={['full', null, '50%']}
             borderLeft={[
-              null,
               null,
               null,
               'dashed 1px var(--boemly-colors-gray-200)',
@@ -109,27 +108,23 @@ export const Timeline: React.FC<TimelineProps> = ({ slice }: TimelineProps) => {
             position="relative"
             width="full"
           >
-            <Flex
-              flexDir="column"
-              overflow="visible"
-              gap={[null, null, null, '8']}
-            >
+            <Flex flexDir="column" overflow="visible" gap={['8', null, '8']}>
               {slice.timelineItems.slice(0, visibleItems).map((item, index) => (
                 <SimpleGrid
-                  gap={['none', null, null, '4']}
-                  key={item.id}
-                  columns={[1, null, null, 2]}
+                  gap={['4', null, '4']}
+                  key={`${item.id}-${index}`}
+                  columns={[1, null, 2]}
                   alignContent="center"
-                  gridTemplateColumns={[null, null, null, '1fr 16fr']}
+                  gridTemplateColumns={[null, null, '1fr 16fr']}
                   position="relative"
                 >
                   <Flex
                     alignItems="center"
-                    justifyContent={['center', null, null, 'flex-start']}
+                    justifyContent={['center', null, 'flex-start']}
                   >
                     <Box
                       position="absolute"
-                      transform={[null, null, null, 'translateX(-50%)']}
+                      transform={[null, null, 'translateX(-50%)']}
                       backgroundColor="white"
                     >
                       {item.icon ? (
@@ -204,18 +199,18 @@ export const Timeline: React.FC<TimelineProps> = ({ slice }: TimelineProps) => {
                               <Text color="primary.800" size="smMonoUppercase">
                                 {item.tagline}
                               </Text>
-                              <Spacer h="2" />
+                              <Spacer height="2" />
                             </>
                           )}
                         </Box>
                         <Flex>
                           {item.badge && (
-                            <Tag
-                              colorScheme={item.badge.variant}
+                            <BoemlyTag
+                              colorPalette={item.badge.variant}
                               borderRadius="md"
                             >
                               {item.badge.text}
-                            </Tag>
+                            </BoemlyTag>
                           )}
                           {item.logo && (
                             <Box position="relative" height="8" width="16">
@@ -245,7 +240,7 @@ export const Timeline: React.FC<TimelineProps> = ({ slice }: TimelineProps) => {
                       )}
                       {item.button && (
                         <Box textAlign="left">
-                          <Spacer h="4" />
+                          <Spacer height="4" />
                           <StrapiLinkButton
                             link={item.button}
                             size="sm"

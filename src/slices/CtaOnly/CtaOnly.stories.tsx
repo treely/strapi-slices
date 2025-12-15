@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/nextjs';
 import CtaOnly from '.';
 import RichTextSection from '../RichTextSection';
 import { RichTextSectionProps } from '../RichTextSection/RichTextSection';

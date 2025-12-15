@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { BoemlyModal, Flex, IconButton } from 'boemly';
-import { useKey, useLockBodyScroll } from 'react-use';
+import { useScrollLock } from '@reactuses/core';
 import StrapiImage from '../../models/strapi/StrapiImage';
-import { CaretLeft, CaretRight } from '@phosphor-icons/react';
+import { CaretLeftIcon, CaretRightIcon } from '@phosphor-icons/react';
 import ZoomableImage from './ZoomableImage';
 
 export interface FullScreenImageProps {
@@ -22,7 +22,15 @@ export const FullScreenImage = ({
 }: FullScreenImageProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useLockBodyScroll(isOpen);
+  const [, setLocked] = useScrollLock(
+    typeof document !== 'undefined' ? document.body : null
+  );
+  useEffect(() => {
+    setLocked(isOpen);
+    return () => {
+      setLocked(false);
+    };
+  }, [isOpen, setLocked]);
 
   const canMoveRight = useMemo(
     () => currentIndex < images.length - 1,
@@ -32,15 +40,31 @@ export const FullScreenImage = ({
 
   const onRight = useCallback(
     () => canMoveRight && setCurrentIndex && setCurrentIndex((c) => c + 1),
-    [canMoveRight]
+    [canMoveRight, setCurrentIndex]
   );
   const onLeft = useCallback(
     () => canMoveLeft && setCurrentIndex && setCurrentIndex((c) => c - 1),
-    [canMoveLeft]
+    [canMoveLeft, setCurrentIndex]
   );
 
-  useKey('ArrowRight', onRight, {}, [onRight]);
-  useKey('ArrowLeft', onLeft, {}, [onLeft]);
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        onRight();
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        onLeft();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onRight, onLeft]);
 
   useEffect(() => {
     if (!!isOpen) {
@@ -64,10 +88,14 @@ export const FullScreenImage = ({
 
   return (
     <BoemlyModal
-      onClose={onClose}
-      isOpen={isOpen}
+      onOpenChange={(isModalOpen) => {
+        if (!isModalOpen) {
+          onClose();
+        }
+      }}
+      open={isOpen}
       title=""
-      trigger=""
+      trigger={<span style={{ display: 'none' }} />}
       size="full"
       content={
         <Flex
@@ -105,22 +133,23 @@ export const FullScreenImage = ({
             <IconButton
               visibility={canMoveLeft ? 'visible' : 'hidden'}
               onClick={onLeft}
-              icon={<CaretLeft size={16} />}
               aria-label="Previous picture"
               variant="outline"
               pointerEvents="all"
               mr="6"
-            />
-
+            >
+              <CaretLeftIcon size={16} />
+            </IconButton>
             <IconButton
               visibility={canMoveRight ? 'visible' : 'hidden'}
               onClick={onRight}
-              icon={<CaretRight size={16} />}
               aria-label="Next picture"
               variant="outline"
               pointerEvents="all"
               ml="4"
-            />
+            >
+              <CaretRightIcon size={16} />
+            </IconButton>
           </Flex>
         </Flex>
       }

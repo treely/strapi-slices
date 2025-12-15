@@ -5,31 +5,30 @@ import {
   Flex,
   Heading,
   Tooltip,
-  Tag,
   useMediaQuery,
   Button,
+  BoemlyTag,
 } from 'boemly';
-import { css } from '@emotion/react';
 import Image from 'next/image';
 import StrapiLinkButton from '../StrapiLinkButton';
 import {
-  BowlFood,
-  CalendarBlank,
-  CaretDown,
-  CaretRight,
-  CaretUp,
-  ChalkboardTeacher,
-  Confetti,
-  Handshake,
-  Headset,
-  Info,
-  Laptop,
-  MapPinLine,
-  PersonSimpleWalk,
-  ProjectorScreenChart,
-  Star,
-  UsersThree,
-  Webcam,
+  BowlFoodIcon,
+  CalendarBlankIcon,
+  CaretDownIcon,
+  CaretRightIcon,
+  CaretUpIcon,
+  ChalkboardTeacherIcon,
+  ConfettiIcon,
+  HandshakeIcon,
+  HeadsetIcon,
+  InfoIcon,
+  LaptopIcon,
+  MapPinLineIcon,
+  PersonSimpleWalkIcon,
+  ProjectorScreenChartIcon,
+  StarIcon,
+  UsersThreeIcon,
+  WebcamIcon,
 } from '@phosphor-icons/react';
 import getCountryFlag from '../../utils/getCountryFlag';
 import { BREAKPOINT_MD_QUERY } from '../../constants/breakpoints';
@@ -45,35 +44,35 @@ export interface EventCardProps {
 const MAX_LENGTH = 120;
 const LOCATION_MAX_LENGTH = 28;
 
-const getEventIcon = (eventType: string): JSX.Element => {
+const getEventIcon = (eventType: string): React.JSX.Element => {
   switch (eventType) {
     case EventType.WEBINAR:
-      return <Webcam size={12} />;
+      return <WebcamIcon size={12} />;
     case EventType.CONFERENCE:
-      return <Headset size={12} />;
+      return <HeadsetIcon size={12} />;
     case EventType.MEET_UP:
-      return <UsersThree size={12} />;
+      return <UsersThreeIcon size={12} />;
     case EventType.FOREST_WALK:
-      return <PersonSimpleWalk size={12} />;
+      return <PersonSimpleWalkIcon size={12} />;
     case EventType.PARTNER_EVENT:
-      return <Handshake size={12} />;
+      return <HandshakeIcon size={12} />;
     case EventType.LUNCH_AND_LEARN:
-      return <BowlFood size={12} />;
+      return <BowlFoodIcon size={12} />;
     case EventType.FAIR:
-      return <ChalkboardTeacher size={12} />;
+      return <ChalkboardTeacherIcon size={12} />;
     case EventType.FESTIVAL:
-      return <Confetti size={12} />;
+      return <ConfettiIcon size={12} />;
     case EventType.ROADSHOW:
-      return <ProjectorScreenChart size={12} />;
+      return <ProjectorScreenChartIcon size={12} />;
     default:
-      return <Info size={12} weight="fill" />;
+      return <InfoIcon size={12} weight="fill" />;
   }
 };
 
-export const EventCard = ({ event }: EventCardProps): JSX.Element => {
+export const EventCard = ({ event }: EventCardProps): React.JSX.Element => {
   const { formatDate, formatNumber, formatMessage } = useContext(IntlContext);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [mobile] = useMediaQuery(BREAKPOINT_MD_QUERY);
+  const [mobile] = useMediaQuery([BREAKPOINT_MD_QUERY]);
 
   const toggleText = () => {
     setIsExpanded(!isExpanded);
@@ -95,14 +94,12 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
         width="full"
         height={['32', null, null, '44']}
         borderTopRadius={['xl', null, null, '2xl']}
-        css={css`
-          & span,
-          div,
-          img {
-            border-top-left-radius: inherit;
-            border-top-right-radius: inherit;
-          }
-        `}
+        css={{
+          '& span, div, img': {
+            borderTopLeftRadius: 'inherit',
+            borderTopRightRadius: 'inherit',
+          },
+        }}
       >
         <Image
           src={strapiMediaUrl(event.image?.img, 'medium')}
@@ -142,39 +139,44 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
         <Flex flexDir="row" mb="4" gap="2" flexWrap="wrap">
           {event.recommended ? (
             <Flex mb={['2', null, null, '0']}>
-              <Tag backgroundColor="green.600">
-                <Star size={12} weight="fill" color="white" />
-                &nbsp;
-                <Text size="xsLowBold" color="white">
-                  {formatMessage({
-                    id: 'sections.eventCard.recommendedEvent',
-                  })}
-                </Text>
-              </Tag>
+              <BoemlyTag backgroundColor="green.600">
+                <Flex alignItems="center" gap="1" whiteSpace="nowrap">
+                  <StarIcon size={12} weight="fill" color="white" />
+                  <Text size="xsLowBold" color="white">
+                    {formatMessage({
+                      id: 'sections.eventCard.recommendedEvent',
+                    })}
+                  </Text>
+                </Flex>
+              </BoemlyTag>
             </Flex>
           ) : (
             <></>
           )}
           <Flex flexWrap="wrap" gap="2">
             {event.eventTypes.map((e) => (
-              <Tag key={e.id}>
-                {getEventIcon(e.eventType)}&nbsp;
-                <Text size="xsLowBold" color="gray.800">
-                  {formatMessage({
-                    id: `sections.eventCard.eventType.${e.eventType
-                      .toLowerCase()
-                      .replace(/\s+/g, '')}`,
-                  })}
-                </Text>
-              </Tag>
+              <BoemlyTag key={e.id}>
+                <Flex alignItems="center" gap="1" whiteSpace="nowrap">
+                  {getEventIcon(e.eventType)}
+                  <Text size="xsLowBold" color="gray.800">
+                    {formatMessage({
+                      id: `sections.eventCard.eventType.${e.eventType
+                        .toLowerCase()
+                        .replace(/\s+/g, '')}`,
+                    })}
+                  </Text>
+                </Flex>
+              </BoemlyTag>
             ))}
             {event.languages.map(({ id, language, countryCode }) => (
-              <Tag key={id}>
-                {getCountryFlag(countryCode)}&nbsp;
-                <Text size="xsLowBold" color="gray.800">
-                  {language}
-                </Text>
-              </Tag>
+              <BoemlyTag key={id}>
+                <Flex alignItems="center" gap="1" whiteSpace="nowrap">
+                  {getCountryFlag(countryCode)}
+                  <Text size="xsLowBold" color="gray.800">
+                    {language}
+                  </Text>
+                </Flex>
+              </BoemlyTag>
             ))}
           </Flex>
         </Flex>
@@ -187,28 +189,31 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
         >
           {event.online && (
             <Flex gap="2" alignItems="center">
-              <Laptop size={20} color={'var(--boemly-colors-primary-700)'} />
-              <Text size={['xsLowBold', null, null, 'smLowBold']}>Online</Text>
+              <LaptopIcon
+                size={20}
+                color={'var(--boemly-colors-primary-700)'}
+              />
+              <Text size={mobile ? 'xsLowBold' : 'smLowBold'}>Online</Text>
             </Flex>
           )}
           {event.location && (
             <Flex gap="2" alignItems="center">
-              <MapPinLine
+              <MapPinLineIcon
                 size={20}
                 color={'var(--boemly-colors-primary-700)'}
                 weight="fill"
               />
-              <Text size={['xsLowBold', null, null, 'smLowBold']}>
+              <Text size={mobile ? 'xsLowBold' : 'smLowBold'}>
                 {event.location}
               </Text>
             </Flex>
           )}
           <Flex alignItems="center" gap="2">
-            <CalendarBlank
+            <CalendarBlankIcon
               size={20}
               color={'var(--boemly-colors-primary-700)'}
             />
-            <Text size={['xsLowBold', null, null, 'smLowBold']}>
+            <Text size={mobile ? 'xsLowBold' : 'smLowBold'}>
               {formatDate(event.start, {
                 year: 'numeric',
                 month: '2-digit',
@@ -254,7 +259,7 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
         </Flex>
         <Text
           mb={mobile ? '0' : '7'}
-          size={['xsRegularNormal', null, null, 'smRegularNormal']}
+          size={mobile ? 'xsRegularNormal' : 'smRegularNormal'}
         >
           {isExpanded || !mobile
             ? event.description
@@ -262,20 +267,18 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
         </Text>
         {event.description.length > MAX_LENGTH && mobile && (
           <Flex justifyContent="flex-start">
-            <Button
-              mt="2"
-              onClick={toggleText}
-              variant="link"
-              rightIcon={
-                isExpanded ? <CaretUp size="12" /> : <CaretDown size="12" />
-              }
-            >
+            <Button mt="2" onClick={toggleText} variant="link">
               {formatMessage(
                 isExpanded
                   ? {
                       id: 'sections.eventCard.buttonShowLess',
                     }
                   : { id: 'sections.eventCard.buttonShowMore' }
+              )}
+              {isExpanded ? (
+                <CaretUpIcon size="12" />
+              ) : (
+                <CaretDownIcon size="12" />
               )}
             </Button>
           </Flex>
@@ -293,7 +296,7 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
                 size="md"
                 variant={event.buttonVariant}
                 link={event.button}
-                rightIcon={<CaretRight size="10" />}
+                rightIcon={<CaretRightIcon size="10" />}
                 width="full"
                 component="EventCard"
               />
@@ -309,7 +312,7 @@ export const EventCard = ({ event }: EventCardProps): JSX.Element => {
                     position="relative"
                     borderRadius="2xl"
                   >
-                    <Tooltip label={speaker.name}>
+                    <Tooltip content={speaker.name}>
                       <Image
                         src={strapiMediaUrl(speaker.image.img, 'medium')}
                         alt={speaker.image.alt}

@@ -8,9 +8,9 @@ import {
   useMediaQuery,
 } from 'boemly';
 import Image from 'next/image';
-import { useMeasure, useWindowSize } from 'react-use';
+import { useMeasure, useWindowSize } from '@reactuses/core';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
+import { ArrowLeftIcon, ArrowRightIcon } from '@phosphor-icons/react';
 import StrapiImage from '../../models/strapi/StrapiImage';
 import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import FullScreenImage from '../../components/FullScreenImage';
@@ -40,9 +40,11 @@ export const FullWidthImageSlider: React.FC<FullWidthImageSliderProps> = ({
   slice,
 }: FullWidthImageSliderProps) => {
   const containerRef = useRef(null);
-  const [imageRef, { width: imageWidth }] = useMeasure<HTMLDivElement>();
+  const imageRef = useRef<HTMLDivElement>(null);
+  const [rect] = useMeasure(imageRef);
+  const imageWidth = rect.width;
   const { width: windowWidth } = useWindowSize();
-  const [isMobile] = useMediaQuery(BREAKPOINT_MD_QUERY);
+  const [isMobile] = useMediaQuery([BREAKPOINT_MD_QUERY]);
 
   const [sliderIndex, setSliderIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -119,7 +121,7 @@ export const FullWidthImageSlider: React.FC<FullWidthImageSliderProps> = ({
                   />
                 </ImageContainer>
 
-                <Text noOfLines={3} height="72px" fontSize="md">
+                <Text lineClamp={3} height="72px" fontSize="md">
                   {image.caption}
                 </Text>
               </Flex>
@@ -142,38 +144,44 @@ export const FullWidthImageSlider: React.FC<FullWidthImageSliderProps> = ({
         <Box>
           <AnimatePresence>
             {canMoveLeft && (
-              <IconButton
+              <motion.div
                 key="leftButton"
-                as={motion.button}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                size="lg"
-                variant="outline"
-                onClick={() => setSliderIndex(sliderIndex - 1)}
-                aria-label="Move left"
-                icon={<ArrowLeft size={16} />}
-                pointerEvents="auto"
-              />
+              >
+                <IconButton
+                  size="lg"
+                  variant="outline"
+                  onClick={() => setSliderIndex(sliderIndex - 1)}
+                  aria-label="Move left"
+                  pointerEvents="auto"
+                >
+                  <ArrowLeftIcon size={16} />
+                </IconButton>
+              </motion.div>
             )}
           </AnimatePresence>
         </Box>
         <Box>
           <AnimatePresence>
             {canMoveRight && (
-              <IconButton
+              <motion.div
                 key="rightButton"
-                as={motion.button}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                size="lg"
-                variant="outline"
-                onClick={() => setSliderIndex(sliderIndex + 1)}
-                aria-label="Move right"
-                icon={<ArrowRight size={16} />}
-                pointerEvents="auto"
-              />
+              >
+                <IconButton
+                  size="lg"
+                  variant="outline"
+                  onClick={() => setSliderIndex(sliderIndex + 1)}
+                  aria-label="Move right"
+                  pointerEvents="auto"
+                >
+                  <ArrowRightIcon size={16} />
+                </IconButton>
+              </motion.div>
             )}
           </AnimatePresence>
         </Box>

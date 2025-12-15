@@ -6,7 +6,7 @@ import getMessages from '../../utils/getMessages';
 
 interface MinimalProvidersProps {
   locale: string;
-  children: JSX.Element | JSX.Element[];
+  children: React.JSX.Element | React.JSX.Element[];
 }
 
 const MinimalProviders = ({ children, locale }: MinimalProvidersProps) => (

@@ -20,7 +20,7 @@ import {
   Wrapper,
 } from 'boemly';
 import Image from 'next/image';
-import { useWindowScroll, useWindowSize } from 'react-use';
+import { useWindowScroll, useWindowSize } from '@reactuses/core';
 import { useRouter } from 'next/router';
 import StrapiShapesCard from '../../models/strapi/StrapiShapesCard';
 import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
@@ -89,7 +89,7 @@ export const Steps: React.FC<StepsProps> = ({ slice }: StepsProps) => {
           : 0;
       })
     );
-  }, [offsetY]);
+  }, [offsetY, windowHeight, stepRefs]);
 
   return (
     <div ref={containerRef}>
@@ -156,7 +156,7 @@ export const Steps: React.FC<StepsProps> = ({ slice }: StepsProps) => {
                         options={{ forceBlock: true }}
                         content={text}
                         textProps={{
-                          size: 'mdRegularNormal',
+                          fontSize: 'mdRegularNormal',
                           color: 'whiteAlpha.700',
                           textAlign: 'center',
                         }}

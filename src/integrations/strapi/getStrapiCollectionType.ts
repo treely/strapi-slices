@@ -17,7 +17,7 @@ interface Options {
 
 const getStrapiCollectionType = async <
   T extends LocalizedEntity<K>,
-  K extends string
+  K extends string,
 >(
   path: string,
   key: K,

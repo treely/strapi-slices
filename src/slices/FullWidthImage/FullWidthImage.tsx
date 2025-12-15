@@ -24,7 +24,7 @@ export const FullWidthImage: React.FC<FullWidthImageProps> = ({
   slice,
 }: FullWidthImageProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isMobile] = useMediaQuery(BREAKPOINT_MD_QUERY);
+  const [isMobile] = useMediaQuery([BREAKPOINT_MD_QUERY]);
 
   return (
     <DefaultSectionContainer title={slice.title}>
@@ -39,7 +39,7 @@ export const FullWidthImage: React.FC<FullWidthImageProps> = ({
           textProps={{ textAlign: 'center', maxW: '3xl', marginX: 'auto' }}
         />
 
-        <Box position="relative" mt="20" height={['3xs', null, 'xl']}>
+        <Box position="relative" mt="20" minHeight={['xl', null, '3xl']}>
           <Image
             src={strapiMediaUrl(slice.image.img, 'xLarge')}
             alt={slice.image.alt}

@@ -1,10 +1,9 @@
-import React from 'react';
 import { render, screen } from '../../test/testUtils';
 import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
 import { CarouselMarqueeBannerProps } from './CarouselMarqueeBanner';
 import CarouselMarqueeBanner from '.';
 import { useMediaQuery } from 'boemly';
-import useWindowSize from 'react-use/lib/useWindowSize';
+import { useWindowSize } from '@reactuses/core';
 import AutoScroll from 'embla-carousel-auto-scroll';
 
 jest.mock('boemly', () => ({
@@ -12,9 +11,8 @@ jest.mock('boemly', () => ({
   useMediaQuery: jest.fn(),
 }));
 
-jest.mock('react-use/lib/useWindowSize', () => ({
-  __esModule: true,
-  default: jest.fn(),
+jest.mock('@reactuses/core', () => ({
+  useWindowSize: jest.fn(),
 }));
 
 jest.mock('embla-carousel-auto-scroll', () => {

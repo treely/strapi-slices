@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, X } from '@phosphor-icons/react';
+import { CheckIcon, XIcon } from '@phosphor-icons/react';
 import { Box } from 'boemly';
 
 export interface IconProps {
@@ -13,12 +13,12 @@ const BULLET_POINT_VARIANTS = {
   white: { bulletPointColor: 'black' },
 };
 
-export const Icon = ({ variant, icon }: IconProps): JSX.Element => {
+export const Icon = ({ variant, icon }: IconProps): React.JSX.Element => {
   switch (icon) {
     case 'check':
-      return <Check size={20} color="var(--boemly-colors-primary-500)" />;
+      return <CheckIcon size={20} color="var(--boemly-colors-primary-500)" />;
     case 'cross':
-      return <X size={20} color="var(--boemly-colors-red-500)" />;
+      return <XIcon size={20} color="var(--boemly-colors-red-500)" />;
     default:
       return (
         <Box

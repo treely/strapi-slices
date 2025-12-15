@@ -31,7 +31,7 @@ export interface IconGridProps {
   };
 }
 
-export const IconGrid = ({ slice }: IconGridProps): JSX.Element => {
+export const IconGrid = ({ slice }: IconGridProps): React.JSX.Element => {
   const columns = () => {
     if (slice.iconsWithTextAndButton.length === 2) {
       return [1, null, null, 2, 2];
@@ -57,7 +57,7 @@ export const IconGrid = ({ slice }: IconGridProps): JSX.Element => {
                 textProps={{ maxW: '3xl', textAlign: 'center' }}
               />
             </Flex>
-            <Spacer h="20" />
+            <Spacer height="20" />
           </>
         ) : (
           <></>

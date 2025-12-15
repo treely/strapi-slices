@@ -21,8 +21,8 @@ const ConditionalWrapper = ({
   children,
 }: {
   condition: boolean;
-  wrapper: (children: JSX.Element) => JSX.Element;
-  children: JSX.Element;
+  wrapper: (children: React.JSX.Element) => React.JSX.Element;
+  children: React.JSX.Element;
 }) => (condition ? wrapper(children) : children);
 
 export const ProjectsGrid: React.FC<ProjectsGridProps> = ({
@@ -46,7 +46,7 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({
             <ConditionalWrapper
               key={project.id}
               condition={!!project.slug}
-              wrapper={(children: JSX.Element) => (
+              wrapper={(children: React.JSX.Element) => (
                 <Link
                   href={`${project.portfolioHost || ''}/portfolio/${
                     project.slug

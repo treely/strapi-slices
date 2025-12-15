@@ -20,7 +20,7 @@ export interface HeroProps {
   };
 }
 
-export const Hero = ({ slice }: HeroProps): JSX.Element => (
+export const Hero = ({ slice }: HeroProps): React.JSX.Element => (
   <Box
     position="relative"
     width="full"

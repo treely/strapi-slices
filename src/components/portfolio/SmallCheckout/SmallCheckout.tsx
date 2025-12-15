@@ -3,9 +3,8 @@ import {
   BoemlyFormControl,
   Box,
   Button,
-  Divider,
+  Separator,
   Flex,
-  InputRightAddon,
   Spacer,
   Text,
 } from 'boemly';
@@ -185,12 +184,12 @@ const SmallCheckout = ({
                       label={formatMessage({
                         id: `portfolio.smallCheckout.contributionValueCurrency.label.${currency}`,
                       })}
-                      rightAddonsOrElements={[
-                        <InputRightAddon key="currencyUnit">
+                      rightAddons={[
+                        <Text key="currencyUnit">
                           {formatMessage({
                             id: `portfolio.smallCheckout.contributionValueCurrency.unit.${currency}`,
                           })}
-                        </InputRightAddon>,
+                        </Text>,
                       ]}
                       isInvalid={
                         !!errors.contributionValueCurrency &&
@@ -226,9 +225,7 @@ const SmallCheckout = ({
                       label={formatMessage({
                         id: 'portfolio.smallCheckout.contributionValueTons.label',
                       })}
-                      rightAddonsOrElements={[
-                        <InputRightAddon key="tCO₂">tCO₂</InputRightAddon>,
-                      ]}
+                      rightAddons={[<Text key="tCO₂">tCO₂</Text>]}
                       isInvalid={
                         !!errors.contributionValueTons &&
                         touched.contributionValueTons
@@ -284,7 +281,7 @@ const SmallCheckout = ({
         <Text size="smLowNormal">{checkoutText}</Text>
       </Flex>
 
-      <Divider my="6" />
+      <Separator my="6" />
 
       <Flex width="full" alignItems="center" direction="column">
         {title && (

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Box, DefaultSectionContainer, Wrapper } from 'boemly';
-import { useMeasure } from 'react-use';
+import { useMeasure } from '@reactuses/core';
 
 interface VideoSlice {
   youTubeID: string;
@@ -12,7 +12,9 @@ export interface VideoProps {
 }
 
 export const Video: React.FC<VideoProps> = ({ slice }: VideoProps) => {
-  const [ref, { width }] = useMeasure<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
+  const [rect] = useMeasure(ref);
+  const width = rect.width;
 
   return (
     <DefaultSectionContainer>

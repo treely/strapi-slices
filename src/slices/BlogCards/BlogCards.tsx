@@ -15,7 +15,7 @@ import {
 } from 'boemly';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CaretRight } from '@phosphor-icons/react';
+import { CaretRightIcon } from '@phosphor-icons/react';
 import StrapiBlogPost from '../../models/strapi/StrapiBlogPost';
 import IStrapiData from '../../models/strapi/IStrapiData';
 import strapiMediaUrl from '../../utils/strapiMediaUrl';
@@ -60,7 +60,7 @@ export const BlogCards: React.FC<BlogCardsProps> = ({
   blogPosts,
 }: BlogCardsProps) => {
   const { formatDate } = useContext(IntlContext);
-  const [mobile] = useMediaQuery(BREAKPOINT_LG_QUERY);
+  const [mobile] = useMediaQuery([BREAKPOINT_LG_QUERY]);
   const [gray700] = useToken('colors', ['gray.700']);
 
   const sortedBlogPosts = useMemo(
@@ -110,7 +110,7 @@ export const BlogCards: React.FC<BlogCardsProps> = ({
                 link={slice.button}
                 size="lg"
                 variant="outline"
-                rightIcon={<CaretRight color={gray700} />}
+                rightIcon={<CaretRightIcon color={gray700} />}
                 component="BlogCards"
               />
             </Box>
@@ -119,8 +119,8 @@ export const BlogCards: React.FC<BlogCardsProps> = ({
         <Spacer height="14" />
         <SimpleGrid
           columns={[1, null, null, 3]}
-          spacingX={4}
-          spacingY={24}
+          columnGap={4}
+          rowGap={24}
           flexShrink="0"
         >
           {blogPostsToDisplay.map((blogPost) => (
@@ -128,7 +128,7 @@ export const BlogCards: React.FC<BlogCardsProps> = ({
               as={Link}
               href={`/blog/${blogPost.attributes.slug}`}
               data-testid="blog-item"
-              key={blogPost.attributes.slug}
+              key={blogPost.id}
             >
               <ImageContainer>
                 <Image
@@ -196,7 +196,7 @@ export const BlogCards: React.FC<BlogCardsProps> = ({
                   link={slice.button}
                   size="lg"
                   variant="outline"
-                  rightIcon={<CaretRight color={gray700} />}
+                  rightIcon={<CaretRightIcon color={gray700} />}
                   component="BlogCards"
                 />
               </Box>

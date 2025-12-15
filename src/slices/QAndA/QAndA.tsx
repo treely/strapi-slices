@@ -10,7 +10,7 @@ import {
   Flex,
   Spacer,
 } from 'boemly';
-import { ArrowRight } from '@phosphor-icons/react';
+import { ArrowRightIcon } from '@phosphor-icons/react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import StrapiLink from '../../models/strapi/StrapiLink';
@@ -134,9 +134,9 @@ export const QAndA: React.FC<QAndAProps> = ({ slice }: QAndAProps) => {
                   <Spacer minHeight={['4', null, null, '0']} />
                   <StrapiLinkButton
                     size="lg"
-                    colorScheme="white"
+                    colorPalette="white"
                     background="white"
-                    rightIcon={<ArrowRight />}
+                    rightIcon={<ArrowRightIcon />}
                     link={slice.button}
                     component="QAndA"
                   />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '../../test/testUtils';
+import { render, screen, waitFor, fireEvent } from '../../test/testUtils';
 import { strapiQuoteCardMock } from '../../test/strapiMocks/strapiQuoteCard';
 import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
 import { strapiHeroCardMock } from '../../test/strapiMocks/strapiHeroCard';
@@ -31,7 +31,7 @@ describe('The QuoteCards component', () => {
     expect(screen.getByText(strapiQuoteCardMock.text)).toBeInTheDocument();
   });
 
-  it('displays shapes if there are shapes in the slice', () => {
+  it('displays shapes if there are shapes in the slice', async () => {
     setup({
       slice: {
         ...defaultProps.slice,
@@ -42,7 +42,19 @@ describe('The QuoteCards component', () => {
       },
     });
 
-    expect(screen.getAllByRole('img')).toHaveLength(3);
+    // Get the avatar image (which starts hidden) and simulate the browser loading the image
+    const allImages = screen.getAllByRole('img', { hidden: true });
+    const avatarImage = allImages.find(
+      (img) => img.getAttribute('alt') === strapiQuoteCardMock.avatar.image.alt
+    );
+    if (avatarImage) {
+      fireEvent.load(avatarImage);
+    }
+
+    // Wait for all images to be visible
+    await waitFor(() => {
+      expect(screen.getAllByRole('img')).toHaveLength(3);
+    });
   });
 
   it('displays a hero card if there is a hero in the slice', () => {

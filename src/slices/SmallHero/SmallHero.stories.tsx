@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/nextjs';
 
 import { storybookStrapiCoverMock } from '../../test/storybookMocks/storybookStrapiMedia';
 import SmallHero from '.';
@@ -73,8 +73,8 @@ export const WithTags = Template.bind({});
 WithTags.args = {
   slice: {
     tags: [
-      { id: 1, text: 'Tag 1', colorScheme: 'green' },
-      { id: 2, text: 'Tag 2', colorScheme: 'gray' },
+      { id: 1, text: 'Tag 1', colorPalette: 'green' },
+      { id: 2, text: 'Tag 2', colorPalette: 'gray' },
     ],
     title: 'Title',
     subTitle: 'Sub title',
@@ -91,8 +91,8 @@ export const WithTagsAndButton = Template.bind({});
 WithTagsAndButton.args = {
   slice: {
     tags: [
-      { id: 1, text: 'Tag 1', colorScheme: 'green' },
-      { id: 2, text: 'Tag 2', colorScheme: 'gray' },
+      { id: 1, text: 'Tag 1', colorPalette: 'green' },
+      { id: 2, text: 'Tag 2', colorPalette: 'gray' },
     ],
     title: 'Title',
     subTitle: 'Sub title',
@@ -124,8 +124,8 @@ export const LightThemeWithTagsAndButton = Template.bind({});
 LightThemeWithTagsAndButton.args = {
   slice: {
     tags: [
-      { id: 1, text: 'Tag 1', colorScheme: 'green' },
-      { id: 2, text: 'Tag 2', colorScheme: 'blue' },
+      { id: 1, text: 'Tag 1', colorPalette: 'green' },
+      { id: 2, text: 'Tag 2', colorPalette: 'blue' },
     ],
     title: 'Title',
     subTitle: 'Sub title',

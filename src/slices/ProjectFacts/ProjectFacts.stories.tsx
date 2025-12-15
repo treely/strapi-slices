@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/nextjs';
 
 import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
 import { storybookStrapiAvatarMock } from '../../test/storybookMocks/storybookStrapiMedia';

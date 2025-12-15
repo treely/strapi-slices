@@ -37,7 +37,7 @@ export const TextWithTextCards: React.FC<TextWithTextCardsProps> = ({
   const { push } = useRouter();
   const analyticsFunction = useContext(AnalyticsContext);
   const [white] = useToken('colors', ['white']);
-  const [belowBreakpoint] = useMediaQuery(BREAKPOINT_LG_QUERY);
+  const [belowBreakpoint] = useMediaQuery([BREAKPOINT_LG_QUERY]);
 
   const handleContactButtonClick = () => {
     if (slice.contact?.button) {
@@ -117,20 +117,13 @@ export const TextWithTextCards: React.FC<TextWithTextCardsProps> = ({
                   avatar={{
                     name: slice.contact.avatar.name,
                     description: slice.contact.avatar.description,
-                    image: (
-                      <Image
-                        src={strapiMediaUrl(
-                          slice.contact.avatar.image.img,
-                          'small'
-                        )}
-                        alt={slice.contact.avatar.image.alt}
-                        fill
-                        style={{
-                          objectFit:
-                            slice.contact.avatar.image.objectFit || 'cover',
-                        }}
-                      />
+                    imageSrc: strapiMediaUrl(
+                      slice.contact.avatar.image.img,
+                      'small'
                     ),
+                    imageAlt: slice.contact.avatar.image.alt,
+                    imageObjectFit:
+                      slice.contact.avatar.image.objectFit || 'cover',
                   }}
                   link={{
                     text: slice.contact.button.text,
@@ -168,20 +161,12 @@ export const TextWithTextCards: React.FC<TextWithTextCardsProps> = ({
               avatar={{
                 name: slice.contact.avatar.name,
                 description: slice.contact.avatar.description,
-                image: (
-                  <Image
-                    src={strapiMediaUrl(
-                      slice.contact.avatar.image.img,
-                      'small'
-                    )}
-                    alt={slice.contact.avatar.image.alt}
-                    fill
-                    style={{
-                      objectFit:
-                        slice.contact.avatar.image.objectFit || 'cover',
-                    }}
-                  />
+                imageSrc: strapiMediaUrl(
+                  slice.contact.avatar.image.img,
+                  'small'
                 ),
+                imageAlt: slice.contact.avatar.image.alt,
+                imageObjectFit: slice.contact.avatar.image.objectFit || 'cover',
               }}
               link={{
                 text: slice.contact.button.text,

@@ -1,5 +1,6 @@
 import { Box, Container, Flex } from 'boemly';
-import { StrapiCustomerStory, strapiMediaUrl } from '../..';
+import StrapiCustomerStory from '../../models/strapi/StrapiCustomerStory';
+import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import Image from 'next/image';
 import React from 'react';
 import Link from 'next/link';

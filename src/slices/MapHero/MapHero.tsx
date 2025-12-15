@@ -27,7 +27,7 @@ export interface MapHeroProps {
 }
 
 export const MapHero: React.FC<MapHeroProps> = ({ slice }: MapHeroProps) => {
-  const [belowBreakpoint] = useMediaQuery(BREAKPOINT_LG_QUERY);
+  const [belowBreakpoint] = useMediaQuery([BREAKPOINT_LG_QUERY]);
 
   return (
     <MapHeroContainer maxWidth="full">

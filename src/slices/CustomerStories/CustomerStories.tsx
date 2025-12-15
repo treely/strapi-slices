@@ -16,28 +16,28 @@ export interface CustomerStoriesProps {
 export const CustomerStories = ({
   slice,
   customerStories,
-}: CustomerStoriesProps): JSX.Element => {
+}: CustomerStoriesProps): React.JSX.Element => {
   return (
     <DefaultSectionContainer>
       <Wrapper>
-        <SimpleGrid columns={[1, null, null, 2, 3]} spacingX={6} spacingY={6}>
-          {slice.customer_stories.map(({ attributes }) => {
+        <SimpleGrid columns={[1, null, null, 2, 3]} gap="6">
+          {slice.customer_stories.map((customerStoryRef, index) => {
             const customerStory: IStrapiData<StrapiCustomerStory> | undefined =
               customerStories.find(
-                (cs) => cs.attributes.slug === attributes.slug
+                (cs) => cs.attributes.slug === customerStoryRef.attributes.slug
               );
             if (!customerStory) {
               return null;
             }
             return (
-              <Box key={customerStory.id}>
-                {attributes.variant === 'customerCard' && (
+              <Box key={`${customerStoryRef.id}-${index}`}>
+                {customerStoryRef.attributes.variant === 'customerCard' && (
                   <CustomerCard customerStory={customerStory.attributes} />
                 )}
-                {attributes.variant === 'quoteCard' && (
+                {customerStoryRef.attributes.variant === 'quoteCard' && (
                   <CustomerQuoteCard customerStory={customerStory.attributes} />
                 )}
-                {attributes.variant === 'logoCard' && (
+                {customerStoryRef.attributes.variant === 'logoCard' && (
                   <LogoCard customerStory={customerStory.attributes} />
                 )}
               </Box>

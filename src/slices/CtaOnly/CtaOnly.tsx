@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Wrapper } from 'boemly';
+import { DefaultSectionContainer, Wrapper } from 'boemly';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
 import StrapiLink from '../../models/strapi/StrapiLink';
 
@@ -10,9 +10,9 @@ export interface CtaOnlyProps {
 }
 
 export const CtaOnly: React.FC<CtaOnlyProps> = ({ slice }: CtaOnlyProps) => (
-  <Wrapper>
-    <Box position="absolute" top="-28" transform="translateY(50%)">
+  <DefaultSectionContainer>
+    <Wrapper>
       <StrapiLinkButton size="md" link={slice.button} component="CtaOnly" />
-    </Box>
-  </Wrapper>
+    </Wrapper>
+  </DefaultSectionContainer>
 );

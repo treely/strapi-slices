@@ -2,8 +2,12 @@ import { css } from '@emotion/react';
 
 const mapboxStyle = css`
   .mapboxgl-map {
-    -webkit-tap-highlight-color: rgb(0 0 0/0);
-    font: 12px/20px Helvetica Neue, Arial, Helvetica, sans-serif;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font:
+      12px/20px Helvetica Neue,
+      Arial,
+      Helvetica,
+      sans-serif;
     overflow: hidden;
     position: relative;
   }
@@ -152,7 +156,7 @@ const mapboxStyle = css`
     border-radius: inherit;
   }
   .mapboxgl-ctrl button:not(:disabled):hover {
-    background-color: rgb(0 0 0/5%);
+    background-color: rgba(0, 0, 0, 0.05);
   }
   .mapboxgl-ctrl-group button:focus:focus-visible {
     box-shadow: 0 0 2px 2px #0096ff;
@@ -366,7 +370,7 @@ const mapboxStyle = css`
       display: block;
     }
     .mapboxgl-ctrl-attrib.mapboxgl-compact-show .mapboxgl-ctrl-attrib-button {
-      background-color: rgb(0 0 0/5%);
+      background-color: rgba(0, 0, 0, 0.05);
     }
     .mapboxgl-ctrl-bottom-right > .mapboxgl-ctrl-attrib.mapboxgl-compact:after {
       bottom: 0;
@@ -504,7 +508,7 @@ const mapboxStyle = css`
     top: 0;
   }
   .mapboxgl-popup-close-button:hover {
-    background-color: rgb(0 0 0/5%);
+    background-color: rgba(0, 0, 0, 0.05);
   }
   .mapboxgl-popup-content {
     background: #fff;
@@ -641,7 +645,12 @@ const mapboxStyle = css`
     background: rgba(0, 0, 0, 0.7);
     color: #fff;
     display: flex;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      Segoe UI,
+      Helvetica,
+      Arial,
       sans-serif;
     height: 100%;
     justify-content: center;

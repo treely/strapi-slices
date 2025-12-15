@@ -10,12 +10,14 @@ import {
   Wrapper,
 } from 'boemly';
 import Image from 'next/image';
-import { ArrowRight } from '@phosphor-icons/react';
+import { ArrowRightIcon } from '@phosphor-icons/react';
 import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import StrapiLink from '../../models/strapi/StrapiLink';
 import StrapiProjectCard from '../../models/strapi/StrapiProjectCard';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
-import { IStrapiData, PortfolioProject, StrapiProject } from '../..';
+import IStrapiData from '../../models/strapi/IStrapiData';
+import PortfolioProject from '../../models/PortfolioProject';
+import StrapiProject from '../../models/strapi/StrapiProject';
 import ProjectGridCard from '../../components/ProjectGridCard';
 
 interface TextWithCardSlice {
@@ -114,9 +116,9 @@ export const TextWithCard: React.FC<TextWithCardProps> = ({
               <StrapiLinkButton
                 link={slice.button}
                 size="md"
-                colorScheme="white"
+                colorPalette="white"
                 variant="outline"
-                rightIcon={<ArrowRight />}
+                rightIcon={<ArrowRightIcon />}
                 component="TextWithCard"
               />
             )}

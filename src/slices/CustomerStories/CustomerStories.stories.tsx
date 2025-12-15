@@ -4,7 +4,7 @@ import {
   strapiCustomerStoryWithCustomerQuoteCardMock,
   strapiCustomerStoryWithLogoCardMock,
 } from '../../test/strapiMocks/strapiCustomerStory';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/nextjs';
 import CustomerStories from '.';
 
 export default {

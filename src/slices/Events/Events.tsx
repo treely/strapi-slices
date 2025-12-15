@@ -29,7 +29,7 @@ import {
 } from '../../constants/strapi';
 import { IntlContext } from '../../components/ContextProvider';
 import { mutate } from 'swr/_internal';
-import { EventType } from '@testing-library/react';
+import { EventType } from '../../models/strapi/StrapiEvent';
 import StrapiEvent from '../../models/strapi/StrapiEvent';
 import IStrapiData from '../../models/strapi/IStrapiData';
 
@@ -247,7 +247,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
               titleProps={{ maxW: '3xl' }}
               textProps={{ maxW: '3xl' }}
             />
-            <Spacer h="10" />
+            <Spacer height="10" />
           </>
         ) : (
           <></>
@@ -376,7 +376,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
               </Box>
             </Flex>
 
-            <Spacer h={['8', null, null, '16']} />
+            <Spacer height={['8', null, null, '16']} />
           </>
         ) : (
           <></>
@@ -391,7 +391,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
           // List of upcoming events
           <SimpleGrid
             columns={[1, null, null, null, null, 2]}
-            spacingX="6"
+            columnGap="6"
             gap="6"
             flexShrink="0"
             mb={['10', null, null, '20']}
@@ -411,7 +411,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
                 loadMoreUpcoming();
               }}
               variant="solid"
-              isLoading={isLoadingMoreUpcoming}
+              loading={isLoadingMoreUpcoming}
             >
               {formatMessage({ id: 'sections.events.loadMore' })}
             </Button>
@@ -419,7 +419,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
         </Flex>
       </Wrapper>
 
-      <Spacer h={['10', null, null, '28']} />
+      <Spacer height={['10', null, null, '28']} />
 
       <Box background="primary.50" pt={['8', null, null, '24']}>
         <Wrapper>
@@ -430,20 +430,20 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
             textProps={{ maxW: '3xl' }}
           />
 
-          <Spacer h="10" />
+          <Spacer height="10" />
 
           {(!pastEvents || pastEvents.length === 0) && !isLoadingPast ? (
             <>
               <Center>
                 {formatMessage({ id: 'sections.events.noPastEvents' })}
               </Center>
-              <Spacer h="24" />
+              <Spacer height="24" />
             </>
           ) : (
             // List of past events
             <SimpleGrid
               columns={[1, null, null, null, null, 2]}
-              spacingX="6"
+              columnGap="6"
               gap="6"
               flexShrink="0"
               placeItems="center"
@@ -464,7 +464,7 @@ export const Events: React.FC<EventsProps> = ({ slice }: EventsProps) => {
                   loadMorePast();
                 }}
                 variant="solid"
-                isLoading={isLoadingMorePast}
+                loading={isLoadingMorePast}
               >
                 {formatMessage({ id: 'sections.events.loadMore' })}
               </Button>

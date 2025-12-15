@@ -56,7 +56,7 @@ export interface SliceRendererProps {
   projects: PortfolioProject[];
   customerStories: IStrapiData<StrapiCustomerStory>[];
   locale?: Locale;
-  CustomSlice?: ({ slice, id }: CustomSliceProps) => JSX.Element;
+  CustomSlice?: ({ slice, id }: CustomSliceProps) => React.JSX.Element;
   analyticsFunction?: AnalyticsFunction;
 }
 
@@ -68,7 +68,7 @@ export const SliceRenderer = ({
   locale = 'en',
   CustomSlice,
   analyticsFunction,
-}: SliceRendererProps): JSX.Element => (
+}: SliceRendererProps): React.JSX.Element => (
   <ContextProvider locale={locale} analyticsFunction={analyticsFunction}>
     {slices.map((slice: any) => {
       switch (slice.__component) {

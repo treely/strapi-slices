@@ -81,7 +81,7 @@ describe('The EventCard component', () => {
       defaultProps.event.speakers?.[0]?.image.alt
     );
 
-    await waitFor(() => userEvent.hover(firstSpeakerImage));
+    await userEvent.hover(firstSpeakerImage);
     await waitFor(() => expect(screen.getByText('John Doe')).toBeVisible());
 
     const secondSpeakerImage = screen.getAllByRole('img')[3];
@@ -90,7 +90,7 @@ describe('The EventCard component', () => {
       defaultProps.event.speakers?.[1]?.image.alt
     );
 
-    await waitFor(() => userEvent.hover(secondSpeakerImage));
+    await userEvent.hover(secondSpeakerImage);
     await waitFor(() => expect(screen.getByText('Jane Doe')).toBeVisible());
   });
 

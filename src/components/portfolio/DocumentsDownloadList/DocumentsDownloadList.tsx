@@ -9,7 +9,7 @@ import {
   Spacer,
   Text,
 } from 'boemly';
-import { DownloadSimple, FilePdf } from '@phosphor-icons/react';
+import { DownloadSimpleIcon, FilePdfIcon } from '@phosphor-icons/react';
 import Link from 'next/link';
 import { IntlContext } from '../../ContextProvider';
 
@@ -46,7 +46,7 @@ export const DocumentsDownloadList: React.FC<DocumentsDownloadListProps> = ({
                 borderWidth="1px"
                 borderColor="grey.200"
               >
-                <FilePdf />
+                <FilePdfIcon />
               </Center>
 
               <Spacer width="4" />
@@ -66,11 +66,13 @@ export const DocumentsDownloadList: React.FC<DocumentsDownloadListProps> = ({
               aria-label={formatMessage({
                 id: 'features.portfolio.documentsDownloadList.downloadDocument',
               })}
-              icon={<DownloadSimple />}
-              as={Link}
-              href={documentUrl.url}
               size="sm"
-            />
+              asChild
+            >
+              <Link href={documentUrl.url || '#'}>
+                <DownloadSimpleIcon />
+              </Link>
+            </IconButton>
           </Flex>
         ))}
       </Flex>

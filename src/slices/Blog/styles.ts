@@ -4,6 +4,9 @@ import { Box, Link } from 'boemly';
 
 export const BlogItemContainer = styled(Link)`
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   & div img {
     transition: transform var(--default-ease) var(--medium-transition-duration);

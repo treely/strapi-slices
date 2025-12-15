@@ -1,7 +1,13 @@
 import { mergeDeep } from '../../utils/mergeDeep';
 import { EventsProps } from './Events';
 import Events from '.';
-import { render, screen, waitFor } from '../../test/testUtils';
+import {
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+  within,
+} from '../../test/testUtils';
 import React from 'react';
 import { strapiEventMock } from '../../test/strapiMocks/strapiEventMock';
 import useEvents from '../../models/hooks/useEvents';
@@ -226,7 +232,12 @@ describe('The Events slice', () => {
       userEvent.click(selectButton);
 
       await waitFor(async () => {
-        const options = await screen.getAllByRole('menuitemradio', {
+        // Find all listboxes and get the visible one (the opened event type filter)
+        const listboxes = screen.getAllByRole('listbox', { hidden: true });
+        const openListbox = listboxes.find(
+          (lb) => lb.getAttribute('data-state') === 'open'
+        );
+        const options = within(openListbox!).getAllByRole('option', {
           hidden: true,
         });
         expect(options).toHaveLength(2);
@@ -237,7 +248,7 @@ describe('The Events slice', () => {
           messagesEnEventCard['sections.eventCard.eventType.meetup']
         );
 
-        userEvent.click(options[0]);
+        fireEvent.click(options[0]);
       });
 
       await waitFor(() => {
@@ -265,14 +276,19 @@ describe('The Events slice', () => {
       userEvent.click(selectButton);
 
       await waitFor(async () => {
-        const options = await screen.getAllByRole('menuitemradio', {
+        // Find all listboxes and get the visible one (the opened language filter)
+        const listboxes = screen.getAllByRole('listbox', { hidden: true });
+        const openListbox = listboxes.find(
+          (lb) => lb.getAttribute('data-state') === 'open'
+        );
+        const options = within(openListbox!).getAllByRole('option', {
           hidden: true,
         });
         expect(options).toHaveLength(2);
         expect(options[0]).toHaveTextContent('German');
         expect(options[1]).toHaveTextContent('English');
 
-        userEvent.click(options[0]);
+        fireEvent.click(options[0]);
       });
 
       await waitFor(() => {
@@ -324,7 +340,7 @@ describe('The Events slice', () => {
       userEvent.click(selectButton);
 
       await waitFor(async () => {
-        const options = await screen.getAllByRole('menuitemradio', {
+        const options = await screen.getAllByRole('option', {
           hidden: true,
         });
         expect(options).toHaveLength(2);
@@ -335,7 +351,7 @@ describe('The Events slice', () => {
           messagesEn['sections.events.eventsFilter.sortBy.oldest']
         );
 
-        userEvent.click(options[1]);
+        fireEvent.click(options[1]);
       });
 
       await waitFor(() => {

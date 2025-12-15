@@ -1,10 +1,10 @@
 import React from 'react';
 import {
+  BoemlyTag,
   Box,
   DefaultSectionHeader,
   Flex,
   Gradient,
-  Tag,
   Wrapper,
 } from 'boemly';
 import Image from 'next/image';
@@ -18,7 +18,7 @@ export interface SmallHeroProps {
     tags?: {
       id: number;
       text: string;
-      colorScheme: string;
+      colorPalette: string;
     }[];
     tagline?: string;
     title: string;
@@ -78,15 +78,15 @@ export const SmallHero: React.FC<SmallHeroProps> = ({
         <>
           {slice.tags && (
             <Flex direction="row" justify="center" gap="2" mb="4" wrap="wrap">
-              {slice.tags.map(({ id, text, colorScheme }) => (
-                <Tag
+              {slice.tags.map(({ id, text, colorPalette }) => (
+                <BoemlyTag
                   key={id}
-                  colorScheme={colorScheme}
+                  colorPalette={colorPalette}
                   size="md"
                   variant="subtle"
                 >
                   {text}
-                </Tag>
+                </BoemlyTag>
               ))}
             </Flex>
           )}

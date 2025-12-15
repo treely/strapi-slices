@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/nextjs';
 
 import ProjectsGrid from '.';
 import { strapiProjectMock } from '../../test/strapiMocks/strapiProject';

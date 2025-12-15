@@ -7,15 +7,15 @@ import {
   Container,
   DefaultSectionContainer,
   DefaultSectionHeader,
-  Divider,
+  Separator,
   Flex,
-  InputRightAddon,
   LabelNumberPair,
   RichText,
   SimpleGrid,
   Spacer,
   useToken,
   Wrapper,
+  Text,
 } from 'boemly';
 import { Field, FieldProps, Form, Formik, FormikProps } from 'formik';
 import { FPM_API_URI } from '../../constants/api';
@@ -43,7 +43,9 @@ export interface ShopCheckoutProps {
   };
 }
 
-export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
+export const ShopCheckout = ({
+  slice,
+}: ShopCheckoutProps): React.JSX.Element => {
   const [primary50] = useToken('colors', ['primary.50']);
   const { formatMessage, formatNumber, locale } = useContext(IntlContext);
   const { push } = useRouter();
@@ -113,7 +115,7 @@ export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
             {slice.badge ? (
               <>
                 <Badge
-                  colorScheme="green"
+                  colorPalette="green"
                   textTransform="none"
                   whiteSpace="unset"
                 >
@@ -131,7 +133,7 @@ export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
             />
 
             <Spacer height="6" />
-            <Divider />
+            <Separator />
             <Spacer height="6" />
 
             <LabelNumberPair
@@ -149,7 +151,7 @@ export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
             />
 
             <Spacer height="6" />
-            <Divider />
+            <Separator />
             <Spacer height="6" />
 
             <Formik
@@ -181,12 +183,12 @@ export const ShopCheckout = ({ slice }: ShopCheckoutProps): JSX.Element => {
                             label={formatMessage({
                               id: `sections.shopCheckout.contributionValue.label.${slice.currency}`,
                             })}
-                            rightAddonsOrElements={[
-                              <InputRightAddon key="1">
+                            rightAddons={[
+                              <Text key="1">
                                 {formatMessage({
                                   id: `sections.shopCheckout.contributionValue.unit.${slice.currency}`,
                                 })}
-                              </InputRightAddon>,
+                              </Text>,
                             ]}
                             isInvalid={
                               !!errors.contributionValue &&

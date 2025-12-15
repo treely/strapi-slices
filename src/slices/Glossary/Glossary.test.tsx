@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, waitFor, userEvent } from '../../test/testUtils';
 import Glossary from '.';
 import { GlossaryProps } from './Glossary';
@@ -6,8 +5,8 @@ import { GlossaryProps } from './Glossary';
 const copyToClipboardSpy = jest.fn();
 const mockedResult = jest.fn().mockReturnValue({ noUserInteraction: false });
 
-jest.mock('react-use', () => ({
-  ...jest.requireActual('react-use'),
+jest.mock('@reactuses/core', () => ({
+  ...jest.requireActual('@reactuses/core'),
   useCopyToClipboard: () => [mockedResult(), copyToClipboardSpy],
 }));
 

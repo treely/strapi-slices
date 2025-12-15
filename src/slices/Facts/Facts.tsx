@@ -85,7 +85,7 @@ export const Facts: React.FC<FactsProps> = ({ slice }: FactsProps) => (
         </>
       )}
       <Flex
-        justifyContent={slice.facts.length < 3 ? 'center' : 'flex-start'}
+        justifyContent={slice.facts.length <= 4 ? 'center' : 'flex-start'}
         alignItems="center"
         flexWrap="wrap"
         mx={[null, null, null, '22', '28']}

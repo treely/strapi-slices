@@ -1,5 +1,5 @@
 import React from 'react';
-import { CaretRight, Globe } from '@phosphor-icons/react';
+import { CaretRightIcon, GlobeIcon } from '@phosphor-icons/react';
 import LinkedInIcon from '../../icons/LinkedInIcon';
 import StrapiLinkWithIcon from '../../models/strapi/StrapiLinkWithIcon';
 import StrapiLinkButton from '../StrapiLinkButton';
@@ -19,10 +19,10 @@ export const StrapiLinkButtonWithIcon: React.FC<
         return <LinkedInIcon />;
       }
       case 'web': {
-        return <Globe />;
+        return <GlobeIcon />;
       }
       default: {
-        return <CaretRight />;
+        return <CaretRightIcon />;
       }
     }
   };

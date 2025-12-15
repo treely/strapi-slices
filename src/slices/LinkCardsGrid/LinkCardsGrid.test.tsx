@@ -32,6 +32,8 @@ describe('The LinkCardsGrid component', () => {
   it('displays the link', () => {
     setup();
 
-    expect(screen.getByTestId('link')).toHaveAttribute('href', '/');
+    const linkBox = screen.getByTestId('link');
+    const linkElement = linkBox.closest('a');
+    expect(linkElement).toHaveAttribute('href', '/');
   });
 });

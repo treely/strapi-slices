@@ -9,7 +9,7 @@ import {
   BoemlyList,
   Wrapper,
 } from 'boemly';
-import { ArrowRight } from '@phosphor-icons/react';
+import { ArrowRightIcon } from '@phosphor-icons/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import strapiLinkUrl from '../../utils/strapiLinkUrl';
@@ -90,9 +90,9 @@ export const LeftTextRightCard: React.FC<LeftTextRightCardProps> = ({
               <StrapiLinkButton
                 link={slice.button}
                 size="md"
-                colorScheme="white"
+                colorPalette="white"
                 variant="outline"
-                rightIcon={<ArrowRight />}
+                rightIcon={<ArrowRightIcon />}
                 component="LeftTextRightCard"
               />
             )}

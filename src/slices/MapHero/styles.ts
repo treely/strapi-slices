@@ -27,14 +27,15 @@ export const MapHeroTextContainer = styled(Box)`
   @media screen and (max-width: ${BREAKPOINT_LG}) {
     position: relative;
     transform: unset;
+    z-index: 10;
 
-    padding-top: var(--boemly-space-32);
+    padding-top: var(--boemly-spacing-32);
   }
 `;
 
 export const ShapeContainer = styled(Box)`
   position: absolute;
-  bottom: calc(var(--boemly-space-8) * -1);
+  bottom: calc(var(--boemly-spacing-8) * -1);
   left: 0;
 
   width: var(--boemly-sizes-sm);
@@ -69,8 +70,9 @@ export const MapContainer = styled(Box)`
     width: 100%;
     height: var(--boemly-sizes-4xl);
     position: relative;
-    margin-top: calc(var(--boemly-space-72) * -1);
+    margin-top: calc(var(--boemly-spacing-72) * -1);
     background-color: var(--boemly-colors-white);
+    z-index: 1;
 
     & img {
       object-fit: contain !important;
@@ -84,6 +86,7 @@ export const MapGradient = styled(Box)`
   right: 0;
   width: 100%;
   height: 100%;
+  z-index: var(--boemly-zIndices-base);
 
   background: linear-gradient(
     90deg,

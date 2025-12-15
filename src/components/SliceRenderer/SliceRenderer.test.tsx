@@ -35,7 +35,7 @@ describe('The SliceRenderer component', () => {
   });
 
   it('renders a custom slice if given', () => {
-    const CustomSlice = ({ id }: CustomSliceProps): JSX.Element => (
+    const CustomSlice = ({ id }: CustomSliceProps): React.JSX.Element => (
       <div>Custom slice {id}</div>
     );
 

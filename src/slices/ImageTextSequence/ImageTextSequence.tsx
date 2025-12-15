@@ -11,7 +11,7 @@ import {
   Wrapper,
 } from 'boemly';
 import Image from 'next/image';
-import { CaretRight } from '@phosphor-icons/react';
+import { CaretRightIcon } from '@phosphor-icons/react';
 import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import { BREAKPOINT_LG_QUERY } from '../../constants/breakpoints';
 import StrapiDefaultHeader from '../../models/strapi/StrapiDefaultHeader';
@@ -37,7 +37,7 @@ export interface ImageTextSequenceProps {
 export const ImageTextSequence: React.FC<ImageTextSequenceProps> = ({
   slice,
 }: ImageTextSequenceProps) => {
-  const [oneColumnGrid] = useMediaQuery(BREAKPOINT_LG_QUERY);
+  const [oneColumnGrid] = useMediaQuery([BREAKPOINT_LG_QUERY]);
   const [primary50] = useToken('colors', ['primary.50']);
   const [gray700] = useToken('colors', ['gray.700']);
 
@@ -76,80 +76,84 @@ export const ImageTextSequence: React.FC<ImageTextSequenceProps> = ({
         <></>
       )}
       <Wrapper>
-        <DefaultSectionHeader
-          tagline={slice.tagline}
-          title={slice.title}
-          text={slice.text}
-          taglineProps={{ textAlign: ['left', null, null, null, 'center'] }}
-          titleProps={{
-            maxW: '6xl',
-            marginX: ['0', null, null, null, 'auto'],
-            textAlign: ['left', null, null, null, 'center'],
-          }}
-          textProps={{
-            maxW: '2xl',
-            marginX: ['0', null, null, null, 'auto'],
-            textAlign: ['left', null, null, null, 'center'],
-            color: 'black',
-          }}
-        />
+        <Box position="relative" zIndex="1">
+          <DefaultSectionHeader
+            tagline={slice.tagline}
+            title={slice.title}
+            text={slice.text}
+            taglineProps={{ textAlign: ['left', null, null, null, 'center'] }}
+            titleProps={{
+              maxW: '6xl',
+              marginX: ['0', null, null, null, 'auto'],
+              textAlign: ['left', null, null, null, 'center'],
+            }}
+            textProps={{
+              maxW: '2xl',
+              marginX: ['0', null, null, null, 'auto'],
+              textAlign: ['left', null, null, null, 'center'],
+              color: 'black',
+            }}
+          />
 
-        <SimpleGrid
-          gap="16"
-          mt={['28', null, null, null, '40']}
-          columns={[1, null, null, null, 2]}
-        >
-          {slice.imageTextRows.map(
-            ({ id, title, text, button, image }, index) => {
-              const imageBox = (
-                <Box>
-                  <Box
-                    position="relative"
-                    width="full"
-                    minHeight={['2xs', null, null, 'sm']}
-                  >
-                    <Image
-                      src={strapiMediaUrl(image.img, 'large')}
-                      alt={image.alt}
-                      fill
-                      style={{
-                        objectFit: image.objectFit || 'contain',
-                        borderRadius: 'var(--boemly-radii-xl)',
-                      }}
-                    />
-                  </Box>
-                </Box>
-              );
-              return (
-                <Fragment key={id}>
-                  {(oneColumnGrid || index % 2 !== 0) && imageBox}
-                  <Box
-                    display="flex"
-                    alignItems="flex-start"
-                    flexDirection="column"
-                    justifyContent="center"
-                  >
-                    <Heading as="h2" size="xl" mb="4">
-                      {title}
-                    </Heading>
-                    <Text size="mdRegularNormal">{text}</Text>
-                    {button && (
-                      <StrapiLinkButton
-                        mt="5"
-                        link={button}
-                        size="sm"
-                        variant="outline"
-                        rightIcon={<CaretRight size="10" color={gray700} />}
-                        component="ImageTextSequence"
+          <SimpleGrid
+            gap="16"
+            mt={['28', null, null, null, '40']}
+            columns={[1, null, null, null, 2]}
+          >
+            {slice.imageTextRows.map(
+              ({ id, title, text, button, image }, index) => {
+                const imageBox = (
+                  <Box>
+                    <Box
+                      position="relative"
+                      width="full"
+                      minHeight={['2xs', null, null, 'sm']}
+                    >
+                      <Image
+                        src={strapiMediaUrl(image.img, 'large')}
+                        alt={image.alt}
+                        fill
+                        style={{
+                          objectFit: image.objectFit || 'contain',
+                          borderRadius: 'var(--boemly-radii-xl)',
+                        }}
                       />
-                    )}
+                    </Box>
                   </Box>
-                  {!oneColumnGrid && index % 2 === 0 && imageBox}
-                </Fragment>
-              );
-            }
-          )}
-        </SimpleGrid>
+                );
+                return (
+                  <Fragment key={id}>
+                    {(oneColumnGrid || index % 2 !== 0) && imageBox}
+                    <Box
+                      display="flex"
+                      alignItems="flex-start"
+                      flexDirection="column"
+                      justifyContent="center"
+                    >
+                      <Heading as="h2" size="xl" mb="4">
+                        {title}
+                      </Heading>
+                      <Text size="mdRegularNormal">{text}</Text>
+                      {button && (
+                        <StrapiLinkButton
+                          mt="5"
+                          link={button}
+                          size="sm"
+                          variant="outline"
+                          rightIcon={
+                            <CaretRightIcon size="10" color={gray700} />
+                          }
+                          component="ImageTextSequence"
+                        />
+                      )}
+                    </Box>
+                    {!oneColumnGrid && index % 2 === 0 && imageBox}
+                  </Fragment>
+                );
+              }
+            )}
+          </SimpleGrid>
+        </Box>
       </Wrapper>
     </DefaultSectionContainer>
   );

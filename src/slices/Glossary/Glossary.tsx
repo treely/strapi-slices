@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   DefaultSectionContainer,
   Separator,
@@ -12,7 +12,6 @@ import {
   Box,
 } from 'boemly';
 import { CheckIcon, LinkIcon } from '@phosphor-icons/react';
-import { useCopyToClipboard } from '@reactuses/core';
 import IStrapiData from '../../models/strapi/IStrapiData';
 import StrapiGlossaryItem from '../../models/strapi/StrapiGlossaryItem';
 import { IntlContext } from '../../components/ContextProvider';
@@ -27,7 +26,6 @@ export const Glossary: React.FC<GlossaryProps> = ({ slice }: GlossaryProps) => {
   const { formatMessage } = useContext(IntlContext);
   const grouped: Record<string, StrapiGlossaryItem[]> = {};
   const [copiedItem, setCopiedItem] = useState<string>();
-  const [, copyToClipboard] = useCopyToClipboard();
 
   slice.glossary_items
     .sort((a, b) => a.attributes.title.localeCompare(b.attributes.title))
@@ -40,9 +38,13 @@ export const Glossary: React.FC<GlossaryProps> = ({ slice }: GlossaryProps) => {
     }, {});
 
   const handleAnchorClick = async (slug: string) => {
-    if (typeof window !== 'undefined' && window.location) {
+    if (
+      typeof window !== 'undefined' &&
+      window.location &&
+      navigator.clipboard
+    ) {
       const currentUrl = window.location.href.split('#')[0];
-      copyToClipboard(`${currentUrl}#${slug}`);
+      await navigator.clipboard.writeText(`${currentUrl}#${slug}`);
       setCopiedItem(slug);
 
       setTimeout(() => {

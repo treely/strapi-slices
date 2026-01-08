@@ -2,13 +2,12 @@ import { render, screen, waitFor, userEvent } from '../../test/testUtils';
 import Glossary from '.';
 import { GlossaryProps } from './Glossary';
 
-const copyToClipboardSpy = jest.fn();
-const mockedResult = jest.fn().mockReturnValue({ noUserInteraction: false });
-
-jest.mock('@reactuses/core', () => ({
-  ...jest.requireActual('@reactuses/core'),
-  useCopyToClipboard: () => [mockedResult(), copyToClipboardSpy],
-}));
+const writeTextMock = jest.fn();
+Object.assign(navigator, {
+  clipboard: {
+    writeText: writeTextMock,
+  },
+});
 
 const defaultProps: GlossaryProps = {
   slice: {
@@ -45,8 +44,7 @@ const setup = () => render(<Glossary {...defaultProps} />);
 
 describe('The Glossary component', () => {
   afterEach(() => {
-    copyToClipboardSpy.mockClear();
-    mockedResult.mockClear();
+    writeTextMock.mockClear();
   });
 
   it('groups the items by the first letter of the title', () => {
@@ -78,18 +76,13 @@ describe('The Glossary component', () => {
     await userEvent.click(screen.getAllByRole('button')[0]);
 
     await waitFor(() => {
-      expect(copyToClipboardSpy).toHaveBeenCalledWith(
+      expect(writeTextMock).toHaveBeenCalledWith(
         'http://localhost/#ananas-slug'
       );
     });
   });
 
   it('shows a success message when copying succeeded', async () => {
-    mockedResult.mockReturnValueOnce({
-      noUserInteraction: false,
-      value: 'http://localhost/#ananas-slug',
-    });
-
     setup();
 
     await userEvent.click(screen.getAllByRole('button')[0]);

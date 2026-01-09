@@ -85,23 +85,17 @@ export const Facts: React.FC<FactsProps> = ({ slice }: FactsProps) => (
         </>
       )}
       <Flex
-        justifyContent={slice.facts.length <= 4 ? 'center' : 'flex-start'}
+        justifyContent={slice.facts.length < 3 ? 'center' : 'flex-start'}
         alignItems="center"
         flexWrap="wrap"
         mx={[null, null, null, '22', '28']}
         flexDir={['column', null, null, 'row']}
-        gap={[null, null, null, '12']}
       >
         {slice.facts.map((fact) => (
           <Flex
             key={fact.key}
             flexDir="column"
-            width={[
-              'var(--boemly-sizes-full)',
-              null,
-              null,
-              'calc((var(--boemly-sizes-full) - var(--boemly-space-24))/ 3 )',
-            ]}
+            width={['100%', null, null, 'calc(100% / 3)']}
             mt={['8', '8', '8', slice.facts.length > 3 ? '16' : '0']}
           >
             <Heading

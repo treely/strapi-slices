@@ -21,7 +21,7 @@ import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import StrapiLink from '../../models/strapi/StrapiLink';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
 import { CDN_URI } from '../../constants/api';
-import { IntlContext } from 'react-intl';
+import { IntlContext } from '../../components/ContextProvider';
 import { BREAKPOINT_MD_QUERY } from '../../constants/breakpoints';
 import { useState } from 'react';
 import FullScreenImage from '../../components/FullScreenImage';

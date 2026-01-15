@@ -44,6 +44,7 @@ import Timeline from '../../slices/Timeline';
 import Events from '../../slices/Events';
 import Redirect from '../../slices/Redirect';
 import { AnalyticsFunction } from '../ContextProvider/ContextProvider';
+import FontsCustomization from '../../constants/fontCustomizations';
 
 export interface CustomSliceProps {
   slice: any;
@@ -56,6 +57,8 @@ export interface SliceRendererProps {
   projects: PortfolioProject[];
   customerStories: IStrapiData<StrapiCustomerStory>[];
   locale?: Locale;
+  colors?: Record<string, any>;
+  fonts?: FontsCustomization;
   CustomSlice?: ({ slice, id }: CustomSliceProps) => React.JSX.Element;
   analyticsFunction?: AnalyticsFunction;
 }
@@ -66,10 +69,17 @@ export const SliceRenderer = ({
   projects,
   customerStories,
   locale = 'en',
+  colors,
+  fonts,
   CustomSlice,
   analyticsFunction,
 }: SliceRendererProps): React.JSX.Element => (
-  <ContextProvider locale={locale} analyticsFunction={analyticsFunction}>
+  <ContextProvider
+    locale={locale}
+    analyticsFunction={analyticsFunction}
+    colors={colors}
+    fonts={fonts}
+  >
     {slices.map((slice: any) => {
       switch (slice.__component) {
         case 'sections.hero':

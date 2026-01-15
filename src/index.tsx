@@ -46,6 +46,8 @@ import PageMetadata from './models/PageMetadata';
 import PageProps from './models/PageProps';
 import PortfolioProject from './models/PortfolioProject';
 
+import FontsCustomization from './constants/fontCustomizations';
+
 import getAllSlugsFromStrapi from './integrations/strapi/getAllSlugsFromStrapi';
 import getPortfolioProjects from './integrations/strapi/getPortfolioProjects';
 import getStrapiCollectionType from './integrations/strapi/getStrapiCollectionType';
@@ -128,4 +130,7 @@ export type {
   PageMetadata,
   PageProps,
   PortfolioProject,
+
+  // Constants
+  FontsCustomization,
 };

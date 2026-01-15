@@ -3,7 +3,9 @@ import { createIntl, createIntlCache } from 'react-intl';
 import { Global } from '@emotion/react';
 import { BoemlyThemeProvider } from 'boemly';
 import { GLOBAL_STYLE } from '../../constants/globalStyle';
-import { FONT_CUSTOMIZATIONS } from '../../constants/fontCustomizations';
+import FontsCustomization, {
+  FONT_CUSTOMIZATIONS,
+} from '../../constants/fontCustomizations';
 import getMessages from '../../utils/getMessages';
 import strapiClient from '../../integrations/strapi/strapiClient';
 import { SWRConfig } from 'swr/_internal';
@@ -37,12 +39,16 @@ export interface ContextProviderProps {
   children: React.ReactNode;
   locale: string;
   analyticsFunction?: AnalyticsFunction;
+  colors?: Record<string, any>;
+  fonts?: FontsCustomization;
 }
 
 export const ContextProvider: React.FC<ContextProviderProps> = ({
   children,
   locale,
   analyticsFunction,
+  colors,
+  fonts,
 }: ContextProviderProps): React.JSX.Element => {
   const fetcher = async (resource: any, init: any) => {
     const response = await strapiClient.get(`${resource}`, {
@@ -72,7 +78,7 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
         }}
       >
         <Global styles={{ GLOBAL_STYLE }} />
-        <BoemlyThemeProvider fonts={FONT_CUSTOMIZATIONS}>
+        <BoemlyThemeProvider fonts={fonts || FONT_CUSTOMIZATIONS} colors={colors}>
           <IntlContext.Provider value={intlFactory(locale)}>
             <AnalyticsContext.Provider value={analyticsFunction}>
               {children}

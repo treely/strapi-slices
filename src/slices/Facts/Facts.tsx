@@ -43,8 +43,8 @@ const VARIANTS = {
     tagLineColor: 'primary.500',
     titleColor: 'black',
     subTitleColor: 'black',
-    factKeyColor: 'gray.700',
-    factValueColor: 'gray.700',
+    factKeyColor: 'black',
+    factValueColor: 'black',
   },
 };
 
@@ -56,6 +56,7 @@ export const Facts: React.FC<FactsProps> = ({ slice }: FactsProps) => (
     justifyContent="space-between"
     paddingX={['6', null, '8']}
     title={slice.title}
+    paddingY="12"
   >
     <>
       {slice.title && (

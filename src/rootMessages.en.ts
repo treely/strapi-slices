@@ -1,4 +1,5 @@
 import comparisonMessagesEn from './slices/Comparison/messages.en';
+import certificationBadgeMessagesEn from './components/CertificationBadge/messages.en';
 import creditsAvailableBadgeMessagesEn from './components/CreditsAvailableBadge/messages.en';
 import ctaMessagesEn from './slices/Cta/messages.en';
 import customerCardMessagesEn from './components/CustomerCard/messages.en';
@@ -8,7 +9,6 @@ import eventsMessagesEn from './slices/Events/messages.en';
 import glossaryMessagesEn from './slices/Glossary/messages.en';
 import portfolioDocumentsDownloadListMessagesEn from './components/portfolio/DocumentsDownloadList/messages.en';
 import projectFactsMessagesEn from './slices/ProjectFacts/messages.en';
-import projectGridCardMessagesEn from './components/ProjectGridCard/messages.en';
 import projectsMapMessagesEn from './slices/ProjectsMap/messages.en';
 import portfolioProjectInfoMessagesEn from './components/portfolio/ProjectInfo/messages.en';
 import portfolioSmallCheckoutMessagesEn from './components/portfolio/SmallCheckout/messages.en';
@@ -22,12 +22,12 @@ const rootMessagesEn = {
   //
   // Components
   //
+  ...certificationBadgeMessagesEn,
   ...creditsAvailableBadgeMessagesEn,
   ...eventCardMessagesEn,
   ...portfolioDocumentsDownloadListMessagesEn,
   ...portfolioProjectInfoMessagesEn,
   ...portfolioSmallCheckoutMessagesEn,
-  ...projectGridCardMessagesEn,
 
   //
   // Slices

@@ -20,6 +20,7 @@ import SmallHero from '../../slices/SmallHero';
 import Blog from '../../slices/Blog';
 import StrapiBlogPost from '../../models/strapi/StrapiBlogPost';
 import ProjectsGrid from '../../slices/ProjectsGrid';
+import ProjectsGridV2 from '../../slices/ProjectsGridV2';
 import ProjectsMap from '../../slices/ProjectsMap';
 import Video from '../../slices/Video';
 import FullWidthHighlightQuote from '../../slices/FullWidthHighlightQuote';
@@ -42,6 +43,7 @@ import Locale from '../../models/Locale';
 import { ContextProvider } from '../ContextProvider';
 import Timeline from '../../slices/Timeline';
 import Events from '../../slices/Events';
+import HeroWithHighlights from '../../slices/HeroWithHighlights';
 import Redirect from '../../slices/Redirect';
 import { AnalyticsFunction } from '../ContextProvider/ContextProvider';
 import FontsCustomization from '../../constants/fontCustomizations';
@@ -216,6 +218,14 @@ export const SliceRenderer = ({
               projects={projects}
             />
           );
+        case 'sections.projects-grid-v2':
+          return (
+            <ProjectsGridV2
+              key={`${slice.__component}-${slice.id}`}
+              slice={slice}
+              projects={projects}
+            />
+          );
         case 'sections.projects-map':
           return (
             <ProjectsMap
@@ -330,6 +340,13 @@ export const SliceRenderer = ({
         case 'sections.redirect':
           return (
             <Redirect key={`${slice.__component}-${slice.id}`} slice={slice} />
+          );
+        case 'sections.hero-with-highlights':
+          return (
+            <HeroWithHighlights
+              key={`${slice.__component}-${slice.id}`}
+              slice={slice}
+            />
           );
         default:
           if (CustomSlice) {

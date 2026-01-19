@@ -5,6 +5,7 @@ import PortfolioProject from '../../models/PortfolioProject';
 import strapiMediaUrl from '../../utils/strapiMediaUrl';
 import { FORMAT_AS_HECTARE_CONFIG } from '../../constants/formatter';
 import CreditsAvailableBadge from '../../components/CreditsAvailableBadge';
+import CertificationBadge from '../../components/CertificationBadge';
 import { IntlContext } from '../ContextProvider';
 
 export interface ProjectGridCardProps {
@@ -14,7 +15,7 @@ export interface ProjectGridCardProps {
 export const ProjectGridCard = ({
   project,
 }: ProjectGridCardProps): React.JSX.Element => {
-  const { formatNumber, formatMessage } = useContext(IntlContext);
+  const { formatNumber } = useContext(IntlContext);
 
   return (
     <Container height="full">
@@ -49,24 +50,7 @@ export const ProjectGridCard = ({
               {project.location}
             </Text>
           </BoemlyTag>
-          {project.certificationDate ? (
-            <BoemlyTag backgroundColor="gray.100">
-              <Text size="xsLowBold" color="gray.800">
-                {formatMessage(
-                  { id: 'components.projectGridCard.certified' },
-                  { year: new Date(project.certificationDate).getFullYear() }
-                )}
-              </Text>
-            </BoemlyTag>
-          ) : (
-            <BoemlyTag backgroundColor="gray.100">
-              <Text size="xsLowBold" color="gray.800">
-                {formatMessage({
-                  id: 'components.projectGridCard.certificationInProgress',
-                })}
-              </Text>
-            </BoemlyTag>
-          )}
+          <CertificationBadge certificationDate={project.certificationDate} />
           <CreditsAvailableBadge status={project.creditAvailability} />
         </Flex>
       </Flex>

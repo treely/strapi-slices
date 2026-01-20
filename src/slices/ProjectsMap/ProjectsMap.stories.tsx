@@ -48,5 +48,7 @@ FullProps.args = {
       longitude: 10.33654214510088,
     },
     defaultZoomLevel: 10,
+    minZoomLevel: 10,
+    disableUserLocationZoom: false,
   },
 };

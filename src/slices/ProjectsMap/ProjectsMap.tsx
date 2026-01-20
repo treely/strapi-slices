@@ -37,7 +37,13 @@ export interface ProjectsMapProps {
     text?: string;
     defaultCenterCoordinates?: { latitude: number; longitude: number };
     defaultZoomLevel?: number;
+    minZoomLevel?: number; // 1 = zoom out fully, 15 = very close
+    disableUserLocationZoom?: boolean; // If true, won't zoom to user's location
   };
+  /** When true, renders just the map without DefaultSectionContainer/Wrapper (for embedding in other sections) */
+  embedded?: boolean;
+  /** Height of the map when embedded (not exposed to slice users, only for internal component use) */
+  embeddedHeight?: string;
 }
 
 const FALLBACK_BBOX =
@@ -45,6 +51,8 @@ const FALLBACK_BBOX =
 
 export const ProjectsMap: React.FC<ProjectsMapProps> = ({
   slice,
+  embedded = false,
+  embeddedHeight = 'md',
 }: ProjectsMapProps) => {
   const { locale, formatMessage } = useContext(IntlContext);
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -438,6 +446,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
       center: initialCenter,
       zoom: initialZoom,
       maxZoom: MAPBOX_MAX_ZOOM,
+      minZoom: slice.minZoomLevel,
     });
 
     map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
@@ -469,6 +478,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
   }, [
     slice.defaultCenterCoordinates,
     slice.defaultZoomLevel,
+    slice.minZoomLevel,
     debouncedUpdateBbox,
   ]);
 
@@ -496,7 +506,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
       },${latitude + buffer}`;
       initialBboxRef.current = bbox;
       fetchProjectsData(bbox);
-    } else if (navigator.geolocation) {
+    } else if (navigator.geolocation && !slice.disableUserLocationZoom) {
       // Set fallback immediately (non-blocking)
       initialBboxRef.current = FALLBACK_BBOX;
       fetchProjectsData(FALLBACK_BBOX);
@@ -530,13 +540,14 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
         }
       );
     } else {
-      // Geolocation not supported - use fallback
+      // Geolocation not supported or disabled - use fallback
       initialBboxRef.current = FALLBACK_BBOX;
       fetchProjectsData(FALLBACK_BBOX);
     }
   }, [
     slice.defaultCenterCoordinates,
     slice.defaultZoomLevel,
+    slice.disableUserLocationZoom,
     fetchProjectsData,
   ]);
 
@@ -546,11 +557,25 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
     }
   }, [isMapReady, featureCollection, addProjectsLayer]);
 
+  if (embedded) {
+    return (
+      <>
+        <Global styles={mapboxStyle} />
+        <Box
+          height={embeddedHeight}
+          ref={mapContainer}
+          borderRadius="xl"
+          overflow="hidden"
+        />
+      </>
+    );
+  }
+
   return (
     <DefaultSectionContainer>
       <Global styles={mapboxStyle} />
       <Wrapper>
-        {slice.title ? (
+        {slice.title && (
           <>
             <DefaultSectionHeader
               tagline={slice.tagline}
@@ -570,8 +595,6 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
             />
             <Box height="16" />
           </>
-        ) : (
-          <></>
         )}
         <Box
           height="xl"
@@ -580,7 +603,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
           overflow="hidden"
           boxShadow={['md', null, null, 'none']}
         />
-        <>{isLoading && <Box>Loading projects...</Box>}</>
+        {isLoading && <Box>Loading projects...</Box>}
       </Wrapper>
     </DefaultSectionContainer>
   );

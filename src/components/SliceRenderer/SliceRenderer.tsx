@@ -47,6 +47,7 @@ import HeroWithHighlights from '../../slices/HeroWithHighlights';
 import Redirect from '../../slices/Redirect';
 import { AnalyticsFunction } from '../ContextProvider/ContextProvider';
 import FontsCustomization from '../../constants/fontCustomizations';
+import FactsWithProjectsMap from '../../slices/FactsWithProjectsMap';
 
 export interface CustomSliceProps {
   slice: any;
@@ -347,6 +348,10 @@ export const SliceRenderer = ({
               key={`${slice.__component}-${slice.id}`}
               slice={slice}
             />
+          );
+        case 'sections.facts-with-projects-map':
+          return (
+            <FactsWithProjectsMap key={`${slice.__component}-${slice.id}`} slice={slice} />
           );
         default:
           if (CustomSlice) {

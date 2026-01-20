@@ -68,14 +68,14 @@ export const ProjectGridCardV2 = ({
 
         {/* Content Section */}
         <Box padding="6" backgroundColor="white">
-          <Heading size="2xl" color="primary.700" mb="2">
+          <Heading size="xl" color="primary.700" mb="2">
             {project.friendlyName || project.title}
           </Heading>
 
           <Flex flexDir="column" gap="2">
             {/* Location */}
             <Flex alignItems="center" gap="3">
-              <MapPinIcon size={20} color="var(--boemly-colors-gray-400)" />
+              <MapPinIcon size={20} color="var(--boemly-colors-gray-500)" />
               <Text fontSize="lg" color="gray.500">
                 {project.location} {getCountryFlag(project.countryCode)}
               </Text>
@@ -83,7 +83,7 @@ export const ProjectGridCardV2 = ({
 
             {/* Area */}
             <Flex alignItems="center" gap="3">
-              <ArrowsOutIcon size={20} color="var(--boemly-colors-gray-400)" />
+              <ArrowsOutIcon size={20} color="var(--boemly-colors-gray-500)" />
               <Text fontSize="lg" color="gray.500">
                 {formatNumber(
                   (project.area || 0) / 10000,

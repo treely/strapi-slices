@@ -6,6 +6,7 @@ import {
   Heading,
   Spacer,
   Text,
+  Wrapper,
 } from 'boemly';
 import StrapiLinkButton from '../../components/StrapiLinkButton';
 import StrapiLink from '../../models/strapi/StrapiLink';
@@ -21,7 +22,7 @@ export interface FactsProps {
   };
 }
 
-const VARIANTS = {
+export const FACTS_COLOR_VARIANTS = {
   gray: {
     backgroundColor: 'primary.50',
     tagLineColor: 'primary.500',
@@ -50,15 +51,14 @@ const VARIANTS = {
 
 export const Facts: React.FC<FactsProps> = ({ slice }: FactsProps) => (
   <DefaultSectionContainer
-    backgroundColor={VARIANTS[slice.variant].backgroundColor}
+    backgroundColor={FACTS_COLOR_VARIANTS[slice.variant].backgroundColor}
     flexDir="column"
     textAlign="center"
     justifyContent="space-between"
-    paddingX={['6', null, '8']}
     title={slice.title}
     paddingY="12"
   >
-    <>
+    <Wrapper>
       {slice.title && (
         <>
           <DefaultSectionHeader
@@ -66,17 +66,17 @@ export const Facts: React.FC<FactsProps> = ({ slice }: FactsProps) => (
             text={slice.subTitle}
             title={slice.title}
             taglineProps={{
-              color: VARIANTS[slice.variant].tagLineColor,
+              color: FACTS_COLOR_VARIANTS[slice.variant].tagLineColor,
               textAlign: 'center',
             }}
             titleProps={{
-              color: VARIANTS[slice.variant].titleColor,
+              color: FACTS_COLOR_VARIANTS[slice.variant].titleColor,
               textAlign: 'center',
               maxW: '6xl',
               marginX: 'auto',
             }}
             textProps={{
-              color: VARIANTS[slice.variant].subTitleColor,
+              color: FACTS_COLOR_VARIANTS[slice.variant].subTitleColor,
               textAlign: 'center',
               maxW: '3xl',
               marginX: 'auto',
@@ -89,7 +89,6 @@ export const Facts: React.FC<FactsProps> = ({ slice }: FactsProps) => (
         justifyContent={slice.facts.length < 3 ? 'center' : 'flex-start'}
         alignItems="center"
         flexWrap="wrap"
-        mx={[null, null, null, '22', '28']}
         flexDir={['column', null, null, 'row']}
       >
         {slice.facts.map((fact) => (
@@ -104,7 +103,7 @@ export const Facts: React.FC<FactsProps> = ({ slice }: FactsProps) => (
               fontFamily="display"
               lineHeight="10"
               fontWeight="700"
-              color={VARIANTS[slice.variant].factValueColor}
+              color={FACTS_COLOR_VARIANTS[slice.variant].factValueColor}
               mb="2"
               as="p"
             >
@@ -113,7 +112,7 @@ export const Facts: React.FC<FactsProps> = ({ slice }: FactsProps) => (
 
             <Text
               size="mdLowNormal"
-              color={VARIANTS[slice.variant].factKeyColor}
+              color={FACTS_COLOR_VARIANTS[slice.variant].factKeyColor}
             >
               {fact.key}
             </Text>
@@ -132,6 +131,6 @@ export const Facts: React.FC<FactsProps> = ({ slice }: FactsProps) => (
           />
         </>
       )}
-    </>
+    </Wrapper>
   </DefaultSectionContainer>
 );

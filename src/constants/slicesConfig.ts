@@ -13,6 +13,7 @@ export const SLICES_WITH_BLOG_POSTS = ['sections.blog', 'sections.blog-cards'];
 export const SLICES_WITH_CUSTOMER_STORIES = ['sections.customer-stories'];
 export const SLICES_WITH_PROJECTS = [
   'sections.projects-grid',
+  'sections.projects-grid-v2',
   'sections.projects-map',
   'sections.project-facts',
   'sections.text-with-card',

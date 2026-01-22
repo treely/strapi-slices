@@ -42,7 +42,7 @@ WithCreditsAvailabilityVariants.args = {
     },
     {
       ...portfolioProjectMock,
-      title: 'Project 3',
+      title: 'Project 3 with a very long title',
       creditAvailability: CreditAvailability.SOON_CREDITS_AVAILABLE,
     },
     {

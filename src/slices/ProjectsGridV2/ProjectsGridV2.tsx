@@ -41,7 +41,7 @@ export const ProjectsGridV2: React.FC<ProjectsGridV2Props> = ({
   return (
     <DefaultSectionContainer>
       <Wrapper>
-        <SimpleGrid columns={[1, null, 2, null, 3]} gap="16">
+      <SimpleGrid columns={[1, null, 2, 3, 4]} gap="16">
           {filteredProjects.map((project) => (
             <ConditionalWrapper
               key={project.id}
@@ -51,21 +51,15 @@ export const ProjectsGridV2: React.FC<ProjectsGridV2Props> = ({
                   href={`${project.portfolioHost || ''}/portfolio/${
                     project.slug
                   }`}
-                  passHref
-                  key={project.id}
-                  legacyBehavior
                 >
                   {children}
                 </Link>
               )}
             >
               <Box
-                as="a"
-                cursor="pointer"
                 borderRadius="2xl"
                 transition={`box-shadow ease ${MEDIUM_TRANSITION_DURATION}s`}
                 _hover={{ boxShadow: 'lg' }}
-                maxWidth="xs"
               >
                 <ProjectGridCardV2 project={project} />
               </Box>

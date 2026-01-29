@@ -4,6 +4,7 @@ export const EXTENDABLE_HEADER_SECTIONS = [
   'sections.full-width-image',
   'sections.small-hero',
   'sections.small-hero-light',
+  'sections.hero-with-highlights'
 ];
 export const DARK_THEME_HEADER_SECTIONS = [
   'sections.hero',

@@ -1,6 +1,7 @@
 import comparisonMessagesEn from './slices/Comparison/messages.en';
 import certificationBadgeMessagesEn from './components/CertificationBadge/messages.en';
 import creditsAvailableBadgeMessagesEn from './components/CreditsAvailableBadge/messages.en';
+import projectGridCardV2MessagesEn from './components/ProjectGridCardV2/messages.en';
 import ctaMessagesEn from './slices/Cta/messages.en';
 import customerCardMessagesEn from './components/CustomerCard/messages.en';
 import customerQuoteCardMessagesEn from './components/CustomerQuoteCard/messages.en';
@@ -25,6 +26,7 @@ const rootMessagesEn = {
   ...certificationBadgeMessagesEn,
   ...creditsAvailableBadgeMessagesEn,
   ...eventCardMessagesEn,
+  ...projectGridCardV2MessagesEn,
   ...portfolioDocumentsDownloadListMessagesEn,
   ...portfolioProjectInfoMessagesEn,
   ...portfolioSmallCheckoutMessagesEn,

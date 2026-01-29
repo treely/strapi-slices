@@ -35,7 +35,7 @@ describe('The ProjectGridCardV2 component', () => {
   it('displays the project type badge', () => {
     setup();
 
-    expect(screen.getByText('Project Type 1')).toBeInTheDocument();
+    expect(screen.getByText('Improved Forest Management')).toBeInTheDocument();
   });
 
   it('displays the certification in progress badge when not certified', () => {

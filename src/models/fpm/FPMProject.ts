@@ -25,6 +25,7 @@ interface FPMProject {
   end?: Date;
   projectType?: {
     title: string;
+    key: string;
     id: string;
     createdAt: Date;
     updatedAt: Date;

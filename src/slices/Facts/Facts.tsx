@@ -100,7 +100,7 @@ export const Facts: React.FC<FactsProps> = ({ slice }: FactsProps) => (
           >
             <Heading
               fontSize="6xl"
-              fontFamily="display"
+              fontFamily="mono"
               lineHeight="10"
               fontWeight="700"
               color={FACTS_COLOR_VARIANTS[slice.variant].factValueColor}

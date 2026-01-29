@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, DefaultSectionContainer, Heading, Text, Wrapper } from 'boemly';
+import { Box, Heading, Text, Wrapper } from 'boemly';
 
 export interface HeroWithHighlightsProps {
   slice: {
@@ -45,8 +45,8 @@ const parseTitle = (title: string): TitlePart[] => {
 };
 
 const VARIANTS = {
-  white: { backgroundColor: 'white', titleColor: 'black' },
-  gray: { backgroundColor: 'primary.50', titleColor: 'black' },
+  white: { backgroundColor: 'white', titleColor: 'primary.900' },
+  gray: { backgroundColor: 'primary.50', titleColor: 'primary.900' },
 };
 
 export const HeroWithHighlights: React.FC<HeroWithHighlightsProps> = ({
@@ -57,9 +57,12 @@ export const HeroWithHighlights: React.FC<HeroWithHighlightsProps> = ({
   const textAlign = slice.textAlign || 'left';
 
   return (
-    <DefaultSectionContainer
+    <Box
+      position="relative"
+      width="full"
       backgroundColor={VARIANTS[variant].backgroundColor}
-      paddingY={['10', null, '16']}
+      paddingTop="var(--boemly-spacing-48)"
+      paddingBottom="var(--boemly-spacing-16)"
     >
       <Wrapper>
         <Heading
@@ -69,6 +72,7 @@ export const HeroWithHighlights: React.FC<HeroWithHighlightsProps> = ({
           lineHeight="1.3"
           fontWeight="600"
           textAlign={textAlign}
+          colorPalette={VARIANTS[variant].titleColor}
         >
           {parts.map((part, i) =>
             part.highlighted ? (
@@ -83,8 +87,8 @@ export const HeroWithHighlights: React.FC<HeroWithHighlightsProps> = ({
 
         {slice.subTitle && (
           <Text
-            size="lgRegularNormal"
-            color="gray.500"
+            fontSize="18px"
+            color={VARIANTS[variant].titleColor}
             mt="4"
             textAlign={textAlign}
           >
@@ -92,6 +96,6 @@ export const HeroWithHighlights: React.FC<HeroWithHighlightsProps> = ({
           </Text>
         )}
       </Wrapper>
-    </DefaultSectionContainer>
+    </Box>
   );
 };

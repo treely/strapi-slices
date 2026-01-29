@@ -14,10 +14,25 @@ export interface ProjectGridCardV2Props {
   project: PortfolioProject;
 }
 
+const getProjectTypeLabel = (
+  projectType: { title: string; key?: string },
+  formatMessage: (descriptor: { id: string }) => string
+): string => {
+  
+  if (!projectType.key) {
+    return projectType.title;
+  }
+
+  const translationKey = `components.projectGridCardV2.projectType.${projectType.key}`;
+  const translated = formatMessage({ id: translationKey });
+  // If no translation found (returns the key itself), fall back to title
+  return translated === translationKey ? projectType.title : translated;
+};
+
 export const ProjectGridCardV2 = ({
   project,
 }: ProjectGridCardV2Props): React.JSX.Element => {
-  const { formatNumber } = useContext(IntlContext);
+  const { formatNumber, formatMessage } = useContext(IntlContext);
 
   return (
     <Box height="full" borderRadius="lg" boxShadow="sm" overflow="hidden">
@@ -36,11 +51,11 @@ export const ProjectGridCardV2 = ({
           )}
 
           {/* Project Type Badge - Top Left */}
-          {project.projectType?.title && (
+          {project.projectType && (
             <Box position="absolute" top="4" left="4">
               <BoemlyTag backgroundColor="gray.900" borderRadius="full">
                 <Text size="smRegularNormalBold" color="white">
-                  {project.projectType.title}
+                  {getProjectTypeLabel(project.projectType, formatMessage)}
                 </Text>
               </BoemlyTag>
             </Box>

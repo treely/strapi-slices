@@ -42,7 +42,6 @@ export const FactsWithProjectsMap: React.FC<FactsWithProjectsMapProps> = ({
     <DefaultSectionContainer
       backgroundColor={colorVariant.backgroundColor}
       title={slice.title}
-      paddingY="8"
     >
       <Wrapper>
         {slice.title && (
@@ -90,7 +89,7 @@ export const FactsWithProjectsMap: React.FC<FactsWithProjectsMapProps> = ({
                 <Heading
                   textAlign={['center', 'center', 'center', alignFacts]}
                   fontSize="5xl"
-                  fontFamily="display"
+                  fontFamily="mono"
                   lineHeight="1.1"
                   fontWeight="700"
                   color={colorVariant.factValueColor}

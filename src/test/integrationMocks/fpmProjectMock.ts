@@ -14,6 +14,7 @@ const fpmProjectMock: FPMProject = {
   end: new Date('2050-12-31'),
   projectType: {
     title: 'Project Type 1',
+    key: 'ifm',
     id: '1',
     createdAt: new Date('2020-01-01'),
     updatedAt: new Date('2020-01-01'),

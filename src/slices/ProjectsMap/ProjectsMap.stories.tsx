@@ -22,6 +22,8 @@ WithHero.args = {
     tagline: 'Projects Map Tagline',
     text: 'Projects Map Text',
     title: 'Projects Map Title',
+    defaultZoomLevel: 8,
+    minZoomLevel: 4,
   },
 };
 
@@ -36,19 +38,22 @@ InitialPosition.args = {
   },
 };
 
+export const WithoutDefaultZoomLevel = Template.bind({});
+WithoutDefaultZoomLevel.args = {
+  slice: {
+    minZoomLevel: 4,
+    disableUserLocationZoom: true,
+  },
+};
+
 export const FullProps = Template.bind({});
 FullProps.args = {
   slice: {
     tagline: 'Projects Map Tagline',
     text: 'Projects Map Text',
     title: 'Projects Map Title',
-
-    defaultCenterCoordinates: {
-      latitude: 47.82636837845707,
-      longitude: 10.33654214510088,
-    },
-    defaultZoomLevel: 10,
-    minZoomLevel: 10,
+    defaultZoomLevel: 8,
+    minZoomLevel: 4,
     disableUserLocationZoom: false,
   },
 };

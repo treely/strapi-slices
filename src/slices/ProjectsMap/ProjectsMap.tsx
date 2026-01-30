@@ -431,13 +431,16 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
       ];
       initialZoom = slice.defaultZoomLevel;
     } else {
-      // Always start with fallback view - don't wait for user location
+      // 1. Calculate center from Fallback
       const bbox = initialBboxRef.current || FALLBACK_BBOX;
       const [west, south, east, north] = bbox.split(',').map(Number);
       const bounds = new mapboxgl.LngLatBounds([west, south], [east, north]);
       const center = bounds.getCenter();
+      
       initialCenter = [center.lng, center.lat];
-      initialZoom = 6;
+      
+      // Use the slice.defaultZoomLevel if provided (e.g., 8), otherwise default to 6
+      initialZoom = slice.defaultZoomLevel ?? 6;
     }
 
     map.current = new mapboxgl.Map({
@@ -453,12 +456,6 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
 
     map.current.on('load', () => {
       setIsMapReady(true);
-      if (!(slice.defaultCenterCoordinates && slice.defaultZoomLevel)) {
-        const bbox = initialBboxRef.current || FALLBACK_BBOX;
-        const [west, south, east, north] = bbox.split(',').map(Number);
-        const bounds = new mapboxgl.LngLatBounds([west, south], [east, north]);
-        map.current?.fitBounds(bounds, { padding: 20 });
-      }
     });
 
     map.current.on('moveend', () => {
@@ -521,24 +518,22 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
           if (map.current) {
             map.current.easeTo({
               center: [userLoc.lon, userLoc.lat],
-              zoom: 10,
+              zoom: slice.defaultZoomLevel ?? 10,
               duration: 1500,
             });
 
-            // Update bbox for this location
-            const buffer = 1;
-            const bbox = `${userLoc.lon - buffer},${userLoc.lat - buffer},${
-              userLoc.lon + buffer
-            },${userLoc.lat + buffer}`;
-            initialBboxRef.current = bbox;
-            fetchProjectsData(bbox);
-          }
-        },
-        () => {
-          // Permission denied or error - already have fallback data loaded
-          // No need to re-fetch since we already loaded FALLBACK_BBOX data
+          // Update bbox for this location
+          const buffer = 1;
+          const bbox = `${userLoc.lon - buffer},${userLoc.lat - buffer},${
+            userLoc.lon + buffer
+          },${userLoc.lat + buffer}`;
+          fetchProjectsData(bbox);
         }
-      );
+      },
+      () => {
+        // Permission denied or error - already have fallback data loaded
+        // No need to re-fetch since we already loaded FALLBACK_BBOX data
+      });
     } else {
       // Geolocation not supported or disabled - use fallback
       initialBboxRef.current = FALLBACK_BBOX;

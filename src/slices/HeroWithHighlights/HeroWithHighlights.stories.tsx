@@ -2,6 +2,9 @@ import React from 'react';
 import { StoryFn, Meta } from '@storybook/nextjs';
 
 import HeroWithHighlights from '.';
+import { HeadingSize } from './HeroWithHighlights';
+
+const HEADING_SIZE_OPTIONS: HeadingSize[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl'];
 
 export default {
   title: 'slices/HeroWithHighlights',
@@ -14,19 +17,7 @@ export default {
       control: { type: 'radio' },
     },
     headingSize: {
-      options: [
-        'xs',
-        'sm',
-        'md',
-        'lg',
-        'xl',
-        '2xl',
-        '3xl',
-        '4xl',
-        '5xl',
-        '6xl',
-        '7xl',
-      ],
+      options: HEADING_SIZE_OPTIONS,
       control: { type: 'radio' },
     },
     variant: {

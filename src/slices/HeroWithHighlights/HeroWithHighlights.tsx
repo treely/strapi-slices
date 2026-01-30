@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Heading, Text, Wrapper } from 'boemly';
 
+export type HeadingSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl';
+
 export interface HeroWithHighlightsProps {
   slice: {
     /**
@@ -10,18 +12,7 @@ export interface HeroWithHighlightsProps {
     title: string;
     subTitle?: string;
     headingLevel?: 'h1' | 'h2' | 'h3';
-    headingSize?: // all options from the ChakraUI documentation
-      | 'xs'
-      | 'sm'
-      | 'md'
-      | 'lg'
-      | 'xl'
-      | '2xl'
-      | '3xl'
-      | '4xl'
-      | '5xl'
-      | '6xl'
-      | '7xl';
+    headingSize?: HeadingSize;
     variant?: 'white' | 'gray';
     textAlign?: 'left' | 'center' | 'right';
   };
@@ -48,6 +39,25 @@ const VARIANTS = {
   white: { backgroundColor: 'white', titleColor: 'primary.900' },
   gray: { backgroundColor: 'primary.50', titleColor: 'primary.900' },
 };
+type MobileHeadingSize = Exclude<HeadingSize, '6xl' | '7xl'>;
+
+// Maps desktop size to a smaller mobile size
+const getMobileSize = (size: HeadingSize): MobileHeadingSize => {
+  const sizeMap: Record<HeadingSize, MobileHeadingSize> = {
+    '7xl': '4xl',
+    '6xl': '3xl',
+    '5xl': '2xl',
+    '4xl': 'xl',
+    '3xl': 'lg',
+    '2xl': 'md',
+    'xl': 'sm',
+    'lg': 'xs',
+    'md': 'xs',
+    'sm': 'xs',
+    'xs': 'xs',
+  };
+  return sizeMap[size];
+};
 
 export const HeroWithHighlights: React.FC<HeroWithHighlightsProps> = ({
   slice,
@@ -55,6 +65,8 @@ export const HeroWithHighlights: React.FC<HeroWithHighlightsProps> = ({
   const parts = parseTitle(slice.title);
   const variant = slice.variant || 'white';
   const textAlign = slice.textAlign || 'left';
+  const desktopSize = slice.headingSize || '3xl';
+  const mobileSize = getMobileSize(desktopSize);
 
   return (
     <Box
@@ -67,7 +79,7 @@ export const HeroWithHighlights: React.FC<HeroWithHighlightsProps> = ({
       <Wrapper>
         <Heading
           as={slice.headingLevel || 'h1'}
-          size={[slice.headingSize || '3xl']}
+          size={[mobileSize, desktopSize]}
           color={VARIANTS[variant].titleColor}
           lineHeight="1.3"
           fontWeight="600"

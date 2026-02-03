@@ -128,7 +128,12 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
   );
 
   const addProjectsLayer = useCallback(() => {
-    if (!map.current || !featureCollection || !map.current.isStyleLoaded()) {
+    if (!map.current || !featureCollection) {
+      return;
+    }
+
+    if (!map.current.isStyleLoaded()) {
+      setTimeout(() => addProjectsLayer(), 100);
       return;
     }
 
@@ -412,7 +417,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
     } else {
       source.setData(filteredFeatureCollection);
     }
-  }, [featureCollection, locale, formatMessage]);
+  }, [featureCollection, formatMessage]);
 
   useEffect(() => {
     if (map.current || !mapContainer.current) return;
@@ -483,7 +488,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
     };
   }, [isMapReady, debouncedUpdateBbox]);
 
-  // Fetch Strapi data once on component mount
+  // Fetch Strapi data once on component mount (non-blocking)
   useEffect(() => {
     fetchStrapiData();
   }, [fetchStrapiData]);
@@ -531,6 +536,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
           const bbox = `${userLoc.lon - buffer},${userLoc.lat - buffer},${
             userLoc.lon + buffer
           },${userLoc.lat + buffer}`;
+          initialBboxRef.current = bbox;
           fetchProjectsData(bbox);
         }
       },
@@ -551,7 +557,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
   ]);
 
   useEffect(() => {
-    if (isMapReady && featureCollection && map.current?.isStyleLoaded()) {
+    if (isMapReady && featureCollection) {
       addProjectsLayer();
     }
   }, [isMapReady, featureCollection, addProjectsLayer]);

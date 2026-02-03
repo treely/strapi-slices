@@ -60,7 +60,6 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
   const animationIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [featureCollection, setFeatureCollection] =
     useState<FeatureCollection | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
   const initialBboxRef = useRef<string | null>(null);
   const [isMapReady, setIsMapReady] = useState(false);
   const [strapiProjects, setStrapiProjects] = useState<Map<
@@ -99,7 +98,6 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
 
   const fetchProjectsData = useCallback(
     async (bbox: string) => {
-      setIsLoading(true);
       try {
         const fpmData = await getFpmProjectsByBbox(bbox);
 
@@ -111,8 +109,6 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
         setFeatureCollection(mergedData);
       } catch (error) {
         console.error('Error fetching projects:', error);
-      } finally {
-        setIsLoading(false);
       }
     },
     [strapiProjects]
@@ -450,22 +446,19 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
       zoom: initialZoom,
       maxZoom: MAPBOX_MAX_ZOOM,
       minZoom: slice.minZoomLevel,
+      cooperativeGestures: true,
     });
 
     map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
     map.current.on('load', () => {
+      if(map.current?.getLayer('road-number-shield')) {
+        map.current?.setLayoutProperty('road-number-shield', 'visibility', 'none');
+      }
       setIsMapReady(true);
     });
 
-    map.current.on('moveend', () => {
-      if (initialBboxRef.current) {
-        debouncedUpdateBbox();
-      }
-    });
-
     return () => {
-      debouncedUpdateBbox.cancel();
       if (animationIntervalRef.current) {
         clearInterval(animationIntervalRef.current);
       }
@@ -476,8 +469,19 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
     slice.defaultCenterCoordinates,
     slice.defaultZoomLevel,
     slice.minZoomLevel,
-    debouncedUpdateBbox,
   ]);
+
+
+  useEffect(() => {
+    if (!map.current || !isMapReady) return;
+    const currentMap = map.current;
+    currentMap.on('moveend', debouncedUpdateBbox);
+
+    return () => {
+      debouncedUpdateBbox.cancel();
+      currentMap.off('moveend', debouncedUpdateBbox);
+    };
+  }, [isMapReady, debouncedUpdateBbox]);
 
   // Fetch Strapi data once on component mount
   useEffect(() => {
@@ -556,12 +560,12 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
     return (
       <>
         <Global styles={mapboxStyle} />
-        <Box
-          height={embeddedHeight}
-          ref={mapContainer}
-          borderRadius="xl"
-          overflow="hidden"
-        />
+          <Box
+            height={embeddedHeight}
+            ref={mapContainer}
+            borderRadius="xl"
+            overflow="hidden"
+          />
       </>
     );
   }
@@ -591,14 +595,13 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
             <Box height="16" />
           </>
         )}
-        <Box
-          height="xl"
-          ref={mapContainer}
-          borderRadius="xl"
-          overflow="hidden"
-          boxShadow={['md', null, null, 'none']}
-        />
-        {isLoading && <Box>Loading projects...</Box>}
+          <Box
+            height="xl"
+            ref={mapContainer}
+            borderRadius="xl"
+            overflow="hidden"
+            boxShadow={['md', null, null, 'none']}
+          />
       </Wrapper>
     </DefaultSectionContainer>
   );

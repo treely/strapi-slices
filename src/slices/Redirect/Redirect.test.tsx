@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '../../test/testUtils';
 import { mergeDeep } from '../../utils/mergeDeep';
-import { useRouter, replaceSpy } from '../../../__mocks__/next/router';
+import { useRouter } from '../../../__mocks__/next/router';
 import { DEFAULT_USE_ROUTER_RETURN_VALUE } from '../../test/defaultMocks/next';
 import Redirect from '.';
 import type { RedirectProps } from './Redirect';
@@ -9,6 +9,8 @@ import type { RedirectProps } from './Redirect';
 const defaultProps: RedirectProps = {
   slice: { url: 'https://redirect.com' },
 };
+
+const locationReplaceSpy = jest.fn();
 
 const setup = (
   props: Partial<RedirectProps> = {},
@@ -19,7 +21,6 @@ const setup = (
     ...DEFAULT_USE_ROUTER_RETURN_VALUE,
     asPath: '/from',
     query: { utm_source: 'linkedin' },
-    replace: replaceSpy,
     ...routerOverrides,
   });
   render(<Redirect {...combinedProps} />);
@@ -34,28 +35,28 @@ describe('Redirect component', () => {
   beforeEach(() => {
     Date.now = mockDateNow;
     // @ts-ignore - Mocking window.location
-    Object.defineProperty(window, 'location', {
-      value: { ...originalLocation, origin: mockOrigin },
-      writable: true,
-    });
+    delete window.location;
+    // @ts-ignore - Mocking window.location
+    window.location = {
+      ...originalLocation,
+      origin: mockOrigin,
+      replace: locationReplaceSpy,
+    };
     jest.clearAllMocks();
   });
 
   afterEach(() => {
     Date.now = originalDateNow;
-    Object.defineProperty(window, 'location', {
-      value: originalLocation,
-      writable: true,
-    });
+    // @ts-ignore - Restoring window.location
+    window.location = originalLocation;
     useRouter.mockRestore();
-    replaceSpy.mockRestore();
   });
 
-  it('calls the redirect URL when rendering preserving the utm_* params and passing the source and ts params', () => {
+  it('calls window.location.replace with the redirect URL preserving utm_* params and passing source and ts params', () => {
     setup();
 
-    expect(replaceSpy).toHaveBeenCalledTimes(1);
-    const calledUrl = replaceSpy.mock.calls[0][0];
+    expect(locationReplaceSpy).toHaveBeenCalledTimes(1);
+    const calledUrl = locationReplaceSpy.mock.calls[0][0];
     const url = new URL(calledUrl);
 
     // URLSearchParams.get automatically decodes values
@@ -68,6 +69,7 @@ describe('Redirect component', () => {
   it('does nothing when slice.url is empty', () => {
     setup({ slice: { url: '' } });
 
-    expect(replaceSpy).not.toHaveBeenCalled();
+    expect(locationReplaceSpy).not.toHaveBeenCalled();
   });
-});
+})
+  

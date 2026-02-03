@@ -21,8 +21,10 @@ export const Redirect = ({ slice }: RedirectProps): React.JSX.Element => {
       router.query
     );
 
-    // Redirect
-    router.replace(redirectUrl);
+    // Use window.location.replace() to properly replace the history entry.
+    // This ensures the browser's back button skips the redirect page
+    // and returns to the origin page instead of triggering another redirect.
+    window.location.replace(redirectUrl);
   }, [slice.url, router]);
 
   return <></>;

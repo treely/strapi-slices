@@ -12,7 +12,7 @@ describe('The getPortfolioProjects function', () => {
     const projectsPromise = getPortfolioProjects();
 
     MockAxios.mockResponseFor(
-      { url: '/public/projects' },
+      { url: '/public/projects?limit=1000' },
       { data: [fpmProjectMock] }
     );
     MockAxios.mockResponseFor(
@@ -35,7 +35,7 @@ describe('The getPortfolioProjects function', () => {
     const projectsPromise = getPortfolioProjects('de');
 
     MockAxios.mockResponseFor(
-      { url: '/public/projects' },
+      { url: '/public/projects?limit=1000' },
       { data: [fpmProjectMock] }
     );
     MockAxios.mockResponseFor({ url: '/projects' }, { data: { data: [] } });

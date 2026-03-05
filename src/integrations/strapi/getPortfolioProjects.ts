@@ -11,7 +11,7 @@ const getPortfolioProjects = async (
   const cache = preview ? false : undefined;
 
   const [{ data: fpmProjects }, strapiProjects] = await Promise.all([
-    fpmClient.get<FPMProject[]>('/public/projects', { cache }),
+    fpmClient.get<FPMProject[]>('/public/projects?limit=1000', { cache }),
     getStrapiProjects(locale, STRAPI_DEFAULT_POPULATE_DEPTH, preview),
   ]);
 

@@ -1,6 +1,7 @@
 import MockAxios from 'jest-mock-axios';
 import { strapiProjectMock } from '../../test/strapiMocks/strapiProject';
 import getStrapiProjects from './getStrapiProjects';
+import { STRAPI_DEFAULT_PAGE_SIZE } from '../../constants/strapi';
 
 describe('The getStrapiProjects function', () => {
   afterEach(() => {
@@ -48,7 +49,7 @@ describe('The getStrapiProjects function', () => {
       params: {
         pLevel: '2',
         locale: 'de',
-        'pagination[pageSize]': '100',
+        'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
         status: 'published',
       },
       cache: undefined,
@@ -58,7 +59,7 @@ describe('The getStrapiProjects function', () => {
       params: {
         pLevel: '2',
         locale: 'en',
-        'pagination[pageSize]': '100',
+        'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
         status: 'published',
       },
       cache: undefined,
@@ -77,7 +78,7 @@ describe('The getStrapiProjects function', () => {
       params: {
         pLevel: '1',
         locale: 'en',
-        'pagination[pageSize]': '100',
+        'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
         status: 'draft',
       },
       cache: false,
@@ -87,7 +88,7 @@ describe('The getStrapiProjects function', () => {
       params: {
         pLevel: '1',
         locale: 'en',
-        'pagination[pageSize]': '100',
+        'pagination[pageSize]': STRAPI_DEFAULT_PAGE_SIZE,
         status: 'draft',
       },
       cache: false,

@@ -26,12 +26,12 @@ const mergeGlobalAndStrapiPageData = (
   customerStories: IStrapiData<StrapiCustomerStory>[],
   projects: PortfolioProject[]
 ): StrapiPageProps => {
-  const metaShareImageUrl = page.attributes.metadata?.shareImage
-    ? strapiMediaUrl(
-        page.attributes.metadata?.shareImage.media ??
-          global.attributes.metadata.shareImage?.media,
-        'large'
-      )
+  const shareImageMedia =
+    page.attributes.metadata?.shareImage?.media ??
+    global.attributes.metadata.shareImage?.media;
+
+  const metaShareImageUrl = shareImageMedia
+    ? strapiMediaUrl(shareImageMedia, 'large')
     : DEFAULT_SHARE_IMAGE;
 
   const schemaMarkupTypes =

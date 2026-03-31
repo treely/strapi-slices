@@ -424,3 +424,62 @@ describe('The mergeGlobalAndStrapiPageData util', () => {
     expect(resultWithNoSchema.metadata.schemaMarkupTypes).toEqual([]);
   });
 });
+
+  it('uses the global shareImage when the page has no metadata', () => {
+    const pageDataWithoutMetadata = {
+      ...strapiPageMock,
+      attributes: {
+        ...strapiPageMock.attributes,
+        metadata: null,
+      },
+    };
+
+    const result = mergeGlobalAndStrapiPageData(
+      getStaticPropsContextMock,
+      minimalGlobalData,
+      pageDataWithoutMetadata,
+      [],
+      [],
+      []
+    );
+
+    // Should use the global share image URL, not the DEFAULT_SHARE_IMAGE fallback
+    expect(result.metadata.shareImage.url).not.toBe(
+      'https://cdn.tree.ly/assets/v3/app/share-image-generic.webp'
+    );
+    expect(result.metadata.shareImage.url).toContain('/uploads/');
+  });
+
+  it('uses the DEFAULT_SHARE_IMAGE when neither page nor global has a shareImage', () => {
+    const globalWithoutShareImage = {
+      ...minimalGlobalData,
+      attributes: {
+        ...minimalGlobalData.attributes,
+        metadata: {
+          ...minimalGlobalData.attributes.metadata,
+          shareImage: undefined,
+        },
+      },
+    };
+
+    const pageDataWithoutMetadata = {
+      ...strapiPageMock,
+      attributes: {
+        ...strapiPageMock.attributes,
+        metadata: null,
+      },
+    };
+
+    const result = mergeGlobalAndStrapiPageData(
+      getStaticPropsContextMock,
+      globalWithoutShareImage,
+      pageDataWithoutMetadata,
+      [],
+      [],
+      []
+    );
+
+    expect(result.metadata.shareImage.url).toBe(
+      'https://cdn.tree.ly/assets/v3/app/share-image-generic.webp'
+    );
+  });

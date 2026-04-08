@@ -9,6 +9,7 @@ import { IntlContext } from '../ContextProvider';
 import CreditsAvailableBadge from '../CreditsAvailableBadge';
 import CertificationBadge from '../CertificationBadge';
 import getCountryFlag from '../../utils/getCountryFlag';
+import getProjectTranslation from '../../utils/getProjectTranslation';
 
 export interface ProjectGridCardV2Props {
   project: PortfolioProject;
@@ -32,7 +33,7 @@ const getProjectTypeLabel = (
 export const ProjectGridCardV2 = ({
   project,
 }: ProjectGridCardV2Props): React.JSX.Element => {
-  const { formatNumber, formatMessage } = useContext(IntlContext);
+  const { formatNumber, formatMessage, locale } = useContext(IntlContext);
 
   return (
     <Box height="full" borderRadius="lg" boxShadow="sm" overflow="hidden">
@@ -84,7 +85,7 @@ export const ProjectGridCardV2 = ({
         {/* Content Section */}
         <Box padding="6" backgroundColor="white">
           <Heading size="xl" color="primary.700" mb="2">
-            {project.friendlyName || project.title}
+            {getProjectTranslation(project.nameTranslations, locale, project.title)}
           </Heading>
 
           <Flex flexDir="column" gap="2">

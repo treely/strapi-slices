@@ -21,9 +21,13 @@ import debounce from 'lodash/debounce';
 import getFpmProjectsByBbox from '../../integrations/strapi/getFpmProjectsByBbox';
 import getStrapiProjects from '../../integrations/strapi/getStrapiProjects';
 import mergeProjectData from '../../utils/mergeProjectData';
-import { CreditAvailability } from '../../models/fpm/FPMProject';
+import {
+  CreditAvailability,
+  FPMProjectNameTranslation,
+} from '../../models/fpm/FPMProject';
 import IStrapiData from '../../models/strapi/IStrapiData';
 import StrapiProject from '../../models/strapi/StrapiProject';
+import getProjectTranslation from '../../utils/getProjectTranslation';
 
 const projectPinImage =
   'https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.0.2/assets/fill/map-pin-fill.svg';
@@ -288,11 +292,27 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
         const coordinates = (e.features[0].geometry as any).coordinates.slice();
         const {
           title,
+          nameTranslations: nameTranslationsRaw,
           projectDeveloper,
           slug,
           portfolioHost,
           creditAvailability,
         } = e.features[0].properties;
+
+        let parsedNameTranslations: FPMProjectNameTranslation[] | undefined;
+        try {
+          parsedNameTranslations = nameTranslationsRaw
+            ? JSON.parse(nameTranslationsRaw)
+            : undefined;
+        } catch {
+          parsedNameTranslations = undefined;
+        }
+
+        const displayName = getProjectTranslation(
+          parsedNameTranslations,
+          locale,
+          title
+        );
 
         // Calculate if popup would go off screen at the top
         const point = map.current!.project(coordinates);
@@ -366,7 +386,7 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
         const description = `
           <div style="padding: 2px; padding-right: 16px; min-width: 180px; max-width: 260px;">
             ${badge}
-            <h3 style="font-size: 15px; font-weight: bold;">${title}</h3>
+            <h3 style="font-size: 15px; font-weight: bold;">${displayName}</h3>
             <p style="font-size: 15px; color: #64748b;">${developer}</p>
             ${button}
           </div>
@@ -437,9 +457,9 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
       const [west, south, east, north] = bbox.split(',').map(Number);
       const bounds = new mapboxgl.LngLatBounds([west, south], [east, north]);
       const center = bounds.getCenter();
-      
+
       initialCenter = [center.lng, center.lat];
-      
+
       // Use the slice.defaultZoomLevel if provided (e.g., 8), otherwise default to 6
       initialZoom = slice.defaultZoomLevel ?? 6;
     }
@@ -457,8 +477,12 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
     map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
     map.current.on('load', () => {
-      if(map.current?.getLayer('road-number-shield')) {
-        map.current?.setLayoutProperty('road-number-shield', 'visibility', 'none');
+      if (map.current?.getLayer('road-number-shield')) {
+        map.current?.setLayoutProperty(
+          'road-number-shield',
+          'visibility',
+          'none'
+        );
       }
       setIsMapReady(true);
     });
@@ -475,7 +499,6 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
     slice.defaultZoomLevel,
     slice.minZoomLevel,
   ]);
-
 
   useEffect(() => {
     if (!map.current || !isMapReady) return;
@@ -531,19 +554,20 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
               duration: 1500,
             });
 
-          // Update bbox for this location
-          const buffer = 1;
-          const bbox = `${userLoc.lon - buffer},${userLoc.lat - buffer},${
-            userLoc.lon + buffer
-          },${userLoc.lat + buffer}`;
-          initialBboxRef.current = bbox;
-          fetchProjectsData(bbox);
+            // Update bbox for this location
+            const buffer = 1;
+            const bbox = `${userLoc.lon - buffer},${userLoc.lat - buffer},${
+              userLoc.lon + buffer
+            },${userLoc.lat + buffer}`;
+            initialBboxRef.current = bbox;
+            fetchProjectsData(bbox);
+          }
+        },
+        () => {
+          // Permission denied or error - already have fallback data loaded
+          // No need to re-fetch since we already loaded FALLBACK_BBOX data
         }
-      },
-      () => {
-        // Permission denied or error - already have fallback data loaded
-        // No need to re-fetch since we already loaded FALLBACK_BBOX data
-      });
+      );
     } else {
       // Geolocation not supported or disabled - use fallback
       initialBboxRef.current = FALLBACK_BBOX;
@@ -566,12 +590,12 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
     return (
       <>
         <Global styles={mapboxStyle} />
-          <Box
-            height={embeddedHeight}
-            ref={mapContainer}
-            borderRadius="xl"
-            overflow="hidden"
-          />
+        <Box
+          height={embeddedHeight}
+          ref={mapContainer}
+          borderRadius="xl"
+          overflow="hidden"
+        />
       </>
     );
   }
@@ -601,13 +625,13 @@ export const ProjectsMap: React.FC<ProjectsMapProps> = ({
             <Box height="16" />
           </>
         )}
-          <Box
-            height="xl"
-            ref={mapContainer}
-            borderRadius="xl"
-            overflow="hidden"
-            boxShadow={['md', null, null, 'none']}
-          />
+        <Box
+          height="xl"
+          ref={mapContainer}
+          borderRadius="xl"
+          overflow="hidden"
+          boxShadow={['md', null, null, 'none']}
+        />
       </Wrapper>
     </DefaultSectionContainer>
   );

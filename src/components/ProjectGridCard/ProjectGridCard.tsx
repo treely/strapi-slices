@@ -7,6 +7,7 @@ import { FORMAT_AS_HECTARE_CONFIG } from '../../constants/formatter';
 import CreditsAvailableBadge from '../../components/CreditsAvailableBadge';
 import CertificationBadge from '../../components/CertificationBadge';
 import { IntlContext } from '../ContextProvider';
+import getProjectTranslation from '../../utils/getProjectTranslation';
 
 export interface ProjectGridCardProps {
   project: PortfolioProject;
@@ -15,7 +16,7 @@ export interface ProjectGridCardProps {
 export const ProjectGridCard = ({
   project,
 }: ProjectGridCardProps): React.JSX.Element => {
-  const { formatNumber } = useContext(IntlContext);
+  const { formatNumber, locale } = useContext(IntlContext);
 
   return (
     <Container height="full">
@@ -34,7 +35,7 @@ export const ProjectGridCard = ({
           </Box>
         )}
         <Heading my="4" size="lg">
-          {project.friendlyName || project.title}
+          {getProjectTranslation(project.nameTranslations, locale, project.title)}
         </Heading>
         <Flex flexDir="row" gap="2" flexWrap="wrap">
           <BoemlyTag backgroundColor="gray.100">

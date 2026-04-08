@@ -5,6 +5,7 @@ import TextWithCard from '.';
 import { TextWithCardProps } from './TextWithCard';
 import { strapiProjectMock } from '../../test/strapiMocks/strapiProject';
 import portfolioProjectMock from '../../test/mocks/portfolioProjectMock';
+import getProjectTranslation from '../../utils/getProjectTranslation';
 
 const defaultProps: TextWithCardProps = {
   projects: [],
@@ -83,7 +84,15 @@ describe('The TextWithCard component', () => {
       slice: { ...defaultProps.slice, project: { data: strapiProjectMock } },
     });
 
-    expect(screen.getByText(portfolioProjectMock.title)).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        getProjectTranslation(
+          portfolioProjectMock.nameTranslations,
+          'en',
+          portfolioProjectMock.title
+        )
+      )
+    ).toBeInTheDocument();
   });
 
   const cardPositions = ['left', 'right'];

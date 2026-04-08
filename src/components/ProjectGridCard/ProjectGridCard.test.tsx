@@ -2,6 +2,7 @@ import { render, screen } from '../../test/testUtils';
 import { ProjectGridCardProps } from './ProjectGridCard';
 import ProjectGridCard from '.';
 import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
+import getProjectTranslation from '../../utils/getProjectTranslation';
 import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
 import React from 'react';
 import messagesEn from '../../components/CreditsAvailableBadge/messages.en';
@@ -23,7 +24,15 @@ describe('The ProjectGridCard component', () => {
   it('displays the project card', () => {
     setup();
 
-    expect(screen.getByText(fpmProjectMock.title)).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        getProjectTranslation(
+          fpmProjectMock.nameTranslations,
+          'en',
+          fpmProjectMock.title
+        )
+      )
+    ).toBeInTheDocument();
   });
 
   it('displays the project thumbnail', () => {

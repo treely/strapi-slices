@@ -7,11 +7,17 @@ export enum CreditAvailability {
   SOON_CREDITS_AVAILABLE = 'soon_credits_available',
 }
 
+export interface FPMProjectNameTranslation {
+  id: string;
+  language: string;
+  value: string;
+}
+
 interface FPMProject {
   id: string;
   title: string;
   description?: string;
-  friendlyName?: string;
+  nameTranslations?: FPMProjectNameTranslation[];
 
   isPublic?: boolean;
   geom?: {

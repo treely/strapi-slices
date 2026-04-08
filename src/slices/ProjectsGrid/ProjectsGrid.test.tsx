@@ -3,6 +3,7 @@ import { render, screen } from '../../test/testUtils';
 import ProjectsGrid from '.';
 import { ProjectsGridProps } from './ProjectsGrid';
 import fpmProjectMock from '../../test/integrationMocks/fpmProjectMock';
+import getProjectTranslation from '../../utils/getProjectTranslation';
 import { strapiMediaMock } from '../../test/strapiMocks/strapiMedia';
 import { strapiProjectMock } from '../../test/strapiMocks/strapiProject';
 
@@ -29,7 +30,15 @@ describe('The ProjectsGrid component', () => {
   it('displays the project cards', () => {
     setup();
 
-    expect(screen.getByText(fpmProjectMock.title)).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        getProjectTranslation(
+          fpmProjectMock.nameTranslations,
+          'en',
+          fpmProjectMock.title
+        )
+      )
+    ).toBeInTheDocument();
   });
 
   it('links to the portfolio', () => {

@@ -3,6 +3,18 @@ import FPMProject, { CreditAvailability } from '../../models/fpm/FPMProject';
 const fpmProjectMock: FPMProject = {
   id: '1',
   title: 'Project 1',
+  nameTranslations: [
+    {
+      id: 'name-translation-1',
+      language: 'en',
+      value: 'Project 1 Display Name English',
+    },
+    {
+      id: 'name-translation-2',
+      language: 'de',
+      value: 'Project 1 Display Name German',
+    },
+  ],
   geom: {
     type: 'Point',
     coordinates: [10.036542145100883, 47.42636837845707],

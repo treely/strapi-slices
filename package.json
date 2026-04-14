@@ -153,7 +153,7 @@
     "adblock-detect-react": "^1.1.0",
     "axios": "^1.15.0",
     "axios-cache-interceptor": "^1.5.3",
-    "boemly": "^10.0.1",
+    "boemly": "^10.3.4",
     "embla-carousel-auto-scroll": "^8.5.1",
     "embla-carousel-react": "^8.5.1",
     "formik": "^2.4.5",
